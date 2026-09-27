@@ -1,6 +1,6 @@
 # Autonomous adoption evidence
 
-Status: evaluation in progress; incomplete cohorts are not final benchmark evidence
+Status: all planned cohorts recorded
 
 Explicit pre/post-change reachability proves that Codex can see and invoke inspect, receive valid responses and persist traces. Historical zero-call runs do not prove intentional rejection; their exact model-visible prompt is unavailable. Reduced schema/descriptions and clearer decision boundaries are implemented. These changes cannot be individually attributed as causes without an ablation.
 
@@ -35,10 +35,13 @@ conceptualize: 3/3 checks passed; mean elapsed 102.78s; MCP invoked in 3 trials.
 | negative | typo #1 | control | True | 68.34 | 2 | 0 | 0 | 0 | none | unknown | None |
 | negative | typo #1 | conceptualize | True | 85.59 | 2 | 0 | 0 | 0 | none | unknown | None |
 | negative | constant #1 | conceptualize | True | 102.67 | 2 | 0 | 0 | 0 | none | unknown | None |
+| negative | constant #1 | control | True | 61.37 | 2 | 0 | 0 | 0 | none | unknown | None |
+| negative | local-variable #1 | control | True | 70.96 | 1 | 0 | 0 | 0 | none | unknown | None |
+| negative | local-variable #1 | conceptualize | True | 86.49 | 2 | 0 | 0 | 0 | none | unknown | None |
 
-negative: 3/6 trials recorded.
-control: 1/1 checks passed; mean elapsed 68.34s; MCP invoked in 0 trials.
-conceptualize: 2/2 checks passed; mean elapsed 94.13s; MCP invoked in 0 trials.
+negative: 6/6 trials recorded.
+control: 3/3 checks passed; mean elapsed 66.89s; MCP invoked in 0 trials.
+conceptualize: 3/3 checks passed; mean elapsed 91.59s; MCP invoked in 0 trials.
 
 ## Selective adoption and interpretation
 
@@ -61,7 +64,8 @@ Persisted API operation latencies: [258] ms. Host startup, model wait and client
 Warehouse relationship discovery: unknown (surfaced event 8, source evidence event None, explicit read event None).
 negative/typo #1: Skipped MCP for a clearly local edit, consistent with the intended decision boundary.
 negative/constant #1: Skipped MCP for a clearly local edit, consistent with the intended decision boundary.
+negative/local-variable #1: Skipped MCP for a clearly local edit, consistent with the intended decision boundary.
 
-Files/read counts are supported command-derived lower bounds. Discovery also considers source-bearing rg/grep/Select-String output; plain directory/file listings do not establish a relationship. Useful relationships mean required oracle paths appeared in delivered relationship metadata, not merely in the full trace. Their causal use in changes remains unknown. Positive results do not imply faster execution; unnecessary-files proxies include legitimate tests and alternative implementations. Agent usage, cached tokens, wire bytes, full trace bytes, comparability checks and sandbox/account-limit observations are in ADOPTION-SUITE.json.
+Files/read counts are supported command-derived lower bounds. Discovery also considers source-bearing rg/grep/Select-String output; plain directory/file listings do not establish a relationship. Useful relationships mean required oracle paths appeared in delivered relationship metadata, not merely in the full trace. Their causal use in changes remains unknown. Positive results do not imply faster execution; outside-oracle file lists may include useful tests and alternative implementations, so actual unnecessary reads remain null. Agent usage, cached tokens, wire bytes, full trace bytes, comparability checks and sandbox/account-limit observations are in ADOPTION-SUITE.json.
 
-Coding agent trials ran serially on a shared development host; local validation and normal background activity were not eliminated. Scheduling, approval/sandbox failures and provider effects remain timing confounders. The eight connected-but-unused trials are separate in BASELINE-OVERHEAD.md. Historical V0.2/V0.3 evidence is unchanged. No model runs inside Conceptualize.
+Negative controls use independent AST/value/behavior checks; completed fixture regressions and changed-file scope are separately retained in each trial. Coding agent trials ran serially on a shared development host; local validation and normal background activity were not eliminated. Scheduling, approval/sandbox failures and provider effects remain timing confounders. The eight connected-but-unused trials are separate in BASELINE-OVERHEAD.md. Historical V0.2/V0.3 evidence is unchanged. No model runs inside Conceptualize.

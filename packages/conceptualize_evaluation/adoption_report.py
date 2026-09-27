@@ -26,6 +26,8 @@ def load_cohort(path, expected):
         row["adoption"] = adoption_metrics(events, row["exploration"], traces, relevant,
             False if row["manifest"]["mode"] == "control" or initialization_failed else (True if row["execution"]["exit_code"] == 0 else None))
         row["agent_version"] = registration["agent_version"]
+        if (directory / "posthoc-validation.json").exists():
+            row["independent_fixture_regression"] = json.loads((directory / "posthoc-validation.json").read_text(encoding="utf-8"))
         row["sandbox_failures_observed"] = "apply deny-read ACLs" in stderr or "sandbox violation" in stderr
         row["account_limit_observed"] = "hit your usage limit" in stderr or any("hit your usage limit" in str(e) for e in events)
         row["mcp_calls"] = sum(e.get("type") == "item.completed" and e.get("item", {}).get("type") == "mcp_tool_call" and e["item"].get("server") == "conceptualize" for e in events)
@@ -34,8 +36,9 @@ def load_cohort(path, expected):
         row["api_operation_latency_ms"] = [t["latency_ms"] for t in traces]
         row["runtime_stage_timings"] = [t["result"].get("timings_ms", {}) for t in traces]
         row["client_transport_and_host_wait_ms"] = None
-        row["observed_unnecessary_files"] = sorted(set(row["exploration"]["observed_files_inspected"]) - set(relevant)) if relevant else None
-        row["unnecessary_scope"] = "Task oracle file set; additional tests and legitimate alternative implementations may be useful. Not total unnecessary exploration."
+        row["observed_files_outside_task_oracle"] = sorted(set(row["exploration"]["observed_files_inspected"]) - set(relevant)) if relevant else None
+        row["observed_unnecessary_files"] = None
+        row["unnecessary_scope"] = "Outside-oracle files are a descriptive list, not proven unnecessary reads; useful tests and alternative implementations may lie outside the oracle. Actual unnecessary reads remain unknown."
     pairs = []
     for repetition, task in sorted({(r["repetition"], r["manifest"]["task"]) for r in rows}):
         pair = [r for r in rows if r["repetition"] == repetition and r["manifest"]["task"] == task]
@@ -88,7 +91,7 @@ def generate(output):
             warehouse = ad["relationship_discovery"].get("shop/warehouse.py")
             if warehouse:
                 lines += [f"Warehouse relationship discovery: {warehouse['relative_to_source_discovery']} (surfaced event {warehouse['surfaced_step']}, source evidence event {warehouse['observed_source_evidence_step']}, explicit read event {warehouse['observed_read_step']})."]
-    lines += ["", "Files/read counts are supported command-derived lower bounds. Discovery also considers source-bearing rg/grep/Select-String output; plain directory/file listings do not establish a relationship. Useful relationships mean required oracle paths appeared in delivered relationship metadata, not merely in the full trace. Their causal use in changes remains unknown. Positive results do not imply faster execution; unnecessary-files proxies include legitimate tests and alternative implementations. Agent usage, cached tokens, wire bytes, full trace bytes, comparability checks and sandbox/account-limit observations are in ADOPTION-SUITE.json.", "", "Coding agent trials ran serially on a shared development host; local validation and normal background activity were not eliminated. Scheduling, approval/sandbox failures and provider effects remain timing confounders. The eight connected-but-unused trials are separate in BASELINE-OVERHEAD.md. Historical V0.2/V0.3 evidence is unchanged. No model runs inside Conceptualize."]
+    lines += ["", "Files/read counts are supported command-derived lower bounds. Discovery also considers source-bearing rg/grep/Select-String output; plain directory/file listings do not establish a relationship. Useful relationships mean required oracle paths appeared in delivered relationship metadata, not merely in the full trace. Their causal use in changes remains unknown. Positive results do not imply faster execution; outside-oracle file lists may include useful tests and alternative implementations, so actual unnecessary reads remain null. Agent usage, cached tokens, wire bytes, full trace bytes, comparability checks and sandbox/account-limit observations are in ADOPTION-SUITE.json.", "", "Negative controls use independent AST/value/behavior checks; completed fixture regressions and changed-file scope are separately retained in each trial. Coding agent trials ran serially on a shared development host; local validation and normal background activity were not eliminated. Scheduling, approval/sandbox failures and provider effects remain timing confounders. The eight connected-but-unused trials are separate in BASELINE-OVERHEAD.md. Historical V0.2/V0.3 evidence is unchanged. No model runs inside Conceptualize."]
     (output / "ADOPTION.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     return result
 

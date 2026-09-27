@@ -1,0 +1,527 @@
+[
+  {
+    "trace_id": "2b8fc646-2cbb-4019-a84e-97b921047900",
+    "operation": "pack",
+    "inputs": {
+      "operation": "pack",
+      "path": "",
+      "target": "",
+      "query": "",
+      "paths": [
+        "shop/contracts.py",
+        "shop/checkout.py",
+        "shop/orders.py",
+        "shop/warehouse.py",
+        "test_shop.py"
+      ],
+      "token_budget": 3000,
+      "include_dependencies": true,
+      "include_tests": true,
+      "include_consumers": true,
+      "limit": 30
+    },
+    "returned_tokens": 550,
+    "relationships": [
+      {
+        "source": "shop/checkout.py",
+        "target": "shop/contracts.py",
+        "kind": "imports",
+        "module": ".contracts"
+      },
+      {
+        "source": "shop/warehouse.py",
+        "target": "shop/contracts.py",
+        "kind": "imports",
+        "module": ".contracts"
+      },
+      {
+        "source": "shop/checkout.py",
+        "target": "shop/contracts.py::Receipt:5",
+        "kind": "references_symbol",
+        "imported_name": "Receipt",
+        "local_name": "Receipt",
+        "line": 1,
+        "evidence": "explicit import binding"
+      },
+      {
+        "source": "shop/warehouse.py",
+        "target": "shop/contracts.py::Receipt:5",
+        "kind": "references_symbol",
+        "imported_name": "Receipt",
+        "local_name": "Receipt",
+        "line": 1,
+        "evidence": "explicit import binding"
+      },
+      {
+        "source": "shop/checkout.py",
+        "target": "shop/contracts.py",
+        "kind": "imports",
+        "module": ".contracts"
+      },
+      {
+        "source": "shop/checkout.py",
+        "target": "shop/contracts.py::Receipt:5",
+        "kind": "references_symbol",
+        "imported_name": "Receipt",
+        "local_name": "Receipt",
+        "line": 1,
+        "evidence": "explicit import binding"
+      },
+      {
+        "source": "shop/checkout.py",
+        "target": "shop/contracts.py::Receipt:5",
+        "kind": "references_symbol",
+        "imported_name": "Receipt",
+        "local_name": "Receipt",
+        "line": 1,
+        "evidence": "explicit import binding"
+      },
+      {
+        "source": "shop/warehouse.py",
+        "target": "shop/contracts.py::Receipt:5",
+        "kind": "references_symbol",
+        "imported_name": "Receipt",
+        "local_name": "Receipt",
+        "line": 1,
+        "evidence": "explicit import binding"
+      },
+      {
+        "source": "shop/warehouse.py",
+        "target": "shop/contracts.py",
+        "kind": "imports",
+        "module": ".contracts"
+      },
+      {
+        "source": "shop/warehouse.py",
+        "target": "shop/contracts.py::Receipt:5",
+        "kind": "references_symbol",
+        "imported_name": "Receipt",
+        "local_name": "Receipt",
+        "line": 1,
+        "evidence": "explicit import binding"
+      },
+      {
+        "source": "shop/checkout.py",
+        "target": "shop/contracts.py::Receipt:5",
+        "kind": "references_symbol",
+        "imported_name": "Receipt",
+        "local_name": "Receipt",
+        "line": 1,
+        "evidence": "explicit import binding"
+      },
+      {
+        "source": "shop/warehouse.py",
+        "target": "shop/contracts.py::Receipt:5",
+        "kind": "references_symbol",
+        "imported_name": "Receipt",
+        "local_name": "Receipt",
+        "line": 1,
+        "evidence": "explicit import binding"
+      }
+    ],
+    "selection": [
+      {
+        "path": "shop/contracts.py",
+        "priority": 0,
+        "reason": "explicit or lexical match",
+        "relationship": null,
+        "token_cost": 36,
+        "status": "selected",
+        "omission_reason": null
+      },
+      {
+        "path": "shop/checkout.py",
+        "priority": 0,
+        "reason": "explicit or lexical match",
+        "relationship": null,
+        "token_cost": 55,
+        "status": "selected",
+        "omission_reason": null
+      },
+      {
+        "path": "shop/orders.py",
+        "priority": 0,
+        "reason": "explicit or lexical match",
+        "relationship": null,
+        "token_cost": 46,
+        "status": "selected",
+        "omission_reason": null
+      },
+      {
+        "path": "shop/warehouse.py",
+        "priority": 0,
+        "reason": "explicit or lexical match",
+        "relationship": null,
+        "token_cost": 41,
+        "status": "selected",
+        "omission_reason": null
+      },
+      {
+        "path": "test_shop.py",
+        "priority": 0,
+        "reason": "explicit or lexical match",
+        "relationship": null,
+        "token_cost": 123,
+        "status": "selected",
+        "omission_reason": null
+      },
+      {
+        "path": "shop/notifications.py",
+        "priority": 1,
+        "reason": "references_symbol",
+        "relationship": {
+          "source": "test_shop.py",
+          "target": "shop/notifications.py::notify:4",
+          "kind": "references_symbol",
+          "imported_name": "notify",
+          "local_name": "notify",
+          "line": 4,
+          "evidence": "explicit import binding"
+        },
+        "token_cost": 30,
+        "status": "selected",
+        "omission_reason": null
+      },
+      {
+        "path": "shop/refunds.py",
+        "priority": 1,
+        "reason": "references_symbol",
+        "relationship": {
+          "source": "test_shop.py",
+          "target": "shop/refunds.py::can_refund:4",
+          "kind": "references_symbol",
+          "imported_name": "can_refund",
+          "local_name": "can_refund",
+          "line": 3,
+          "evidence": "explicit import binding"
+        },
+        "token_cost": 35,
+        "status": "selected",
+        "omission_reason": null
+      },
+      {
+        "path": "shop/__init__.py",
+        "priority": 7,
+        "reason": "same directory",
+        "relationship": {
+          "kind": "nearby_path",
+          "source": "shop/checkout.py",
+          "target": "shop/__init__.py",
+          "heuristic": true
+        },
+        "token_cost": 9,
+        "status": "selected",
+        "omission_reason": null
+      },
+      {
+        "path": "shop/auth.py",
+        "priority": 7,
+        "reason": "same directory",
+        "relationship": {
+          "kind": "nearby_path",
+          "source": "shop/checkout.py",
+          "target": "shop/auth.py",
+          "heuristic": true
+        },
+        "token_cost": 85,
+        "status": "selected",
+        "omission_reason": null
+      },
+      {
+        "path": "shop/retry.py",
+        "priority": 7,
+        "reason": "same directory",
+        "relationship": {
+          "kind": "nearby_path",
+          "source": "shop/checkout.py",
+          "target": "shop/retry.py",
+          "heuristic": true
+        },
+        "token_cost": 53,
+        "status": "selected",
+        "omission_reason": null
+      },
+      {
+        "path": "shop/transport.py",
+        "priority": 7,
+        "reason": "same directory",
+        "relationship": {
+          "kind": "nearby_path",
+          "source": "shop/checkout.py",
+          "target": "shop/transport.py",
+          "heuristic": true
+        },
+        "token_cost": 27,
+        "status": "selected",
+        "omission_reason": null
+      }
+    ]
+  },
+  {
+    "trace_id": "9a3a218a-aa59-496b-9ace-d4e862d0aa78",
+    "operation": "dependencies",
+    "inputs": {
+      "operation": "dependencies",
+      "path": "",
+      "target": "shop/contracts.py",
+      "query": "",
+      "paths": [],
+      "token_budget": 2000,
+      "include_dependencies": true,
+      "include_tests": true,
+      "include_consumers": true,
+      "limit": 30
+    },
+    "returned_tokens": 228,
+    "relationships": [
+      {
+        "source": "shop/checkout.py",
+        "target": "shop/contracts.py",
+        "kind": "imports",
+        "module": ".contracts"
+      },
+      {
+        "source": "shop/warehouse.py",
+        "target": "shop/contracts.py",
+        "kind": "imports",
+        "module": ".contracts"
+      },
+      {
+        "source": "shop/checkout.py",
+        "target": "shop/contracts.py::Receipt:5",
+        "kind": "references_symbol",
+        "imported_name": "Receipt",
+        "local_name": "Receipt",
+        "line": 1,
+        "evidence": "explicit import binding"
+      },
+      {
+        "source": "shop/warehouse.py",
+        "target": "shop/contracts.py::Receipt:5",
+        "kind": "references_symbol",
+        "imported_name": "Receipt",
+        "local_name": "Receipt",
+        "line": 1,
+        "evidence": "explicit import binding"
+      }
+    ],
+    "selection": [
+      {
+        "path": "shop/contracts.py",
+        "priority": 0,
+        "reason": "explicit or lexical match",
+        "relationship": null,
+        "token_cost": 55,
+        "status": "selected",
+        "omission_reason": null
+      },
+      {
+        "path": "shop/checkout.py",
+        "priority": 3,
+        "reason": "consumer",
+        "relationship": {
+          "source": "shop/checkout.py",
+          "target": "shop/contracts.py",
+          "kind": "imports",
+          "module": ".contracts"
+        },
+        "token_cost": 60,
+        "status": "selected",
+        "omission_reason": null
+      },
+      {
+        "path": "shop/warehouse.py",
+        "priority": 3,
+        "reason": "consumer",
+        "relationship": {
+          "source": "shop/warehouse.py",
+          "target": "shop/contracts.py",
+          "kind": "imports",
+          "module": ".contracts"
+        },
+        "token_cost": 48,
+        "status": "selected",
+        "omission_reason": null
+      },
+      {
+        "path": "test_shop.py",
+        "priority": 4,
+        "reason": "related_test",
+        "relationship": {
+          "source": "shop/checkout.py",
+          "target": "test_shop.py",
+          "kind": "related_test",
+          "evidence": "test imports source module"
+        },
+        "token_cost": 59,
+        "status": "selected",
+        "omission_reason": null
+      }
+    ]
+  },
+  {
+    "trace_id": "9d802f80-b2fe-45b7-8b01-3542fb090002",
+    "operation": "map",
+    "inputs": {
+      "operation": "map",
+      "path": "",
+      "target": "",
+      "query": "",
+      "paths": [],
+      "token_budget": 2000,
+      "include_dependencies": true,
+      "include_tests": true,
+      "include_consumers": true,
+      "limit": 30
+    },
+    "returned_tokens": 234,
+    "relationships": [
+      {
+        "source": "directory:shop",
+        "target": "shop/contracts.py",
+        "kind": "contains"
+      },
+      {
+        "source": "shop/checkout.py",
+        "target": "shop/contracts.py",
+        "kind": "imports",
+        "module": ".contracts"
+      },
+      {
+        "source": "shop/checkout.py",
+        "target": "shop/contracts.py::Receipt:5",
+        "kind": "references_symbol",
+        "imported_name": "Receipt",
+        "local_name": "Receipt",
+        "line": 1,
+        "evidence": "explicit import binding"
+      },
+      {
+        "source": "shop/contracts.py",
+        "target": "shop/contracts.py::Receipt:5",
+        "kind": "defines"
+      },
+      {
+        "source": "shop/warehouse.py",
+        "target": "shop/warehouse.py::audit_row:4",
+        "kind": "defines"
+      },
+      {
+        "source": "shop/warehouse.py",
+        "target": "shop/contracts.py",
+        "kind": "imports",
+        "module": ".contracts"
+      },
+      {
+        "source": "shop/warehouse.py",
+        "target": "shop/contracts.py::Receipt:5",
+        "kind": "references_symbol",
+        "imported_name": "Receipt",
+        "local_name": "Receipt",
+        "line": 1,
+        "evidence": "explicit import binding"
+      }
+    ],
+    "selection": [
+      {
+        "path": "shop/__init__.py",
+        "priority": 0,
+        "reason": "explicit or lexical match",
+        "relationship": null,
+        "token_cost": 14,
+        "status": "selected",
+        "omission_reason": null
+      },
+      {
+        "path": "shop/auth.py",
+        "priority": 0,
+        "reason": "explicit or lexical match",
+        "relationship": null,
+        "token_cost": 24,
+        "status": "selected",
+        "omission_reason": null
+      },
+      {
+        "path": "shop/checkout.py",
+        "priority": 0,
+        "reason": "explicit or lexical match",
+        "relationship": null,
+        "token_cost": 16,
+        "status": "selected",
+        "omission_reason": null
+      },
+      {
+        "path": "shop/contracts.py",
+        "priority": 0,
+        "reason": "explicit or lexical match",
+        "relationship": null,
+        "token_cost": 16,
+        "status": "selected",
+        "omission_reason": null
+      },
+      {
+        "path": "shop/notifications.py",
+        "priority": 0,
+        "reason": "explicit or lexical match",
+        "relationship": null,
+        "token_cost": 16,
+        "status": "selected",
+        "omission_reason": null
+      },
+      {
+        "path": "shop/orders.py",
+        "priority": 0,
+        "reason": "explicit or lexical match",
+        "relationship": null,
+        "token_cost": 16,
+        "status": "selected",
+        "omission_reason": null
+      },
+      {
+        "path": "shop/refunds.py",
+        "priority": 0,
+        "reason": "explicit or lexical match",
+        "relationship": null,
+        "token_cost": 18,
+        "status": "selected",
+        "omission_reason": null
+      },
+      {
+        "path": "shop/retry.py",
+        "priority": 0,
+        "reason": "explicit or lexical match",
+        "relationship": null,
+        "token_cost": 16,
+        "status": "selected",
+        "omission_reason": null
+      },
+      {
+        "path": "shop/transport.py",
+        "priority": 0,
+        "reason": "explicit or lexical match",
+        "relationship": null,
+        "token_cost": 16,
+        "status": "selected",
+        "omission_reason": null
+      },
+      {
+        "path": "shop/warehouse.py",
+        "priority": 0,
+        "reason": "explicit or lexical match",
+        "relationship": null,
+        "token_cost": 17,
+        "status": "selected",
+        "omission_reason": null
+      },
+      {
+        "path": "test_shop.py",
+        "priority": 0,
+        "reason": "explicit or lexical match",
+        "relationship": null,
+        "token_cost": 46,
+        "status": "selected",
+        "omission_reason": null
+      }
+    ]
+  }
+]

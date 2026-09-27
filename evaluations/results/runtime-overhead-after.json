@@ -1,0 +1,196 @@
+{
+  "project_id": "64dfb2e2-9ab4-45bb-94b5-e5c37e9298f8",
+  "indexing_ms": 4026.3272000011057,
+  "git_analysis_ms": 1601.3231000106316,
+  "git_available": true,
+  "stdio_startup_ms": 3013.9947999850847,
+  "calls": [
+    {
+      "tool": "conceptualize_map",
+      "wall_ms": 457.784,
+      "error": false,
+      "response_json_bytes": 37352,
+      "timings_ms": {
+        "scoring": 8.677,
+        "context_compilation": 6.387,
+        "graph_traversal": 2.155,
+        "snapshot_and_graph": 29.873,
+        "graph_build": 25.018,
+        "cache": 221.3,
+        "database_trace_before_commit": 4.596,
+        "database_commit": 9.181,
+        "mcp_http_round_trip": 389.233
+      },
+      "metrics": {
+        "candidate_tokens": 521,
+        "returned_tokens": 521,
+        "token_budget": 2000,
+        "latency_ms": 276,
+        "cache_hit": false,
+        "full_selected_tokens": 521,
+        "previously_supplied_tokens": 0,
+        "new_context_tokens": 521,
+        "duplicate_tokens_avoided": 0,
+        "duplicate_tokens_retransmitted": 0,
+        "candidate_files": 30,
+        "returned_files": 30
+      }
+    },
+    {
+      "tool": "conceptualize_expand",
+      "wall_ms": 130.478,
+      "error": false,
+      "response_json_bytes": 7093,
+      "timings_ms": {
+        "scoring": 0.471,
+        "context_compilation": 1.664,
+        "graph_traversal": 0.346,
+        "snapshot_and_graph": 23.824,
+        "graph_build": 20.821,
+        "cache": 0.012,
+        "database_trace_before_commit": 4.586,
+        "database_commit": 28.885,
+        "mcp_http_round_trip": 82.939
+      },
+      "metrics": {
+        "candidate_tokens": 282,
+        "returned_tokens": 282,
+        "token_budget": 4000,
+        "latency_ms": 30,
+        "cache_hit": false,
+        "full_selected_tokens": 282,
+        "previously_supplied_tokens": 0,
+        "new_context_tokens": 282,
+        "duplicate_tokens_avoided": 0,
+        "duplicate_tokens_retransmitted": 0,
+        "candidate_files": 4,
+        "returned_files": 4
+      }
+    },
+    {
+      "tool": "conceptualize_dependencies",
+      "wall_ms": 110.043,
+      "error": false,
+      "response_json_bytes": 6403,
+      "timings_ms": {
+        "scoring": 0.497,
+        "context_compilation": 1.018,
+        "graph_traversal": 0.437,
+        "snapshot_and_graph": 22.448,
+        "graph_build": 20.201,
+        "cache": 0.008,
+        "database_trace_before_commit": 3.231,
+        "database_commit": 5.932,
+        "mcp_http_round_trip": 57.245
+      },
+      "metrics": {
+        "candidate_tokens": 282,
+        "returned_tokens": 0,
+        "token_budget": 3000,
+        "latency_ms": 28,
+        "cache_hit": false,
+        "full_selected_tokens": 282,
+        "previously_supplied_tokens": 276,
+        "new_context_tokens": 0,
+        "duplicate_tokens_avoided": 276,
+        "duplicate_tokens_retransmitted": 0,
+        "candidate_files": 4,
+        "returned_files": 0
+      }
+    },
+    {
+      "tool": "conceptualize_expand",
+      "wall_ms": 109.287,
+      "error": false,
+      "response_json_bytes": 6057,
+      "timings_ms": {
+        "scoring": 0.535,
+        "context_compilation": 0.911,
+        "graph_traversal": 0.319,
+        "snapshot_and_graph": 24.127,
+        "graph_build": 20.77,
+        "cache": 0.009,
+        "database_trace_before_commit": 3.746,
+        "database_commit": 6.504,
+        "mcp_http_round_trip": 60.261
+      },
+      "metrics": {
+        "candidate_tokens": 258,
+        "returned_tokens": 36,
+        "token_budget": 4000,
+        "latency_ms": 30,
+        "cache_hit": false,
+        "full_selected_tokens": 36,
+        "previously_supplied_tokens": 0,
+        "new_context_tokens": 36,
+        "duplicate_tokens_avoided": 0,
+        "duplicate_tokens_retransmitted": 0,
+        "candidate_files": 4,
+        "returned_files": 1
+      }
+    },
+    {
+      "tool": "conceptualize_pack",
+      "wall_ms": 124.297,
+      "error": false,
+      "response_json_bytes": 24772,
+      "timings_ms": {
+        "scoring": 1.211,
+        "context_compilation": 12.414,
+        "graph_traversal": 0.406,
+        "snapshot_and_graph": 22.338,
+        "graph_build": 19.545,
+        "cache": 0.011,
+        "database_trace_before_commit": 3.263,
+        "database_commit": 7.031,
+        "mcp_http_round_trip": 71.48
+      },
+      "metrics": {
+        "candidate_tokens": 910,
+        "returned_tokens": 873,
+        "token_budget": 2000,
+        "latency_ms": 41,
+        "cache_hit": false,
+        "full_selected_tokens": 910,
+        "previously_supplied_tokens": 36,
+        "new_context_tokens": 873,
+        "duplicate_tokens_avoided": 36,
+        "duplicate_tokens_retransmitted": 0,
+        "candidate_files": 22,
+        "returned_files": 21
+      }
+    },
+    {
+      "tool": "conceptualize_pack",
+      "wall_ms": 120.024,
+      "error": false,
+      "response_json_bytes": 22649,
+      "timings_ms": {
+        "scoring": 1.683,
+        "context_compilation": 4.229,
+        "graph_traversal": 0.634,
+        "snapshot_and_graph": 18.438,
+        "graph_build": 15.697,
+        "cache": 0.01,
+        "database_trace_before_commit": 3.899,
+        "database_commit": 6.409,
+        "mcp_http_round_trip": 58.87
+      },
+      "metrics": {
+        "candidate_tokens": 910,
+        "returned_tokens": 0,
+        "token_budget": 2000,
+        "latency_ms": 29,
+        "cache_hit": false,
+        "full_selected_tokens": 910,
+        "previously_supplied_tokens": 888,
+        "new_context_tokens": 0,
+        "duplicate_tokens_avoided": 888,
+        "duplicate_tokens_retransmitted": 0,
+        "candidate_files": 22,
+        "returned_files": 0
+      }
+    }
+  ],
+  "scope": "Local fixture, SQLite QA database. Redis availability comes from environment. HTTP round-trip includes server stages and client construction. Graph build is part of snapshot_and_graph; stages overlap. Git analysis happens during indexing, not per MCP operation. No model involved."
+}

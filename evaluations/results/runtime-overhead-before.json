@@ -1,0 +1,194 @@
+{
+  "project_id": "949010ad-8eaa-4206-9b1f-788932216c12",
+  "indexing_ms": 4201.568099990254,
+  "stdio_startup_ms": 2781.1472000030335,
+  "calls": [
+    {
+      "tool": "conceptualize_map",
+      "wall_ms": 777.291,
+      "error": false,
+      "response_json_bytes": 61520,
+      "timings_ms": {
+        "scoring": 9.191,
+        "context_compilation": 6.822,
+        "graph_traversal": 0.101,
+        "snapshot_and_graph": 17.364,
+        "graph_build": 14.132,
+        "cache": 422.128,
+        "database_trace_before_commit": 3.201,
+        "database_commit": 7.098,
+        "mcp_http_round_trip": 695.158
+      },
+      "metrics": {
+        "candidate_tokens": 521,
+        "returned_tokens": 521,
+        "token_budget": 2000,
+        "latency_ms": 460,
+        "cache_hit": false,
+        "full_selected_tokens": 521,
+        "previously_supplied_tokens": 0,
+        "new_context_tokens": 521,
+        "duplicate_tokens_avoided": 0,
+        "duplicate_tokens_retransmitted": 0,
+        "candidate_files": 30,
+        "returned_files": 30
+      }
+    },
+    {
+      "tool": "conceptualize_expand",
+      "wall_ms": 547.774,
+      "error": false,
+      "response_json_bytes": 11911,
+      "timings_ms": {
+        "scoring": 0.492,
+        "context_compilation": 1.62,
+        "graph_traversal": 0.336,
+        "snapshot_and_graph": 22.396,
+        "graph_build": 18.515,
+        "cache": 411.817,
+        "database_trace_before_commit": 3.144,
+        "database_commit": 5.599,
+        "mcp_http_round_trip": 506.163
+      },
+      "metrics": {
+        "candidate_tokens": 282,
+        "returned_tokens": 282,
+        "token_budget": 4000,
+        "latency_ms": 439,
+        "cache_hit": false,
+        "full_selected_tokens": 282,
+        "previously_supplied_tokens": 0,
+        "new_context_tokens": 282,
+        "duplicate_tokens_avoided": 0,
+        "duplicate_tokens_retransmitted": 0,
+        "candidate_files": 4,
+        "returned_files": 4
+      }
+    },
+    {
+      "tool": "conceptualize_dependencies",
+      "wall_ms": 540.748,
+      "error": false,
+      "response_json_bytes": 7509,
+      "timings_ms": {
+        "scoring": 0.464,
+        "context_compilation": 1.04,
+        "graph_traversal": 0.289,
+        "snapshot_and_graph": 20.227,
+        "graph_build": 16.801,
+        "cache": 420.223,
+        "database_trace_before_commit": 2.77,
+        "database_commit": 5.795,
+        "mcp_http_round_trip": 500.731
+      },
+      "metrics": {
+        "candidate_tokens": 282,
+        "returned_tokens": 0,
+        "token_budget": 3000,
+        "latency_ms": 445,
+        "cache_hit": false,
+        "full_selected_tokens": 282,
+        "previously_supplied_tokens": 276,
+        "new_context_tokens": 0,
+        "duplicate_tokens_avoided": 276,
+        "duplicate_tokens_retransmitted": 0,
+        "candidate_files": 4,
+        "returned_files": 0
+      }
+    },
+    {
+      "tool": "conceptualize_expand",
+      "wall_ms": 552.235,
+      "error": false,
+      "response_json_bytes": 7719,
+      "timings_ms": {
+        "scoring": 0.675,
+        "context_compilation": 1.139,
+        "graph_traversal": 0.298,
+        "snapshot_and_graph": 17.28,
+        "graph_build": 14.623,
+        "cache": 424.147,
+        "database_trace_before_commit": 2.734,
+        "database_commit": 5.251,
+        "mcp_http_round_trip": 502.776
+      },
+      "metrics": {
+        "candidate_tokens": 258,
+        "returned_tokens": 36,
+        "token_budget": 4000,
+        "latency_ms": 446,
+        "cache_hit": false,
+        "full_selected_tokens": 36,
+        "previously_supplied_tokens": 0,
+        "new_context_tokens": 36,
+        "duplicate_tokens_avoided": 0,
+        "duplicate_tokens_retransmitted": 0,
+        "candidate_files": 4,
+        "returned_files": 1
+      }
+    },
+    {
+      "tool": "conceptualize_pack",
+      "wall_ms": 587.242,
+      "error": false,
+      "response_json_bytes": 43413,
+      "timings_ms": {
+        "scoring": 1.976,
+        "context_compilation": 9.279,
+        "graph_traversal": 0.476,
+        "snapshot_and_graph": 19.338,
+        "graph_build": 15.923,
+        "cache": 421.584,
+        "database_trace_before_commit": 3.511,
+        "database_commit": 6.833,
+        "mcp_http_round_trip": 518.968
+      },
+      "metrics": {
+        "candidate_tokens": 910,
+        "returned_tokens": 873,
+        "token_budget": 2000,
+        "latency_ms": 456,
+        "cache_hit": false,
+        "full_selected_tokens": 910,
+        "previously_supplied_tokens": 36,
+        "new_context_tokens": 873,
+        "duplicate_tokens_avoided": 36,
+        "duplicate_tokens_retransmitted": 0,
+        "candidate_files": 22,
+        "returned_files": 21
+      }
+    },
+    {
+      "tool": "conceptualize_pack",
+      "wall_ms": 579.219,
+      "error": false,
+      "response_json_bytes": 26061,
+      "timings_ms": {
+        "scoring": 1.415,
+        "context_compilation": 4.788,
+        "graph_traversal": 0.529,
+        "snapshot_and_graph": 21.868,
+        "graph_build": 17.744,
+        "cache": 413.13,
+        "database_trace_before_commit": 3.071,
+        "database_commit": 7.073,
+        "mcp_http_round_trip": 518.04
+      },
+      "metrics": {
+        "candidate_tokens": 910,
+        "returned_tokens": 0,
+        "token_budget": 2000,
+        "latency_ms": 445,
+        "cache_hit": false,
+        "full_selected_tokens": 910,
+        "previously_supplied_tokens": 888,
+        "new_context_tokens": 0,
+        "duplicate_tokens_avoided": 888,
+        "duplicate_tokens_retransmitted": 0,
+        "candidate_files": 22,
+        "returned_files": 0
+      }
+    }
+  ],
+  "scope": "Local fixture, SQLite QA database. Redis availability comes from environment. HTTP round-trip includes server stages and client construction. Graph build is part of snapshot_and_graph; stages overlap. Git analysis happens during indexing, not per MCP operation. No model involved."
+}

@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "task": "receipts",
+  "comparable": true,
+  "runs": [
+    {
+      "mode": "control",
+      "task_completion": true,
+      "tests_passed": true,
+      "files_modified": [
+        "shop/checkout.py",
+        "shop/contracts.py",
+        "shop/orders.py",
+        "shop/warehouse.py",
+        "test_shop.py"
+      ],
+      "files_inspected": null,
+      "execution_seconds": 93.251,
+      "command_executions": 6,
+      "agent_usage": {
+        "input_tokens": 188077,
+        "cached_input_tokens": 155776,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1296,
+        "reasoning_output_tokens": 6
+      },
+      "conceptualize_operations": 0,
+      "context_tokens_returned": 0,
+      "unnecessary_repository_reads": null,
+      "corrective_iterations": null
+    },
+    {
+      "mode": "conceptualize",
+      "task_completion": true,
+      "tests_passed": true,
+      "files_modified": [
+        "shop/checkout.py",
+        "shop/contracts.py",
+        "shop/orders.py",
+        "shop/warehouse.py",
+        "test_shop.py"
+      ],
+      "files_inspected": null,
+      "execution_seconds": 121.872,
+      "command_executions": 5,
+      "agent_usage": {
+        "input_tokens": 280516,
+        "cached_input_tokens": 238208,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1909,
+        "reasoning_output_tokens": 22
+      },
+      "conceptualize_operations": 3,
+      "context_tokens_returned": 1012,
+      "unnecessary_repository_reads": null,
+      "corrective_iterations": null
+    }
+  ],
+  "interpretation": "One paired run is anecdotal evidence, not a general performance claim. Repeat tasks and vary run order. Unobserved metrics are null."
+}

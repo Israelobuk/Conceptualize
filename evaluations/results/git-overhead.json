@@ -1,0 +1,7 @@
+{
+  "git_analysis_ms": 1250.707,
+  "available": true,
+  "commit_count": 1,
+  "repository": "evaluations\\runs\\runtime-suite-v1\\receipts-control\\repository",
+  "scope": "Separate index-time Git analysis on an actual completed benchmark Git repository; not repeated on each MCP call."
+}

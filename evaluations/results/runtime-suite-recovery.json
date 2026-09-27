@@ -1,0 +1,1551 @@
+{
+  "config": {
+    "tasks": [
+      "times",
+      "slugs",
+      "shipping"
+    ],
+    "model": "gpt-6-sol",
+    "workers": 2,
+    "timeout": 600,
+    "runtime_source_sha256": "d9456e78df54bf64a0a29944dd428314a90af81dd089d1291c7e4c92b23c9828",
+    "cohort_note": "Independent paired runs; compare within this cohort, not as a controlled runtime-version experiment."
+  },
+  "pairs": [
+    {
+      "schema_version": 1,
+      "task": "times",
+      "pair_identity": {
+        "baseline": "de7975d1ee253309a001db3bb9ab2e194e061800",
+        "prompt_sha256": "dac1f520d030d95e23c94ce45b39e26555faf3183d9bd54d5e29327f6126cfe8",
+        "model": "gpt-6-sol",
+        "agent_version": "codex-cli 0.158.0-alpha.2.1",
+        "suite_sha256": "3dafa744e46105d7c07d0d52ee39793233f3af2c500cd49a07ecb325cb0552b9"
+      },
+      "comparable": true,
+      "comparison_limits": [],
+      "runs": [
+        {
+          "mode": "control",
+          "task_completion": true,
+          "tests_passed": true,
+          "files_modified": [
+            "shop/time_format.py",
+            "test_time.py"
+          ],
+          "files_inspected": null,
+          "execution_seconds": 106.344,
+          "command_executions": 6,
+          "agent_usage": {
+            "input_tokens": 269879,
+            "cached_input_tokens": 239872,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 1322,
+            "reasoning_output_tokens": 8
+          },
+          "conceptualize_operations": 0,
+          "context_tokens_returned": 0,
+          "unnecessary_repository_reads": null,
+          "corrective_iterations": null,
+          "provider_disruptions_observed": false,
+          "failure_signals": {
+            "account_usage_limit": false,
+            "provider_network_or_routing": false,
+            "required_conceptualize_mcp_startup_failed": false,
+            "agent_timeout": false,
+            "independent_checks_timeout": false
+          },
+          "agent_timeout_seconds": 600,
+          "exploration": {
+            "observed_file_reads": 1,
+            "observed_repeated_reads": 0,
+            "observed_files_inspected": [
+              "test_shop.py"
+            ],
+            "first_observed_read": {
+              "test_shop.py": 10
+            },
+            "read_evidence": [
+              {
+                "step": 10,
+                "path": "test_shop.py",
+                "evidence": "Get-Content test_shop.py",
+                "confidence": "explicit successful read command; lower bound"
+              }
+            ],
+            "searches": 1,
+            "grep_operations": 0,
+            "directory_listings": 1,
+            "unresolved_read_commands": [
+              {
+                "step": 10,
+                "command": "Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/test-driven-development/SKILL.md",
+                "reason": "unresolved literal/variable path"
+              }
+            ],
+            "observed_failed_test_commands": [
+              {
+                "step": 15,
+                "command": "\"C://Users//isobu//.cache//codex-runtimes//codex-primary-runtime//dependencies//native//powershell//pwsh.exe\" -Command \"& 'C:/Users/isobu/OneDrive/Desktop/Projects/Conceptualize/.venv/Scripts/python.exe' -m pytest -q\"",
+                "exit_code": 1
+              }
+            ],
+            "all_file_reads": null,
+            "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+          },
+          "coverage": {
+            "relevant_files_proxy": [
+              "shop/time_format.py",
+              "test_time.py"
+            ],
+            "relevance_basis": "Python source and test files modified in a run that passed independent checks. This is a post-hoc proxy, not perfect task ground truth.",
+            "relevant_file_recall_before_independent_read": null,
+            "relevant_file_recall_before_observed_read": 0.0,
+            "early_discovery": {},
+            "source_surfaced_without_observed_read": [],
+            "relevant_source_files_surfaced": [],
+            "relevant_files_surfaced": [],
+            "unnecessary_files_surfaced": [],
+            "observed_unnecessary_files_inspected": [
+              "test_shop.py"
+            ],
+            "duplicate_context_tokens_retransmitted": 0,
+            "duplicate_tokens_avoided": 0,
+            "recorded_mcp_result_json_bytes": 0,
+            "operation_timings": [],
+            "limits": "Before independently opening means before a supported observed explicit read. Structural map exposure is reported separately from source delivery."
+          }
+        },
+        {
+          "mode": "conceptualize",
+          "task_completion": true,
+          "tests_passed": true,
+          "files_modified": [
+            "shop/time_format.py",
+            "shop/time_reader.py",
+            "test_time.py"
+          ],
+          "files_inspected": null,
+          "execution_seconds": 138.201,
+          "command_executions": 7,
+          "agent_usage": {
+            "input_tokens": 313833,
+            "cached_input_tokens": 248320,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 1696,
+            "reasoning_output_tokens": 8
+          },
+          "conceptualize_operations": 2,
+          "context_tokens_returned": 306,
+          "unnecessary_repository_reads": null,
+          "corrective_iterations": null,
+          "provider_disruptions_observed": false,
+          "failure_signals": {
+            "account_usage_limit": false,
+            "provider_network_or_routing": false,
+            "required_conceptualize_mcp_startup_failed": false,
+            "agent_timeout": false,
+            "independent_checks_timeout": false
+          },
+          "agent_timeout_seconds": 600,
+          "exploration": {
+            "observed_file_reads": 1,
+            "observed_repeated_reads": 0,
+            "observed_files_inspected": [
+              "test_shop.py"
+            ],
+            "first_observed_read": {
+              "test_shop.py": 8
+            },
+            "read_evidence": [
+              {
+                "step": 8,
+                "path": "test_shop.py",
+                "evidence": "Get-Content test_shop.py",
+                "confidence": "explicit successful read command; lower bound"
+              }
+            ],
+            "searches": 0,
+            "grep_operations": 0,
+            "directory_listings": 2,
+            "unresolved_read_commands": [
+              {
+                "step": 8,
+                "command": "Get-Content shop//audit_sink.py",
+                "reason": "unresolved literal/variable path"
+              },
+              {
+                "step": 15,
+                "command": "Get-Content C://Users//isobu//.codex//plugins//cache//openai-curated-remote//superpowers//6.4.2//skills//test-driven-development//SKILL.md",
+                "reason": "unresolved literal/variable path"
+              },
+              {
+                "step": 15,
+                "command": "Get-Content C://Users//isobu//.codex//plugins//cache//openai-curated-remote//superpowers//6.4.2//skills//verification-before-completion//SKILL.md\"",
+                "reason": "unresolved literal/variable path"
+              }
+            ],
+            "observed_failed_test_commands": [
+              {
+                "step": 21,
+                "command": "\"C://Users//isobu//.cache//codex-runtimes//codex-primary-runtime//dependencies//native//powershell//pwsh.exe\" -Command \"& 'C://Users//isobu//OneDrive//Desktop//Projects//Conceptualize//.venv//Scripts//python.exe' -m pytest -q\"",
+                "exit_code": 1
+              }
+            ],
+            "all_file_reads": null,
+            "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+          },
+          "coverage": {
+            "relevant_files_proxy": [
+              "shop/time_format.py",
+              "shop/time_reader.py",
+              "test_time.py"
+            ],
+            "relevance_basis": "Python source and test files modified in a run that passed independent checks. This is a post-hoc proxy, not perfect task ground truth.",
+            "relevant_file_recall_before_independent_read": null,
+            "relevant_file_recall_before_observed_read": 0.0,
+            "early_discovery": {},
+            "source_surfaced_without_observed_read": [],
+            "relevant_source_files_surfaced": [],
+            "relevant_files_surfaced": [
+              "shop/time_format.py",
+              "shop/time_reader.py"
+            ],
+            "unnecessary_files_surfaced": [
+              "shop/audit_sink.py"
+            ],
+            "observed_unnecessary_files_inspected": [
+              "test_shop.py"
+            ],
+            "duplicate_context_tokens_retransmitted": 0,
+            "duplicate_tokens_avoided": 0,
+            "recorded_mcp_result_json_bytes": 24178,
+            "operation_timings": [
+              {
+                "step": 13,
+                "tool": "conceptualize_search",
+                "timings_ms": {
+                  "scoring": 0.597,
+                  "context_compilation": 7.079,
+                  "graph_traversal": 4.317,
+                  "snapshot_and_graph": 24.264,
+                  "graph_build": 20.83,
+                  "cache": 209.814,
+                  "database_trace_before_commit": 3.154,
+                  "database_commit": 8.492,
+                  "mcp_http_round_trip": 292.953
+                }
+              },
+              {
+                "step": 17,
+                "tool": "conceptualize_dependencies",
+                "timings_ms": {
+                  "scoring": 0.556,
+                  "context_compilation": 3.326,
+                  "graph_traversal": 0.469,
+                  "snapshot_and_graph": 21.931,
+                  "graph_build": 18.517,
+                  "cache": 208.99,
+                  "database_trace_before_commit": 4.363,
+                  "database_commit": 6.163,
+                  "mcp_http_round_trip": 275.753
+                }
+              }
+            ],
+            "limits": "Before independently opening means before a supported observed explicit read. Structural map exposure is reported separately from source delivery."
+          }
+        }
+      ],
+      "interpretation": "One paired run is anecdotal evidence, not a general performance claim. Repeat tasks and vary run order. Unobserved metrics are null."
+    },
+    {
+      "schema_version": 1,
+      "task": "slugs",
+      "pair_identity": {
+        "baseline": "de7975d1ee253309a001db3bb9ab2e194e061800",
+        "prompt_sha256": "96ea559c98a6b142d05498987a4fe96fa529d458f5d8819293595203b9695e89",
+        "model": "gpt-6-sol",
+        "agent_version": "codex-cli 0.158.0-alpha.2.1",
+        "suite_sha256": "3dafa744e46105d7c07d0d52ee39793233f3af2c500cd49a07ecb325cb0552b9"
+      },
+      "comparable": true,
+      "comparison_limits": [],
+      "runs": [
+        {
+          "mode": "control",
+          "task_completion": true,
+          "tests_passed": true,
+          "files_modified": [
+            "shop/slugs.py",
+            "test_shop.py"
+          ],
+          "files_inspected": null,
+          "execution_seconds": 85.701,
+          "command_executions": 6,
+          "agent_usage": {
+            "input_tokens": 187726,
+            "cached_input_tokens": 155392,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 1117,
+            "reasoning_output_tokens": 43
+          },
+          "conceptualize_operations": 0,
+          "context_tokens_returned": 0,
+          "unnecessary_repository_reads": null,
+          "corrective_iterations": null,
+          "provider_disruptions_observed": false,
+          "failure_signals": {
+            "account_usage_limit": false,
+            "provider_network_or_routing": false,
+            "required_conceptualize_mcp_startup_failed": false,
+            "agent_timeout": false,
+            "independent_checks_timeout": false
+          },
+          "agent_timeout_seconds": 600,
+          "exploration": {
+            "observed_file_reads": 4,
+            "observed_repeated_reads": 0,
+            "observed_files_inspected": [
+              "shop/catalog.py",
+              "shop/search_index.py",
+              "shop/slugs.py",
+              "test_shop.py"
+            ],
+            "first_observed_read": {
+              "shop/slugs.py": 8,
+              "shop/catalog.py": 8,
+              "shop/search_index.py": 8,
+              "test_shop.py": 8
+            },
+            "read_evidence": [
+              {
+                "step": 8,
+                "path": "shop/slugs.py",
+                "evidence": "Get-Content shop/slugs.py",
+                "confidence": "explicit successful read command; lower bound"
+              },
+              {
+                "step": 8,
+                "path": "shop/catalog.py",
+                "evidence": "Get-Content shop/catalog.py",
+                "confidence": "explicit successful read command; lower bound"
+              },
+              {
+                "step": 8,
+                "path": "shop/search_index.py",
+                "evidence": "Get-Content shop/search_index.py",
+                "confidence": "explicit successful read command; lower bound"
+              },
+              {
+                "step": 8,
+                "path": "test_shop.py",
+                "evidence": "Get-Content test_shop.py'",
+                "confidence": "explicit successful read command; lower bound"
+              }
+            ],
+            "searches": 1,
+            "grep_operations": 0,
+            "directory_listings": 3,
+            "unresolved_read_commands": [
+              {
+                "step": 10,
+                "command": "Get-Content .gitignore\"",
+                "reason": "unresolved literal/variable path"
+              }
+            ],
+            "observed_failed_test_commands": [],
+            "all_file_reads": null,
+            "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+          },
+          "coverage": {
+            "relevant_files_proxy": [
+              "shop/slugs.py",
+              "test_shop.py"
+            ],
+            "relevance_basis": "Python source and test files modified in a run that passed independent checks. This is a post-hoc proxy, not perfect task ground truth.",
+            "relevant_file_recall_before_independent_read": null,
+            "relevant_file_recall_before_observed_read": 0.0,
+            "early_discovery": {},
+            "source_surfaced_without_observed_read": [],
+            "relevant_source_files_surfaced": [],
+            "relevant_files_surfaced": [],
+            "unnecessary_files_surfaced": [],
+            "observed_unnecessary_files_inspected": [
+              "shop/catalog.py",
+              "shop/search_index.py"
+            ],
+            "duplicate_context_tokens_retransmitted": 0,
+            "duplicate_tokens_avoided": 0,
+            "recorded_mcp_result_json_bytes": 0,
+            "operation_timings": [],
+            "limits": "Before independently opening means before a supported observed explicit read. Structural map exposure is reported separately from source delivery."
+          }
+        },
+        {
+          "mode": "conceptualize",
+          "task_completion": true,
+          "tests_passed": true,
+          "files_modified": [
+            "shop/slugs.py",
+            "test_shop.py"
+          ],
+          "files_inspected": null,
+          "execution_seconds": 127.575,
+          "command_executions": 6,
+          "agent_usage": {
+            "input_tokens": 336577,
+            "cached_input_tokens": 292352,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 1543,
+            "reasoning_output_tokens": 46
+          },
+          "conceptualize_operations": 3,
+          "context_tokens_returned": 1318,
+          "unnecessary_repository_reads": null,
+          "corrective_iterations": null,
+          "provider_disruptions_observed": false,
+          "failure_signals": {
+            "account_usage_limit": false,
+            "provider_network_or_routing": false,
+            "required_conceptualize_mcp_startup_failed": false,
+            "agent_timeout": false,
+            "independent_checks_timeout": false
+          },
+          "agent_timeout_seconds": 600,
+          "exploration": {
+            "observed_file_reads": 4,
+            "observed_repeated_reads": 0,
+            "observed_files_inspected": [
+              "shop/catalog.py",
+              "shop/search_index.py",
+              "shop/slugs.py",
+              "test_shop.py"
+            ],
+            "first_observed_read": {
+              "shop/catalog.py": 17,
+              "shop/search_index.py": 17,
+              "shop/slugs.py": 17,
+              "test_shop.py": 17
+            },
+            "read_evidence": [
+              {
+                "step": 17,
+                "path": "shop/catalog.py",
+                "evidence": "Get-Content shop/slugs.py,shop/catalog.py,shop/search_index.py,test_shop.py'",
+                "confidence": "explicit successful read command; lower bound"
+              },
+              {
+                "step": 17,
+                "path": "shop/search_index.py",
+                "evidence": "Get-Content shop/slugs.py,shop/catalog.py,shop/search_index.py,test_shop.py'",
+                "confidence": "explicit successful read command; lower bound"
+              },
+              {
+                "step": 17,
+                "path": "shop/slugs.py",
+                "evidence": "Get-Content shop/slugs.py,shop/catalog.py,shop/search_index.py,test_shop.py'",
+                "confidence": "explicit successful read command; lower bound"
+              },
+              {
+                "step": 17,
+                "path": "test_shop.py",
+                "evidence": "Get-Content shop/slugs.py,shop/catalog.py,shop/search_index.py,test_shop.py'",
+                "confidence": "explicit successful read command; lower bound"
+              }
+            ],
+            "searches": 0,
+            "grep_operations": 0,
+            "directory_listings": 3,
+            "unresolved_read_commands": [
+              {
+                "step": 6,
+                "command": "Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/using-superpowers/SKILL.md'",
+                "reason": "unresolved literal/variable path"
+              },
+              {
+                "step": 13,
+                "command": "Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/test-driven-development/SKILL.md",
+                "reason": "unresolved literal/variable path"
+              },
+              {
+                "step": 13,
+                "command": "Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/verification-before-completion/SKILL.md'",
+                "reason": "unresolved literal/variable path"
+              },
+              {
+                "step": 17,
+                "command": "Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/test-driven-development/writing-good-tests.md",
+                "reason": "unresolved literal/variable path"
+              }
+            ],
+            "observed_failed_test_commands": [
+              {
+                "step": 22,
+                "command": "\"C://Users//isobu//.cache//codex-runtimes//codex-primary-runtime//dependencies//native//powershell//pwsh.exe\" -Command \"& 'C://Users//isobu//OneDrive//Desktop//Projects//Conceptualize//.venv//Scripts//python.exe' -m pytest -q\"",
+                "exit_code": 1
+              }
+            ],
+            "all_file_reads": null,
+            "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+          },
+          "coverage": {
+            "relevant_files_proxy": [
+              "shop/slugs.py",
+              "test_shop.py"
+            ],
+            "relevance_basis": "Python source and test files modified in a run that passed independent checks. This is a post-hoc proxy, not perfect task ground truth.",
+            "relevant_file_recall_before_independent_read": null,
+            "relevant_file_recall_before_observed_read": 1.0,
+            "early_discovery": {
+              "shop/slugs.py": 15,
+              "test_shop.py": 15
+            },
+            "source_surfaced_without_observed_read": [],
+            "relevant_source_files_surfaced": [
+              "shop/slugs.py",
+              "test_shop.py"
+            ],
+            "relevant_files_surfaced": [
+              "shop/slugs.py",
+              "test_shop.py"
+            ],
+            "unnecessary_files_surfaced": [
+              "shop/__init__.py",
+              "shop/audit_sink.py",
+              "shop/auth.py",
+              "shop/batch_gateway.py",
+              "shop/catalog.py",
+              "shop/checkout.py",
+              "shop/contracts.py",
+              "shop/customer_keys.py",
+              "shop/customer_store.py",
+              "shop/export_job.py",
+              "shop/inventory.py",
+              "shop/notifications.py",
+              "shop/orders.py",
+              "shop/pagination.py",
+              "shop/reconciliation.py",
+              "shop/refunds.py",
+              "shop/retry.py",
+              "shop/search_index.py",
+              "shop/segment_writer.py",
+              "shop/settings.py",
+              "shop/shipping.py",
+              "shop/shipping_config.py",
+              "shop/shipping_invoice.py",
+              "shop/stock.py",
+              "shop/time_format.py",
+              "shop/time_reader.py",
+              "shop/transport.py",
+              "shop/warehouse.py"
+            ],
+            "observed_unnecessary_files_inspected": [
+              "shop/catalog.py",
+              "shop/search_index.py"
+            ],
+            "duplicate_context_tokens_retransmitted": 0,
+            "duplicate_tokens_avoided": 0,
+            "recorded_mcp_result_json_bytes": 157745,
+            "operation_timings": [
+              {
+                "step": 8,
+                "tool": "conceptualize_map",
+                "timings_ms": {
+                  "scoring": 7.823,
+                  "context_compilation": 51.741,
+                  "graph_traversal": 1.235,
+                  "snapshot_and_graph": 35.919,
+                  "graph_build": 25.294,
+                  "cache": 219.744,
+                  "database_trace_before_commit": 11.505,
+                  "database_commit": 10.545,
+                  "mcp_http_round_trip": 565.301
+                }
+              },
+              {
+                "step": 11,
+                "tool": "conceptualize_dependencies",
+                "timings_ms": {
+                  "scoring": 0.357,
+                  "context_compilation": 2.628,
+                  "graph_traversal": 0.987,
+                  "snapshot_and_graph": 17.019,
+                  "graph_build": 14.033,
+                  "cache": 206.103,
+                  "database_trace_before_commit": 3.788,
+                  "database_commit": 10.552,
+                  "mcp_http_round_trip": 271.164
+                }
+              },
+              {
+                "step": 15,
+                "tool": "conceptualize_pack",
+                "timings_ms": {
+                  "scoring": 1.025,
+                  "context_compilation": 11.837,
+                  "graph_traversal": 1.064,
+                  "snapshot_and_graph": 16.241,
+                  "graph_build": 12.901,
+                  "cache": 207.538,
+                  "database_trace_before_commit": 2.527,
+                  "database_commit": 6.632,
+                  "mcp_http_round_trip": 275.094
+                }
+              }
+            ],
+            "limits": "Before independently opening means before a supported observed explicit read. Structural map exposure is reported separately from source delivery."
+          }
+        }
+      ],
+      "interpretation": "One paired run is anecdotal evidence, not a general performance claim. Repeat tasks and vary run order. Unobserved metrics are null."
+    },
+    {
+      "schema_version": 1,
+      "task": "shipping",
+      "pair_identity": {
+        "baseline": "e3626cfea8bc8e95c08da7ef40a41bea2dea801f",
+        "prompt_sha256": "2d2fa48c1cbf036202df8343289e2cc000fe3ac30fcb8d8cdda75dce2f48d1b4",
+        "model": "gpt-6-sol",
+        "agent_version": "codex-cli 0.158.0-alpha.2.1",
+        "suite_sha256": "3dafa744e46105d7c07d0d52ee39793233f3af2c500cd49a07ecb325cb0552b9"
+      },
+      "comparable": true,
+      "comparison_limits": [],
+      "runs": [
+        {
+          "mode": "control",
+          "task_completion": true,
+          "tests_passed": true,
+          "files_modified": [
+            "shop/shipping.py",
+            "test_shop.py"
+          ],
+          "files_inspected": null,
+          "execution_seconds": 81.289,
+          "command_executions": 6,
+          "agent_usage": {
+            "input_tokens": 216417,
+            "cached_input_tokens": 196096,
+            "cache_write_input_tokens": 0,
+            "output_tokens": 1111,
+            "reasoning_output_tokens": 14
+          },
+          "conceptualize_operations": 0,
+          "context_tokens_returned": 0,
+          "unnecessary_repository_reads": null,
+          "corrective_iterations": null,
+          "provider_disruptions_observed": false,
+          "failure_signals": {
+            "account_usage_limit": false,
+            "provider_network_or_routing": false,
+            "required_conceptualize_mcp_startup_failed": false,
+            "agent_timeout": false,
+            "independent_checks_timeout": false
+          },
+          "agent_timeout_seconds": 600,
+          "exploration": {
+            "observed_file_reads": 6,
+            "observed_repeated_reads": 0,
+            "observed_files_inspected": [
+              "shop/checkout.py",
+              "shop/contracts.py",
+              "shop/shipping.py",
+              "shop/shipping_config.py",
+              "shop/shipping_invoice.py",
+              "test_shop.py"
+            ],
+            "first_observed_read": {
+              "shop/shipping.py": 8,
+              "shop/shipping_config.py": 8,
+              "shop/shipping_invoice.py": 8,
+              "test_shop.py": 8,
+              "shop/checkout.py": 11,
+              "shop/contracts.py": 11
+            },
+            "read_evidence": [
+              {
+                "step": 8,
+                "path": "shop/shipping.py",
+                "evidence": "Get-Content shop/shipping.py, shop/shipping_config.py, shop/shipping_invoice.py, test_shop.py",
+                "confidence": "explicit successful read command; lower bound"
+              },
+              {
+                "step": 8,
+                "path": "shop/shipping_config.py",
+                "evidence": "Get-Content shop/shipping.py, shop/shipping_config.py, shop/shipping_invoice.py, test_shop.py",
+                "confidence": "explicit successful read command; lower bound"
+              },
+              {
+                "step": 8,
+                "path": "shop/shipping_invoice.py",
+                "evidence": "Get-Content shop/shipping.py, shop/shipping_config.py, shop/shipping_invoice.py, test_shop.py",
+                "confidence": "explicit successful read command; lower bound"
+              },
+              {
+                "step": 8,
+                "path": "test_shop.py",
+                "evidence": "Get-Content shop/shipping.py, shop/shipping_config.py, shop/shipping_invoice.py, test_shop.py",
+                "confidence": "explicit successful read command; lower bound"
+              },
+              {
+                "step": 11,
+                "path": "shop/checkout.py",
+                "evidence": "Get-Content shop/contracts.py, shop/checkout.py",
+                "confidence": "explicit successful read command; lower bound"
+              },
+              {
+                "step": 11,
+                "path": "shop/contracts.py",
+                "evidence": "Get-Content shop/contracts.py, shop/checkout.py",
+                "confidence": "explicit successful read command; lower bound"
+              }
+            ],
+            "searches": 1,
+            "grep_operations": 0,
+            "directory_listings": 3,
+            "unresolved_read_commands": [
+              {
+                "step": 11,
+                "command": "Get-Content -LiteralPath $taskFile }",
+                "reason": "unresolved literal/variable path"
+              }
+            ],
+            "observed_failed_test_commands": [
+              {
+                "step": 15,
+                "command": "\"C://Users//isobu//.cache//codex-runtimes//codex-primary-runtime//dependencies//native//powershell//pwsh.exe\" -Command \"& 'C://Users//isobu//OneDrive//Desktop//Projects//Conceptualize//.venv//Scripts//python.exe' -m pytest -q\"",
+                "exit_code": 1
+              }
+            ],
+            "all_file_reads": null,
+            "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+          },
+          "coverage": {
+            "relevant_files_proxy": [
+              "shop/shipping.py",
+              "test_shop.py"
+            ],
+            "relevance_basis": "Python source and test files modified in a run that passed independent checks. This is a post-hoc proxy, not perfect task ground truth.",
+            "relevant_file_recall_before_independent_read": null,
+            "relevant_file_recall_before_observed_read": 0.0,
+            "early_discovery": {},
+            "source_surfaced_without_observed_read": [],
+            "relevant_source_files_surfaced": [],
+            "relevant_files_surfaced": [],
+            "unnecessary_files_surfaced": [],
+            "observed_unnecessary_files_inspected": [
+              "shop/checkout.py",
+              "shop/contracts.py",
+              "shop/shipping_config.py",
+              "shop/shipping_invoice.py"
+            ],
+            "duplicate_context_tokens_retransmitted": 0,
+            "duplicate_tokens_avoided": 0,
+            "recorded_mcp_result_json_bytes": 0,
+            "operation_timings": [],
+            "limits": "Before independently opening means before a supported observed explicit read. Structural map exposure is reported separately from source delivery."
+          }
+        },
+        {
+          "mode": "conceptualize",
+          "task_completion": false,
+          "tests_passed": false,
+          "files_modified": [
+            "test_shipping.py"
+          ],
+          "files_inspected": null,
+          "execution_seconds": 70.567,
+          "command_executions": 5,
+          "agent_usage": null,
+          "conceptualize_operations": 3,
+          "context_tokens_returned": 1289,
+          "unnecessary_repository_reads": null,
+          "corrective_iterations": null,
+          "provider_disruptions_observed": false,
+          "failure_signals": {
+            "account_usage_limit": true,
+            "provider_network_or_routing": false,
+            "required_conceptualize_mcp_startup_failed": false,
+            "agent_timeout": false,
+            "independent_checks_timeout": false
+          },
+          "agent_timeout_seconds": 600,
+          "exploration": {
+            "observed_file_reads": 0,
+            "observed_repeated_reads": 0,
+            "observed_files_inspected": [],
+            "first_observed_read": {},
+            "read_evidence": [],
+            "searches": 0,
+            "grep_operations": 0,
+            "directory_listings": 1,
+            "unresolved_read_commands": [
+              {
+                "step": 17,
+                "command": "Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/test-driven-development/writing-good-tests.md",
+                "reason": "unresolved literal/variable path"
+              }
+            ],
+            "observed_failed_test_commands": [],
+            "all_file_reads": null,
+            "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+          },
+          "coverage": {
+            "relevant_file_recall_before_observed_read": null,
+            "reason": "No successful outcome to establish relevant-change proxy"
+          }
+        }
+      ],
+      "interpretation": "One paired run is anecdotal evidence, not a general performance claim. Repeat tasks and vary run order. Unobserved metrics are null."
+    }
+  ],
+  "rows": [
+    {
+      "task": "times",
+      "mode": "control",
+      "success": true,
+      "seconds": 106.344,
+      "observed_files": 1,
+      "relevant_surfaced": [],
+      "relevant_discovered": [],
+      "mcp_operations": 0,
+      "provider_disruptions": false,
+      "failure_signals": {
+        "account_usage_limit": false,
+        "provider_network_or_routing": false,
+        "required_conceptualize_mcp_startup_failed": false,
+        "agent_timeout": false,
+        "independent_checks_timeout": false
+      },
+      "unnecessary_observed": 1,
+      "repeated_reads": 0,
+      "context_tokens": 0,
+      "corrective_iterations": null,
+      "coverage": {
+        "relevant_files_proxy": [
+          "shop/time_format.py",
+          "test_time.py"
+        ],
+        "relevance_basis": "Python source and test files modified in a run that passed independent checks. This is a post-hoc proxy, not perfect task ground truth.",
+        "relevant_file_recall_before_independent_read": null,
+        "relevant_file_recall_before_observed_read": 0.0,
+        "early_discovery": {},
+        "source_surfaced_without_observed_read": [],
+        "relevant_source_files_surfaced": [],
+        "relevant_files_surfaced": [],
+        "unnecessary_files_surfaced": [],
+        "observed_unnecessary_files_inspected": [
+          "test_shop.py"
+        ],
+        "duplicate_context_tokens_retransmitted": 0,
+        "duplicate_tokens_avoided": 0,
+        "recorded_mcp_result_json_bytes": 0,
+        "operation_timings": [],
+        "limits": "Before independently opening means before a supported observed explicit read. Structural map exposure is reported separately from source delivery."
+      },
+      "exploration": {
+        "observed_file_reads": 1,
+        "observed_repeated_reads": 0,
+        "observed_files_inspected": [
+          "test_shop.py"
+        ],
+        "first_observed_read": {
+          "test_shop.py": 10
+        },
+        "read_evidence": [
+          {
+            "step": 10,
+            "path": "test_shop.py",
+            "evidence": "Get-Content test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          }
+        ],
+        "searches": 1,
+        "grep_operations": 0,
+        "directory_listings": 1,
+        "unresolved_read_commands": [
+          {
+            "step": 10,
+            "command": "Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/test-driven-development/SKILL.md",
+            "reason": "unresolved literal/variable path"
+          }
+        ],
+        "observed_failed_test_commands": [
+          {
+            "step": 15,
+            "command": "\"C://Users//isobu//.cache//codex-runtimes//codex-primary-runtime//dependencies//native//powershell//pwsh.exe\" -Command \"& 'C:/Users/isobu/OneDrive/Desktop/Projects/Conceptualize/.venv/Scripts/python.exe' -m pytest -q\"",
+            "exit_code": 1
+          }
+        ],
+        "all_file_reads": null,
+        "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+      }
+    },
+    {
+      "task": "times",
+      "mode": "conceptualize",
+      "success": true,
+      "seconds": 138.201,
+      "observed_files": 1,
+      "relevant_surfaced": [
+        "shop/time_format.py",
+        "shop/time_reader.py"
+      ],
+      "relevant_discovered": [
+        "shop/time_format.py",
+        "shop/time_reader.py"
+      ],
+      "mcp_operations": 2,
+      "provider_disruptions": false,
+      "failure_signals": {
+        "account_usage_limit": false,
+        "provider_network_or_routing": false,
+        "required_conceptualize_mcp_startup_failed": false,
+        "agent_timeout": false,
+        "independent_checks_timeout": false
+      },
+      "unnecessary_observed": 1,
+      "repeated_reads": 0,
+      "context_tokens": 306,
+      "corrective_iterations": null,
+      "coverage": {
+        "relevant_files_proxy": [
+          "shop/time_format.py",
+          "shop/time_reader.py",
+          "test_time.py"
+        ],
+        "relevance_basis": "Python source and test files modified in a run that passed independent checks. This is a post-hoc proxy, not perfect task ground truth.",
+        "relevant_file_recall_before_independent_read": null,
+        "relevant_file_recall_before_observed_read": 0.0,
+        "early_discovery": {},
+        "source_surfaced_without_observed_read": [],
+        "relevant_source_files_surfaced": [],
+        "relevant_files_surfaced": [
+          "shop/time_format.py",
+          "shop/time_reader.py"
+        ],
+        "unnecessary_files_surfaced": [
+          "shop/audit_sink.py"
+        ],
+        "observed_unnecessary_files_inspected": [
+          "test_shop.py"
+        ],
+        "duplicate_context_tokens_retransmitted": 0,
+        "duplicate_tokens_avoided": 0,
+        "recorded_mcp_result_json_bytes": 24178,
+        "operation_timings": [
+          {
+            "step": 13,
+            "tool": "conceptualize_search",
+            "timings_ms": {
+              "scoring": 0.597,
+              "context_compilation": 7.079,
+              "graph_traversal": 4.317,
+              "snapshot_and_graph": 24.264,
+              "graph_build": 20.83,
+              "cache": 209.814,
+              "database_trace_before_commit": 3.154,
+              "database_commit": 8.492,
+              "mcp_http_round_trip": 292.953
+            }
+          },
+          {
+            "step": 17,
+            "tool": "conceptualize_dependencies",
+            "timings_ms": {
+              "scoring": 0.556,
+              "context_compilation": 3.326,
+              "graph_traversal": 0.469,
+              "snapshot_and_graph": 21.931,
+              "graph_build": 18.517,
+              "cache": 208.99,
+              "database_trace_before_commit": 4.363,
+              "database_commit": 6.163,
+              "mcp_http_round_trip": 275.753
+            }
+          }
+        ],
+        "limits": "Before independently opening means before a supported observed explicit read. Structural map exposure is reported separately from source delivery."
+      },
+      "exploration": {
+        "observed_file_reads": 1,
+        "observed_repeated_reads": 0,
+        "observed_files_inspected": [
+          "test_shop.py"
+        ],
+        "first_observed_read": {
+          "test_shop.py": 8
+        },
+        "read_evidence": [
+          {
+            "step": 8,
+            "path": "test_shop.py",
+            "evidence": "Get-Content test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          }
+        ],
+        "searches": 0,
+        "grep_operations": 0,
+        "directory_listings": 2,
+        "unresolved_read_commands": [
+          {
+            "step": 8,
+            "command": "Get-Content shop//audit_sink.py",
+            "reason": "unresolved literal/variable path"
+          },
+          {
+            "step": 15,
+            "command": "Get-Content C://Users//isobu//.codex//plugins//cache//openai-curated-remote//superpowers//6.4.2//skills//test-driven-development//SKILL.md",
+            "reason": "unresolved literal/variable path"
+          },
+          {
+            "step": 15,
+            "command": "Get-Content C://Users//isobu//.codex//plugins//cache//openai-curated-remote//superpowers//6.4.2//skills//verification-before-completion//SKILL.md\"",
+            "reason": "unresolved literal/variable path"
+          }
+        ],
+        "observed_failed_test_commands": [
+          {
+            "step": 21,
+            "command": "\"C://Users//isobu//.cache//codex-runtimes//codex-primary-runtime//dependencies//native//powershell//pwsh.exe\" -Command \"& 'C://Users//isobu//OneDrive//Desktop//Projects//Conceptualize//.venv//Scripts//python.exe' -m pytest -q\"",
+            "exit_code": 1
+          }
+        ],
+        "all_file_reads": null,
+        "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+      }
+    },
+    {
+      "task": "slugs",
+      "mode": "control",
+      "success": true,
+      "seconds": 85.701,
+      "observed_files": 4,
+      "relevant_surfaced": [],
+      "relevant_discovered": [
+        "shop/slugs.py",
+        "test_shop.py"
+      ],
+      "mcp_operations": 0,
+      "provider_disruptions": false,
+      "failure_signals": {
+        "account_usage_limit": false,
+        "provider_network_or_routing": false,
+        "required_conceptualize_mcp_startup_failed": false,
+        "agent_timeout": false,
+        "independent_checks_timeout": false
+      },
+      "unnecessary_observed": 2,
+      "repeated_reads": 0,
+      "context_tokens": 0,
+      "corrective_iterations": null,
+      "coverage": {
+        "relevant_files_proxy": [
+          "shop/slugs.py",
+          "test_shop.py"
+        ],
+        "relevance_basis": "Python source and test files modified in a run that passed independent checks. This is a post-hoc proxy, not perfect task ground truth.",
+        "relevant_file_recall_before_independent_read": null,
+        "relevant_file_recall_before_observed_read": 0.0,
+        "early_discovery": {},
+        "source_surfaced_without_observed_read": [],
+        "relevant_source_files_surfaced": [],
+        "relevant_files_surfaced": [],
+        "unnecessary_files_surfaced": [],
+        "observed_unnecessary_files_inspected": [
+          "shop/catalog.py",
+          "shop/search_index.py"
+        ],
+        "duplicate_context_tokens_retransmitted": 0,
+        "duplicate_tokens_avoided": 0,
+        "recorded_mcp_result_json_bytes": 0,
+        "operation_timings": [],
+        "limits": "Before independently opening means before a supported observed explicit read. Structural map exposure is reported separately from source delivery."
+      },
+      "exploration": {
+        "observed_file_reads": 4,
+        "observed_repeated_reads": 0,
+        "observed_files_inspected": [
+          "shop/catalog.py",
+          "shop/search_index.py",
+          "shop/slugs.py",
+          "test_shop.py"
+        ],
+        "first_observed_read": {
+          "shop/slugs.py": 8,
+          "shop/catalog.py": 8,
+          "shop/search_index.py": 8,
+          "test_shop.py": 8
+        },
+        "read_evidence": [
+          {
+            "step": 8,
+            "path": "shop/slugs.py",
+            "evidence": "Get-Content shop/slugs.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 8,
+            "path": "shop/catalog.py",
+            "evidence": "Get-Content shop/catalog.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 8,
+            "path": "shop/search_index.py",
+            "evidence": "Get-Content shop/search_index.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 8,
+            "path": "test_shop.py",
+            "evidence": "Get-Content test_shop.py'",
+            "confidence": "explicit successful read command; lower bound"
+          }
+        ],
+        "searches": 1,
+        "grep_operations": 0,
+        "directory_listings": 3,
+        "unresolved_read_commands": [
+          {
+            "step": 10,
+            "command": "Get-Content .gitignore\"",
+            "reason": "unresolved literal/variable path"
+          }
+        ],
+        "observed_failed_test_commands": [],
+        "all_file_reads": null,
+        "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+      }
+    },
+    {
+      "task": "slugs",
+      "mode": "conceptualize",
+      "success": true,
+      "seconds": 127.575,
+      "observed_files": 4,
+      "relevant_surfaced": [
+        "shop/slugs.py",
+        "test_shop.py"
+      ],
+      "relevant_discovered": [
+        "shop/slugs.py",
+        "test_shop.py"
+      ],
+      "mcp_operations": 3,
+      "provider_disruptions": false,
+      "failure_signals": {
+        "account_usage_limit": false,
+        "provider_network_or_routing": false,
+        "required_conceptualize_mcp_startup_failed": false,
+        "agent_timeout": false,
+        "independent_checks_timeout": false
+      },
+      "unnecessary_observed": 2,
+      "repeated_reads": 0,
+      "context_tokens": 1318,
+      "corrective_iterations": null,
+      "coverage": {
+        "relevant_files_proxy": [
+          "shop/slugs.py",
+          "test_shop.py"
+        ],
+        "relevance_basis": "Python source and test files modified in a run that passed independent checks. This is a post-hoc proxy, not perfect task ground truth.",
+        "relevant_file_recall_before_independent_read": null,
+        "relevant_file_recall_before_observed_read": 1.0,
+        "early_discovery": {
+          "shop/slugs.py": 15,
+          "test_shop.py": 15
+        },
+        "source_surfaced_without_observed_read": [],
+        "relevant_source_files_surfaced": [
+          "shop/slugs.py",
+          "test_shop.py"
+        ],
+        "relevant_files_surfaced": [
+          "shop/slugs.py",
+          "test_shop.py"
+        ],
+        "unnecessary_files_surfaced": [
+          "shop/__init__.py",
+          "shop/audit_sink.py",
+          "shop/auth.py",
+          "shop/batch_gateway.py",
+          "shop/catalog.py",
+          "shop/checkout.py",
+          "shop/contracts.py",
+          "shop/customer_keys.py",
+          "shop/customer_store.py",
+          "shop/export_job.py",
+          "shop/inventory.py",
+          "shop/notifications.py",
+          "shop/orders.py",
+          "shop/pagination.py",
+          "shop/reconciliation.py",
+          "shop/refunds.py",
+          "shop/retry.py",
+          "shop/search_index.py",
+          "shop/segment_writer.py",
+          "shop/settings.py",
+          "shop/shipping.py",
+          "shop/shipping_config.py",
+          "shop/shipping_invoice.py",
+          "shop/stock.py",
+          "shop/time_format.py",
+          "shop/time_reader.py",
+          "shop/transport.py",
+          "shop/warehouse.py"
+        ],
+        "observed_unnecessary_files_inspected": [
+          "shop/catalog.py",
+          "shop/search_index.py"
+        ],
+        "duplicate_context_tokens_retransmitted": 0,
+        "duplicate_tokens_avoided": 0,
+        "recorded_mcp_result_json_bytes": 157745,
+        "operation_timings": [
+          {
+            "step": 8,
+            "tool": "conceptualize_map",
+            "timings_ms": {
+              "scoring": 7.823,
+              "context_compilation": 51.741,
+              "graph_traversal": 1.235,
+              "snapshot_and_graph": 35.919,
+              "graph_build": 25.294,
+              "cache": 219.744,
+              "database_trace_before_commit": 11.505,
+              "database_commit": 10.545,
+              "mcp_http_round_trip": 565.301
+            }
+          },
+          {
+            "step": 11,
+            "tool": "conceptualize_dependencies",
+            "timings_ms": {
+              "scoring": 0.357,
+              "context_compilation": 2.628,
+              "graph_traversal": 0.987,
+              "snapshot_and_graph": 17.019,
+              "graph_build": 14.033,
+              "cache": 206.103,
+              "database_trace_before_commit": 3.788,
+              "database_commit": 10.552,
+              "mcp_http_round_trip": 271.164
+            }
+          },
+          {
+            "step": 15,
+            "tool": "conceptualize_pack",
+            "timings_ms": {
+              "scoring": 1.025,
+              "context_compilation": 11.837,
+              "graph_traversal": 1.064,
+              "snapshot_and_graph": 16.241,
+              "graph_build": 12.901,
+              "cache": 207.538,
+              "database_trace_before_commit": 2.527,
+              "database_commit": 6.632,
+              "mcp_http_round_trip": 275.094
+            }
+          }
+        ],
+        "limits": "Before independently opening means before a supported observed explicit read. Structural map exposure is reported separately from source delivery."
+      },
+      "exploration": {
+        "observed_file_reads": 4,
+        "observed_repeated_reads": 0,
+        "observed_files_inspected": [
+          "shop/catalog.py",
+          "shop/search_index.py",
+          "shop/slugs.py",
+          "test_shop.py"
+        ],
+        "first_observed_read": {
+          "shop/catalog.py": 17,
+          "shop/search_index.py": 17,
+          "shop/slugs.py": 17,
+          "test_shop.py": 17
+        },
+        "read_evidence": [
+          {
+            "step": 17,
+            "path": "shop/catalog.py",
+            "evidence": "Get-Content shop/slugs.py,shop/catalog.py,shop/search_index.py,test_shop.py'",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 17,
+            "path": "shop/search_index.py",
+            "evidence": "Get-Content shop/slugs.py,shop/catalog.py,shop/search_index.py,test_shop.py'",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 17,
+            "path": "shop/slugs.py",
+            "evidence": "Get-Content shop/slugs.py,shop/catalog.py,shop/search_index.py,test_shop.py'",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 17,
+            "path": "test_shop.py",
+            "evidence": "Get-Content shop/slugs.py,shop/catalog.py,shop/search_index.py,test_shop.py'",
+            "confidence": "explicit successful read command; lower bound"
+          }
+        ],
+        "searches": 0,
+        "grep_operations": 0,
+        "directory_listings": 3,
+        "unresolved_read_commands": [
+          {
+            "step": 6,
+            "command": "Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/using-superpowers/SKILL.md'",
+            "reason": "unresolved literal/variable path"
+          },
+          {
+            "step": 13,
+            "command": "Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/test-driven-development/SKILL.md",
+            "reason": "unresolved literal/variable path"
+          },
+          {
+            "step": 13,
+            "command": "Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/verification-before-completion/SKILL.md'",
+            "reason": "unresolved literal/variable path"
+          },
+          {
+            "step": 17,
+            "command": "Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/test-driven-development/writing-good-tests.md",
+            "reason": "unresolved literal/variable path"
+          }
+        ],
+        "observed_failed_test_commands": [
+          {
+            "step": 22,
+            "command": "\"C://Users//isobu//.cache//codex-runtimes//codex-primary-runtime//dependencies//native//powershell//pwsh.exe\" -Command \"& 'C://Users//isobu//OneDrive//Desktop//Projects//Conceptualize//.venv//Scripts//python.exe' -m pytest -q\"",
+            "exit_code": 1
+          }
+        ],
+        "all_file_reads": null,
+        "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+      }
+    },
+    {
+      "task": "shipping",
+      "mode": "control",
+      "success": true,
+      "seconds": 81.289,
+      "observed_files": 6,
+      "relevant_surfaced": [],
+      "relevant_discovered": [
+        "shop/shipping.py",
+        "test_shop.py"
+      ],
+      "mcp_operations": 0,
+      "provider_disruptions": false,
+      "failure_signals": {
+        "account_usage_limit": false,
+        "provider_network_or_routing": false,
+        "required_conceptualize_mcp_startup_failed": false,
+        "agent_timeout": false,
+        "independent_checks_timeout": false
+      },
+      "unnecessary_observed": 4,
+      "repeated_reads": 0,
+      "context_tokens": 0,
+      "corrective_iterations": null,
+      "coverage": {
+        "relevant_files_proxy": [
+          "shop/shipping.py",
+          "test_shop.py"
+        ],
+        "relevance_basis": "Python source and test files modified in a run that passed independent checks. This is a post-hoc proxy, not perfect task ground truth.",
+        "relevant_file_recall_before_independent_read": null,
+        "relevant_file_recall_before_observed_read": 0.0,
+        "early_discovery": {},
+        "source_surfaced_without_observed_read": [],
+        "relevant_source_files_surfaced": [],
+        "relevant_files_surfaced": [],
+        "unnecessary_files_surfaced": [],
+        "observed_unnecessary_files_inspected": [
+          "shop/checkout.py",
+          "shop/contracts.py",
+          "shop/shipping_config.py",
+          "shop/shipping_invoice.py"
+        ],
+        "duplicate_context_tokens_retransmitted": 0,
+        "duplicate_tokens_avoided": 0,
+        "recorded_mcp_result_json_bytes": 0,
+        "operation_timings": [],
+        "limits": "Before independently opening means before a supported observed explicit read. Structural map exposure is reported separately from source delivery."
+      },
+      "exploration": {
+        "observed_file_reads": 6,
+        "observed_repeated_reads": 0,
+        "observed_files_inspected": [
+          "shop/checkout.py",
+          "shop/contracts.py",
+          "shop/shipping.py",
+          "shop/shipping_config.py",
+          "shop/shipping_invoice.py",
+          "test_shop.py"
+        ],
+        "first_observed_read": {
+          "shop/shipping.py": 8,
+          "shop/shipping_config.py": 8,
+          "shop/shipping_invoice.py": 8,
+          "test_shop.py": 8,
+          "shop/checkout.py": 11,
+          "shop/contracts.py": 11
+        },
+        "read_evidence": [
+          {
+            "step": 8,
+            "path": "shop/shipping.py",
+            "evidence": "Get-Content shop/shipping.py, shop/shipping_config.py, shop/shipping_invoice.py, test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 8,
+            "path": "shop/shipping_config.py",
+            "evidence": "Get-Content shop/shipping.py, shop/shipping_config.py, shop/shipping_invoice.py, test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 8,
+            "path": "shop/shipping_invoice.py",
+            "evidence": "Get-Content shop/shipping.py, shop/shipping_config.py, shop/shipping_invoice.py, test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 8,
+            "path": "test_shop.py",
+            "evidence": "Get-Content shop/shipping.py, shop/shipping_config.py, shop/shipping_invoice.py, test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 11,
+            "path": "shop/checkout.py",
+            "evidence": "Get-Content shop/contracts.py, shop/checkout.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 11,
+            "path": "shop/contracts.py",
+            "evidence": "Get-Content shop/contracts.py, shop/checkout.py",
+            "confidence": "explicit successful read command; lower bound"
+          }
+        ],
+        "searches": 1,
+        "grep_operations": 0,
+        "directory_listings": 3,
+        "unresolved_read_commands": [
+          {
+            "step": 11,
+            "command": "Get-Content -LiteralPath $taskFile }",
+            "reason": "unresolved literal/variable path"
+          }
+        ],
+        "observed_failed_test_commands": [
+          {
+            "step": 15,
+            "command": "\"C://Users//isobu//.cache//codex-runtimes//codex-primary-runtime//dependencies//native//powershell//pwsh.exe\" -Command \"& 'C://Users//isobu//OneDrive//Desktop//Projects//Conceptualize//.venv//Scripts//python.exe' -m pytest -q\"",
+            "exit_code": 1
+          }
+        ],
+        "all_file_reads": null,
+        "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+      }
+    },
+    {
+      "task": "shipping",
+      "mode": "conceptualize",
+      "success": false,
+      "seconds": 70.567,
+      "observed_files": 0,
+      "relevant_surfaced": null,
+      "relevant_discovered": [],
+      "mcp_operations": 3,
+      "provider_disruptions": false,
+      "failure_signals": {
+        "account_usage_limit": true,
+        "provider_network_or_routing": false,
+        "required_conceptualize_mcp_startup_failed": false,
+        "agent_timeout": false,
+        "independent_checks_timeout": false
+      },
+      "unnecessary_observed": null,
+      "repeated_reads": 0,
+      "context_tokens": 1289,
+      "corrective_iterations": null,
+      "coverage": {
+        "relevant_file_recall_before_observed_read": null,
+        "reason": "No successful outcome to establish relevant-change proxy"
+      },
+      "exploration": {
+        "observed_file_reads": 0,
+        "observed_repeated_reads": 0,
+        "observed_files_inspected": [],
+        "first_observed_read": {},
+        "read_evidence": [],
+        "searches": 0,
+        "grep_operations": 0,
+        "directory_listings": 1,
+        "unresolved_read_commands": [
+          {
+            "step": 17,
+            "command": "Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/test-driven-development/writing-good-tests.md",
+            "reason": "unresolved literal/variable path"
+          }
+        ],
+        "observed_failed_test_commands": [],
+        "all_file_reads": null,
+        "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+      }
+    }
+  ],
+  "aggregate": {
+    "control": {
+      "runs": 3,
+      "successes": 3,
+      "mean_seconds": 91.11133333333333,
+      "median_seconds": 85.701,
+      "provider_disrupted_runs": 0,
+      "observed_files_successful_runs": 11,
+      "observed_files_total": 11,
+      "observed_repeated_reads_total": 0,
+      "compiled_context_tokens_total": 0
+    },
+    "conceptualize": {
+      "runs": 3,
+      "successes": 2,
+      "mean_seconds": 112.11433333333333,
+      "median_seconds": 127.575,
+      "provider_disrupted_runs": 0,
+      "observed_files_successful_runs": 5,
+      "observed_files_total": 5,
+      "observed_repeated_reads_total": 0,
+      "compiled_context_tokens_total": 2913
+    }
+  },
+  "missing_tasks": [],
+  "successful_pairs_without_logged_provider_disruption": {
+    "task_ids": [
+      "times",
+      "slugs"
+    ],
+    "statistics": {
+      "control": {
+        "pairs": 2,
+        "mean_seconds": 96.0225,
+        "median_seconds": 96.0225,
+        "observed_files_total": 5
+      },
+      "conceptualize": {
+        "pairs": 2,
+        "mean_seconds": 132.888,
+        "median_seconds": 132.888,
+        "observed_files_total": 5
+      }
+    }
+  }
+}

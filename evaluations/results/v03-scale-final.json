@@ -1,0 +1,1590 @@
+{
+  "records": [
+    {
+      "size": 60,
+      "mode": "cold",
+      "rows": [
+        {
+          "target": "shop/contracts.py",
+          "modified_before_call": false,
+          "error": false,
+          "error_content": null,
+          "roundtrip_ms": 558.870000008028,
+          "response_bytes": 56010,
+          "startup_ms": 5022.2683000029065,
+          "metrics": {
+            "candidate_tokens": 4049,
+            "returned_tokens": 3048,
+            "token_budget": 4000,
+            "latency_ms": 390,
+            "cache_hit": false,
+            "full_selected_tokens": 3046,
+            "previously_supplied_tokens": 0,
+            "new_context_tokens": 3048,
+            "duplicate_tokens_avoided": 0,
+            "duplicate_tokens_retransmitted": 0,
+            "candidate_files": 33,
+            "returned_files": 33
+          },
+          "manifest": {
+            "target": "shop/contracts.py",
+            "files": 33,
+            "symbols": 33,
+            "tests": 0,
+            "direct_consumers": 32,
+            "estimated_full_context_tokens": 1581,
+            "recommended_structural_tokens": 553,
+            "potential_source_tokens": 1028,
+            "already_known_files": 0,
+            "estimate_scope": "Full file source plus compact signatures; not a relevance probability. Framing may differ."
+          },
+          "invalidated_ids": 0,
+          "overhead": {
+            "transport_ms": 81.205,
+            "index_lookup_ms": 62.644,
+            "graph_ms": 9.416,
+            "git_ms": 0.071,
+            "scoring_ms": 3.795,
+            "packing_ms": 75.544,
+            "cache_ms": 226.873,
+            "trace_write_ms": 17.079,
+            "total_runtime_ms": 407.659,
+            "transport_scope": "HTTP/client residual; includes serialization, not pure network or stdio startup"
+          }
+        },
+        {
+          "target": "shop/checkout.py",
+          "modified_before_call": false,
+          "error": false,
+          "error_content": null,
+          "roundtrip_ms": 133.87710001552477,
+          "response_bytes": 10055,
+          "startup_ms": 2284.9969000089914,
+          "metrics": {
+            "candidate_tokens": 589,
+            "returned_tokens": 591,
+            "token_budget": 4000,
+            "latency_ms": 62,
+            "cache_hit": false,
+            "full_selected_tokens": 589,
+            "previously_supplied_tokens": 0,
+            "new_context_tokens": 591,
+            "duplicate_tokens_avoided": 0,
+            "duplicate_tokens_retransmitted": 0,
+            "candidate_files": 4,
+            "returned_files": 4
+          },
+          "manifest": {
+            "target": "shop/checkout.py",
+            "files": 4,
+            "symbols": 7,
+            "tests": 1,
+            "direct_consumers": 1,
+            "estimated_full_context_tokens": 324,
+            "recommended_structural_tokens": 69,
+            "potential_source_tokens": 255,
+            "already_known_files": 0,
+            "estimate_scope": "Full file source plus compact signatures; not a relevance probability. Framing may differ."
+          },
+          "invalidated_ids": 0,
+          "overhead": {
+            "transport_ms": 25.482,
+            "index_lookup_ms": 43.478,
+            "graph_ms": 9.099,
+            "git_ms": 0.065,
+            "scoring_ms": 1.263,
+            "packing_ms": 5.55,
+            "cache_ms": 0.011,
+            "trace_write_ms": 6.495,
+            "total_runtime_ms": 69.155,
+            "transport_scope": "HTTP/client residual; includes serialization, not pure network or stdio startup"
+          }
+        },
+        {
+          "target": "shop/contracts.py",
+          "modified_before_call": false,
+          "error": false,
+          "error_content": null,
+          "roundtrip_ms": 459.8435999942012,
+          "response_bytes": 56008,
+          "startup_ms": 2577.281000005314,
+          "metrics": {
+            "candidate_tokens": 4049,
+            "returned_tokens": 3048,
+            "token_budget": 4000,
+            "latency_ms": 338,
+            "cache_hit": false,
+            "full_selected_tokens": 3046,
+            "previously_supplied_tokens": 0,
+            "new_context_tokens": 3048,
+            "duplicate_tokens_avoided": 0,
+            "duplicate_tokens_retransmitted": 0,
+            "candidate_files": 33,
+            "returned_files": 33
+          },
+          "manifest": {
+            "target": "shop/contracts.py",
+            "files": 33,
+            "symbols": 33,
+            "tests": 0,
+            "direct_consumers": 32,
+            "estimated_full_context_tokens": 1581,
+            "recommended_structural_tokens": 553,
+            "potential_source_tokens": 1028,
+            "already_known_files": 0,
+            "estimate_scope": "Full file source plus compact signatures; not a relevance probability. Framing may differ."
+          },
+          "invalidated_ids": 0,
+          "overhead": {
+            "transport_ms": 50.947,
+            "index_lookup_ms": 45.205,
+            "graph_ms": 8.922,
+            "git_ms": 0.079,
+            "scoring_ms": 3.072,
+            "packing_ms": 70.557,
+            "cache_ms": 204.396,
+            "trace_write_ms": 8.038,
+            "total_runtime_ms": 346.362,
+            "transport_scope": "HTTP/client residual; includes serialization, not pure network or stdio startup"
+          }
+        },
+        {
+          "target": "shop/contracts.py",
+          "modified_before_call": true,
+          "error": false,
+          "error_content": null,
+          "roundtrip_ms": 1176.7622999905143,
+          "response_bytes": 56067,
+          "startup_ms": 3745.8345999766607,
+          "metrics": {
+            "candidate_tokens": 4054,
+            "returned_tokens": 3053,
+            "token_budget": 4000,
+            "latency_ms": 1085,
+            "cache_hit": false,
+            "full_selected_tokens": 3051,
+            "previously_supplied_tokens": 0,
+            "new_context_tokens": 3053,
+            "duplicate_tokens_avoided": 0,
+            "duplicate_tokens_retransmitted": 0,
+            "candidate_files": 33,
+            "returned_files": 33
+          },
+          "manifest": {
+            "target": "shop/contracts.py",
+            "files": 33,
+            "symbols": 33,
+            "tests": 0,
+            "direct_consumers": 32,
+            "estimated_full_context_tokens": 1586,
+            "recommended_structural_tokens": 553,
+            "potential_source_tokens": 1033,
+            "already_known_files": 0,
+            "estimate_scope": "Full file source plus compact signatures; not a relevance probability. Framing may differ."
+          },
+          "invalidated_ids": 0,
+          "overhead": {
+            "transport_ms": 26.971,
+            "index_lookup_ms": 47.472,
+            "graph_ms": 7.827,
+            "git_ms": 733.342,
+            "scoring_ms": 3.7279999999999998,
+            "packing_ms": 71.328,
+            "cache_ms": 215.601,
+            "trace_write_ms": 9.165,
+            "total_runtime_ms": 1094.263,
+            "transport_scope": "HTTP/client residual; includes serialization, not pure network or stdio startup"
+          }
+        }
+      ],
+      "stages": {
+        "transport_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 26.971,
+          "p95": 81.205
+        },
+        "index_lookup_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 45.205,
+          "p95": 62.644
+        },
+        "graph_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 8.922,
+          "p95": 9.416
+        },
+        "git_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 0.071,
+          "p95": 733.342
+        },
+        "scoring_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 3.072,
+          "p95": 3.795
+        },
+        "packing_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 70.557,
+          "p95": 75.544
+        },
+        "cache_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 204.396,
+          "p95": 226.873
+        },
+        "trace_write_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 8.038,
+          "p95": 17.079
+        },
+        "total_runtime_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 346.362,
+          "p95": 1094.263
+        }
+      }
+    },
+    {
+      "size": 60,
+      "mode": "warm",
+      "rows": [
+        {
+          "target": "shop/contracts.py",
+          "modified_before_call": false,
+          "error": false,
+          "error_content": null,
+          "roundtrip_ms": 241.684400010854,
+          "response_bytes": 56003,
+          "startup_ms": 2362.4821999983396,
+          "metrics": {
+            "candidate_tokens": 4049,
+            "returned_tokens": 3048,
+            "token_budget": 4000,
+            "latency_ms": 135,
+            "cache_hit": false,
+            "full_selected_tokens": 3046,
+            "previously_supplied_tokens": 0,
+            "new_context_tokens": 3048,
+            "duplicate_tokens_avoided": 0,
+            "duplicate_tokens_retransmitted": 0,
+            "candidate_files": 33,
+            "returned_files": 33
+          },
+          "manifest": {
+            "target": "shop/contracts.py",
+            "files": 33,
+            "symbols": 33,
+            "tests": 0,
+            "direct_consumers": 32,
+            "estimated_full_context_tokens": 1581,
+            "recommended_structural_tokens": 553,
+            "potential_source_tokens": 1028,
+            "already_known_files": 0,
+            "estimate_scope": "Full file source plus compact signatures; not a relevance probability. Framing may differ."
+          },
+          "invalidated_ids": 0,
+          "overhead": {
+            "transport_ms": 24.346,
+            "index_lookup_ms": 41.83,
+            "graph_ms": 8.461,
+            "git_ms": 0.079,
+            "scoring_ms": 3.854,
+            "packing_ms": 74.805,
+            "cache_ms": 0.011,
+            "trace_write_ms": 20.349,
+            "total_runtime_ms": 155.399,
+            "transport_scope": "HTTP/client residual; includes serialization, not pure network or stdio startup"
+          }
+        },
+        {
+          "target": "shop/checkout.py",
+          "modified_before_call": false,
+          "error": false,
+          "error_content": null,
+          "roundtrip_ms": 134.8543000058271,
+          "response_bytes": 10042,
+          "startup_ms": null,
+          "metrics": {
+            "candidate_tokens": 589,
+            "returned_tokens": 498,
+            "token_budget": 4000,
+            "latency_ms": 62,
+            "cache_hit": false,
+            "full_selected_tokens": 589,
+            "previously_supplied_tokens": 91,
+            "new_context_tokens": 498,
+            "duplicate_tokens_avoided": 91,
+            "duplicate_tokens_retransmitted": 0,
+            "candidate_files": 4,
+            "returned_files": 4
+          },
+          "manifest": {
+            "target": "shop/checkout.py",
+            "files": 4,
+            "symbols": 7,
+            "tests": 1,
+            "direct_consumers": 1,
+            "estimated_full_context_tokens": 324,
+            "recommended_structural_tokens": 69,
+            "potential_source_tokens": 255,
+            "already_known_files": 2,
+            "estimate_scope": "Full file source plus compact signatures; not a relevance probability. Framing may differ."
+          },
+          "invalidated_ids": 0,
+          "overhead": {
+            "transport_ms": 17.011,
+            "index_lookup_ms": 43.24,
+            "graph_ms": 6.42,
+            "git_ms": 0.133,
+            "scoring_ms": 1.252,
+            "packing_ms": 6.085,
+            "cache_ms": 0.009,
+            "trace_write_ms": 8.706,
+            "total_runtime_ms": 70.775,
+            "transport_scope": "HTTP/client residual; includes serialization, not pure network or stdio startup"
+          }
+        },
+        {
+          "target": "shop/contracts.py",
+          "modified_before_call": false,
+          "error": false,
+          "error_content": null,
+          "roundtrip_ms": 189.1200999962166,
+          "response_bytes": 58189,
+          "startup_ms": null,
+          "metrics": {
+            "candidate_tokens": 4049,
+            "returned_tokens": 1001,
+            "token_budget": 4000,
+            "latency_ms": 94,
+            "cache_hit": false,
+            "full_selected_tokens": 4049,
+            "previously_supplied_tokens": 2984,
+            "new_context_tokens": 1001,
+            "duplicate_tokens_avoided": 2984,
+            "duplicate_tokens_retransmitted": 0,
+            "candidate_files": 33,
+            "returned_files": 17
+          },
+          "manifest": {
+            "target": "shop/contracts.py",
+            "files": 33,
+            "symbols": 33,
+            "tests": 0,
+            "direct_consumers": 32,
+            "estimated_full_context_tokens": 1581,
+            "recommended_structural_tokens": 553,
+            "potential_source_tokens": 1028,
+            "already_known_files": 33,
+            "estimate_scope": "Full file source plus compact signatures; not a relevance probability. Framing may differ."
+          },
+          "invalidated_ids": 0,
+          "overhead": {
+            "transport_ms": 18.956,
+            "index_lookup_ms": 43.142,
+            "graph_ms": 8.568,
+            "git_ms": 0.086,
+            "scoring_ms": 5.073,
+            "packing_ms": 30.735,
+            "cache_ms": 0.008,
+            "trace_write_ms": 10.931000000000001,
+            "total_runtime_ms": 104.932,
+            "transport_scope": "HTTP/client residual; includes serialization, not pure network or stdio startup"
+          }
+        },
+        {
+          "target": "shop/contracts.py",
+          "modified_before_call": true,
+          "error": false,
+          "error_content": null,
+          "roundtrip_ms": 1175.645599985728,
+          "response_bytes": 66937,
+          "startup_ms": null,
+          "metrics": {
+            "candidate_tokens": 4054,
+            "returned_tokens": 1995,
+            "token_budget": 4000,
+            "latency_ms": 1049,
+            "cache_hit": false,
+            "full_selected_tokens": 3051,
+            "previously_supplied_tokens": 1026,
+            "new_context_tokens": 1995,
+            "duplicate_tokens_avoided": 1026,
+            "duplicate_tokens_retransmitted": 0,
+            "candidate_files": 33,
+            "returned_files": 16
+          },
+          "manifest": {
+            "target": "shop/contracts.py",
+            "files": 33,
+            "symbols": 33,
+            "tests": 0,
+            "direct_consumers": 32,
+            "estimated_full_context_tokens": 1586,
+            "recommended_structural_tokens": 553,
+            "potential_source_tokens": 1033,
+            "already_known_files": 32,
+            "estimate_scope": "Full file source plus compact signatures; not a relevance probability. Framing may differ."
+          },
+          "invalidated_ids": 39,
+          "overhead": {
+            "transport_ms": 25.907,
+            "index_lookup_ms": 47.379,
+            "graph_ms": 10.775,
+            "git_ms": 697.258,
+            "scoring_ms": 4.7010000000000005,
+            "packing_ms": 65.266,
+            "cache_ms": 212.895,
+            "trace_write_ms": 28.767,
+            "total_runtime_ms": 1078.474,
+            "transport_scope": "HTTP/client residual; includes serialization, not pure network or stdio startup"
+          }
+        }
+      ],
+      "stages": {
+        "transport_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 18.956,
+          "p95": 25.907
+        },
+        "index_lookup_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 43.142,
+          "p95": 47.379
+        },
+        "graph_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 8.461,
+          "p95": 10.775
+        },
+        "git_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 0.086,
+          "p95": 697.258
+        },
+        "scoring_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 3.854,
+          "p95": 5.073
+        },
+        "packing_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 30.735,
+          "p95": 74.805
+        },
+        "cache_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 0.009,
+          "p95": 212.895
+        },
+        "trace_write_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 10.931000000000001,
+          "p95": 28.767
+        },
+        "total_runtime_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 104.932,
+          "p95": 1078.474
+        }
+      }
+    },
+    {
+      "size": 400,
+      "mode": "cold",
+      "rows": [
+        {
+          "target": "shop/contracts.py",
+          "modified_before_call": false,
+          "error": false,
+          "error_content": null,
+          "roundtrip_ms": 1779.8127999994904,
+          "response_bytes": 109236,
+          "startup_ms": 2739.527400000952,
+          "metrics": {
+            "candidate_tokens": 46209,
+            "returned_tokens": 4000,
+            "token_budget": 4000,
+            "latency_ms": 1635,
+            "cache_hit": false,
+            "full_selected_tokens": 3998,
+            "previously_supplied_tokens": 0,
+            "new_context_tokens": 4000,
+            "duplicate_tokens_avoided": 0,
+            "duplicate_tokens_retransmitted": 0,
+            "candidate_files": 373,
+            "returned_files": 63
+          },
+          "manifest": {
+            "target": "shop/contracts.py",
+            "files": 373,
+            "symbols": 373,
+            "tests": 0,
+            "direct_consumers": 372,
+            "estimated_full_context_tokens": 17561,
+            "recommended_structural_tokens": 6333,
+            "potential_source_tokens": 11228,
+            "already_known_files": 0,
+            "estimate_scope": "Full file source plus compact signatures; not a relevance probability. Framing may differ."
+          },
+          "invalidated_ids": 0,
+          "overhead": {
+            "transport_ms": 46.25,
+            "index_lookup_ms": 263.283,
+            "graph_ms": 82.16,
+            "git_ms": 0.341,
+            "scoring_ms": 36.316,
+            "packing_ms": 1006.093,
+            "cache_ms": 210.921,
+            "trace_write_ms": 22.8,
+            "total_runtime_ms": 1658.307,
+            "transport_scope": "HTTP/client residual; includes serialization, not pure network or stdio startup"
+          }
+        },
+        {
+          "target": "shop/checkout.py",
+          "modified_before_call": false,
+          "error": false,
+          "error_content": null,
+          "roundtrip_ms": 1085.9101999958511,
+          "response_bytes": 10071,
+          "startup_ms": 2159385.5586000136,
+          "metrics": {
+            "candidate_tokens": 589,
+            "returned_tokens": 591,
+            "token_budget": 4000,
+            "latency_ms": 939,
+            "cache_hit": false,
+            "full_selected_tokens": 589,
+            "previously_supplied_tokens": 0,
+            "new_context_tokens": 591,
+            "duplicate_tokens_avoided": 0,
+            "duplicate_tokens_retransmitted": 0,
+            "candidate_files": 4,
+            "returned_files": 4
+          },
+          "manifest": {
+            "target": "shop/checkout.py",
+            "files": 4,
+            "symbols": 7,
+            "tests": 1,
+            "direct_consumers": 1,
+            "estimated_full_context_tokens": 324,
+            "recommended_structural_tokens": 69,
+            "potential_source_tokens": 255,
+            "already_known_files": 0,
+            "estimate_scope": "Full file source plus compact signatures; not a relevance probability. Framing may differ."
+          },
+          "invalidated_ids": 0,
+          "overhead": {
+            "transport_ms": 47.844,
+            "index_lookup_ms": 650.305,
+            "graph_ms": 61.123,
+            "git_ms": 0.758,
+            "scoring_ms": 8.045,
+            "packing_ms": 6.642,
+            "cache_ms": 207.253,
+            "trace_write_ms": 12.259,
+            "total_runtime_ms": 951.922,
+            "transport_scope": "HTTP/client residual; includes serialization, not pure network or stdio startup"
+          }
+        },
+        {
+          "target": "shop/contracts.py",
+          "modified_before_call": false,
+          "error": false,
+          "error_content": null,
+          "roundtrip_ms": 2660.366600000998,
+          "response_bytes": 109240,
+          "startup_ms": 5018.311899999389,
+          "metrics": {
+            "candidate_tokens": 46209,
+            "returned_tokens": 4000,
+            "token_budget": 4000,
+            "latency_ms": 2422,
+            "cache_hit": false,
+            "full_selected_tokens": 3998,
+            "previously_supplied_tokens": 0,
+            "new_context_tokens": 4000,
+            "duplicate_tokens_avoided": 0,
+            "duplicate_tokens_retransmitted": 0,
+            "candidate_files": 373,
+            "returned_files": 63
+          },
+          "manifest": {
+            "target": "shop/contracts.py",
+            "files": 373,
+            "symbols": 373,
+            "tests": 0,
+            "direct_consumers": 372,
+            "estimated_full_context_tokens": 17561,
+            "recommended_structural_tokens": 6333,
+            "potential_source_tokens": 11228,
+            "already_known_files": 0,
+            "estimate_scope": "Full file source plus compact signatures; not a relevance probability. Framing may differ."
+          },
+          "invalidated_ids": 0,
+          "overhead": {
+            "transport_ms": 61.87,
+            "index_lookup_ms": 355.61,
+            "graph_ms": 89.566,
+            "git_ms": 0.413,
+            "scoring_ms": 47.877,
+            "packing_ms": 1654.118,
+            "cache_ms": 213.921,
+            "trace_write_ms": 26.301,
+            "total_runtime_ms": 2448.042,
+            "transport_scope": "HTTP/client residual; includes serialization, not pure network or stdio startup"
+          }
+        },
+        {
+          "target": "shop/contracts.py",
+          "modified_before_call": true,
+          "error": false,
+          "error_content": null,
+          "roundtrip_ms": 3183.5528000083286,
+          "response_bytes": 108333,
+          "startup_ms": 3633.116900018649,
+          "metrics": {
+            "candidate_tokens": 46214,
+            "returned_tokens": 3973,
+            "token_budget": 4000,
+            "latency_ms": 2998,
+            "cache_hit": false,
+            "full_selected_tokens": 3971,
+            "previously_supplied_tokens": 0,
+            "new_context_tokens": 3973,
+            "duplicate_tokens_avoided": 0,
+            "duplicate_tokens_retransmitted": 0,
+            "candidate_files": 373,
+            "returned_files": 62
+          },
+          "manifest": {
+            "target": "shop/contracts.py",
+            "files": 373,
+            "symbols": 373,
+            "tests": 0,
+            "direct_consumers": 372,
+            "estimated_full_context_tokens": 17566,
+            "recommended_structural_tokens": 6333,
+            "potential_source_tokens": 11233,
+            "already_known_files": 0,
+            "estimate_scope": "Full file source plus compact signatures; not a relevance probability. Framing may differ."
+          },
+          "invalidated_ids": 0,
+          "overhead": {
+            "transport_ms": 59.267,
+            "index_lookup_ms": 297.309,
+            "graph_ms": 64.67,
+            "git_ms": 1193.305,
+            "scoring_ms": 32.034,
+            "packing_ms": 1170.32,
+            "cache_ms": 206.873,
+            "trace_write_ms": 22.026,
+            "total_runtime_ms": 3020.038,
+            "transport_scope": "HTTP/client residual; includes serialization, not pure network or stdio startup"
+          }
+        }
+      ],
+      "stages": {
+        "transport_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 47.844,
+          "p95": 61.87
+        },
+        "index_lookup_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 297.309,
+          "p95": 650.305
+        },
+        "graph_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 64.67,
+          "p95": 89.566
+        },
+        "git_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 0.413,
+          "p95": 1193.305
+        },
+        "scoring_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 32.034,
+          "p95": 47.877
+        },
+        "packing_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 1006.093,
+          "p95": 1654.118
+        },
+        "cache_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 207.253,
+          "p95": 213.921
+        },
+        "trace_write_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 22.026,
+          "p95": 26.301
+        },
+        "total_runtime_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 1658.307,
+          "p95": 3020.038
+        }
+      }
+    },
+    {
+      "size": 400,
+      "mode": "warm",
+      "rows": [
+        {
+          "target": "shop/contracts.py",
+          "modified_before_call": false,
+          "error": false,
+          "error_content": null,
+          "roundtrip_ms": 2500.4323000030126,
+          "response_bytes": 109267,
+          "startup_ms": 2941.375499998685,
+          "metrics": {
+            "candidate_tokens": 46209,
+            "returned_tokens": 4000,
+            "token_budget": 4000,
+            "latency_ms": 2323,
+            "cache_hit": false,
+            "full_selected_tokens": 3998,
+            "previously_supplied_tokens": 0,
+            "new_context_tokens": 4000,
+            "duplicate_tokens_avoided": 0,
+            "duplicate_tokens_retransmitted": 0,
+            "candidate_files": 373,
+            "returned_files": 63
+          },
+          "manifest": {
+            "target": "shop/contracts.py",
+            "files": 373,
+            "symbols": 373,
+            "tests": 0,
+            "direct_consumers": 372,
+            "estimated_full_context_tokens": 17561,
+            "recommended_structural_tokens": 6333,
+            "potential_source_tokens": 11228,
+            "already_known_files": 0,
+            "estimate_scope": "Full file source plus compact signatures; not a relevance probability. Framing may differ."
+          },
+          "invalidated_ids": 0,
+          "overhead": {
+            "transport_ms": 53.564,
+            "index_lookup_ms": 218.894,
+            "graph_ms": 109.993,
+            "git_ms": 0.387,
+            "scoring_ms": 63.129999999999995,
+            "packing_ms": 1680.368,
+            "cache_ms": 208.112,
+            "trace_write_ms": 22.069,
+            "total_runtime_ms": 2345.219,
+            "transport_scope": "HTTP/client residual; includes serialization, not pure network or stdio startup"
+          }
+        },
+        {
+          "target": "shop/checkout.py",
+          "modified_before_call": false,
+          "error": false,
+          "error_content": null,
+          "roundtrip_ms": 344.0372000040952,
+          "response_bytes": 10049,
+          "startup_ms": null,
+          "metrics": {
+            "candidate_tokens": 589,
+            "returned_tokens": 498,
+            "token_budget": 4000,
+            "latency_ms": 271,
+            "cache_hit": false,
+            "full_selected_tokens": 589,
+            "previously_supplied_tokens": 91,
+            "new_context_tokens": 498,
+            "duplicate_tokens_avoided": 91,
+            "duplicate_tokens_retransmitted": 0,
+            "candidate_files": 4,
+            "returned_files": 4
+          },
+          "manifest": {
+            "target": "shop/checkout.py",
+            "files": 4,
+            "symbols": 7,
+            "tests": 1,
+            "direct_consumers": 1,
+            "estimated_full_context_tokens": 324,
+            "recommended_structural_tokens": 69,
+            "potential_source_tokens": 255,
+            "already_known_files": 2,
+            "estimate_scope": "Full file source plus compact signatures; not a relevance probability. Framing may differ."
+          },
+          "invalidated_ids": 0,
+          "overhead": {
+            "transport_ms": 17.981,
+            "index_lookup_ms": 197.158,
+            "graph_ms": 50.109,
+            "git_ms": 0.331,
+            "scoring_ms": 6.909,
+            "packing_ms": 9.594,
+            "cache_ms": 0.01,
+            "trace_write_ms": 10.324,
+            "total_runtime_ms": 281.173,
+            "transport_scope": "HTTP/client residual; includes serialization, not pure network or stdio startup"
+          }
+        },
+        {
+          "target": "shop/contracts.py",
+          "modified_before_call": false,
+          "error": false,
+          "error_content": null,
+          "roundtrip_ms": 1668.3161999972071,
+          "response_bytes": 180587,
+          "startup_ms": null,
+          "metrics": {
+            "candidate_tokens": 46209,
+            "returned_tokens": 3994,
+            "token_budget": 4000,
+            "latency_ms": 1486,
+            "cache_hit": false,
+            "full_selected_tokens": 7993,
+            "previously_supplied_tokens": 3872,
+            "new_context_tokens": 3994,
+            "duplicate_tokens_avoided": 3872,
+            "duplicate_tokens_retransmitted": 0,
+            "candidate_files": 373,
+            "returned_files": 93
+          },
+          "manifest": {
+            "target": "shop/contracts.py",
+            "files": 373,
+            "symbols": 373,
+            "tests": 0,
+            "direct_consumers": 372,
+            "estimated_full_context_tokens": 17561,
+            "recommended_structural_tokens": 6333,
+            "potential_source_tokens": 11228,
+            "already_known_files": 63,
+            "estimate_scope": "Full file source plus compact signatures; not a relevance probability. Framing may differ."
+          },
+          "invalidated_ids": 0,
+          "overhead": {
+            "transport_ms": 34.928,
+            "index_lookup_ms": 212.947,
+            "graph_ms": 75.601,
+            "git_ms": 0.428,
+            "scoring_ms": 42.285,
+            "packing_ms": 1119.208,
+            "cache_ms": 0.014,
+            "trace_write_ms": 25.003,
+            "total_runtime_ms": 1511.476,
+            "transport_scope": "HTTP/client residual; includes serialization, not pure network or stdio startup"
+          }
+        },
+        {
+          "target": "shop/contracts.py",
+          "modified_before_call": true,
+          "error": false,
+          "error_content": null,
+          "roundtrip_ms": 3499.9517000105698,
+          "response_bytes": 249120,
+          "startup_ms": null,
+          "metrics": {
+            "candidate_tokens": 46214,
+            "returned_tokens": 3971,
+            "token_budget": 4000,
+            "latency_ms": 2745,
+            "cache_hit": false,
+            "full_selected_tokens": 8035,
+            "previously_supplied_tokens": 3940,
+            "new_context_tokens": 3971,
+            "duplicate_tokens_avoided": 3940,
+            "duplicate_tokens_retransmitted": 0,
+            "candidate_files": 373,
+            "returned_files": 96
+          },
+          "manifest": {
+            "target": "shop/contracts.py",
+            "files": 373,
+            "symbols": 373,
+            "tests": 0,
+            "direct_consumers": 372,
+            "estimated_full_context_tokens": 17566,
+            "recommended_structural_tokens": 6333,
+            "potential_source_tokens": 11233,
+            "already_known_files": 126,
+            "estimate_scope": "Full file source plus compact signatures; not a relevance probability. Framing may differ."
+          },
+          "invalidated_ids": 72,
+          "overhead": {
+            "transport_ms": 353.191,
+            "index_lookup_ms": 207.577,
+            "graph_ms": 130.227,
+            "git_ms": 878.704,
+            "scoring_ms": 59.038,
+            "packing_ms": 1125.823,
+            "cache_ms": 201.312,
+            "trace_write_ms": 208.902,
+            "total_runtime_ms": 2954.035,
+            "transport_scope": "HTTP/client residual; includes serialization, not pure network or stdio startup"
+          }
+        }
+      ],
+      "stages": {
+        "transport_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 34.928,
+          "p95": 353.191
+        },
+        "index_lookup_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 207.577,
+          "p95": 218.894
+        },
+        "graph_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 75.601,
+          "p95": 130.227
+        },
+        "git_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 0.387,
+          "p95": 878.704
+        },
+        "scoring_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 42.285,
+          "p95": 63.129999999999995
+        },
+        "packing_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 1119.208,
+          "p95": 1680.368
+        },
+        "cache_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 0.014,
+          "p95": 208.112
+        },
+        "trace_write_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 22.069,
+          "p95": 208.902
+        },
+        "total_runtime_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 1511.476,
+          "p95": 2954.035
+        }
+      }
+    },
+    {
+      "size": 2000,
+      "mode": "cold",
+      "rows": [
+        {
+          "target": "shop/contracts.py",
+          "modified_before_call": false,
+          "error": false,
+          "error_content": null,
+          "roundtrip_ms": 8700.251800008118,
+          "response_bytes": 214857,
+          "startup_ms": 4299.750700010918,
+          "metrics": {
+            "candidate_tokens": 244609,
+            "returned_tokens": 4000,
+            "token_budget": 4000,
+            "latency_ms": 8306,
+            "cache_hit": false,
+            "full_selected_tokens": 3998,
+            "previously_supplied_tokens": 0,
+            "new_context_tokens": 4000,
+            "duplicate_tokens_avoided": 0,
+            "duplicate_tokens_retransmitted": 0,
+            "candidate_files": 1973,
+            "returned_files": 63
+          },
+          "manifest": {
+            "target": "shop/contracts.py",
+            "files": 1973,
+            "symbols": 1973,
+            "tests": 0,
+            "direct_consumers": 1972,
+            "estimated_full_context_tokens": 92761,
+            "recommended_structural_tokens": 33533,
+            "potential_source_tokens": 59228,
+            "already_known_files": 0,
+            "estimate_scope": "Full file source plus compact signatures; not a relevance probability. Framing may differ."
+          },
+          "invalidated_ids": 0,
+          "overhead": {
+            "transport_ms": 141.99,
+            "index_lookup_ms": 996.978,
+            "graph_ms": 701.313,
+            "git_ms": 1.387,
+            "scoring_ms": 189.131,
+            "packing_ms": 5705.121,
+            "cache_ms": 440.526,
+            "trace_write_ms": 87.604,
+            "total_runtime_ms": 8394.217,
+            "transport_scope": "HTTP/client residual; includes serialization, not pure network or stdio startup"
+          }
+        },
+        {
+          "target": "shop/checkout.py",
+          "modified_before_call": false,
+          "error": false,
+          "error_content": null,
+          "roundtrip_ms": 1387.7784000069369,
+          "response_bytes": 10069,
+          "startup_ms": 2356.238600012148,
+          "metrics": {
+            "candidate_tokens": 589,
+            "returned_tokens": 591,
+            "token_budget": 4000,
+            "latency_ms": 1297,
+            "cache_hit": false,
+            "full_selected_tokens": 589,
+            "previously_supplied_tokens": 0,
+            "new_context_tokens": 591,
+            "duplicate_tokens_avoided": 0,
+            "duplicate_tokens_retransmitted": 0,
+            "candidate_files": 4,
+            "returned_files": 4
+          },
+          "manifest": {
+            "target": "shop/checkout.py",
+            "files": 4,
+            "symbols": 7,
+            "tests": 1,
+            "direct_consumers": 1,
+            "estimated_full_context_tokens": 324,
+            "recommended_structural_tokens": 69,
+            "potential_source_tokens": 255,
+            "already_known_files": 0,
+            "estimate_scope": "Full file source plus compact signatures; not a relevance probability. Framing may differ."
+          },
+          "invalidated_ids": 0,
+          "overhead": {
+            "transport_ms": 37.733,
+            "index_lookup_ms": 922.506,
+            "graph_ms": 332.71,
+            "git_ms": 1.553,
+            "scoring_ms": 29.74,
+            "packing_ms": 5.802,
+            "cache_ms": 0.009,
+            "trace_write_ms": 8.28,
+            "total_runtime_ms": 1305.038,
+            "transport_scope": "HTTP/client residual; includes serialization, not pure network or stdio startup"
+          }
+        },
+        {
+          "target": "shop/contracts.py",
+          "modified_before_call": false,
+          "error": false,
+          "error_content": null,
+          "roundtrip_ms": 7233.84519998217,
+          "response_bytes": 214891,
+          "startup_ms": 2534.602300002007,
+          "metrics": {
+            "candidate_tokens": 244609,
+            "returned_tokens": 4000,
+            "token_budget": 4000,
+            "latency_ms": 6949,
+            "cache_hit": false,
+            "full_selected_tokens": 3998,
+            "previously_supplied_tokens": 0,
+            "new_context_tokens": 4000,
+            "duplicate_tokens_avoided": 0,
+            "duplicate_tokens_retransmitted": 0,
+            "candidate_files": 1973,
+            "returned_files": 63
+          },
+          "manifest": {
+            "target": "shop/contracts.py",
+            "files": 1973,
+            "symbols": 1973,
+            "tests": 0,
+            "direct_consumers": 1972,
+            "estimated_full_context_tokens": 92761,
+            "recommended_structural_tokens": 33533,
+            "potential_source_tokens": 59228,
+            "already_known_files": 0,
+            "estimate_scope": "Full file source plus compact signatures; not a relevance probability. Framing may differ."
+          },
+          "invalidated_ids": 0,
+          "overhead": {
+            "transport_ms": 113.098,
+            "index_lookup_ms": 1033.957,
+            "graph_ms": 680.75,
+            "git_ms": 1.582,
+            "scoring_ms": 257.53700000000003,
+            "packing_ms": 4412.965,
+            "cache_ms": 438.118,
+            "trace_write_ms": 47.376000000000005,
+            "total_runtime_ms": 6996.377,
+            "transport_scope": "HTTP/client residual; includes serialization, not pure network or stdio startup"
+          }
+        },
+        {
+          "target": "shop/contracts.py",
+          "modified_before_call": true,
+          "error": false,
+          "error_content": null,
+          "roundtrip_ms": 9063.286099990364,
+          "response_bytes": 213950,
+          "startup_ms": 2629.003999987617,
+          "metrics": {
+            "candidate_tokens": 244614,
+            "returned_tokens": 3973,
+            "token_budget": 4000,
+            "latency_ms": 8771,
+            "cache_hit": false,
+            "full_selected_tokens": 3971,
+            "previously_supplied_tokens": 0,
+            "new_context_tokens": 3973,
+            "duplicate_tokens_avoided": 0,
+            "duplicate_tokens_retransmitted": 0,
+            "candidate_files": 1973,
+            "returned_files": 62
+          },
+          "manifest": {
+            "target": "shop/contracts.py",
+            "files": 1973,
+            "symbols": 1973,
+            "tests": 0,
+            "direct_consumers": 1972,
+            "estimated_full_context_tokens": 92766,
+            "recommended_structural_tokens": 33533,
+            "potential_source_tokens": 59233,
+            "already_known_files": 0,
+            "estimate_scope": "Full file source plus compact signatures; not a relevance probability. Framing may differ."
+          },
+          "invalidated_ids": 0,
+          "overhead": {
+            "transport_ms": 104.465,
+            "index_lookup_ms": 1007.643,
+            "graph_ms": 629.744,
+            "git_ms": 841.506,
+            "scoring_ms": 288.52,
+            "packing_ms": 5629.897,
+            "cache_ms": 236.843,
+            "trace_write_ms": 56.918,
+            "total_runtime_ms": 8827.871,
+            "transport_scope": "HTTP/client residual; includes serialization, not pure network or stdio startup"
+          }
+        }
+      ],
+      "stages": {
+        "transport_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 104.465,
+          "p95": 141.99
+        },
+        "index_lookup_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 996.978,
+          "p95": 1033.957
+        },
+        "graph_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 629.744,
+          "p95": 701.313
+        },
+        "git_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 1.553,
+          "p95": 841.506
+        },
+        "scoring_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 189.131,
+          "p95": 288.52
+        },
+        "packing_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 4412.965,
+          "p95": 5705.121
+        },
+        "cache_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 236.843,
+          "p95": 440.526
+        },
+        "trace_write_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 47.376000000000005,
+          "p95": 87.604
+        },
+        "total_runtime_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 6996.377,
+          "p95": 8827.871
+        }
+      }
+    },
+    {
+      "size": 2000,
+      "mode": "warm",
+      "rows": [
+        {
+          "target": "shop/contracts.py",
+          "modified_before_call": false,
+          "error": false,
+          "error_content": null,
+          "roundtrip_ms": 9130.002399993828,
+          "response_bytes": 214889,
+          "startup_ms": 2680.8767000038642,
+          "metrics": {
+            "candidate_tokens": 244609,
+            "returned_tokens": 4000,
+            "token_budget": 4000,
+            "latency_ms": 8740,
+            "cache_hit": false,
+            "full_selected_tokens": 3998,
+            "previously_supplied_tokens": 0,
+            "new_context_tokens": 4000,
+            "duplicate_tokens_avoided": 0,
+            "duplicate_tokens_retransmitted": 0,
+            "candidate_files": 1973,
+            "returned_files": 63
+          },
+          "manifest": {
+            "target": "shop/contracts.py",
+            "files": 1973,
+            "symbols": 1973,
+            "tests": 0,
+            "direct_consumers": 1972,
+            "estimated_full_context_tokens": 92761,
+            "recommended_structural_tokens": 33533,
+            "potential_source_tokens": 59228,
+            "already_known_files": 0,
+            "estimate_scope": "Full file source plus compact signatures; not a relevance probability. Framing may differ."
+          },
+          "invalidated_ids": 0,
+          "overhead": {
+            "transport_ms": 139.206,
+            "index_lookup_ms": 969.953,
+            "graph_ms": 720.397,
+            "git_ms": 1.789,
+            "scoring_ms": 313.59299999999996,
+            "packing_ms": 6115.782,
+            "cache_ms": 433.191,
+            "trace_write_ms": 77.90100000000001,
+            "total_runtime_ms": 8817.873,
+            "transport_scope": "HTTP/client residual; includes serialization, not pure network or stdio startup"
+          }
+        },
+        {
+          "target": "shop/checkout.py",
+          "modified_before_call": false,
+          "error": false,
+          "error_content": null,
+          "roundtrip_ms": 1309.121900005266,
+          "response_bytes": 10096,
+          "startup_ms": null,
+          "metrics": {
+            "candidate_tokens": 589,
+            "returned_tokens": 498,
+            "token_budget": 4000,
+            "latency_ms": 1221,
+            "cache_hit": false,
+            "full_selected_tokens": 589,
+            "previously_supplied_tokens": 91,
+            "new_context_tokens": 498,
+            "duplicate_tokens_avoided": 91,
+            "duplicate_tokens_retransmitted": 0,
+            "candidate_files": 4,
+            "returned_files": 4
+          },
+          "manifest": {
+            "target": "shop/checkout.py",
+            "files": 4,
+            "symbols": 7,
+            "tests": 1,
+            "direct_consumers": 1,
+            "estimated_full_context_tokens": 324,
+            "recommended_structural_tokens": 69,
+            "potential_source_tokens": 255,
+            "already_known_files": 2,
+            "estimate_scope": "Full file source plus compact signatures; not a relevance probability. Framing may differ."
+          },
+          "invalidated_ids": 0,
+          "overhead": {
+            "transport_ms": 29.65,
+            "index_lookup_ms": 943.438,
+            "graph_ms": 239.033,
+            "git_ms": 1.035,
+            "scoring_ms": 19.994999999999997,
+            "packing_ms": 10.04,
+            "cache_ms": 0.008,
+            "trace_write_ms": 10.363000000000001,
+            "total_runtime_ms": 1231.434,
+            "transport_scope": "HTTP/client residual; includes serialization, not pure network or stdio startup"
+          }
+        },
+        {
+          "target": "shop/contracts.py",
+          "modified_before_call": false,
+          "error": false,
+          "error_content": null,
+          "roundtrip_ms": 9601.33340000175,
+          "response_bytes": 286214,
+          "startup_ms": null,
+          "metrics": {
+            "candidate_tokens": 244609,
+            "returned_tokens": 3994,
+            "token_budget": 4000,
+            "latency_ms": 9250,
+            "cache_hit": false,
+            "full_selected_tokens": 7993,
+            "previously_supplied_tokens": 3872,
+            "new_context_tokens": 3994,
+            "duplicate_tokens_avoided": 3872,
+            "duplicate_tokens_retransmitted": 0,
+            "candidate_files": 1973,
+            "returned_files": 93
+          },
+          "manifest": {
+            "target": "shop/contracts.py",
+            "files": 1973,
+            "symbols": 1973,
+            "tests": 0,
+            "direct_consumers": 1972,
+            "estimated_full_context_tokens": 92761,
+            "recommended_structural_tokens": 33533,
+            "potential_source_tokens": 59228,
+            "already_known_files": 63,
+            "estimate_scope": "Full file source plus compact signatures; not a relevance probability. Framing may differ."
+          },
+          "invalidated_ids": 0,
+          "overhead": {
+            "transport_ms": 113.716,
+            "index_lookup_ms": 751.255,
+            "graph_ms": 555.101,
+            "git_ms": 1.023,
+            "scoring_ms": 191.41,
+            "packing_ms": 7243.562,
+            "cache_ms": 246.933,
+            "trace_write_ms": 86.76299999999999,
+            "total_runtime_ms": 9337.191,
+            "transport_scope": "HTTP/client residual; includes serialization, not pure network or stdio startup"
+          }
+        },
+        {
+          "target": "shop/contracts.py",
+          "modified_before_call": true,
+          "error": false,
+          "error_content": null,
+          "roundtrip_ms": 11118.42539999634,
+          "response_bytes": 354821,
+          "startup_ms": null,
+          "metrics": {
+            "candidate_tokens": 244614,
+            "returned_tokens": 3971,
+            "token_budget": 4000,
+            "latency_ms": 8654,
+            "cache_hit": false,
+            "full_selected_tokens": 8035,
+            "previously_supplied_tokens": 3940,
+            "new_context_tokens": 3971,
+            "duplicate_tokens_avoided": 3940,
+            "duplicate_tokens_retransmitted": 0,
+            "candidate_files": 1973,
+            "returned_files": 96
+          },
+          "manifest": {
+            "target": "shop/contracts.py",
+            "files": 1973,
+            "symbols": 1973,
+            "tests": 0,
+            "direct_consumers": 1972,
+            "estimated_full_context_tokens": 92766,
+            "recommended_structural_tokens": 33533,
+            "potential_source_tokens": 59233,
+            "already_known_files": 126,
+            "estimate_scope": "Full file source plus compact signatures; not a relevance probability. Framing may differ."
+          },
+          "invalidated_ids": 72,
+          "overhead": {
+            "transport_ms": 1125.622,
+            "index_lookup_ms": 712.669,
+            "graph_ms": 668.045,
+            "git_ms": 768.036,
+            "scoring_ms": 191.234,
+            "packing_ms": 4846.853,
+            "cache_ms": 795.773,
+            "trace_write_ms": 1101.9620000000002,
+            "total_runtime_ms": 9756.195,
+            "transport_scope": "HTTP/client residual; includes serialization, not pure network or stdio startup"
+          }
+        }
+      ],
+      "stages": {
+        "transport_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 113.716,
+          "p95": 1125.622
+        },
+        "index_lookup_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 751.255,
+          "p95": 969.953
+        },
+        "graph_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 555.101,
+          "p95": 720.397
+        },
+        "git_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 1.035,
+          "p95": 768.036
+        },
+        "scoring_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 191.234,
+          "p95": 313.59299999999996
+        },
+        "packing_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 4846.853,
+          "p95": 7243.562
+        },
+        "cache_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 246.933,
+          "p95": 795.773
+        },
+        "trace_write_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 77.90100000000001,
+          "p95": 1101.9620000000002
+        },
+        "total_runtime_ms": {
+          "count": 4,
+          "missing": 0,
+          "p50": 8817.873,
+          "p95": 9756.195
+        }
+      }
+    }
+  ],
+  "stages": {
+    "transport_ms": {
+      "count": 24,
+      "missing": 0,
+      "p50": 47.844,
+      "p95": 353.191
+    },
+    "index_lookup_ms": {
+      "count": 24,
+      "missing": 0,
+      "p50": 218.894,
+      "p95": 1007.643
+    },
+    "graph_ms": {
+      "count": 24,
+      "missing": 0,
+      "p50": 75.601,
+      "p95": 701.313
+    },
+    "git_ms": {
+      "count": 24,
+      "missing": 0,
+      "p50": 0.758,
+      "p95": 878.704
+    },
+    "scoring_ms": {
+      "count": 24,
+      "missing": 0,
+      "p50": 29.74,
+      "p95": 288.52
+    },
+    "packing_ms": {
+      "count": 24,
+      "missing": 0,
+      "p50": 75.544,
+      "p95": 6115.782
+    },
+    "cache_ms": {
+      "count": 24,
+      "missing": 0,
+      "p50": 207.253,
+      "p95": 440.526
+    },
+    "trace_write_ms": {
+      "count": 24,
+      "missing": 0,
+      "p50": 22.026,
+      "p95": 208.902
+    },
+    "total_runtime_ms": {
+      "count": 24,
+      "missing": 0,
+      "p50": 1305.038,
+      "p95": 9337.191
+    }
+  },
+  "limitations": [
+    "Scripted calls do not measure agent task success or exploration.",
+    "Transport is an HTTP client residual, not pure wire latency.",
+    "Stage timers are approximate; roundtrip includes serialization.",
+    "Sequential order and shared host activity can affect latency."
+  ]
+}

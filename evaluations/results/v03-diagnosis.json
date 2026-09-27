@@ -1,0 +1,2020 @@
+{
+  "pairs": [
+    {
+      "cohort": "v03-cold-isolated",
+      "task": "auth",
+      "runs": [
+        {
+          "cohort": "v03-cold-isolated",
+          "run_path": "evaluations\\runs\\v03-cold-isolated\\auth-conceptualize",
+          "task": "auth",
+          "mode": "conceptualize",
+          "outcome": "success",
+          "diagnostic_category": "inconclusive",
+          "category_basis": [],
+          "time_to_first_relevant_file_ms": 32908.729,
+          "time_to_first_required_dependency_ms": null,
+          "time_to_first_relevant_test_ms": 32908.729,
+          "first_relevant_event_step": 8,
+          "first_relevant_test_event_step": 8,
+          "first_required_dependency_event_step": null,
+          "discovery_events": {
+            "shop/auth.py": 8,
+            "shop/refunds.py": 8,
+            "test_shop.py": 8
+          },
+          "source_events": {},
+          "total_files_inspected": null,
+          "observed_files_inspected": [
+            "shop/auth.py",
+            "shop/refunds.py",
+            "test_shop.py"
+          ],
+          "irrelevant_files_inspected": null,
+          "observed_non_relevance_proxy_files": [],
+          "repeated_reads": 0,
+          "searches": 1,
+          "grep_operations": 0,
+          "mcp_calls": 0,
+          "mcp_successful_calls": 0,
+          "mcp_failed_calls": 0,
+          "context_tokens": 0,
+          "duplicate_tokens_avoided": 0,
+          "runtime_http_ms": 0,
+          "agent_idle_or_tool_wait_ms": null,
+          "observed_tool_wait_spans": [
+            {
+              "kind": "command_execution",
+              "item_id": "item_1",
+              "start_step": 3,
+              "end_step": 4,
+              "arrival_span_ms": 0.17799999999988358
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_2",
+              "start_step": 5,
+              "end_step": 6,
+              "arrival_span_ms": 5327.862999999998
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_3",
+              "start_step": 7,
+              "end_step": 8,
+              "arrival_span_ms": 4832.132999999998
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_5",
+              "start_step": 10,
+              "end_step": 11,
+              "arrival_span_ms": 5396.257999999994
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_7",
+              "start_step": 14,
+              "end_step": 15,
+              "arrival_span_ms": 7132.682999999997
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_9",
+              "start_step": 18,
+              "end_step": 19,
+              "arrival_span_ms": 5800.7179999999935
+            }
+          ],
+          "wait_scope": "CLI event arrival spans include buffering; overlapping spans are not agent idle time.",
+          "corrective_iterations": null,
+          "elapsed_seconds": 93.35,
+          "patterns": [],
+          "calls": [],
+          "failure_signals": {
+            "account_usage_limit": false,
+            "provider_network_or_routing": false,
+            "required_conceptualize_mcp_startup_failed": false,
+            "agent_timeout": false,
+            "independent_checks_timeout": false
+          },
+          "limits": "Old logs have event ordering, not per-event elapsed timestamps. No required-dependency oracle. File relevance is modified-source/test proxy. Category describes observable evidence only."
+        },
+        {
+          "cohort": "v03-cold-isolated",
+          "run_path": "evaluations\\runs\\v03-cold-isolated\\auth-control",
+          "task": "auth",
+          "mode": "control",
+          "outcome": "success",
+          "diagnostic_category": "inconclusive",
+          "category_basis": [],
+          "time_to_first_relevant_file_ms": 34033.611,
+          "time_to_first_required_dependency_ms": null,
+          "time_to_first_relevant_test_ms": 44055.583,
+          "first_relevant_event_step": 8,
+          "first_relevant_test_event_step": 10,
+          "first_required_dependency_event_step": null,
+          "discovery_events": {
+            "shop/auth.py": 8,
+            "shop/refunds.py": 8,
+            "test_shop.py": 10
+          },
+          "source_events": {},
+          "total_files_inspected": null,
+          "observed_files_inspected": [
+            "shop/auth.py",
+            "shop/catalog.py",
+            "shop/checkout.py",
+            "shop/refunds.py",
+            "test_shop.py"
+          ],
+          "irrelevant_files_inspected": null,
+          "observed_non_relevance_proxy_files": [
+            "shop/catalog.py",
+            "shop/checkout.py"
+          ],
+          "repeated_reads": 0,
+          "searches": 1,
+          "grep_operations": 0,
+          "mcp_calls": 0,
+          "mcp_successful_calls": 0,
+          "mcp_failed_calls": 0,
+          "context_tokens": 0,
+          "duplicate_tokens_avoided": 0,
+          "runtime_http_ms": 0,
+          "agent_idle_or_tool_wait_ms": null,
+          "observed_tool_wait_spans": [
+            {
+              "kind": "command_execution",
+              "item_id": "item_1",
+              "start_step": 3,
+              "end_step": 4,
+              "arrival_span_ms": 0.13100000000122236
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_2",
+              "start_step": 5,
+              "end_step": 6,
+              "arrival_span_ms": 6251.909
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_3",
+              "start_step": 7,
+              "end_step": 8,
+              "arrival_span_ms": 4671.850999999999
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_4",
+              "start_step": 9,
+              "end_step": 10,
+              "arrival_span_ms": 4869.896999999997
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_8",
+              "start_step": 15,
+              "end_step": 16,
+              "arrival_span_ms": 5415.346999999994
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_7",
+              "start_step": 14,
+              "end_step": 17,
+              "arrival_span_ms": 6122.463999999993
+            }
+          ],
+          "wait_scope": "CLI event arrival spans include buffering; overlapping spans are not agent idle time.",
+          "corrective_iterations": null,
+          "elapsed_seconds": 84.493,
+          "patterns": [],
+          "calls": [],
+          "failure_signals": {
+            "account_usage_limit": false,
+            "provider_network_or_routing": false,
+            "required_conceptualize_mcp_startup_failed": false,
+            "agent_timeout": false,
+            "independent_checks_timeout": false
+          },
+          "limits": "Old logs have event ordering, not per-event elapsed timestamps. No required-dependency oracle. File relevance is modified-source/test proxy. Category describes observable evidence only."
+        }
+      ],
+      "matched_available": true,
+      "discovery_comparison": {
+        "category": "context discovered earlier",
+        "enabled_minus_control_ms": -1124.8819999999978,
+        "scope": "First supported relevant-file observation, buffered CLI arrival timestamps, modified-file proxy. Earlier observation is not a causal MCP benefit.",
+        "similarity_window_ms": 1000
+      },
+      "missing_modes": []
+    },
+    {
+      "cohort": "v03-cold-isolated",
+      "task": "customers",
+      "runs": [
+        {
+          "cohort": "v03-cold-isolated",
+          "run_path": "evaluations\\runs\\v03-cold-isolated\\customers-conceptualize",
+          "task": "customers",
+          "mode": "conceptualize",
+          "outcome": "success",
+          "diagnostic_category": "inconclusive",
+          "category_basis": [],
+          "time_to_first_relevant_file_ms": 46636.285,
+          "time_to_first_required_dependency_ms": null,
+          "time_to_first_relevant_test_ms": null,
+          "first_relevant_event_step": 8,
+          "first_relevant_test_event_step": null,
+          "first_required_dependency_event_step": null,
+          "discovery_events": {
+            "shop/customer_keys.py": 8
+          },
+          "source_events": {},
+          "total_files_inspected": null,
+          "observed_files_inspected": [
+            "shop/customer_keys.py",
+            "shop/customer_store.py",
+            "shop/segment_writer.py",
+            "test_shop.py"
+          ],
+          "irrelevant_files_inspected": null,
+          "observed_non_relevance_proxy_files": [
+            "shop/customer_store.py",
+            "shop/segment_writer.py",
+            "test_shop.py"
+          ],
+          "repeated_reads": 0,
+          "searches": 2,
+          "grep_operations": 0,
+          "mcp_calls": 0,
+          "mcp_successful_calls": 0,
+          "mcp_failed_calls": 0,
+          "context_tokens": 0,
+          "duplicate_tokens_avoided": 0,
+          "runtime_http_ms": 0,
+          "agent_idle_or_tool_wait_ms": null,
+          "observed_tool_wait_spans": [
+            {
+              "kind": "command_execution",
+              "item_id": "item_1",
+              "start_step": 3,
+              "end_step": 4,
+              "arrival_span_ms": 0.2669999999998254
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_2",
+              "start_step": 5,
+              "end_step": 6,
+              "arrival_span_ms": 7947.546999999999
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_3",
+              "start_step": 7,
+              "end_step": 8,
+              "arrival_span_ms": 10795.184000000001
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_5",
+              "start_step": 10,
+              "end_step": 11,
+              "arrival_span_ms": 6171.9330000000045
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_7",
+              "start_step": 14,
+              "end_step": 15,
+              "arrival_span_ms": 8901.247000000003
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_9",
+              "start_step": 18,
+              "end_step": 19,
+              "arrival_span_ms": 5247.338000000003
+            }
+          ],
+          "wait_scope": "CLI event arrival spans include buffering; overlapping spans are not agent idle time.",
+          "corrective_iterations": null,
+          "elapsed_seconds": 108.456,
+          "patterns": [],
+          "calls": [],
+          "failure_signals": {
+            "account_usage_limit": false,
+            "provider_network_or_routing": false,
+            "required_conceptualize_mcp_startup_failed": false,
+            "agent_timeout": false,
+            "independent_checks_timeout": false
+          },
+          "limits": "Old logs have event ordering, not per-event elapsed timestamps. No required-dependency oracle. File relevance is modified-source/test proxy. Category describes observable evidence only."
+        },
+        {
+          "cohort": "v03-cold-isolated",
+          "run_path": "evaluations\\runs\\v03-cold-isolated\\customers-control",
+          "task": "customers",
+          "mode": "control",
+          "outcome": "success",
+          "diagnostic_category": "inconclusive",
+          "category_basis": [],
+          "time_to_first_relevant_file_ms": null,
+          "time_to_first_required_dependency_ms": null,
+          "time_to_first_relevant_test_ms": null,
+          "first_relevant_event_step": null,
+          "first_relevant_test_event_step": null,
+          "first_required_dependency_event_step": null,
+          "discovery_events": {},
+          "source_events": {},
+          "total_files_inspected": null,
+          "observed_files_inspected": [],
+          "irrelevant_files_inspected": null,
+          "observed_non_relevance_proxy_files": [],
+          "repeated_reads": 0,
+          "searches": 0,
+          "grep_operations": 0,
+          "mcp_calls": 0,
+          "mcp_successful_calls": 0,
+          "mcp_failed_calls": 0,
+          "context_tokens": 0,
+          "duplicate_tokens_avoided": 0,
+          "runtime_http_ms": 0,
+          "agent_idle_or_tool_wait_ms": null,
+          "observed_tool_wait_spans": [
+            {
+              "kind": "command_execution",
+              "item_id": "item_1",
+              "start_step": 3,
+              "end_step": 4,
+              "arrival_span_ms": 0.3999999999996362
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_2",
+              "start_step": 5,
+              "end_step": 6,
+              "arrival_span_ms": 5979.021000000001
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_3",
+              "start_step": 7,
+              "end_step": 8,
+              "arrival_span_ms": 4368.502
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_6",
+              "start_step": 12,
+              "end_step": 13,
+              "arrival_span_ms": 6372.877999999997
+            }
+          ],
+          "wait_scope": "CLI event arrival spans include buffering; overlapping spans are not agent idle time.",
+          "corrective_iterations": null,
+          "elapsed_seconds": 61.766,
+          "patterns": [],
+          "calls": [],
+          "failure_signals": {
+            "account_usage_limit": false,
+            "provider_network_or_routing": false,
+            "required_conceptualize_mcp_startup_failed": false,
+            "agent_timeout": false,
+            "independent_checks_timeout": false
+          },
+          "limits": "Old logs have event ordering, not per-event elapsed timestamps. No required-dependency oracle. File relevance is modified-source/test proxy. Category describes observable evidence only."
+        }
+      ],
+      "matched_available": true,
+      "discovery_comparison": {
+        "category": "inconclusive",
+        "enabled_minus_control_ms": null,
+        "scope": "First supported relevant-file observation, buffered CLI arrival timestamps, modified-file proxy. Earlier observation is not a causal MCP benefit.",
+        "similarity_window_ms": 1000
+      },
+      "missing_modes": []
+    },
+    {
+      "cohort": "v03-cold-isolated",
+      "task": "limits",
+      "runs": [
+        {
+          "cohort": "v03-cold-isolated",
+          "run_path": "evaluations\\runs\\v03-cold-isolated\\limits-conceptualize",
+          "task": "limits",
+          "mode": "conceptualize",
+          "outcome": "success",
+          "diagnostic_category": "inconclusive",
+          "category_basis": [],
+          "time_to_first_relevant_file_ms": 40159.765,
+          "time_to_first_required_dependency_ms": null,
+          "time_to_first_relevant_test_ms": 40159.765,
+          "first_relevant_event_step": 8,
+          "first_relevant_test_event_step": 8,
+          "first_required_dependency_event_step": null,
+          "discovery_events": {
+            "test_shop.py": 8,
+            "shop/settings.py": 11
+          },
+          "source_events": {},
+          "total_files_inspected": null,
+          "observed_files_inspected": [
+            "shop/batch_gateway.py",
+            "shop/contracts.py",
+            "shop/inventory.py",
+            "shop/settings.py",
+            "test_shop.py"
+          ],
+          "irrelevant_files_inspected": null,
+          "observed_non_relevance_proxy_files": [
+            "shop/batch_gateway.py",
+            "shop/contracts.py",
+            "shop/inventory.py"
+          ],
+          "repeated_reads": 0,
+          "searches": 1,
+          "grep_operations": 0,
+          "mcp_calls": 0,
+          "mcp_successful_calls": 0,
+          "mcp_failed_calls": 0,
+          "context_tokens": 0,
+          "duplicate_tokens_avoided": 0,
+          "runtime_http_ms": 0,
+          "agent_idle_or_tool_wait_ms": null,
+          "observed_tool_wait_spans": [
+            {
+              "kind": "command_execution",
+              "item_id": "item_1",
+              "start_step": 3,
+              "end_step": 4,
+              "arrival_span_ms": 0.1610000000000582
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_2",
+              "start_step": 5,
+              "end_step": 6,
+              "arrival_span_ms": 6293.905999999999
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_3",
+              "start_step": 7,
+              "end_step": 8,
+              "arrival_span_ms": 5660.264999999999
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_5",
+              "start_step": 10,
+              "end_step": 11,
+              "arrival_span_ms": 5506.0610000000015
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_7",
+              "start_step": 14,
+              "end_step": 15,
+              "arrival_span_ms": 9022.715000000011
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_10",
+              "start_step": 19,
+              "end_step": 20,
+              "arrival_span_ms": 6862.809999999998
+            }
+          ],
+          "wait_scope": "CLI event arrival spans include buffering; overlapping spans are not agent idle time.",
+          "corrective_iterations": null,
+          "elapsed_seconds": 103.86,
+          "patterns": [],
+          "calls": [],
+          "failure_signals": {
+            "account_usage_limit": false,
+            "provider_network_or_routing": false,
+            "required_conceptualize_mcp_startup_failed": false,
+            "agent_timeout": false,
+            "independent_checks_timeout": false
+          },
+          "limits": "Old logs have event ordering, not per-event elapsed timestamps. No required-dependency oracle. File relevance is modified-source/test proxy. Category describes observable evidence only."
+        },
+        {
+          "cohort": "v03-cold-isolated",
+          "run_path": "evaluations\\runs\\v03-cold-isolated\\limits-control",
+          "task": "limits",
+          "mode": "control",
+          "outcome": "success",
+          "diagnostic_category": "inconclusive",
+          "category_basis": [],
+          "time_to_first_relevant_file_ms": 28538.475,
+          "time_to_first_required_dependency_ms": null,
+          "time_to_first_relevant_test_ms": 28538.475,
+          "first_relevant_event_step": 8,
+          "first_relevant_test_event_step": 8,
+          "first_required_dependency_event_step": null,
+          "discovery_events": {
+            "test_shop.py": 8
+          },
+          "source_events": {},
+          "total_files_inspected": null,
+          "observed_files_inspected": [
+            "test_shop.py"
+          ],
+          "irrelevant_files_inspected": null,
+          "observed_non_relevance_proxy_files": [],
+          "repeated_reads": 0,
+          "searches": 2,
+          "grep_operations": 0,
+          "mcp_calls": 0,
+          "mcp_successful_calls": 0,
+          "mcp_failed_calls": 0,
+          "context_tokens": 0,
+          "duplicate_tokens_avoided": 0,
+          "runtime_http_ms": 0,
+          "agent_idle_or_tool_wait_ms": null,
+          "observed_tool_wait_spans": [
+            {
+              "kind": "command_execution",
+              "item_id": "item_1",
+              "start_step": 3,
+              "end_step": 4,
+              "arrival_span_ms": 0.12899999999899592
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_2",
+              "start_step": 5,
+              "end_step": 6,
+              "arrival_span_ms": 4558.24
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_3",
+              "start_step": 7,
+              "end_step": 8,
+              "arrival_span_ms": 4101.526999999998
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_4",
+              "start_step": 9,
+              "end_step": 10,
+              "arrival_span_ms": 4810.055
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_7",
+              "start_step": 14,
+              "end_step": 15,
+              "arrival_span_ms": 7276.542999999998
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_8",
+              "start_step": 16,
+              "end_step": 17,
+              "arrival_span_ms": 5194.673999999999
+            }
+          ],
+          "wait_scope": "CLI event arrival spans include buffering; overlapping spans are not agent idle time.",
+          "corrective_iterations": null,
+          "elapsed_seconds": 81.554,
+          "patterns": [],
+          "calls": [],
+          "failure_signals": {
+            "account_usage_limit": false,
+            "provider_network_or_routing": false,
+            "required_conceptualize_mcp_startup_failed": false,
+            "agent_timeout": false,
+            "independent_checks_timeout": false
+          },
+          "limits": "Old logs have event ordering, not per-event elapsed timestamps. No required-dependency oracle. File relevance is modified-source/test proxy. Category describes observable evidence only."
+        }
+      ],
+      "matched_available": true,
+      "discovery_comparison": {
+        "category": "context discovered later",
+        "enabled_minus_control_ms": 11621.29,
+        "scope": "First supported relevant-file observation, buffered CLI arrival timestamps, modified-file proxy. Earlier observation is not a causal MCP benefit.",
+        "similarity_window_ms": 1000
+      },
+      "missing_modes": []
+    },
+    {
+      "cohort": "v03-cold-isolated",
+      "task": "pages",
+      "runs": [
+        {
+          "cohort": "v03-cold-isolated",
+          "run_path": "evaluations\\runs\\v03-cold-isolated\\pages-conceptualize",
+          "task": "pages",
+          "mode": "conceptualize",
+          "outcome": "success",
+          "diagnostic_category": "inconclusive",
+          "category_basis": [],
+          "time_to_first_relevant_file_ms": null,
+          "time_to_first_required_dependency_ms": null,
+          "time_to_first_relevant_test_ms": null,
+          "first_relevant_event_step": null,
+          "first_relevant_test_event_step": null,
+          "first_required_dependency_event_step": null,
+          "discovery_events": {},
+          "source_events": {},
+          "total_files_inspected": null,
+          "observed_files_inspected": [],
+          "irrelevant_files_inspected": null,
+          "observed_non_relevance_proxy_files": [],
+          "repeated_reads": 0,
+          "searches": 1,
+          "grep_operations": 0,
+          "mcp_calls": 0,
+          "mcp_successful_calls": 0,
+          "mcp_failed_calls": 0,
+          "context_tokens": 0,
+          "duplicate_tokens_avoided": 0,
+          "runtime_http_ms": 0,
+          "agent_idle_or_tool_wait_ms": null,
+          "observed_tool_wait_spans": [
+            {
+              "kind": "command_execution",
+              "item_id": "item_1",
+              "start_step": 3,
+              "end_step": 4,
+              "arrival_span_ms": 0.11599999999998545
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_2",
+              "start_step": 5,
+              "end_step": 6,
+              "arrival_span_ms": 6034.549999999999
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_3",
+              "start_step": 7,
+              "end_step": 8,
+              "arrival_span_ms": 4802.116999999998
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_5",
+              "start_step": 10,
+              "end_step": 11,
+              "arrival_span_ms": 6844.3269999999975
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_7",
+              "start_step": 14,
+              "end_step": 15,
+              "arrival_span_ms": 15092.515
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_9",
+              "start_step": 18,
+              "end_step": 19,
+              "arrival_span_ms": 8871.713999999993
+            }
+          ],
+          "wait_scope": "CLI event arrival spans include buffering; overlapping spans are not agent idle time.",
+          "corrective_iterations": null,
+          "elapsed_seconds": 109.441,
+          "patterns": [],
+          "calls": [],
+          "failure_signals": {
+            "account_usage_limit": false,
+            "provider_network_or_routing": false,
+            "required_conceptualize_mcp_startup_failed": false,
+            "agent_timeout": false,
+            "independent_checks_timeout": false
+          },
+          "limits": "Old logs have event ordering, not per-event elapsed timestamps. No required-dependency oracle. File relevance is modified-source/test proxy. Category describes observable evidence only."
+        },
+        {
+          "cohort": "v03-cold-isolated",
+          "run_path": "evaluations\\runs\\v03-cold-isolated\\pages-control",
+          "task": "pages",
+          "mode": "control",
+          "outcome": "success",
+          "diagnostic_category": "inconclusive",
+          "category_basis": [],
+          "time_to_first_relevant_file_ms": 25595.177,
+          "time_to_first_required_dependency_ms": null,
+          "time_to_first_relevant_test_ms": 25595.177,
+          "first_relevant_event_step": 8,
+          "first_relevant_test_event_step": 8,
+          "first_required_dependency_event_step": null,
+          "discovery_events": {
+            "test_shop.py": 8
+          },
+          "source_events": {},
+          "total_files_inspected": null,
+          "observed_files_inspected": [
+            "test_shop.py"
+          ],
+          "irrelevant_files_inspected": null,
+          "observed_non_relevance_proxy_files": [],
+          "repeated_reads": 0,
+          "searches": 1,
+          "grep_operations": 0,
+          "mcp_calls": 0,
+          "mcp_successful_calls": 0,
+          "mcp_failed_calls": 0,
+          "context_tokens": 0,
+          "duplicate_tokens_avoided": 0,
+          "runtime_http_ms": 0,
+          "agent_idle_or_tool_wait_ms": null,
+          "observed_tool_wait_spans": [
+            {
+              "kind": "command_execution",
+              "item_id": "item_1",
+              "start_step": 3,
+              "end_step": 4,
+              "arrival_span_ms": 0.13100000000031287
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_2",
+              "start_step": 5,
+              "end_step": 6,
+              "arrival_span_ms": 3929.652
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_3",
+              "start_step": 7,
+              "end_step": 8,
+              "arrival_span_ms": 5001.039000000001
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_4",
+              "start_step": 9,
+              "end_step": 10,
+              "arrival_span_ms": 5879.659
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_7",
+              "start_step": 14,
+              "end_step": 16,
+              "arrival_span_ms": 3726.1569999999992
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_8",
+              "start_step": 15,
+              "end_step": 17,
+              "arrival_span_ms": 7138.163000000008
+            }
+          ],
+          "wait_scope": "CLI event arrival spans include buffering; overlapping spans are not agent idle time.",
+          "corrective_iterations": null,
+          "elapsed_seconds": 71.055,
+          "patterns": [],
+          "calls": [],
+          "failure_signals": {
+            "account_usage_limit": false,
+            "provider_network_or_routing": false,
+            "required_conceptualize_mcp_startup_failed": false,
+            "agent_timeout": false,
+            "independent_checks_timeout": false
+          },
+          "limits": "Old logs have event ordering, not per-event elapsed timestamps. No required-dependency oracle. File relevance is modified-source/test proxy. Category describes observable evidence only."
+        }
+      ],
+      "matched_available": true,
+      "discovery_comparison": {
+        "category": "inconclusive",
+        "enabled_minus_control_ms": null,
+        "scope": "First supported relevant-file observation, buffered CLI arrival timestamps, modified-file proxy. Earlier observation is not a causal MCP benefit.",
+        "similarity_window_ms": 1000
+      },
+      "missing_modes": []
+    },
+    {
+      "cohort": "v03-cold-isolated",
+      "task": "receipts",
+      "runs": [
+        {
+          "cohort": "v03-cold-isolated",
+          "run_path": "evaluations\\runs\\v03-cold-isolated\\receipts-conceptualize",
+          "task": "receipts",
+          "mode": "conceptualize",
+          "outcome": "success",
+          "diagnostic_category": "inconclusive",
+          "category_basis": [],
+          "time_to_first_relevant_file_ms": 34091.79,
+          "time_to_first_required_dependency_ms": null,
+          "time_to_first_relevant_test_ms": 34091.79,
+          "first_relevant_event_step": 8,
+          "first_relevant_test_event_step": 8,
+          "first_required_dependency_event_step": null,
+          "discovery_events": {
+            "shop/checkout.py": 8,
+            "shop/contracts.py": 8,
+            "shop/orders.py": 8,
+            "test_shop.py": 8,
+            "shop/warehouse.py": 11
+          },
+          "source_events": {},
+          "total_files_inspected": null,
+          "observed_files_inspected": [
+            "shop/audit_sink.py",
+            "shop/checkout.py",
+            "shop/contracts.py",
+            "shop/orders.py",
+            "shop/warehouse.py",
+            "test_shop.py"
+          ],
+          "irrelevant_files_inspected": null,
+          "observed_non_relevance_proxy_files": [
+            "shop/audit_sink.py"
+          ],
+          "repeated_reads": 0,
+          "searches": 1,
+          "grep_operations": 0,
+          "mcp_calls": 0,
+          "mcp_successful_calls": 0,
+          "mcp_failed_calls": 0,
+          "context_tokens": 0,
+          "duplicate_tokens_avoided": 0,
+          "runtime_http_ms": 0,
+          "agent_idle_or_tool_wait_ms": null,
+          "observed_tool_wait_spans": [
+            {
+              "kind": "command_execution",
+              "item_id": "item_1",
+              "start_step": 3,
+              "end_step": 4,
+              "arrival_span_ms": 0.18099999999867578
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_2",
+              "start_step": 5,
+              "end_step": 6,
+              "arrival_span_ms": 4361.701000000001
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_3",
+              "start_step": 7,
+              "end_step": 8,
+              "arrival_span_ms": 4370.4230000000025
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_5",
+              "start_step": 10,
+              "end_step": 11,
+              "arrival_span_ms": 7259.531999999999
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_7",
+              "start_step": 14,
+              "end_step": 15,
+              "arrival_span_ms": 7108.520000000004
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_9",
+              "start_step": 18,
+              "end_step": 19,
+              "arrival_span_ms": 6944.597999999998
+            }
+          ],
+          "wait_scope": "CLI event arrival spans include buffering; overlapping spans are not agent idle time.",
+          "corrective_iterations": null,
+          "elapsed_seconds": 105.343,
+          "patterns": [],
+          "calls": [],
+          "failure_signals": {
+            "account_usage_limit": false,
+            "provider_network_or_routing": false,
+            "required_conceptualize_mcp_startup_failed": false,
+            "agent_timeout": false,
+            "independent_checks_timeout": false
+          },
+          "limits": "Old logs have event ordering, not per-event elapsed timestamps. No required-dependency oracle. File relevance is modified-source/test proxy. Category describes observable evidence only."
+        },
+        {
+          "cohort": "v03-cold-isolated",
+          "run_path": "evaluations\\runs\\v03-cold-isolated\\receipts-control",
+          "task": "receipts",
+          "mode": "control",
+          "outcome": "success",
+          "diagnostic_category": "inconclusive",
+          "category_basis": [],
+          "time_to_first_relevant_file_ms": 29601.056,
+          "time_to_first_required_dependency_ms": null,
+          "time_to_first_relevant_test_ms": 29601.056,
+          "first_relevant_event_step": 8,
+          "first_relevant_test_event_step": 8,
+          "first_required_dependency_event_step": null,
+          "discovery_events": {
+            "test_shop.py": 8
+          },
+          "source_events": {},
+          "total_files_inspected": null,
+          "observed_files_inspected": [
+            "test_shop.py"
+          ],
+          "irrelevant_files_inspected": null,
+          "observed_non_relevance_proxy_files": [],
+          "repeated_reads": 1,
+          "searches": 1,
+          "grep_operations": 0,
+          "mcp_calls": 0,
+          "mcp_successful_calls": 0,
+          "mcp_failed_calls": 0,
+          "context_tokens": 0,
+          "duplicate_tokens_avoided": 0,
+          "runtime_http_ms": 0,
+          "agent_idle_or_tool_wait_ms": null,
+          "observed_tool_wait_spans": [
+            {
+              "kind": "command_execution",
+              "item_id": "item_1",
+              "start_step": 3,
+              "end_step": 4,
+              "arrival_span_ms": 0.1319999999996071
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_2",
+              "start_step": 5,
+              "end_step": 6,
+              "arrival_span_ms": 5045.166000000001
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_3",
+              "start_step": 7,
+              "end_step": 8,
+              "arrival_span_ms": 4732.849000000002
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_4",
+              "start_step": 9,
+              "end_step": 10,
+              "arrival_span_ms": 3764.826000000001
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_8",
+              "start_step": 15,
+              "end_step": 16,
+              "arrival_span_ms": 5982.646999999997
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_7",
+              "start_step": 14,
+              "end_step": 17,
+              "arrival_span_ms": 6366.054999999993
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_10",
+              "start_step": 20,
+              "end_step": 21,
+              "arrival_span_ms": 5339.793000000005
+            }
+          ],
+          "wait_scope": "CLI event arrival spans include buffering; overlapping spans are not agent idle time.",
+          "corrective_iterations": null,
+          "elapsed_seconds": 100.03,
+          "patterns": [],
+          "calls": [],
+          "failure_signals": {
+            "account_usage_limit": false,
+            "provider_network_or_routing": false,
+            "required_conceptualize_mcp_startup_failed": false,
+            "agent_timeout": false,
+            "independent_checks_timeout": false
+          },
+          "limits": "Old logs have event ordering, not per-event elapsed timestamps. No required-dependency oracle. File relevance is modified-source/test proxy. Category describes observable evidence only."
+        }
+      ],
+      "matched_available": true,
+      "discovery_comparison": {
+        "category": "context discovered later",
+        "enabled_minus_control_ms": 4490.734,
+        "scope": "First supported relevant-file observation, buffered CLI arrival timestamps, modified-file proxy. Earlier observation is not a causal MCP benefit.",
+        "similarity_window_ms": 1000
+      },
+      "missing_modes": []
+    },
+    {
+      "cohort": "v03-cold-isolated",
+      "task": "retry",
+      "runs": [
+        {
+          "cohort": "v03-cold-isolated",
+          "run_path": "evaluations\\runs\\v03-cold-isolated\\retry-conceptualize",
+          "task": "retry",
+          "mode": "conceptualize",
+          "outcome": "success",
+          "diagnostic_category": "inconclusive",
+          "category_basis": [],
+          "time_to_first_relevant_file_ms": 44555.138,
+          "time_to_first_required_dependency_ms": null,
+          "time_to_first_relevant_test_ms": 44555.138,
+          "first_relevant_event_step": 8,
+          "first_relevant_test_event_step": 8,
+          "first_required_dependency_event_step": null,
+          "discovery_events": {
+            "test_shop.py": 8
+          },
+          "source_events": {},
+          "total_files_inspected": null,
+          "observed_files_inspected": [
+            "test_shop.py"
+          ],
+          "irrelevant_files_inspected": null,
+          "observed_non_relevance_proxy_files": [],
+          "repeated_reads": 0,
+          "searches": 1,
+          "grep_operations": 0,
+          "mcp_calls": 0,
+          "mcp_successful_calls": 0,
+          "mcp_failed_calls": 0,
+          "context_tokens": 0,
+          "duplicate_tokens_avoided": 0,
+          "runtime_http_ms": 0,
+          "agent_idle_or_tool_wait_ms": null,
+          "observed_tool_wait_spans": [
+            {
+              "kind": "command_execution",
+              "item_id": "item_1",
+              "start_step": 3,
+              "end_step": 4,
+              "arrival_span_ms": 0.14400000000023283
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_2",
+              "start_step": 5,
+              "end_step": 6,
+              "arrival_span_ms": 4288.256999999998
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_3",
+              "start_step": 7,
+              "end_step": 8,
+              "arrival_span_ms": 4923.375
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_5",
+              "start_step": 10,
+              "end_step": 11,
+              "arrival_span_ms": 4911.3399999999965
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_7",
+              "start_step": 14,
+              "end_step": 15,
+              "arrival_span_ms": 6386.847000000009
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_9",
+              "start_step": 18,
+              "end_step": 19,
+              "arrival_span_ms": 5862.838000000003
+            }
+          ],
+          "wait_scope": "CLI event arrival spans include buffering; overlapping spans are not agent idle time.",
+          "corrective_iterations": null,
+          "elapsed_seconds": 109.708,
+          "patterns": [],
+          "calls": [],
+          "failure_signals": {
+            "account_usage_limit": false,
+            "provider_network_or_routing": false,
+            "required_conceptualize_mcp_startup_failed": false,
+            "agent_timeout": false,
+            "independent_checks_timeout": false
+          },
+          "limits": "Old logs have event ordering, not per-event elapsed timestamps. No required-dependency oracle. File relevance is modified-source/test proxy. Category describes observable evidence only."
+        },
+        {
+          "cohort": "v03-cold-isolated",
+          "run_path": "evaluations\\runs\\v03-cold-isolated\\retry-control",
+          "task": "retry",
+          "mode": "control",
+          "outcome": "success",
+          "diagnostic_category": "inconclusive",
+          "category_basis": [],
+          "time_to_first_relevant_file_ms": 27594.649,
+          "time_to_first_required_dependency_ms": null,
+          "time_to_first_relevant_test_ms": 27594.649,
+          "first_relevant_event_step": 8,
+          "first_relevant_test_event_step": 8,
+          "first_required_dependency_event_step": null,
+          "discovery_events": {
+            "shop/notifications.py": 8,
+            "test_shop.py": 8
+          },
+          "source_events": {},
+          "total_files_inspected": null,
+          "observed_files_inspected": [
+            "shop/notifications.py",
+            "shop/orders.py",
+            "shop/retry.py",
+            "test_shop.py"
+          ],
+          "irrelevant_files_inspected": null,
+          "observed_non_relevance_proxy_files": [
+            "shop/orders.py",
+            "shop/retry.py"
+          ],
+          "repeated_reads": 0,
+          "searches": 0,
+          "grep_operations": 0,
+          "mcp_calls": 0,
+          "mcp_successful_calls": 0,
+          "mcp_failed_calls": 0,
+          "context_tokens": 0,
+          "duplicate_tokens_avoided": 0,
+          "runtime_http_ms": 0,
+          "agent_idle_or_tool_wait_ms": null,
+          "observed_tool_wait_spans": [
+            {
+              "kind": "command_execution",
+              "item_id": "item_1",
+              "start_step": 3,
+              "end_step": 4,
+              "arrival_span_ms": 0.1289999999999054
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_2",
+              "start_step": 5,
+              "end_step": 6,
+              "arrival_span_ms": 5193.138000000001
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_3",
+              "start_step": 7,
+              "end_step": 8,
+              "arrival_span_ms": 4581.7750000000015
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_6",
+              "start_step": 12,
+              "end_step": 13,
+              "arrival_span_ms": 6208.906000000003
+            }
+          ],
+          "wait_scope": "CLI event arrival spans include buffering; overlapping spans are not agent idle time.",
+          "corrective_iterations": null,
+          "elapsed_seconds": 67.027,
+          "patterns": [],
+          "calls": [],
+          "failure_signals": {
+            "account_usage_limit": false,
+            "provider_network_or_routing": false,
+            "required_conceptualize_mcp_startup_failed": false,
+            "agent_timeout": false,
+            "independent_checks_timeout": false
+          },
+          "limits": "Old logs have event ordering, not per-event elapsed timestamps. No required-dependency oracle. File relevance is modified-source/test proxy. Category describes observable evidence only."
+        }
+      ],
+      "matched_available": true,
+      "discovery_comparison": {
+        "category": "context discovered later",
+        "enabled_minus_control_ms": 16960.488999999998,
+        "scope": "First supported relevant-file observation, buffered CLI arrival timestamps, modified-file proxy. Earlier observation is not a causal MCP benefit.",
+        "similarity_window_ms": 1000
+      },
+      "missing_modes": []
+    },
+    {
+      "cohort": "v03-cold-isolated",
+      "task": "shipping",
+      "runs": [
+        {
+          "cohort": "v03-cold-isolated",
+          "run_path": "evaluations\\runs\\v03-cold-isolated\\shipping-conceptualize",
+          "task": "shipping",
+          "mode": "conceptualize",
+          "outcome": "success",
+          "diagnostic_category": "inconclusive",
+          "category_basis": [],
+          "time_to_first_relevant_file_ms": 35011.563,
+          "time_to_first_required_dependency_ms": null,
+          "time_to_first_relevant_test_ms": 35011.563,
+          "first_relevant_event_step": 8,
+          "first_relevant_test_event_step": 8,
+          "first_required_dependency_event_step": null,
+          "discovery_events": {
+            "test_shop.py": 8
+          },
+          "source_events": {},
+          "total_files_inspected": null,
+          "observed_files_inspected": [
+            "test_shop.py"
+          ],
+          "irrelevant_files_inspected": null,
+          "observed_non_relevance_proxy_files": [],
+          "repeated_reads": 0,
+          "searches": 2,
+          "grep_operations": 0,
+          "mcp_calls": 0,
+          "mcp_successful_calls": 0,
+          "mcp_failed_calls": 0,
+          "context_tokens": 0,
+          "duplicate_tokens_avoided": 0,
+          "runtime_http_ms": 0,
+          "agent_idle_or_tool_wait_ms": null,
+          "observed_tool_wait_spans": [
+            {
+              "kind": "command_execution",
+              "item_id": "item_1",
+              "start_step": 3,
+              "end_step": 4,
+              "arrival_span_ms": 0.13099999999940337
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_2",
+              "start_step": 5,
+              "end_step": 6,
+              "arrival_span_ms": 5517.254000000001
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_3",
+              "start_step": 7,
+              "end_step": 8,
+              "arrival_span_ms": 4203.095000000001
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_5",
+              "start_step": 10,
+              "end_step": 11,
+              "arrival_span_ms": 5322.614999999998
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_7",
+              "start_step": 14,
+              "end_step": 15,
+              "arrival_span_ms": 7337.896999999997
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_9",
+              "start_step": 18,
+              "end_step": 19,
+              "arrival_span_ms": 5760.959000000003
+            }
+          ],
+          "wait_scope": "CLI event arrival spans include buffering; overlapping spans are not agent idle time.",
+          "corrective_iterations": null,
+          "elapsed_seconds": 94.711,
+          "patterns": [],
+          "calls": [],
+          "failure_signals": {
+            "account_usage_limit": false,
+            "provider_network_or_routing": false,
+            "required_conceptualize_mcp_startup_failed": false,
+            "agent_timeout": false,
+            "independent_checks_timeout": false
+          },
+          "limits": "Old logs have event ordering, not per-event elapsed timestamps. No required-dependency oracle. File relevance is modified-source/test proxy. Category describes observable evidence only."
+        },
+        {
+          "cohort": "v03-cold-isolated",
+          "run_path": "evaluations\\runs\\v03-cold-isolated\\shipping-control",
+          "task": "shipping",
+          "mode": "control",
+          "outcome": "success",
+          "diagnostic_category": "inconclusive",
+          "category_basis": [],
+          "time_to_first_relevant_file_ms": 27030.034,
+          "time_to_first_required_dependency_ms": null,
+          "time_to_first_relevant_test_ms": 27030.034,
+          "first_relevant_event_step": 8,
+          "first_relevant_test_event_step": 8,
+          "first_required_dependency_event_step": null,
+          "discovery_events": {
+            "shop/shipping.py": 8,
+            "test_shop.py": 8
+          },
+          "source_events": {},
+          "total_files_inspected": null,
+          "observed_files_inspected": [
+            "shop/shipping.py",
+            "shop/shipping_config.py",
+            "shop/shipping_invoice.py",
+            "test_shop.py"
+          ],
+          "irrelevant_files_inspected": null,
+          "observed_non_relevance_proxy_files": [
+            "shop/shipping_config.py",
+            "shop/shipping_invoice.py"
+          ],
+          "repeated_reads": 0,
+          "searches": 1,
+          "grep_operations": 0,
+          "mcp_calls": 0,
+          "mcp_successful_calls": 0,
+          "mcp_failed_calls": 0,
+          "context_tokens": 0,
+          "duplicate_tokens_avoided": 0,
+          "runtime_http_ms": 0,
+          "agent_idle_or_tool_wait_ms": null,
+          "observed_tool_wait_spans": [
+            {
+              "kind": "command_execution",
+              "item_id": "item_1",
+              "start_step": 3,
+              "end_step": 4,
+              "arrival_span_ms": 0.12599999999838474
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_2",
+              "start_step": 5,
+              "end_step": 6,
+              "arrival_span_ms": 4406.748
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_3",
+              "start_step": 7,
+              "end_step": 8,
+              "arrival_span_ms": 3974.754000000001
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_4",
+              "start_step": 9,
+              "end_step": 10,
+              "arrival_span_ms": 3718.454999999998
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_7",
+              "start_step": 14,
+              "end_step": 15,
+              "arrival_span_ms": 5710.912000000004
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_9",
+              "start_step": 18,
+              "end_step": 19,
+              "arrival_span_ms": 5653.225000000006
+            }
+          ],
+          "wait_scope": "CLI event arrival spans include buffering; overlapping spans are not agent idle time.",
+          "corrective_iterations": null,
+          "elapsed_seconds": 80.25,
+          "patterns": [],
+          "calls": [],
+          "failure_signals": {
+            "account_usage_limit": false,
+            "provider_network_or_routing": false,
+            "required_conceptualize_mcp_startup_failed": false,
+            "agent_timeout": false,
+            "independent_checks_timeout": false
+          },
+          "limits": "Old logs have event ordering, not per-event elapsed timestamps. No required-dependency oracle. File relevance is modified-source/test proxy. Category describes observable evidence only."
+        }
+      ],
+      "matched_available": true,
+      "discovery_comparison": {
+        "category": "context discovered later",
+        "enabled_minus_control_ms": 7981.529000000002,
+        "scope": "First supported relevant-file observation, buffered CLI arrival timestamps, modified-file proxy. Earlier observation is not a causal MCP benefit.",
+        "similarity_window_ms": 1000
+      },
+      "missing_modes": []
+    },
+    {
+      "cohort": "v03-cold-isolated",
+      "task": "slugs",
+      "runs": [
+        {
+          "cohort": "v03-cold-isolated",
+          "run_path": "evaluations\\runs\\v03-cold-isolated\\slugs-conceptualize",
+          "task": "slugs",
+          "mode": "conceptualize",
+          "outcome": "success",
+          "diagnostic_category": "inconclusive",
+          "category_basis": [],
+          "time_to_first_relevant_file_ms": null,
+          "time_to_first_required_dependency_ms": null,
+          "time_to_first_relevant_test_ms": null,
+          "first_relevant_event_step": null,
+          "first_relevant_test_event_step": null,
+          "first_required_dependency_event_step": null,
+          "discovery_events": {},
+          "source_events": {},
+          "total_files_inspected": null,
+          "observed_files_inspected": [],
+          "irrelevant_files_inspected": null,
+          "observed_non_relevance_proxy_files": [],
+          "repeated_reads": 0,
+          "searches": 1,
+          "grep_operations": 0,
+          "mcp_calls": 0,
+          "mcp_successful_calls": 0,
+          "mcp_failed_calls": 0,
+          "context_tokens": 0,
+          "duplicate_tokens_avoided": 0,
+          "runtime_http_ms": 0,
+          "agent_idle_or_tool_wait_ms": null,
+          "observed_tool_wait_spans": [
+            {
+              "kind": "command_execution",
+              "item_id": "item_1",
+              "start_step": 3,
+              "end_step": 4,
+              "arrival_span_ms": 0.1749999999992724
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_2",
+              "start_step": 5,
+              "end_step": 6,
+              "arrival_span_ms": 9582.032
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_3",
+              "start_step": 7,
+              "end_step": 8,
+              "arrival_span_ms": 5972.6500000000015
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_5",
+              "start_step": 10,
+              "end_step": 11,
+              "arrival_span_ms": 5328.534
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_7",
+              "start_step": 14,
+              "end_step": 15,
+              "arrival_span_ms": 6083.125
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_9",
+              "start_step": 18,
+              "end_step": 19,
+              "arrival_span_ms": 5267.809999999998
+            }
+          ],
+          "wait_scope": "CLI event arrival spans include buffering; overlapping spans are not agent idle time.",
+          "corrective_iterations": null,
+          "elapsed_seconds": 103.614,
+          "patterns": [],
+          "calls": [],
+          "failure_signals": {
+            "account_usage_limit": false,
+            "provider_network_or_routing": false,
+            "required_conceptualize_mcp_startup_failed": false,
+            "agent_timeout": false,
+            "independent_checks_timeout": false
+          },
+          "limits": "Old logs have event ordering, not per-event elapsed timestamps. No required-dependency oracle. File relevance is modified-source/test proxy. Category describes observable evidence only."
+        },
+        {
+          "cohort": "v03-cold-isolated",
+          "run_path": "evaluations\\runs\\v03-cold-isolated\\slugs-control",
+          "task": "slugs",
+          "mode": "control",
+          "outcome": "success",
+          "diagnostic_category": "inconclusive",
+          "category_basis": [],
+          "time_to_first_relevant_file_ms": null,
+          "time_to_first_required_dependency_ms": null,
+          "time_to_first_relevant_test_ms": null,
+          "first_relevant_event_step": null,
+          "first_relevant_test_event_step": null,
+          "first_required_dependency_event_step": null,
+          "discovery_events": {},
+          "source_events": {},
+          "total_files_inspected": null,
+          "observed_files_inspected": [],
+          "irrelevant_files_inspected": null,
+          "observed_non_relevance_proxy_files": [],
+          "repeated_reads": 0,
+          "searches": 0,
+          "grep_operations": 0,
+          "mcp_calls": 0,
+          "mcp_successful_calls": 0,
+          "mcp_failed_calls": 0,
+          "context_tokens": 0,
+          "duplicate_tokens_avoided": 0,
+          "runtime_http_ms": 0,
+          "agent_idle_or_tool_wait_ms": null,
+          "observed_tool_wait_spans": [
+            {
+              "kind": "command_execution",
+              "item_id": "item_1",
+              "start_step": 3,
+              "end_step": 4,
+              "arrival_span_ms": 0.1180000000003929
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_2",
+              "start_step": 5,
+              "end_step": 6,
+              "arrival_span_ms": 4003.895999999999
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_3",
+              "start_step": 7,
+              "end_step": 8,
+              "arrival_span_ms": 7130.093000000001
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_4",
+              "start_step": 9,
+              "end_step": 10,
+              "arrival_span_ms": 3920.7260000000024
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_7",
+              "start_step": 14,
+              "end_step": 15,
+              "arrival_span_ms": 5822.55799999999
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_9",
+              "start_step": 18,
+              "end_step": 19,
+              "arrival_span_ms": 6076.050000000003
+            }
+          ],
+          "wait_scope": "CLI event arrival spans include buffering; overlapping spans are not agent idle time.",
+          "corrective_iterations": null,
+          "elapsed_seconds": 92.594,
+          "patterns": [],
+          "calls": [],
+          "failure_signals": {
+            "account_usage_limit": false,
+            "provider_network_or_routing": false,
+            "required_conceptualize_mcp_startup_failed": false,
+            "agent_timeout": false,
+            "independent_checks_timeout": false
+          },
+          "limits": "Old logs have event ordering, not per-event elapsed timestamps. No required-dependency oracle. File relevance is modified-source/test proxy. Category describes observable evidence only."
+        }
+      ],
+      "matched_available": true,
+      "discovery_comparison": {
+        "category": "inconclusive",
+        "enabled_minus_control_ms": null,
+        "scope": "First supported relevant-file observation, buffered CLI arrival timestamps, modified-file proxy. Earlier observation is not a causal MCP benefit.",
+        "similarity_window_ms": 1000
+      },
+      "missing_modes": []
+    },
+    {
+      "cohort": "v03-cold-isolated",
+      "task": "stock",
+      "runs": [
+        {
+          "cohort": "v03-cold-isolated",
+          "run_path": "evaluations\\runs\\v03-cold-isolated\\stock-conceptualize",
+          "task": "stock",
+          "mode": "conceptualize",
+          "outcome": "success",
+          "diagnostic_category": "inconclusive",
+          "category_basis": [],
+          "time_to_first_relevant_file_ms": 34287.028,
+          "time_to_first_required_dependency_ms": null,
+          "time_to_first_relevant_test_ms": null,
+          "first_relevant_event_step": 9,
+          "first_relevant_test_event_step": null,
+          "first_required_dependency_event_step": null,
+          "discovery_events": {
+            "shop/stock.py": 9,
+            "shop/reconciliation.py": 11
+          },
+          "source_events": {},
+          "total_files_inspected": null,
+          "observed_files_inspected": [
+            "shop/__init__.py",
+            "shop/inventory.py",
+            "shop/reconciliation.py",
+            "shop/stock.py",
+            "shop/warehouse.py",
+            "test_shop.py"
+          ],
+          "irrelevant_files_inspected": null,
+          "observed_non_relevance_proxy_files": [
+            "shop/__init__.py",
+            "shop/inventory.py",
+            "shop/warehouse.py",
+            "test_shop.py"
+          ],
+          "repeated_reads": 0,
+          "searches": 1,
+          "grep_operations": 0,
+          "mcp_calls": 0,
+          "mcp_successful_calls": 0,
+          "mcp_failed_calls": 0,
+          "context_tokens": 0,
+          "duplicate_tokens_avoided": 0,
+          "runtime_http_ms": 0,
+          "agent_idle_or_tool_wait_ms": null,
+          "observed_tool_wait_spans": [
+            {
+              "kind": "command_execution",
+              "item_id": "item_1",
+              "start_step": 3,
+              "end_step": 4,
+              "arrival_span_ms": 0.10500000000138243
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_2",
+              "start_step": 5,
+              "end_step": 6,
+              "arrival_span_ms": 4365.398000000001
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_4",
+              "start_step": 8,
+              "end_step": 9,
+              "arrival_span_ms": 4275.110999999997
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_5",
+              "start_step": 10,
+              "end_step": 11,
+              "arrival_span_ms": 5870.003000000004
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_7",
+              "start_step": 14,
+              "end_step": 15,
+              "arrival_span_ms": 6884.536000000007
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_9",
+              "start_step": 18,
+              "end_step": 19,
+              "arrival_span_ms": 7708.559999999998
+            }
+          ],
+          "wait_scope": "CLI event arrival spans include buffering; overlapping spans are not agent idle time.",
+          "corrective_iterations": null,
+          "elapsed_seconds": 100.304,
+          "patterns": [],
+          "calls": [],
+          "failure_signals": {
+            "account_usage_limit": false,
+            "provider_network_or_routing": false,
+            "required_conceptualize_mcp_startup_failed": false,
+            "agent_timeout": false,
+            "independent_checks_timeout": false
+          },
+          "limits": "Old logs have event ordering, not per-event elapsed timestamps. No required-dependency oracle. File relevance is modified-source/test proxy. Category describes observable evidence only."
+        },
+        {
+          "cohort": "v03-cold-isolated",
+          "run_path": "evaluations\\runs\\v03-cold-isolated\\stock-control",
+          "task": "stock",
+          "mode": "control",
+          "outcome": "success",
+          "diagnostic_category": "inconclusive",
+          "category_basis": [],
+          "time_to_first_relevant_file_ms": 28410.495,
+          "time_to_first_required_dependency_ms": null,
+          "time_to_first_relevant_test_ms": 28410.495,
+          "first_relevant_event_step": 8,
+          "first_relevant_test_event_step": 8,
+          "first_required_dependency_event_step": null,
+          "discovery_events": {
+            "shop/stock.py": 8,
+            "shop/reconciliation.py": 8,
+            "test_shop.py": 8,
+            "shop/contracts.py": 10
+          },
+          "source_events": {},
+          "total_files_inspected": null,
+          "observed_files_inspected": [
+            "shop/__init__.py",
+            "shop/checkout.py",
+            "shop/contracts.py",
+            "shop/reconciliation.py",
+            "shop/stock.py",
+            "test_shop.py"
+          ],
+          "irrelevant_files_inspected": null,
+          "observed_non_relevance_proxy_files": [
+            "shop/__init__.py",
+            "shop/checkout.py"
+          ],
+          "repeated_reads": 0,
+          "searches": 1,
+          "grep_operations": 0,
+          "mcp_calls": 0,
+          "mcp_successful_calls": 0,
+          "mcp_failed_calls": 0,
+          "context_tokens": 0,
+          "duplicate_tokens_avoided": 0,
+          "runtime_http_ms": 0,
+          "agent_idle_or_tool_wait_ms": null,
+          "observed_tool_wait_spans": [
+            {
+              "kind": "command_execution",
+              "item_id": "item_1",
+              "start_step": 3,
+              "end_step": 4,
+              "arrival_span_ms": 0.15599999999903957
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_2",
+              "start_step": 5,
+              "end_step": 6,
+              "arrival_span_ms": 4280.401
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_3",
+              "start_step": 7,
+              "end_step": 8,
+              "arrival_span_ms": 4492.057000000001
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_4",
+              "start_step": 9,
+              "end_step": 10,
+              "arrival_span_ms": 4354.482
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_7",
+              "start_step": 14,
+              "end_step": 15,
+              "arrival_span_ms": 4726.690999999992
+            }
+          ],
+          "wait_scope": "CLI event arrival spans include buffering; overlapping spans are not agent idle time.",
+          "corrective_iterations": null,
+          "elapsed_seconds": 80.202,
+          "patterns": [],
+          "calls": [],
+          "failure_signals": {
+            "account_usage_limit": false,
+            "provider_network_or_routing": false,
+            "required_conceptualize_mcp_startup_failed": false,
+            "agent_timeout": false,
+            "independent_checks_timeout": false
+          },
+          "limits": "Old logs have event ordering, not per-event elapsed timestamps. No required-dependency oracle. File relevance is modified-source/test proxy. Category describes observable evidence only."
+        }
+      ],
+      "matched_available": true,
+      "discovery_comparison": {
+        "category": "context discovered later",
+        "enabled_minus_control_ms": 5876.532999999999,
+        "scope": "First supported relevant-file observation, buffered CLI arrival timestamps, modified-file proxy. Earlier observation is not a causal MCP benefit.",
+        "similarity_window_ms": 1000
+      },
+      "missing_modes": []
+    },
+    {
+      "cohort": "v03-cold-isolated",
+      "task": "times",
+      "runs": [
+        {
+          "cohort": "v03-cold-isolated",
+          "run_path": "evaluations\\runs\\v03-cold-isolated\\times-conceptualize",
+          "task": "times",
+          "mode": "conceptualize",
+          "outcome": "success",
+          "diagnostic_category": "inconclusive",
+          "category_basis": [],
+          "time_to_first_relevant_file_ms": 43285.324,
+          "time_to_first_required_dependency_ms": null,
+          "time_to_first_relevant_test_ms": null,
+          "first_relevant_event_step": 11,
+          "first_relevant_test_event_step": null,
+          "first_required_dependency_event_step": null,
+          "discovery_events": {
+            "shop/time_format.py": 11,
+            "shop/time_reader.py": 11
+          },
+          "source_events": {},
+          "total_files_inspected": null,
+          "observed_files_inspected": [
+            "shop/audit_sink.py",
+            "shop/time_format.py",
+            "shop/time_reader.py",
+            "test_shop.py"
+          ],
+          "irrelevant_files_inspected": null,
+          "observed_non_relevance_proxy_files": [
+            "shop/audit_sink.py",
+            "test_shop.py"
+          ],
+          "repeated_reads": 0,
+          "searches": 1,
+          "grep_operations": 0,
+          "mcp_calls": 0,
+          "mcp_successful_calls": 0,
+          "mcp_failed_calls": 0,
+          "context_tokens": 0,
+          "duplicate_tokens_avoided": 0,
+          "runtime_http_ms": 0,
+          "agent_idle_or_tool_wait_ms": null,
+          "observed_tool_wait_spans": [
+            {
+              "kind": "command_execution",
+              "item_id": "item_1",
+              "start_step": 3,
+              "end_step": 4,
+              "arrival_span_ms": 0.18299999999908323
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_2",
+              "start_step": 5,
+              "end_step": 6,
+              "arrival_span_ms": 5278.628000000001
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_3",
+              "start_step": 7,
+              "end_step": 8,
+              "arrival_span_ms": 4390.008000000002
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_5",
+              "start_step": 10,
+              "end_step": 11,
+              "arrival_span_ms": 3707.0769999999975
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_7",
+              "start_step": 14,
+              "end_step": 15,
+              "arrival_span_ms": 5957.368000000002
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_10",
+              "start_step": 19,
+              "end_step": 20,
+              "arrival_span_ms": 5297.436999999991
+            }
+          ],
+          "wait_scope": "CLI event arrival spans include buffering; overlapping spans are not agent idle time.",
+          "corrective_iterations": null,
+          "elapsed_seconds": 99.672,
+          "patterns": [],
+          "calls": [],
+          "failure_signals": {
+            "account_usage_limit": false,
+            "provider_network_or_routing": false,
+            "required_conceptualize_mcp_startup_failed": false,
+            "agent_timeout": false,
+            "independent_checks_timeout": false
+          },
+          "limits": "Old logs have event ordering, not per-event elapsed timestamps. No required-dependency oracle. File relevance is modified-source/test proxy. Category describes observable evidence only."
+        },
+        {
+          "cohort": "v03-cold-isolated",
+          "run_path": "evaluations\\runs\\v03-cold-isolated\\times-control",
+          "task": "times",
+          "mode": "control",
+          "outcome": "success",
+          "diagnostic_category": "inconclusive",
+          "category_basis": [],
+          "time_to_first_relevant_file_ms": null,
+          "time_to_first_required_dependency_ms": null,
+          "time_to_first_relevant_test_ms": null,
+          "first_relevant_event_step": null,
+          "first_relevant_test_event_step": null,
+          "first_required_dependency_event_step": null,
+          "discovery_events": {},
+          "source_events": {},
+          "total_files_inspected": null,
+          "observed_files_inspected": [],
+          "irrelevant_files_inspected": null,
+          "observed_non_relevance_proxy_files": [],
+          "repeated_reads": 0,
+          "searches": 1,
+          "grep_operations": 0,
+          "mcp_calls": 0,
+          "mcp_successful_calls": 0,
+          "mcp_failed_calls": 0,
+          "context_tokens": 0,
+          "duplicate_tokens_avoided": 0,
+          "runtime_http_ms": 0,
+          "agent_idle_or_tool_wait_ms": null,
+          "observed_tool_wait_spans": [
+            {
+              "kind": "command_execution",
+              "item_id": "item_1",
+              "start_step": 3,
+              "end_step": 4,
+              "arrival_span_ms": 0.12000000000080036
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_2",
+              "start_step": 5,
+              "end_step": 6,
+              "arrival_span_ms": 5787.365999999998
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_3",
+              "start_step": 7,
+              "end_step": 8,
+              "arrival_span_ms": 6521.612999999998
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_4",
+              "start_step": 9,
+              "end_step": 10,
+              "arrival_span_ms": 5255.930999999997
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_7",
+              "start_step": 14,
+              "end_step": 15,
+              "arrival_span_ms": 5201.331999999995
+            },
+            {
+              "kind": "command_execution",
+              "item_id": "item_8",
+              "start_step": 16,
+              "end_step": 17,
+              "arrival_span_ms": 3971.092000000004
+            }
+          ],
+          "wait_scope": "CLI event arrival spans include buffering; overlapping spans are not agent idle time.",
+          "corrective_iterations": null,
+          "elapsed_seconds": 84.65,
+          "patterns": [],
+          "calls": [],
+          "failure_signals": {
+            "account_usage_limit": false,
+            "provider_network_or_routing": false,
+            "required_conceptualize_mcp_startup_failed": false,
+            "agent_timeout": false,
+            "independent_checks_timeout": false
+          },
+          "limits": "Old logs have event ordering, not per-event elapsed timestamps. No required-dependency oracle. File relevance is modified-source/test proxy. Category describes observable evidence only."
+        }
+      ],
+      "matched_available": true,
+      "discovery_comparison": {
+        "category": "inconclusive",
+        "enabled_minus_control_ms": null,
+        "scope": "First supported relevant-file observation, buffered CLI arrival timestamps, modified-file proxy. Earlier observation is not a causal MCP benefit.",
+        "similarity_window_ms": 1000
+      },
+      "missing_modes": []
+    }
+  ],
+  "rules": "Descriptive flags; no quality score. Blocking is not a completed task failure."
+}

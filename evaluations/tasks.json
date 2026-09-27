@@ -1,0 +1,63 @@
+[
+  {
+    "id": "receipts",
+    "prompt": "Change payment receipts to carry integer cents rather than floating point dollar amounts. Update checkout and place_order to accept amount_cents, reject negative or non-integer amounts, preserve stored audit summaries in dollars, and update the existing tests. Receipt must expose amount_cents instead of total. Keep unrelated behavior unchanged.",
+    "check": "receipts.py",
+    "category": "shared-interface"
+  },
+  {
+    "id": "auth",
+    "prompt": "Replace the role field in Identity with a permissions frozenset. The admin token grants refund permission and reader grants none. Preserve refund authorization behavior, invalid-token errors, and unrelated functionality; update associated tests.",
+    "check": "auth.py",
+    "category": "authentication"
+  },
+  {
+    "id": "retry",
+    "prompt": "Make order notifications retry transient TimeoutError failures exactly three attempts using the repository's existing retry helper. Preserve successful responses and propagate other exceptions without retries. Add tests for transient recovery and non-transient failure.",
+    "check": "retry.py",
+    "category": "dependency-discovery"
+  },
+  {
+    "id": "limits",
+    "category": "configuration",
+    "prompt": "Raise the item quantity cap to 25 consistently in validation and background batch admission. Keep the shared limit in one place and preserve rejection of zero or out-of-range quantities. Add regression tests.",
+    "check": "limits.py"
+  },
+  {
+    "id": "customers",
+    "category": "cross-module",
+    "prompt": "Make customer identity keys whitespace-trimmed and Unicode case-insensitive using casefold. Preserve correct customer lookup and customer segmentation so they share exactly the same keys. Add tests.",
+    "check": "customers.py"
+  },
+  {
+    "id": "pages",
+    "category": "hidden-consumer",
+    "prompt": "Increase the default record page size to three. Ensure complete exports still contain every record exactly once, including empty input and a partial final page. Add tests.",
+    "check": "pages.py"
+  },
+  {
+    "id": "stock",
+    "category": "shared-interface",
+    "prompt": "Replace the stock reservation integer result with a frozen Reservation record exposing remaining and reserved counts. Preserve reconciliation event dictionaries and existing invalid-reservation errors. Add tests.",
+    "check": "stock.py"
+  },
+  {
+    "id": "times",
+    "category": "dependency-discovery",
+    "prompt": "Normalize emitted audit timestamps to UTC with a Z suffix, reject naive datetimes, and preserve timestamp round trips to timezone-aware datetime values. Add tests.",
+    "check": "times.py"
+  },
+  {
+    "id": "slugs",
+    "category": "test-discovery",
+    "prompt": "Make product slugs use lowercase ASCII letters and digits separated by one dash, with no leading or trailing dash. Catalog URLs and lookup keys must remain consistent. Add consumer-level regression tests.",
+    "check": "slugs.py"
+  },
+  {
+    "id": "shipping",
+    "category": "git-context",
+    "prompt": "Apply the express surcharge already changed on the current branch in addition to the standard shipping charge. Standard shipping and invoice dictionaries must remain compatible. Inspect current branch context rather than inventing a fee, and add tests.",
+    "check": "shipping.py",
+    "git_branch_fixture": true
+  }
+]

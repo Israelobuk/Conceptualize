@@ -1,0 +1,20 @@
+[
+  {
+    "files": 60,
+    "graph_ms": 6.11009998829104,
+    "edges": 231,
+    "graph_sha256": "ca905ff9c12910471e737d4c55a4b7d49f071c847a0351e261842b4faef7aae2"
+  },
+  {
+    "files": 400,
+    "graph_ms": 22.632700012763962,
+    "edges": 1591,
+    "graph_sha256": "29dffb1082fb71db2c4491d969f973d57ddc3c5a710a412beafae2f50c1f2172"
+  },
+  {
+    "files": 2000,
+    "graph_ms": 184.1363999992609,
+    "edges": 7991,
+    "graph_sha256": "c05cd0646fb96fe1151726eb1f2dc53d4430da7e1b629f87483557ef058edfec"
+  }
+]

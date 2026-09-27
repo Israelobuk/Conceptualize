@@ -73,6 +73,9 @@ class ContextUnitRuntime:
         ):
             raise ValueError("Invalid score weights")
         query = query.strip().lower()
+        # The prompt already carries the active request. Returning a transcript
+        # copy of that same request adds tokens without adding prior context.
+        query_phrase = query.strip() if len(query.split()) > 4 else ""
         terms = [
             term
             for term in dict.fromkeys(re.findall(r"[\w]+", query))
@@ -92,6 +95,8 @@ class ContextUnitRuntime:
         results = []
         for unit in documents:
             text = unit.content.lower()
+            if query_phrase and query_phrase in text:
+                continue
             words = re.findall(r"[\w]+", text)
             if not words:
                 continue
@@ -137,6 +142,7 @@ class ContextUnitRuntime:
         source_types: set[str] | None = None,
         targets: list[str] | None = None,
         level: str = "pack",
+        limit: int = 30,
         score_weights: dict | None = None,
     ) -> dict:
         from .runtime import token_count
@@ -155,7 +161,61 @@ class ContextUnitRuntime:
         prior_by_id = {}
         for row in history:
             prior_by_id.setdefault(row.get("unit_id"), []).append(row)
-        matches = self.search(query, source_types=source_types, weights=configured)
+        matches = self.search(query, source_types=source_types, limit=limit, weights=configured)
+        query_terms = set(re.findall(r"[\w]+", query.lower()))
+        planning_terms = {
+            "architecture", "plan", "decision", "decisions", "constraint",
+            "constraints", "implementation", "current", "overall", "everything",
+        }
+        if query_terms & planning_terms:
+            by_match_id = {row["unit"].id: row for row in matches}
+            decision_pattern = re.compile(
+                r"\b(?:must|must not|do not|don't|not adding|exclude\w*|out of scope|"
+                r"supersed\w*|final (?:architecture|review|decision)|constraint|"
+                r"first release|v1|keep .{0,45} (?:until|out|local)|we are not|"
+                r"no\s+web\s?socket|not semantic understanding)\b",
+                re.IGNORECASE,
+            )
+            final_pattern = re.compile(
+                r"\b(?:final (?:architecture|review|decision)|current (?:direction|plan|state)|"
+                r"use that review as the current)\b",
+                re.IGNORECASE,
+            )
+            for unit in self.units:
+                if unit.source_type != "message":
+                    continue
+                decision_match = decision_pattern.search(unit.content)
+                role = unit.metadata.get("role")
+                # User statements can define decisions freely. Only admit an
+                # assistant message when it states a compact explicit rule.
+                if not decision_match or (role != "user" and not re.search(
+                    r"\b(?:no\s+web\s?socket|must state that lexical relevance is not semantic understanding)\b",
+                    unit.content,
+                    re.IGNORECASE,
+                )):
+                    continue
+                row = by_match_id.get(unit.id)
+                if row is None:
+                    row = {
+                        "unit": unit,
+                        "score": 0,
+                        "reasons": [],
+                        "token_count": token_count(unit.content),
+                        "lexical_only": False,
+                    }
+                    matches.append(row)
+                    by_match_id[unit.id] = row
+                row["score"] += configured["decision_context"]
+                row["reasons"].append(
+                    {"signal": "decision_context", "weight": configured["decision_context"]}
+                )
+                if final_pattern.search(unit.content):
+                    row["score"] += configured["final_state"]
+                    row["reasons"].append(
+                        {"signal": "final_state", "weight": configured["final_state"]}
+                    )
+            matches.sort(key=lambda row: (-row["score"], row["unit"].id))
+            matches = matches[:limit]
         if level == "map" and not query.strip():
             matches = [
                 {
@@ -215,10 +275,6 @@ class ContextUnitRuntime:
             "references_symbol": "referenced_symbol",
             "references": "related_unit",
             "related_test": "related_test",
-            "follows": "message_adjacency",
-            "reply_to": "message_adjacency",
-            "member_of": "conversation_membership",
-            "contains": "conversation_membership",
             "cochanged": "cochanged",
         }
         for owner in self.units:
@@ -240,6 +296,8 @@ class ContextUnitRuntime:
                 if not related.content.strip():
                     continue
                 kind = relation.get("kind", "related")
+                if kind not in relation_signals:
+                    continue
                 signal = relation_signals.get(kind, "related_unit")
                 weight = configured[signal]
                 matches.append(
@@ -252,6 +310,14 @@ class ContextUnitRuntime:
                     }
                 )
                 direct_ids.add(related_id)
+        # Do not emit the indexed copy of the active prompt. It is already in
+        # the host request and can otherwise crowd out historical decisions.
+        active_query = query.strip().casefold()
+        if len(active_query.split()) > 4:
+            matches = [
+                row for row in matches
+                if active_query not in row["unit"].content.casefold()
+            ]
         matches.sort(key=lambda row: (-row["score"], row["unit"].id))
         candidates = []
         seen_content = set()

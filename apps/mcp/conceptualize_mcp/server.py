@@ -138,7 +138,7 @@ async def conceptualize_map(
     force_refresh: bool = False,
     ctx: Context = None,
 ) -> CallToolResult:
-    """Orient in an unfamiliar or large repository when the relevant subsystem is unknown. Scope to a directory when possible. Do not call automatically for a known target; use inspect instead."""
+    """Orient in an unfamiliar or large repository when the relevant subsystem is unknown. For conversation sources this returns conversation titles/counts only; call pack or search once for bounded relevant history. Do not expand every message. Scope repository maps to a directory; for a known target use inspect instead."""
     return await call(
         "map", {"path": path, "source_types": source_types, "token_budget": token_budget, "force_refresh": force_refresh}, ctx
     )
@@ -154,7 +154,7 @@ async def conceptualize_search(
     force_refresh: bool = False,
     ctx: Context = None,
 ) -> CallToolResult:
-    """Search indexed context using exact text/identifiers. Optional source_types can include repository, conversation, message or repository_file. Lexical ranking is not semantic search."""
+    """Search indexed context using exact text/identifiers. Optional source_types can include repository, conversation, message or repository_file. For conversation context prefer one bounded pack over repeated per-message expands. Lexical ranking is not semantic search."""
     return await call(
         "search",
         {
@@ -190,7 +190,7 @@ async def conceptualize_expand(
     force_refresh: bool = False,
     ctx: Context = None,
 ) -> CallToolResult:
-    """Read a precise file or symbol identified by an earlier result. Choose structure for signatures/relations or source for implementation. Unchanged ranges return references; force_refresh resends when host context was lost."""
+    """Read a precise file or symbol identified by an earlier result. Choose structure for signatures/relations or source for implementation. Do not expand a conversation title or enumerate transcript messages; use one bounded pack/search. Unchanged ranges return references; force_refresh resends when host context was lost."""
     return await call(
         "expand",
         {
@@ -215,6 +215,7 @@ async def conceptualize_pack(
     source_types: list[str] | None = None,
     force_refresh: bool = False,
     score_weights: dict[str, int] | None = None,
+    limit: int = 24,
     ctx: Context = None,
 ) -> CallToolResult:
     """Assemble bounded context from selected source types. Repository graph relationships remain available for repository-only packs; mixed-source packs use deterministic lexical and explicit relationships. Full selection evidence stays in the trace."""
@@ -230,6 +231,7 @@ async def conceptualize_pack(
             "source_types": source_types,
             "force_refresh": force_refresh,
             "score_weights": score_weights or {},
+            "limit": limit,
         },
         ctx,
     )

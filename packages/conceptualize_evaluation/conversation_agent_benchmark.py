@@ -11,6 +11,8 @@ import shutil
 import subprocess
 import sys
 import time
+import urllib.error
+import urllib.request
 from pathlib import Path
 
 from conceptualize_runtime.adapters import ConversationAdapter
@@ -115,10 +117,44 @@ def _event_usage(events: list[dict]) -> dict:
     return {"input_tokens": None, "cached_input_tokens": None, "output_tokens": None, "aggregate_tokens": None}
 
 
+def _mcp_payloads(tool_calls: list[dict]) -> list[dict]:
+    payloads = []
+    for call in tool_calls:
+        for content in (call.get("result") or {}).get("content", []):
+            text = content.get("text")
+            if not text:
+                continue
+            try:
+                payloads.append(json.loads(text))
+            except (TypeError, ValueError):
+                continue
+    return payloads
+
+
+def _trace_details(api_url: str, api_key: str | None, payloads: list[dict]) -> list[dict]:
+    if not api_key:
+        return []
+    traces = []
+    for payload in payloads:
+        trace_id = payload.get("trace_id")
+        if not trace_id:
+            continue
+        request = urllib.request.Request(
+            api_url.rstrip("/") + "/v1/traces/" + trace_id,
+            headers={"Authorization": f"Bearer {api_key}"},
+        )
+        try:
+            with urllib.request.urlopen(request, timeout=10) as response:
+                traces.append(json.loads(response.read()))
+        except (urllib.error.URLError, TimeoutError, ValueError):
+            continue
+    return traces
+
+
 def _run_codex(
     *, codex: str, model: str, prompt: str, output: Path, enabled: bool,
     api_url: str, mcp_command: str | None, mcp_args: list[str], env: dict, timeout: int,
-    cwd: Path, codex_home: Path,
+    cwd: Path, codex_home: Path, mcp_required: bool = False,
 ) -> dict:
     cli = [codex, "exec", "--ephemeral", "--skip-git-repo-check", "--json", "--model", model]
     cli += ["-c", "model_reasoning_effort=low", "-c", 'approval_policy="never"', "-s", "read-only"]
@@ -127,7 +163,7 @@ def _run_codex(
             raise ValueError("--mcp-command is required for the Conceptualize condition")
         cli += [
             "-c", "mcp_servers.conceptualize.enabled=true",
-            "-c", "mcp_servers.conceptualize.required=true",
+            "-c", "mcp_servers.conceptualize.required=" + ("true" if mcp_required else "false"),
             "-c", "mcp_servers.conceptualize.command=" + json.dumps(mcp_command),
             "-c", "mcp_servers.conceptualize.args=" + json.dumps(mcp_args),
             "-c", 'mcp_servers.conceptualize.env_vars=["CONCEPTUALIZE_API_KEY"]',
@@ -168,6 +204,7 @@ def _run_codex(
     answer = messages[-1] if messages else ""
     (output / "answer.md").write_text(answer, encoding="utf-8")
     _write(output / "tool-calls.json", tool_calls)
+    mcp_payloads = _mcp_payloads(tool_calls)
     return {
         "exit_code": process.returncode,
         "elapsed_ms": elapsed_ms,
@@ -175,13 +212,15 @@ def _run_codex(
         "events": events,
         "usage": _event_usage(events),
         "tool_calls": tool_calls,
+        "mcp_payloads": mcp_payloads,
         "stderr": process.stderr,
     }
 
 
 def run_one(fixture: dict, *, model: str, condition: str, repetition: int, output: Path,
             codex: str, api_url: str, api_key: str | None, mcp_command: str | None,
-            mcp_args: list[str], timeout: int, pricing: dict | None, diagnostic: bool = False) -> dict:
+            mcp_args: list[str], timeout: int, pricing: dict | None, diagnostic: bool = False,
+            mcp_required: bool = False) -> dict:
     enabled = condition != "control_full_history"
     history_text = _history_text(fixture)
     prompt = "\n\n".join(fixture["prompt_rules"])
@@ -227,6 +266,7 @@ def run_one(fixture: dict, *, model: str, condition: str, repetition: int, outpu
             api_url=api_url, mcp_command=mcp_command, mcp_args=mcp_args,
             env=env, timeout=timeout, cwd=cwd,
             codex_home=codex_home,
+            mcp_required=mcp_required,
         )
     except (subprocess.TimeoutExpired, subprocess.CalledProcessError) as exc:
         result = {
@@ -245,13 +285,30 @@ def run_one(fixture: dict, *, model: str, condition: str, repetition: int, outpu
             + telemetry["cached_input_tokens"] * pricing["cached_input_per_million"]
             + telemetry["output_tokens"] * pricing["output_per_million"]
         ) / 1_000_000
+    mcp_payloads = result.get("mcp_payloads", [])
+    traces = _trace_details(api_url, api_key, mcp_payloads) if enabled else []
+    trace_by_id = {trace.get("id"): trace for trace in traces}
+    compact_metrics = [payload.get("metrics", {}) for payload in mcp_payloads]
+    trace_results = []
+    for payload in mcp_payloads:
+        trace = trace_by_id.get(payload.get("trace_id"), {})
+        persisted = trace.get("result") or {}
+        trace_results.append({
+            "trace_id": payload.get("trace_id"),
+            "operation": payload.get("operation"),
+            "metrics": payload.get("metrics", {}),
+            "overhead": persisted.get("overhead", {}),
+            "timings_ms": persisted.get("timings_ms", {}),
+        })
+    conceptualize_tokens = sum(row.get("returned_tokens", 0) for row in compact_metrics)
+    duplicate_avoided = sum(row.get("previously_supplied_tokens", 0) for row in compact_metrics)
     result_data = {
         "benchmark": fixture["version"], "model": model, "condition": condition,
         "repetition": repetition, "exit_code": result["exit_code"],
         "success": result["exit_code"] == 0, "grade": score,
         "elapsed_ms": result["elapsed_ms"], "model_reported_usage": telemetry,
         "context_available_tokens": token_count(history_text),
-        "context_string_tokens_delivered_by_conceptualize": None,
+        "context_string_tokens_delivered_by_conceptualize": conceptualize_tokens if mcp_payloads else (0 if enabled else None),
         "context_string_tokens_full_history": token_count(history_text) if condition == "control_full_history" else None,
         "context_string_tokens_forced_diagnostic": token_count(pack["context"]) if diagnostic else None,
         "conceptualize_available": condition == "autonomous_conceptualize_available",
@@ -259,15 +316,17 @@ def run_one(fixture: dict, *, model: str, condition: str, repetition: int, outpu
         "adoption": "invoked" if result["tool_calls"] else ("enabled_but_unused" if condition == "autonomous_conceptualize_available" else "not_applicable"),
         "first_operation": result["tool_calls"][0].get("tool") if result["tool_calls"] else None,
         "operations": [call.get("tool") for call in result["tool_calls"]],
-        "tool_calls": result["tool_calls"], "duplicate_context_avoided_tokens": None,
-        "session_reuse": None, "mcp_tool_elapsed_ms": None,
+        "tool_calls": result["tool_calls"], "conceptualize_traces": trace_results,
+        "duplicate_context_avoided_tokens": duplicate_avoided if mcp_payloads else (0 if enabled else None),
+        "session_reuse": any(row.get("previously_supplied_tokens", 0) > 0 for row in compact_metrics) if mcp_payloads else (False if enabled else None),
+        "mcp_tool_elapsed_ms": [row.get("overhead", {}).get("total_runtime_ms") for row in trace_results],
         "estimated_model_cost": estimated,
         "pricing_snapshot": pricing.get("version") if pricing and estimated is not None else None,
         "pricing_note": "Estimated model cost; not provider invoice." if estimated is not None else "N/A: no explicit pricing snapshot supplied.",
         "answer_file": "answer.md", "raw_events_file": "agent-events.jsonl",
         "stderr_file": "agent-stderr.txt", "limitations": [
-            "Conceptualize selected context tokens require persisted API traces and remain N/A when no trace store is supplied.",
-            "Codex reports input, cached-input and output token totals in JSON turn.completed events; exact MCP tool latency and session reuse are not exposed here.",
+            "Context return tokens are Conceptualize's tokenizer estimate from MCP payload metrics; model-reported input tokens are separately recorded.",
+            "Persisted trace timing is unavailable if the trace endpoint cannot be reached; MCP stdio startup and host scheduling are outside runtime overhead.",
         ],
     }
     _write(output / "result.json", result_data)
@@ -282,8 +341,14 @@ def main() -> None:
     parser.add_argument("--codex", default=shutil.which("codex") or "codex")
     parser.add_argument("--api-url", default=os.environ.get("CONCEPTUALIZE_API_URL", "http://127.0.0.1:8000"))
     parser.add_argument("--api-key", default=os.environ.get("CONCEPTUALIZE_API_KEY"))
-    parser.add_argument("--mcp-command", default=sys.executable)
-    parser.add_argument("--mcp-args", nargs="*", default=["-m", "conceptualize_mcp.server"])
+    parser.add_argument(
+        "--mcp-command",
+        default=str(ROOT / ".venv" / "Scripts" / "python.exe") if os.name == "nt" else sys.executable,
+    )
+    parser.add_argument("--mcp-args", default="-m conceptualize_mcp.server",
+                        help="MCP server arguments as a single shell-free command string")
+    parser.add_argument("--mcp-required", action="store_true",
+                        help="Require MCP initialization; default exposes it as an optional tool")
     parser.add_argument("--timeout", type=int, default=180)
     parser.add_argument("--pricing", type=Path)
     parser.add_argument("--codex-home", type=Path, default=ROOT / "evaluations" / "runs" / "v05-benchmark-codex-home")
@@ -306,8 +371,9 @@ def main() -> None:
                     fixture, model=model, condition=condition, repetition=repetition,
                     output=path, codex=args.codex, api_url=args.api_url,
                     api_key=args.api_key, mcp_command=args.mcp_command,
-                    mcp_args=args.mcp_args, timeout=args.timeout, pricing=pricing,
+                    mcp_args=args.mcp_args.split(), timeout=args.timeout, pricing=pricing,
                     diagnostic=condition == "forced_context_diagnostic",
+                    mcp_required=args.mcp_required,
                 )
                 results.append({key: value for key, value in result.items() if key not in {"tool_calls", "limitations"}})
                 print(json.dumps({"model": model, "condition": condition, "repetition": repetition, "pass": result["grade"]["deterministic_pass"], "input_tokens": result["model_reported_usage"]["input_tokens"], "adoption": result["adoption"]}), flush=True)

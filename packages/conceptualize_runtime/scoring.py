@@ -22,6 +22,8 @@ DEFAULT_WEIGHTS = {
     "lexical_overlap": 10,
     "conversation_membership": 12,
     "message_adjacency": 18,
+    "decision_context": 28,
+    "final_state": 55,
     "related_unit": 5,
 }
 

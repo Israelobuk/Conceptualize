@@ -112,6 +112,58 @@ class ContextRuntime:
         if not query and operation == "pack":
             query = " ".join(targets)
         engine = ContextUnitRuntime(units)
+        if operation == "map" and sources and sources <= {"conversation", "message"}:
+            # Conversation maps are navigational metadata; sending every message
+            # ID causes hosts to expand the transcript item by item.
+            conversations = [unit for unit in units if unit.source_type == "conversation"]
+            if inputs.get("path"):
+                path = inputs["path"].strip()
+                conversations = [unit for unit in conversations if unit.source_id == path]
+            from .runtime import token_count
+
+            message_counts = {}
+            for item in units:
+                if item.source_type == "message":
+                    conversation_id = item.metadata.get("conversation_id")
+                    message_counts[conversation_id] = message_counts.get(conversation_id, 0) + 1
+            rows = []
+            for unit in conversations[: inputs.get("limit", 10)]:
+                message_count = message_counts.get(unit.source_id, 0)
+                text = f"[conversation:{unit.source_id}] {unit.metadata.get('title', unit.source_id)} ({message_count} messages)"
+                rows.append({"unit_id": unit.id, "source_id": unit.source_id, "text": text})
+            context = "\n".join(row["text"] for row in rows)
+            return {
+                "operation": operation,
+                "level": "map",
+                "context": context,
+                "metrics": {
+                    "available_context_tokens": sum(unit.token_count for unit in units),
+                    "candidate_tokens": sum(unit.token_count for unit in conversations),
+                    "selected_tokens": token_count(context),
+                    "previously_supplied_tokens": 0,
+                    "new_context_tokens": token_count(context),
+                    "duplicate_tokens_avoided": 0,
+                    "returned_tokens": token_count(context),
+                    "token_budget": inputs.get("token_budget", 4000),
+                    "candidate_units": len(conversations),
+                    "selected_units": len(rows),
+                    "omitted_units": max(0, len(conversations) - len(rows)),
+                },
+                "included_files": [],
+                "included_context": [row["unit_id"] for row in rows],
+                "selection": [
+                    {"id": row["unit_id"], "source_type": "conversation", "source_id": row["source_id"],
+                     "score": 0, "reason": "conversation map", "token_cost": token_count(row["text"]),
+                     "status": "selected"}
+                    for row in rows
+                ],
+                "steps": [{"name": "List matching conversations", "count": len(rows)}],
+                "timings_ms": {"scoring": 0, "context_compilation": 0},
+                "budget_scope": "Conversation names and message counts only; use pack or search to retrieve bounded context.",
+            }
+        candidate_limit = inputs.get("limit", 30)
+        if operation == "pack" and sources and sources <= {"conversation", "message"}:
+            candidate_limit = min(candidate_limit, 24)
         result = engine.pack(
             query,
             inputs.get("token_budget", 4000),
@@ -119,6 +171,7 @@ class ContextRuntime:
             source_types=sources,
             targets=targets,
             level=level,
+            limit=candidate_limit,
             score_weights=inputs.get("score_weights"),
         )
         context_units = [

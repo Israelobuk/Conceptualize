@@ -1,0 +1,181 @@
+{
+  "benchmark": "V0.5 context-runtime optimization investigation",
+  "version": "v05-compact-conversation-map-1",
+  "status": "negative_or_inconclusive",
+  "question": "Did compact conversation maps and bounded retrieval reduce agent elapsed time or model-reported input tokens while preserving task facts?",
+  "fixture": "evaluations/v05-conversation-problem.json",
+  "history_sha256": "b5199263933977f11589744901ee447b114ff88b1da7b155c868a34492d6aca7",
+  "rubric": "Frozen v0.5 exact-term rubric; one run per model and condition. No criteria changed.",
+  "method": {
+    "model_ids": [
+      "gpt-6-sol",
+      "gpt-5.6-sol"
+    ],
+    "repetitions_per_cell": 1,
+    "conditions": [
+      "control_full_history",
+      "autonomous_conceptualize_available"
+    ],
+    "same_prompt_and_rubric": true,
+    "pricing": "Unavailable; no cost estimate."
+  },
+  "rows": [
+    {
+      "model": "gpt-6-sol",
+      "condition": "control_full_history",
+      "repetitions": 1,
+      "success": true,
+      "strict_rubric_pass": false,
+      "fact_coverage_percent": 72.22,
+      "elapsed_ms": 14923.8,
+      "model_input_tokens": 16232,
+      "model_cached_input_tokens": 12416,
+      "model_output_tokens": 337,
+      "conceptualize_invoked": false,
+      "operations": [],
+      "context_string_tokens_delivered": null,
+      "duplicate_context_avoided_tokens": null,
+      "trace_count": 0,
+      "runtime_stage_ms_sum": {
+        "transport_ms": null,
+        "index_lookup_ms": null,
+        "graph_ms": null,
+        "git_ms": null,
+        "scoring_ms": null,
+        "packing_ms": null,
+        "cache_ms": null,
+        "trace_write_ms": null,
+        "total_runtime_ms": null
+      },
+      "file_reads": null,
+      "files_inspected": null,
+      "unnecessary_files_inspected": null,
+      "repeated_reads": null,
+      "corrective_iterations": null
+    },
+    {
+      "model": "gpt-6-sol",
+      "condition": "autonomous_conceptualize_available",
+      "repetitions": 1,
+      "success": true,
+      "strict_rubric_pass": false,
+      "fact_coverage_percent": 88.89,
+      "elapsed_ms": 22553.98,
+      "model_input_tokens": 82136,
+      "model_cached_input_tokens": 65408,
+      "model_output_tokens": 435,
+      "conceptualize_invoked": true,
+      "operations": [
+        "conceptualize_pack"
+      ],
+      "context_string_tokens_delivered": 858,
+      "duplicate_context_avoided_tokens": 0,
+      "trace_count": 1,
+      "runtime_stage_ms_sum": {
+        "transport_ms": null,
+        "index_lookup_ms": 4.891,
+        "graph_ms": 0.487,
+        "git_ms": 0,
+        "scoring_ms": 10.176,
+        "packing_ms": 7.611,
+        "cache_ms": 216.906,
+        "trace_write_ms": 7.617,
+        "total_runtime_ms": 258.555
+      },
+      "file_reads": null,
+      "files_inspected": null,
+      "unnecessary_files_inspected": null,
+      "repeated_reads": null,
+      "corrective_iterations": null
+    },
+    {
+      "model": "gpt-5.6-sol",
+      "condition": "control_full_history",
+      "repetitions": 1,
+      "success": true,
+      "strict_rubric_pass": false,
+      "fact_coverage_percent": 83.33,
+      "elapsed_ms": 11644.1,
+      "model_input_tokens": 15375,
+      "model_cached_input_tokens": 11520,
+      "model_output_tokens": 371,
+      "conceptualize_invoked": false,
+      "operations": [],
+      "context_string_tokens_delivered": null,
+      "duplicate_context_avoided_tokens": null,
+      "trace_count": 0,
+      "runtime_stage_ms_sum": {
+        "transport_ms": null,
+        "index_lookup_ms": null,
+        "graph_ms": null,
+        "git_ms": null,
+        "scoring_ms": null,
+        "packing_ms": null,
+        "cache_ms": null,
+        "trace_write_ms": null,
+        "total_runtime_ms": null
+      },
+      "file_reads": null,
+      "files_inspected": null,
+      "unnecessary_files_inspected": null,
+      "repeated_reads": null,
+      "corrective_iterations": null
+    },
+    {
+      "model": "gpt-5.6-sol",
+      "condition": "autonomous_conceptualize_available",
+      "repetitions": 1,
+      "success": true,
+      "strict_rubric_pass": false,
+      "fact_coverage_percent": 0.0,
+      "elapsed_ms": 18596.31,
+      "model_input_tokens": 41963,
+      "model_cached_input_tokens": 38912,
+      "model_output_tokens": 464,
+      "conceptualize_invoked": false,
+      "operations": [],
+      "context_string_tokens_delivered": 0,
+      "duplicate_context_avoided_tokens": 0,
+      "trace_count": 0,
+      "runtime_stage_ms_sum": {
+        "transport_ms": null,
+        "index_lookup_ms": null,
+        "graph_ms": null,
+        "git_ms": null,
+        "scoring_ms": null,
+        "packing_ms": null,
+        "cache_ms": null,
+        "trace_write_ms": null,
+        "total_runtime_ms": null
+      },
+      "file_reads": null,
+      "files_inspected": null,
+      "unnecessary_files_inspected": null,
+      "repeated_reads": null,
+      "corrective_iterations": null
+    }
+  ],
+  "runtime_context_only_comparison": {
+    "full_history_string_tokens": 1671,
+    "optimized_pack_string_tokens": 858,
+    "difference_tokens": 813,
+    "difference_percent": 48.65,
+    "note": "Conceptualize returned context only; excludes MCP schemas, Codex prompt/system framing, and agent-generated extra turns."
+  },
+  "interpretation": [
+    "The compact conversation map now emits conversation title/count metadata rather than every message ID; a regression test covers a 40-message history.",
+    "One gpt-6-sol enabled run used a single pack and received 858 context tokens, but model-reported input and elapsed time remained above its paired control in this single run.",
+    "The gpt-5.6-sol enabled agent did not invoke Conceptualize and also had higher model input and elapsed time than its paired control.",
+    "No evidence supports a speed or total-token improvement. Small sample, model-reported input includes host prompt/tool framing, and the exact-term rubric is not semantic grading."
+  ],
+  "limits": [
+    "No repository file-read/search telemetry applies to this synthetic conversation recovery task.",
+    "MCP metadata can be supplied by the Codex host and is included in model input but is outside Conceptualize returned-context tokens.",
+    "At least one prior exploratory run called list_mcp_resources and received approximately 48,000 serialized characters of host-wide resource catalog metadata; this was not a Conceptualize runtime response and is excluded from the active compact-map pair.",
+    "Raw events, answers, and per-run traces are locally retained in ignored evaluations/runs/v05-compactmap-active."
+  ],
+  "reproducibility": {
+    "command": "python -m conceptualize_evaluation.conversation_agent_benchmark --models gpt-6-sol gpt-5.6-sol --conditions control_full_history autonomous_conceptualize_available --repetitions 1 --output-root evaluations/runs/v05-compactmap-active",
+    "summary_source": "evaluations/runs/v05-compactmap-active/runs.json"
+  }
+}

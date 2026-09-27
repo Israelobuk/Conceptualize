@@ -4,6 +4,7 @@ import pytest
 from conceptualize_runtime.adapters import ConversationAdapter, RepositoryAdapter
 from conceptualize_runtime.context import ContextUnit, ContextUnitRuntime
 from conceptualize_runtime.economics import ModelPricing, estimate_cost, load_pricing
+from conceptualize_runtime.runtime import ContextRuntime
 
 
 def test_conversation_adapter_preserves_message_order_metadata_and_parent_links():
@@ -94,6 +95,58 @@ def test_generic_pack_returns_delta_and_references_unchanged_units():
     assert second["context"] == ""
     assert second["metrics"]["duplicate_tokens_avoided"] > 0
     assert second["previous_context"][0]["unchanged"] is True
+
+
+def test_conversation_pack_does_not_expand_every_sibling_message():
+    units = ConversationAdapter().ingest(
+        {
+            "conversations": [
+                {
+                    "id": "long-history",
+                    "messages": [
+                        {"id": "decision", "role": "user", "content": "Use IndexedDB for offline inspection records and attachments."},
+                        {"id": "noise-1", "role": "user", "content": "The icon should be green."},
+                        {"id": "noise-2", "role": "user", "content": "We may pilot in the North region."},
+                        {"id": "noise-3", "role": "assistant", "content": "The release date is not final."},
+                        {"id": "noise-4", "role": "user", "content": "Marketing will own the announcement."},
+                    ],
+                }
+            ]
+        }
+    )
+
+    result = ContextUnitRuntime(units).pack(
+        "IndexedDB offline inspection records", 1000, source_types={"message"}
+    )
+
+    assert "Use IndexedDB" in result["context"]
+    assert "green" not in result["context"]
+    assert "North region" not in result["context"]
+    assert result["metrics"]["selected_units"] == 1
+
+
+def test_conversation_map_returns_compact_navigation_instead_of_message_ids():
+    units = ConversationAdapter().ingest(
+        {
+            "conversations": [
+                {
+                    "id": "history",
+                    "title": "Offline sync decisions",
+                    "messages": [
+                        {"id": f"m{i}", "role": "user", "content": f"Historical decision {i}."}
+                        for i in range(40)
+                    ],
+                }
+            ]
+        }
+    )
+    result = ContextRuntime({}).execute_context_units(
+        "map", {"source_types": ["conversation"]}, units
+    )
+
+    assert result["context"] == "[conversation:history] Offline sync decisions (40 messages)"
+    assert len(result["included_context"]) == 1
+    assert result["metrics"]["returned_tokens"] < 20
 
 
 def test_generic_disclosure_levels_reveal_progressively_and_explain_scores():

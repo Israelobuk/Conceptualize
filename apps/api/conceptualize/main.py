@@ -20,6 +20,7 @@ from .db import get_db
 from .models import (
     ContextRequest,
     ContextResult,
+    ContextUnitRecord,
     McpSession,
     Project,
     Repository,
@@ -56,6 +57,7 @@ class OperationInput(BaseModel):
     level: Literal["map", "structure", "source", "pack"] | None = None
     force_refresh: bool = False
     score_weights: dict[str, int] = Field(default_factory=dict, max_length=30)
+    source_types: list[str] | None = Field(default=None, max_length=5)
 
     @model_validator(mode="after")
     def validate_operation(self):
@@ -67,6 +69,11 @@ class OperationInput(BaseModel):
             raise ValueError("pack requires paths or query")
         if any(len(p) > 1000 for p in self.paths):
             raise ValueError("path too long")
+        allowed_sources = {"repository", "repository_file", "code_symbol", "conversation", "message"}
+        if self.source_types is not None and (
+            not self.source_types or set(self.source_types) - allowed_sources
+        ):
+            raise ValueError("source_types must name repository or conversation sources")
         from conceptualize_runtime.scoring import DEFAULT_WEIGHTS
 
         if set(self.score_weights) - set(DEFAULT_WEIGHTS) or any(
@@ -166,8 +173,55 @@ def operate(
                 snapshot_started = time.perf_counter()
                 runtime, _ = project_runtime(db, project.id)
                 snapshot_ms = (time.perf_counter() - snapshot_started) * 1000
+                requested_sources = set(body.source_types or [])
+                repository_only = requested_sources in ({"repository"}, {"repository_file"})
+                if body.source_types is not None and not repository_only and body.operation != "dependencies":
+                    source_load_started = time.perf_counter()
+                    from conceptualize_runtime.adapters import RepositoryAdapter
+                    from conceptualize_runtime.context import ContextUnit
+
+                    aliases = {
+                        "repository": {"repository_file", "code_symbol"},
+                        "conversation": {"conversation", "message"},
+                    }
+                    source_types = set().union(
+                        *(aliases.get(source, {source}) for source in body.source_types)
+                    )
+                    units = []
+                    if source_types.intersection({"repository_file", "code_symbol"}):
+                        units.extend(RepositoryAdapter().adapt(runtime.files, runtime.graph))
+                    rows = db.scalars(
+                        select(ContextUnitRecord).where(
+                            ContextUnitRecord.project_id == project.id,
+                            ContextUnitRecord.source_type.in_(source_types),
+                        )
+                    )
+                    units.extend(
+                        ContextUnit(
+                            id=row.unit_id,
+                            source_type=row.source_type,
+                            source_id=row.source_id,
+                            parent_id=row.parent_id,
+                            content=row.content,
+                            content_hash=row.content_hash,
+                            version=row.version,
+                            token_count=row.token_count,
+                            created_at=row.created_at,
+                            updated_at=row.updated_at,
+                            relationships=row.relationships,
+                            metadata=row.metadata_json,
+                        )
+                        for row in rows
+                    )
+                    source_load_ms = (time.perf_counter() - source_load_started) * 1000
+                    raw_result = runtime.execute_context_units(body.operation, {**inputs, "_history": history}, units)
+                    raw_result.setdefault("timings_ms", {})["context_source_load"] = round(
+                        source_load_ms, 3
+                    )
+                else:
+                    raw_result = runtime.execute(body.operation, {**inputs, "_history": history})
                 result = CompiledContext.model_validate(
-                    runtime.execute(body.operation, {**inputs, "_history": history})
+                    raw_result
                 ).model_dump()
                 result.setdefault("timings_ms", {})["snapshot_and_graph"] = round(snapshot_ms, 3)
                 result["timings_ms"]["graph_build"] = round(runtime.graph_build_ms, 3)
@@ -272,6 +326,7 @@ def operate(
                 3,
             ),
             "graph_ms": round(stage.get("graph_build", 0) + stage.get("graph_traversal", 0), 3),
+            "context_source_load_ms": stage.get("context_source_load", 0),
             "git_ms": round(refresh["git_ms"], 3),
             "scoring_ms": stage.get("scoring", 0),
             "packing_ms": stage.get("context_compilation", 0),
@@ -302,7 +357,24 @@ def overview(project: Project = Depends(authenticate), db=Depends(get_db)):
         func.coalesce(func.sum(ContextRequest.cache_hit.cast(Integer)), 0),
     ).where(ContextRequest.project_id == project.id)
     total, delivered, average, latency, hits = db.execute(stmt).one()
+    context_unit_count = db.scalar(
+        select(func.count()).select_from(ContextUnitRecord).where(
+            ContextUnitRecord.project_id == project.id
+        )
+    )
+    indexed_sources = set(
+        db.scalars(
+            select(ContextUnitRecord.source_type)
+            .where(ContextUnitRecord.project_id == project.id)
+            .distinct()
+        )
+    )
     runtime, repo = project_runtime(db, project.id)
+    context_sources = set()
+    if repo:
+        context_sources.add("repository")
+    if indexed_sources.intersection({"conversation", "message"}):
+        context_sources.add("conversation")
     return {
         "project": {"id": project.id, "name": project.name, "revision": project.revision},
         "total_operations": total,
@@ -313,6 +385,8 @@ def overview(project: Project = Depends(authenticate), db=Depends(get_db)):
         "indexed_symbols": sum(len(f["symbols"]) for f in runtime.files.values()),
         "cache_hit_rate": hits / total if total else 0,
         "indexed_at": repo.indexed_at.isoformat() if repo else None,
+        "context_units": context_unit_count,
+        "context_sources": sorted(context_sources),
     }
 
 
@@ -327,6 +401,97 @@ def index_repository(body: IndexInput, project: Project = Depends(authenticate),
     except (OSError, ValueError) as exc:
         db.rollback()
         raise HTTPException(400, str(exc)) from exc
+
+
+class ConversationInput(BaseModel):
+    conversations: list[dict] = Field(min_length=1, max_length=100)
+
+
+@app.post("/v1/context/conversations")
+def ingest_conversations(
+    body: ConversationInput,
+    project: Project = Depends(authenticate),
+    db=Depends(get_db),
+):
+    """Ingest explicit structured conversation data without summaries or model processing."""
+    from conceptualize_runtime.adapters import ConversationAdapter
+    from conceptualize_runtime.runtime import token_count
+
+    project = db.scalar(
+        select(Project)
+        .where(Project.id == project.id)
+        .with_for_update()
+        .execution_options(populate_existing=True)
+    )
+    try:
+        units = ConversationAdapter().ingest(body.model_dump())
+    except ValueError as exc:
+        raise HTTPException(422, str(exc)) from exc
+    message_count = sum(unit.source_type == "message" for unit in units)
+    if message_count > 10000:
+        raise HTTPException(413, "Conversation batch exceeds 10000 messages")
+    conversation_ids = {unit.metadata["conversation_id"] for unit in units}
+    existing = list(
+        db.scalars(
+            select(ContextUnitRecord).where(
+                ContextUnitRecord.project_id == project.id,
+                ContextUnitRecord.source_type.in_(["conversation", "message"]),
+                ContextUnitRecord.metadata_json["conversation_id"].as_string().in_(
+                    conversation_ids
+                ),
+            )
+        )
+    )
+    current = {
+        row.unit_id: row
+        for row in existing
+        if row.metadata_json.get("conversation_id") in conversation_ids
+    }
+    incoming = {unit.id: unit for unit in units}
+    def same_unit(unit_id, unit):
+        old = current.get(unit_id)
+        return bool(
+            old
+            and old.content_hash == unit.content_hash
+            and old.parent_id == unit.parent_id
+            and old.relationships == unit.relationships
+            and old.metadata_json == unit.metadata
+        )
+
+    unchanged = len(current) == len(incoming) and all(
+        same_unit(unit_id, unit) for unit_id, unit in incoming.items()
+    )
+    if unchanged:
+        return {"units": len(units), "changed": 0, "deleted": 0, "unchanged": True}
+    for row in current.values():
+        db.delete(row)
+    db.flush()
+    for unit in units:
+        db.add(
+            ContextUnitRecord(
+                project_id=project.id,
+                unit_id=unit.id,
+                source_type=unit.source_type,
+                source_id=unit.source_id,
+                parent_id=unit.parent_id,
+                content=unit.content,
+                content_hash=unit.content_hash,
+                version=unit.version,
+                token_count=unit.token_count or token_count(unit.content),
+                created_at=unit.created_at,
+                updated_at=unit.updated_at,
+                relationships=unit.relationships,
+                metadata_json=unit.metadata,
+            )
+        )
+    project.revision += 1
+    db.commit()
+    return {
+        "units": len(units),
+        "changed": sum(1 for unit_id, unit in incoming.items() if not same_unit(unit_id, unit)),
+        "deleted": len(set(current) - set(incoming)),
+        "unchanged": False,
+    }
 
 
 def trace_summary(row: ContextRequest) -> dict:

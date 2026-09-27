@@ -1,25 +1,25 @@
 # Conceptualize
 
-Deterministic context infrastructure for existing AI coding agents. Conceptualize indexes local repositories, exposes navigable structural context through MCP, packs source into caller budgets, and records every operation for inspection. The host agent reasons and writes code. Conceptualize does neither.
+**Conceptualize is model-independent context infrastructure for AI systems.** It connects AI agents and applications to structured context sources, tracks what context has already been supplied or changed, and compiles bounded context for each interaction. Repositories are one supported source; conversation history is another. The host AI performs reasoning. Conceptualize manages context.
 
 **The context engine uses no AI models, model API calls, embeddings, vectors, or model credentials.** The evaluation harness invokes an external coding agent for comparison; it is separate from the runtime.
 
 ## Architecture
 
 ```text
-AI coding client → MCP (stdio) → FastAPI → context runtime
-                                         ├─ Tree-sitter index
-                                         ├─ NetworkX relationships
-                                         ├─ lexical search + Git metadata
-                                         ├─ tiktoken context compiler
-                                         ├─ Redis ephemeral cache
-                                         └─ PostgreSQL metadata + traces
+AI system → MCP (stdio) → FastAPI → generic context runtime
+                                     ├─ ContextUnit + source adapters
+                                     ├─ conversation lexical retrieval
+                                     ├─ RepositoryAdapter (Tree-sitter + graph + Git)
+                                     ├─ fingerprints, session deltas + bounded packs
+                                     ├─ Redis ephemeral cache
+                                     └─ PostgreSQL context + metadata + traces
 Next.js dashboard → local server proxy → FastAPI
 ```
 
-`packages/conceptualize_runtime` is the product: parsing/indexing, graph, Git intelligence, and context operations. It has no API or database dependency. `apps/api` handles auth, persistence, caching, and traces. `apps/mcp` exposes six context tools and projects compact model-facing responses; full provenance remains in API traces. `apps/web` displays observations; it does not select context.
+`packages/conceptualize_runtime` contains the source-agnostic `ContextUnit`, deterministic retrieval and pack compiler. `RepositoryAdapter` maps existing indexed files and symbols into that boundary while retaining repository-only dependency analysis. `ConversationAdapter` preserves conversation membership, message order, roles, timestamps, explicit references, attachments, and parent/child links. The API stores each project's units; the MCP server exposes the existing six operations over an explicitly selected source set. Full selection provenance remains in API traces.
 
-The compact Python package groups these modules instead of publishing five mostly empty packages. LangGraph and LlamaIndex are intentionally deferred: these V1 workflows are direct deterministic functions and neither framework would add meaningful behavior. No LLM/embedding configuration is installed.
+Context retrieval is deterministic and lexical; lexical matching is not semantic understanding. There are no embeddings, vector database, reranker, summarizer, hidden model calls, or model credentials in Conceptualize. Context savings are not treated as success unless required task information remains available.
 
 ## Local setup (PowerShell)
 
@@ -112,10 +112,10 @@ Available tools:
 | Tool | Purpose |
 | --- | --- |
 | `conceptualize_map(path?, token_budget?)` | Compact paths, declarations, and line boundaries |
-| `conceptualize_search(query, token_budget?, limit?)` | Lexical content, symbol, and path discovery |
+| `conceptualize_search(query, token_budget?, limit?, source_types?, level?)` | Lexical content discovery in repositories or conversations |
 | `conceptualize_dependencies(target, token_budget?)` | Direct dependencies, consumers, and related tests |
-| `conceptualize_expand(target, token_budget?)` | Deeper inspection of a path, symbol, or lexical query |
-| `conceptualize_pack(paths, token_budget?, include_dependencies?, include_tests?, include_consumers?)` | Compile bounded source context |
+| `conceptualize_expand(target, token_budget?, source_types?, level?)` | Progressively reveal a repository or conversation result |
+| `conceptualize_pack(paths, query?, token_budget?, source_types?, include_dependencies?, include_tests?, include_consumers?)` | Compile bounded context from selected sources |
 | `conceptualize_inspect(target, depth?, token_budget?, manifest_only?)` | Preferred entry for a known cross-file target: structure, consumers, tests and bounded source |
 
 Give your connected agent an ordinary repository task, for example: “Replace the Identity role field with explicit permissions while preserving refund authorization.” Use inspect for a known target whose change may affect other files; use map/search for an unknown location, dependencies for a precise relationship question, expand for more detail, and pack for a known bounded source set. Skip isolated edits or already-loaded context. The descriptions do not prescribe a tool chain; the prompt need not mention Conceptualize. Tool adoption still depends on the host agent.
@@ -142,7 +142,29 @@ Invoke-RestMethod http://127.0.0.1:8000/v1/runtime -Method Post -Headers $header
   -ContentType 'application/json' -Body $body
 ```
 
-`POST /v1/runtime` accepts one of the six operations; OpenAPI documents request validation. `GET /v1/overview`, `/v1/traces`, `/v1/traces/{id}`, `/v1/graph`, and `/v1/git?path=src/auth` expose project-scoped observations. Trace listing supports `limit` and `offset`. Git history and cochanges are based on the last 20 indexed commits. Indexing chooses an available main/master base automatically for other branches; `--base` overrides it. Working-tree and committed branch changes, merge base and diff statistics are recorded separately.
+`POST /v1/runtime` accepts one of the six operations; OpenAPI documents request validation. `source_types` optionally selects `repository`, `conversation`, `message`, or `repository_file` for generic search/map/expand/inspect/pack. Repository-only requests keep their graph-aware implementation; mixed-source packs use transparent lexical scores and explicit source relationships. `GET /v1/overview`, `/v1/traces`, `/v1/traces/{id}`, `/v1/graph`, and `/v1/git?path=src/auth` expose project-scoped observations. Trace listing supports `limit` and `offset`. Git history and cochanges are based on the last 20 indexed commits. Indexing chooses an available main/master base automatically for other branches; `--base` overrides it. Working-tree and committed branch changes, merge base and diff statistics are recorded separately.
+
+### Conversation context
+
+Ingest explicit structured conversations. Re-ingesting an unchanged conversation does not create a new project revision; changed messages invalidate cached results and session fingerprints.
+
+```powershell
+$body = @{
+  conversations = @(@{
+    id = 'product-decisions'; title = 'Product decisions'
+    messages = @(
+      @{ id = 'm1'; role = 'user'; timestamp = '2026-01-08T13:00:00Z'; content = 'Use PostgreSQL for JSONB metadata.' },
+      @{ id = 'm2'; role = 'assistant'; content = 'Recorded.'; parent_id = 'm1' }
+    )
+  })
+} | ConvertTo-Json -Depth 8
+Invoke-RestMethod http://127.0.0.1:8000/v1/context/conversations -Method Post -Headers $headers `
+  -ContentType 'application/json' -Body $body
+```
+
+Use the existing `conceptualize_search` or `conceptualize_pack` operation with `source_types: ["conversation"]`; select `["repository", "conversation"]` to compile from both. Search uses exact phrase and lexical term overlap, then may include directly related messages. The trace lists scores, signal reasons, source IDs, token cost, status, and whether each unit was already known. MCP session history references unchanged deliveries and returns new content when fingerprints change. No conversation summaries or model-generated topics are created.
+
+Provider pricing is supplied as a versioned JSON snapshot and loaded with `conceptualize_runtime.economics.load_pricing`, then passed to `estimate_cost`. Conceptualize ships no live price table. Costs remain unavailable if any input, cached-input, or output token telemetry is missing; context-string token counts are not substituted for model telemetry.
 
 ## Deterministic behavior and limits
 
@@ -171,8 +193,8 @@ Tests cover Tree-sitter structures, exclusions, incremental indexing, graph rela
 
 Revoke a key locally with `conceptualize revoke-key --prefix cx_PREFIX`. Keep `.env` out of Git. Stop infrastructure with `docker compose stop` (keeps indexed data); `docker compose down` also keeps the named volume. This foundation intentionally excludes billing, OAuth, teams, integrations, autonomous agents, and distributed infrastructure.
 
-## Real-agent evaluation
+## Evaluation
 
-See [evaluations/README.md](evaluations/README.md) for the reproducible paired evaluation workflow and [evaluations/V04.md](evaluations/V04.md) for the V0.4 results and limits. Evaluation fixtures and historical runs are development evidence only; they are not loaded by normal startup or shown in the dashboard. The evaluator invokes an external agent and adds no model calls to the context runtime.
+See [evaluations/V05.md](evaluations/V05.md) for the generic-context architecture, conversation retrieval diagnostic and the limits on model-level evidence. Run the short deterministic context-selection benchmark with `python -m conceptualize_evaluation.conversation_benchmark`; it writes raw paired results to `evaluations/results/v05-conversations.json`. This diagnostic checks selected-text fact coverage and does not invoke or stand in for an AI agent. Fixtures and historical runs are development evidence only; they are not loaded by normal startup or shown in the dashboard.
 
 V0.4 evidence is in [evaluations/V04.md](evaluations/V04.md), [ADOPTION.md](ADOPTION.md), [ADOPTION-SUITE.json](ADOPTION-SUITE.json), [MCP-SURFACE.md](MCP-SURFACE.md), [MCP_SURFACE_PROFILE.json](MCP_SURFACE_PROFILE.json), and five machine-readable cohort/surface reports under `evaluations/results/v04-*.json`. The [runbook](evaluations/ADOPTION-RUNBOOK.md) reproduces six cross-file adoption tasks, three paired receipt repetitions, three paired local negative controls, and a separate connected-but-unused baseline. Reports preserve unavailable measurements explicitly; autonomous invocation is not proof of speed or exploration improvement.

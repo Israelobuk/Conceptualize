@@ -1,6 +1,10 @@
-# Reproducible coding-agent evaluation
+# Reproducible context evaluation
 
-Conceptualize does not call a model. This harness runs an **external Codex coding agent**, once with normal repository tools and once with the five Conceptualize MCP tools available. Both runs receive identical prompts and start from identical committed source. Separate repositories preserve all edits and evidence; reruns must use new output directories.
+V0.5 also includes a short runtime-only conversation check: `python -m conceptualize_evaluation.conversation_benchmark`. It compares full fixture histories with bounded Conceptualize retrieval using exact fact-coverage checks. It does not invoke a model; see [V05.md](V05.md) and [raw results](results/v05-conversations.json). The separate 18-cell autonomous agent matrix is recorded as unrun in [v05-model-matrix.json](results/v05-model-matrix.json) because the installed Codex CLI fails to start due to its missing Windows optional dependency.
+
+The instructions below describe the historical V0.4 coding-agent paired evaluation.
+
+Conceptualize does not call a model. This harness runs an **external Codex coding agent**, once with normal repository tools and once with all six Conceptualize MCP tools available. Both runs receive identical prompts and start from identical committed source. Separate repositories preserve all edits and evidence; reruns must use new output directories.
 
 ## Tasks
 

@@ -66,6 +66,25 @@ class RepositoryFile(Base):
     token_count: Mapped[int] = mapped_column(Integer)
 
 
+class ContextUnitRecord(Base):
+    __tablename__ = "context_units"
+    __table_args__ = (UniqueConstraint("project_id", "unit_id"),)
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=new_id)
+    project_id: Mapped[str] = mapped_column(ForeignKey("projects.id"), index=True)
+    unit_id: Mapped[str] = mapped_column(String(1000))
+    source_type: Mapped[str] = mapped_column(String(40), index=True)
+    source_id: Mapped[str] = mapped_column(String(1000))
+    parent_id: Mapped[str | None] = mapped_column(String(1000), nullable=True)
+    content: Mapped[str] = mapped_column(Text)
+    content_hash: Mapped[str] = mapped_column(String(64))
+    version: Mapped[str] = mapped_column(String(100), default="1")
+    token_count: Mapped[int] = mapped_column(Integer)
+    created_at: Mapped[str] = mapped_column(String(100))
+    updated_at: Mapped[str] = mapped_column(String(100))
+    relationships: Mapped[list] = mapped_column(JSON, default=list)
+    metadata_json: Mapped[dict] = mapped_column("metadata", JSON, default=dict)
+
+
 class McpSession(Base):
     __tablename__ = "mcp_sessions"
     __table_args__ = (UniqueConstraint("project_id", "session_id"),)

@@ -1,0 +1,71 @@
+{
+  "version": "v0.5-conversations-1",
+  "description": "Small deterministic conversation histories for retrieval coverage checks; these are fixtures, not agent evaluations.",
+  "conversations": [
+    {
+      "id": "product-direction",
+      "title": "Conceptualize product direction",
+      "messages": [
+        {"id": "pd-1", "role": "user", "timestamp": "2026-01-03T09:00:00Z", "content": "The original Conceptualize plan focused on repository structure for coding agents."},
+        {"id": "pd-2", "role": "assistant", "timestamp": "2026-01-03T09:01:00Z", "content": "The first storage prototype used SQLite and treated source files as the only context units."},
+        {"id": "pd-3", "role": "user", "timestamp": "2026-01-08T13:00:00Z", "content": "Change the product direction: make it model-independent context infrastructure. Repositories are one context source alongside conversations and documents."},
+        {"id": "pd-4", "role": "assistant", "timestamp": "2026-01-08T13:04:00Z", "content": "The current evaluation fixture uses PostgreSQL for JSONB metadata storage. Repository indexing and dependency graphs remain supported through a RepositoryAdapter."},
+        {"id": "pd-5", "role": "user", "timestamp": "2026-01-08T13:05:00Z", "content": "Keep the product model-independent. Do not claim that selecting context improves task quality unless measured."}
+      ]
+    },
+    {
+      "id": "runtime-constraints",
+      "title": "Context runtime constraints",
+      "messages": [
+        {"id": "rc-1", "role": "user", "timestamp": "2026-02-01T10:00:00Z", "content": "Use deterministic scoring with explicit reasons, source relationships, fingerprints, session history, deltas, invalidation and token budgets."},
+        {"id": "rc-2", "role": "assistant", "timestamp": "2026-02-01T10:02:00Z", "content": "The ContextUnit fields include id, source_type, source_id, parent_id, content, content_hash, version, token_count, timestamps, relationships and metadata."},
+        {"id": "rc-3", "role": "user", "timestamp": "2026-02-02T10:00:00Z", "content": "Do not use embeddings, vector databases, RAG models, rerankers, hidden model calls, machine learning or AI-generated summaries."},
+        {"id": "rc-4", "role": "assistant", "timestamp": "2026-02-02T10:04:00Z", "content": "Lexical conversation matching can rank exact phrases and term overlap, but must state that lexical relevance is not semantic understanding. The host AI remains responsible for reasoning."}
+      ]
+    },
+    {
+      "id": "scope-decisions",
+      "title": "Scope and exclusions",
+      "messages": [
+        {"id": "sd-1", "role": "user", "timestamp": "2026-02-10T16:00:00Z", "content": "Do not add billing, OAuth, team management, or another dashboard redesign in this milestone."},
+        {"id": "sd-2", "role": "assistant", "timestamp": "2026-02-10T16:03:00Z", "content": "Conversation ingestion should preserve message order, role, timestamps, explicit references, attachment references, and parent-child relationships."},
+        {"id": "sd-3", "role": "user", "timestamp": "2026-02-11T11:00:00Z", "content": "Compare full conversation context with bounded Conceptualize context. Track fact coverage, context tokens and elapsed runtime, but do not treat lower token count as success if facts are lost."},
+        {"id": "sd-4", "role": "assistant", "timestamp": "2026-02-11T11:02:00Z", "content": "Model input, cached input and output token telemetry must remain unavailable when the host does not report those values. Cost estimates require an explicit versioned pricing snapshot."}
+      ]
+    },
+    {
+      "id": "unrelated-chat",
+      "title": "Travel and meal planning",
+      "messages": [
+        {"id": "u-1", "role": "user", "timestamp": "2026-03-01T12:00:00Z", "content": "Compare train schedules for a weekend trip and find vegetarian lunch near the station."},
+        {"id": "u-2", "role": "assistant", "timestamp": "2026-03-01T12:05:00Z", "content": "Pack a light jacket, reserve lunch, and leave enough time for the return train."}
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": "final-storage-decision",
+      "query": "Which storage database was selected for JSONB metadata and why?",
+      "required_facts": ["PostgreSQL", "JSONB metadata storage"],
+      "token_budget": 240
+    },
+    {
+      "id": "runtime-constraints",
+      "query": "What constraints govern deterministic context scoring, session deltas, and model use?",
+      "required_facts": ["explicit reasons", "session history", "Do not use embeddings", "not semantic understanding"],
+      "token_budget": 420
+    },
+    {
+      "id": "excluded-scope",
+      "query": "Which product features were explicitly excluded from the milestone?",
+      "required_facts": ["billing", "OAuth", "team management", "dashboard redesign"],
+      "token_budget": 220
+    },
+    {
+      "id": "direction-change",
+      "query": "How did the product direction change from the original repository-only plan?",
+      "required_facts": ["focused on repository structure", "model-independent context infrastructure", "conversations and documents"],
+      "token_budget": 300
+    }
+  ]
+}

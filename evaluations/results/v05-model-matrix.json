@@ -1,0 +1,46 @@
+{
+  "benchmark": "V0.5 short multi-model autonomous context comparison",
+  "status": "not_run",
+  "planned_primary_cells": 18,
+  "completed_primary_cells": 0,
+  "models": [
+    {"model": "gpt-6-astra", "availability_basis": "Codex task-creation tool contract advertises this host-supported model", "runs": []},
+    {"model": "gpt-6-sol", "availability_basis": "Codex task-creation tool contract advertises this host-supported model", "runs": []},
+    {"model": "gpt-6-luna", "availability_basis": "Codex task-creation tool contract advertises this host-supported model", "runs": []}
+  ],
+  "tasks": ["final-storage-decision", "runtime-constraints", "excluded-scope"],
+  "conditions": ["control_conceptualize_disabled", "autonomous_conceptualize_available"],
+  "cell_statuses": [
+    {"model": "gpt-6-astra", "task": "final-storage-decision", "condition": "control_conceptualize_disabled", "status": "not_run"},
+    {"model": "gpt-6-astra", "task": "final-storage-decision", "condition": "autonomous_conceptualize_available", "status": "not_run"},
+    {"model": "gpt-6-astra", "task": "runtime-constraints", "condition": "control_conceptualize_disabled", "status": "not_run"},
+    {"model": "gpt-6-astra", "task": "runtime-constraints", "condition": "autonomous_conceptualize_available", "status": "not_run"},
+    {"model": "gpt-6-astra", "task": "excluded-scope", "condition": "control_conceptualize_disabled", "status": "not_run"},
+    {"model": "gpt-6-astra", "task": "excluded-scope", "condition": "autonomous_conceptualize_available", "status": "not_run"},
+    {"model": "gpt-6-sol", "task": "final-storage-decision", "condition": "control_conceptualize_disabled", "status": "not_run"},
+    {"model": "gpt-6-sol", "task": "final-storage-decision", "condition": "autonomous_conceptualize_available", "status": "not_run"},
+    {"model": "gpt-6-sol", "task": "runtime-constraints", "condition": "control_conceptualize_disabled", "status": "not_run"},
+    {"model": "gpt-6-sol", "task": "runtime-constraints", "condition": "autonomous_conceptualize_available", "status": "not_run"},
+    {"model": "gpt-6-sol", "task": "excluded-scope", "condition": "control_conceptualize_disabled", "status": "not_run"},
+    {"model": "gpt-6-sol", "task": "excluded-scope", "condition": "autonomous_conceptualize_available", "status": "not_run"},
+    {"model": "gpt-6-luna", "task": "final-storage-decision", "condition": "control_conceptualize_disabled", "status": "not_run"},
+    {"model": "gpt-6-luna", "task": "final-storage-decision", "condition": "autonomous_conceptualize_available", "status": "not_run"},
+    {"model": "gpt-6-luna", "task": "runtime-constraints", "condition": "control_conceptualize_disabled", "status": "not_run"},
+    {"model": "gpt-6-luna", "task": "runtime-constraints", "condition": "autonomous_conceptualize_available", "status": "not_run"},
+    {"model": "gpt-6-luna", "task": "excluded-scope", "condition": "control_conceptualize_disabled", "status": "not_run"},
+    {"model": "gpt-6-luna", "task": "excluded-scope", "condition": "autonomous_conceptualize_available", "status": "not_run"}
+  ],
+  "forced_context_agent_runs": 0,
+  "codex_cli_probe": {
+    "command": "codex --version",
+    "status": "failed_before_version_report",
+    "error": "Missing optional dependency @openai/codex-win32-x64. Reinstall Codex: npm install -g @openai/codex@latest"
+  },
+  "blocker": "The existing paired evaluation runner requires the Codex CLI, but its installed wrapper fails before reporting a version because @openai/codex-win32-x64 is missing. No controlled host-agent invocation was available to isolate tool availability, provide the same source state, and collect response telemetry. Runtime-only fixture results are not substituted for agent runs.",
+  "provider_failures": [],
+  "model_input_tokens": null,
+  "cached_input_tokens": null,
+  "output_tokens": null,
+  "latency_ms": null,
+  "estimated_cost": null
+}

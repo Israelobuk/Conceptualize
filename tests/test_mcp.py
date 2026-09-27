@@ -79,6 +79,26 @@ def test_real_mcp_protocol_calls_api_and_persists_traces(tmp_path):
         else:
             raise AssertionError("API did not start")
 
+        ingested = httpx.post(
+            env["CONCEPTUALIZE_API_URL"] + "/v1/context/conversations",
+            headers={"Authorization": "Bearer " + key},
+            json={
+                "conversations": [
+                    {
+                        "id": "mcp-conversation",
+                        "messages": [
+                            {
+                                "id": "m1",
+                                "role": "assistant",
+                                "content": "We chose PostgreSQL because JSONB stores context metadata.",
+                            }
+                        ],
+                    }
+                ]
+            },
+        )
+        assert ingested.status_code == 200, ingested.text
+
         async def exercise():
             params = StdioServerParameters(
                 command=sys.executable,
@@ -92,6 +112,7 @@ def test_real_mcp_protocol_calls_api_and_persists_traces(tmp_path):
                     listing = await session.list_tools()
                     capability = await session.read_resource("conceptualize://capabilities")
                     assert json.loads(capability.contents[0].text)["indexed_files"] == 3
+                    assert "conversation" in json.loads(capability.contents[0].text)["context_sources"]
                     assert {t.name for t in listing.tools} == {
                         "conceptualize_" + op
                         for op in ("map", "search", "dependencies", "expand", "pack", "inspect")
@@ -100,6 +121,14 @@ def test_real_mcp_protocol_calls_api_and_persists_traces(tmp_path):
                     operations = [
                         ("map", {"path": "src"}),
                         ("search", {"query": "login"}),
+                        (
+                            "search",
+                            {
+                                "query": "PostgreSQL JSONB context metadata",
+                                "source_types": ["conversation"],
+                                "level": "source",
+                            },
+                        ),
                         ("dependencies", {"target": "src/session.py"}),
                         ("expand", {"target": "login"}),
                         ("pack", {"paths": ["src/session.py"], "token_budget": 1000}),
@@ -110,6 +139,10 @@ def test_real_mcp_protocol_calls_api_and_persists_traces(tmp_path):
                         response = await session.call_tool("conceptualize_" + op, inputs)
                         assert not response.isError, response.content
                         payload = response.structuredContent
+                        if op == "search" and inputs.get("source_types"):
+                            assert "PostgreSQL" in payload["context"]
+                            assert payload["included_context"]
+                            assert payload["selection"][0]["source_type"] == "message"
                         if op == "inspect":
                             assert payload["manifest"]["files"] == 3
                             assert payload["context_id"].startswith("ctx_")
@@ -136,7 +169,7 @@ def test_real_mcp_protocol_calls_api_and_persists_traces(tmp_path):
             assert all(
                 "priority" in row and "token_cost" in row for row in detail["result"]["selection"]
             )
-            assert client.get("/v1/overview").json()["total_operations"] == 6
+            assert client.get("/v1/overview").json()["total_operations"] == 7
     finally:
         process.terminate()
         process.wait(timeout=10)

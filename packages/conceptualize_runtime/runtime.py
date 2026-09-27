@@ -72,6 +72,110 @@ class ContextRuntime:
                 scored.append((-score, path))
         return [path for _, path in sorted(scored)]
 
+    def execute_context_units(self, operation: str, inputs: dict, units: list) -> dict:
+        """Use the generic runtime for explicitly selected context sources."""
+        from .context import ContextUnitRuntime
+
+        if operation == "dependencies":
+            raise ValueError("dependency analysis is repository-specific")
+        level = inputs.get("level") or {
+            "map": "map",
+            "search": "structure",
+            "expand": "source",
+            "inspect": "structure",
+            "pack": "pack",
+        }[operation]
+        if operation == "pack":
+            level = "pack"
+        if operation == "map":
+            level = "map"
+        sources = set(inputs.get("source_types") or [])
+        aliases = {
+            "repository": {"repository_file", "code_symbol"},
+            "conversation": {"conversation", "message"},
+        }
+        sources = set().union(*(aliases.get(source, {source}) for source in sources)) or None
+        if operation == "map" and inputs.get("path"):
+            scope = inputs["path"].replace("\\", "/").strip("/")
+            units = [
+                unit
+                for unit in units
+                if unit.source_id == scope
+                or unit.source_id.startswith(scope + "/")
+                or unit.id == f"conversation:{scope}"
+                or unit.metadata.get("conversation_id") == scope
+            ]
+        targets = list(inputs.get("paths") or [])
+        if inputs.get("target"):
+            targets.append(inputs["target"])
+        query = inputs.get("query", "")
+        if not query and operation == "pack":
+            query = " ".join(targets)
+        engine = ContextUnitRuntime(units)
+        result = engine.pack(
+            query,
+            inputs.get("token_budget", 4000),
+            history=inputs.get("_history", []),
+            source_types=sources,
+            targets=targets,
+            level=level,
+            score_weights=inputs.get("score_weights"),
+        )
+        context_units = [
+            {
+                "id": row["unit_id"],
+                "path": row["unit_id"],
+                "source_type": row["source_type"],
+                "source_id": row["source_id"],
+                "priority": max(0, int(row["score"])),
+                "reason": ", ".join(reason["signal"] for reason in row["reasons"])
+                or "source map",
+                "score": row["score"],
+                "reasons": row["reasons"],
+                "score_reasons": row["reasons"],
+                "graph_distance": None,
+                "relationship": next(
+                    (
+                        reason.get("evidence")
+                        for reason in row["reasons"]
+                        if isinstance(reason.get("evidence"), dict)
+                    ),
+                    None,
+                ),
+                "token_cost": row["token_cost"],
+                "already_known": row["already_known"],
+                "invalidated": row["invalidated"],
+                "status": row["status"],
+            }
+            for row in result["selection"]
+        ]
+        metrics = result["metrics"]
+        metrics["full_selected_tokens"] = metrics["selected_tokens"]
+        metrics["previously_supplied_tokens"] = metrics["unchanged_context_tokens"]
+        metrics["candidate_files"] = metrics["candidate_units"]
+        metrics["returned_files"] = len(result["included_units"])
+        return {
+            "operation": operation,
+            "level": level,
+            "context": result["context"],
+            "metrics": metrics,
+            "included_files": [],
+            "included_context": result["included_units"],
+            "omitted_files": [],
+            "selection": context_units,
+            "previous_context": result["previous_context"],
+            "deliveries": result["deliveries"],
+            "invalidated_context": result["invalidated_units"],
+            "retrieval_notice": result["retrieval_notice"],
+            "steps": [
+                {"name": "Select context sources", "units": len(units)},
+                {"name": "Score lexical and explicit relationships", "candidates": len(context_units)},
+                {"name": "Compile bounded context delta", "tokens": metrics["returned_tokens"]},
+            ],
+            "timings_ms": result["timings_ms"],
+            "budget_scope": "Compiled context string; metadata and MCP serialization add tokens.",
+        }
+
     def execute(self, operation: str, inputs: dict) -> dict:
         if operation == "inspect":
             from .protocol import inspect

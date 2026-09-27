@@ -18,6 +18,11 @@ DEFAULT_WEIGHTS = {
     "graph_distance": -10,
     "redundancy": -35,
     "duplicate_content": -18,
+    "exact_phrase": 30,
+    "lexical_overlap": 10,
+    "conversation_membership": 12,
+    "message_adjacency": 18,
+    "related_unit": 5,
 }
 
 

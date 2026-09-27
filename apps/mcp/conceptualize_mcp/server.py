@@ -28,6 +28,17 @@ def compact_response(payload):
               "metrics": {k: metrics[k] for k in ("returned_tokens", "token_budget", "new_context_tokens", "previously_supplied_tokens") if k in metrics}}
     if payload.get("context_id"):
         result["context_id"] = payload["context_id"]
+    if payload.get("included_context"):
+        result["included_context"] = payload["included_context"][:32]
+    if payload.get("selection") and any("source_type" in item for item in payload["selection"]):
+        result["selection"] = [
+            {
+                key: item[key]
+                for key in ("id", "source_type", "source_id", "score", "reason", "token_cost", "status")
+                if key in item
+            }
+            for item in payload["selection"][:16]
+        ]
     if payload.get("manifest"):
         result["manifest"] = payload["manifest"]
     if payload.get("environment"):
@@ -40,7 +51,7 @@ def compact_response(payload):
             result["relationships_more"] = len(payload["relationships"]) - 16
     previous = payload.get("previous_context", [])
     if previous:
-        result["previous_context"] = [{k: unit[k] for k in ("path", "level", "ranges", "context_id", "supplied_in_operation", "unchanged") if k in unit} for unit in previous[:32]]
+        result["previous_context"] = [{k: unit[k] for k in ("path", "unit_id", "source_type", "source_id", "level", "ranges", "context_id", "supplied_in_operation", "unchanged") if k in unit} for unit in previous[:32]]
         if len(previous) > 32:
             result["previous_context_more"] = len(previous) - 32
     if payload.get("invalidations"):
@@ -52,7 +63,7 @@ def compact_response(payload):
 mcp = FastMCP(
     "Conceptualize",
     lifespan=lifespan,
-    instructions="Read-only indexed repository context. Known cross-file target: inspect; unknown location: map/search; precise impact question: dependencies; deepen a result: expand; known source set still needed: pack. Inspect shared types, APIs, configuration, auth or persistence to find hidden consumers/tests before editing. Skip isolated edits and already loaded source. No mandatory tool chain. Unchanged context is referenced; force_refresh resends it if your host lost context. Full diagnostics stay in traces. Compact index counts are available at conceptualize://capabilities.",
+    instructions="Read-only model-independent context from indexed repositories and ingested conversations. Pass source_types to search/map/expand/inspect/pack to choose context sources; lexical matching is not semantic understanding. For a known repository change-impact target use inspect; for an unknown location use map/search; dependencies is repository-specific; expand reveals a prior result; pack compiles bounded context. No mandatory tool chain. Unchanged context is referenced; force_refresh resends it if your host lost context. Full diagnostics stay in traces. Available source counts are at conceptualize://capabilities.",
 )
 SESSION_ID = os.getenv("CONCEPTUALIZE_SESSION_ID") or str(uuid4())
 
@@ -121,11 +132,15 @@ async def call(operation: str, inputs: dict, ctx: Context | None = None) -> Call
 
 @mcp.tool(structured_output=False, annotations=ToolAnnotations(readOnlyHint=True, destructiveHint=False))
 async def conceptualize_map(
-    path: str = "", token_budget: int = 2000, force_refresh: bool = False, ctx: Context = None
+    path: str = "",
+    token_budget: int = 2000,
+    source_types: list[str] | None = None,
+    force_refresh: bool = False,
+    ctx: Context = None,
 ) -> CallToolResult:
     """Orient in an unfamiliar or large repository when the relevant subsystem is unknown. Scope to a directory when possible. Do not call automatically for a known target; use inspect instead."""
     return await call(
-        "map", {"path": path, "token_budget": token_budget, "force_refresh": force_refresh}, ctx
+        "map", {"path": path, "source_types": source_types, "token_budget": token_budget, "force_refresh": force_refresh}, ctx
     )
 
 
@@ -134,16 +149,20 @@ async def conceptualize_search(
     query: str,
     token_budget: int = 3000,
     limit: int = 30,
+    source_types: list[str] | None = None,
+    level: str = "structure",
     force_refresh: bool = False,
     ctx: Context = None,
 ) -> CallToolResult:
-    """Locate an unknown file or symbol using an exact identifier or text. Lexical lookup, not semantic search. For surroundings of a known target use inspect; for a trivial grep, normal text search may suffice."""
+    """Search indexed context using exact text/identifiers. Optional source_types can include repository, conversation, message or repository_file. Lexical ranking is not semantic search."""
     return await call(
         "search",
         {
             "query": query,
             "token_budget": token_budget,
             "limit": limit,
+            "source_types": source_types,
+            "level": level,
             "force_refresh": force_refresh,
         },
         ctx,
@@ -167,6 +186,7 @@ async def conceptualize_expand(
     target: str,
     token_budget: int = 4000,
     level: str = "source",
+    source_types: list[str] | None = None,
     force_refresh: bool = False,
     ctx: Context = None,
 ) -> CallToolResult:
@@ -177,6 +197,7 @@ async def conceptualize_expand(
             "target": target,
             "token_budget": token_budget,
             "level": level,
+            "source_types": source_types,
             "force_refresh": force_refresh,
         },
         ctx,
@@ -185,24 +206,28 @@ async def conceptualize_expand(
 
 @mcp.tool(structured_output=False, annotations=ToolAnnotations(readOnlyHint=True, destructiveHint=False))
 async def conceptualize_pack(
-    paths: list[str],
+    paths: list[str] | None = None,
     token_budget: int = 8000,
     include_dependencies: bool = True,
     include_tests: bool = True,
     include_consumers: bool = True,
+    query: str = "",
+    source_types: list[str] | None = None,
     force_refresh: bool = False,
     score_weights: dict[str, int] | None = None,
     ctx: Context = None,
 ) -> CallToolResult:
-    """Assemble bounded implementation source after relevant entities are known. Include consumers/tests by default. Skip if sufficient source is already loaded; do not run a mandatory map/search/dependencies/pack sequence. Full selection evidence stays in the trace."""
+    """Assemble bounded context from selected source types. Repository graph relationships remain available for repository-only packs; mixed-source packs use deterministic lexical and explicit relationships. Full selection evidence stays in the trace."""
     return await call(
         "pack",
         {
-            "paths": paths,
+            "paths": paths or [],
             "token_budget": token_budget,
             "include_dependencies": include_dependencies,
             "include_tests": include_tests,
             "include_consumers": include_consumers,
+            "query": query,
+            "source_types": source_types,
             "force_refresh": force_refresh,
             "score_weights": score_weights or {},
         },
@@ -221,6 +246,7 @@ async def conceptualize_inspect(
     token_budget: int = 4000,
     manifest_only: bool = False,
     force_refresh: bool = False,
+    source_types: list[str] | None = None,
     ctx: Context = None,
 ) -> CallToolResult:
     """Preferred entry for a known file, symbol, shared type, interface, configuration, authentication or persistence target whose change may affect other files. Finds dependencies, hidden consumers and tests plus bounded source before editing. Skip isolated one-file edits, exact source already loaded or simple textual lookups. manifest_only shows costs/structure first; depth controls scope."""
@@ -236,6 +262,7 @@ async def conceptualize_inspect(
             "token_budget": token_budget,
             "manifest_only": manifest_only,
             "force_refresh": force_refresh,
+            "source_types": source_types,
         },
         ctx,
     )
@@ -249,9 +276,14 @@ async def repository_capabilities() -> dict:
                                   headers={"Authorization": "Bearer " + key})
     response.raise_for_status()
     data = response.json()
-    return {"indexed_files": data["indexed_files"], "indexed_symbols": data["indexed_symbols"],
-            "available": ["structure", "consumers", "tests", "git", "bounded source", "session deltas"],
-            "use": "Inspect shared or cross-file targets before modification; skip isolated edits."}
+    return {
+        "indexed_files": data["indexed_files"],
+        "indexed_symbols": data["indexed_symbols"],
+        "context_units": data.get("context_units", 0),
+        "context_sources": data.get("context_sources", []),
+        "available": ["repository graph", "conversation search", "bounded cross-source context", "session deltas"],
+        "use": "Select source_types when searching or packing repository and conversation context.",
+    }
 
 
 def main():

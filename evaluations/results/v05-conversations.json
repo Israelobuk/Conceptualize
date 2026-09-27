@@ -1,0 +1,958 @@
+{
+  "benchmark": "v0.5 deterministic conversation context selection",
+  "fixture_version": "v0.5-conversations-1",
+  "run_type": "runtime-only diagnostic; no host AI model was invoked",
+  "tasks": [
+    {
+      "task_id": "final-storage-decision",
+      "query": "Which storage database was selected for JSONB metadata and why?",
+      "token_budget": 240,
+      "control": {
+        "condition": "full_context_control",
+        "success": true,
+        "required_facts": [
+          "PostgreSQL",
+          "JSONB metadata storage"
+        ],
+        "facts_recovered": [
+          "PostgreSQL",
+          "JSONB metadata storage"
+        ],
+        "context_tokens": 383,
+        "model_input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "elapsed_ms": null,
+        "tool_operations": 0,
+        "context": "[user] The original Conceptualize plan focused on repository structure for coding agents.\n\n[assistant] The first storage prototype used SQLite and treated source files as the only context units.\n\n[user] Change the product direction: make it model-independent context infrastructure. Repositories are one context source alongside conversations and documents.\n\n[assistant] The current evaluation fixture uses PostgreSQL for JSONB metadata storage. Repository indexing and dependency graphs remain supported through a RepositoryAdapter.\n\n[user] Keep the product model-independent. Do not claim that selecting context improves task quality unless measured.\n\n[user] Use deterministic scoring with explicit reasons, source relationships, fingerprints, session history, deltas, invalidation and token budgets.\n\n[assistant] The ContextUnit fields include id, source_type, source_id, parent_id, content, content_hash, version, token_count, timestamps, relationships and metadata.\n\n[user] Do not use embeddings, vector databases, RAG models, rerankers, hidden model calls, machine learning or AI-generated summaries.\n\n[assistant] Lexical conversation matching can rank exact phrases and term overlap, but must state that lexical relevance is not semantic understanding. The host AI remains responsible for reasoning.\n\n[user] Do not add billing, OAuth, team management, or another dashboard redesign in this milestone.\n\n[assistant] Conversation ingestion should preserve message order, role, timestamps, explicit references, attachment references, and parent-child relationships.\n\n[user] Compare full conversation context with bounded Conceptualize context. Track fact coverage, context tokens and elapsed runtime, but do not treat lower token count as success if facts are lost.\n\n[assistant] Model input, cached input and output token telemetry must remain unavailable when the host does not report those values. Cost estimates require an explicit versioned pricing snapshot.\n\n[user] Compare train schedules for a weekend trip and find vegetarian lunch near the station.\n\n[assistant] Pack a light jacket, reserve lunch, and leave enough time for the return train."
+      },
+      "conceptualize": {
+        "condition": "conceptualize_runtime_selection",
+        "success": true,
+        "required_facts": [
+          "PostgreSQL",
+          "JSONB metadata storage"
+        ],
+        "facts_recovered": [
+          "PostgreSQL",
+          "JSONB metadata storage"
+        ],
+        "context_tokens": 240,
+        "candidate_tokens": 233,
+        "selected_tokens": 233,
+        "model_input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "elapsed_ms": 4.281,
+        "tool_operations": 1,
+        "selection": [
+          {
+            "unit_id": "conversation:product-direction/message:pd-4",
+            "source_type": "message",
+            "source_id": "pd-4",
+            "score": 22.19,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "storage",
+                "weight": 6.095
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "jsonb",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "metadata",
+                "weight": 6.095
+              }
+            ],
+            "token_cost": 31,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:product-direction/message:pd-1",
+            "source_type": "message",
+            "source_id": "pd-1",
+            "score": 18,
+            "reasons": [
+              {
+                "signal": "message_adjacency",
+                "weight": 18,
+                "evidence": {
+                  "kind": "follows",
+                  "source": "conversation:product-direction/message:pd-1",
+                  "target": "conversation:product-direction/message:pd-2"
+                }
+              }
+            ],
+            "token_cost": 21,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:product-direction/message:pd-3",
+            "source_type": "message",
+            "source_id": "pd-3",
+            "score": 18,
+            "reasons": [
+              {
+                "signal": "message_adjacency",
+                "weight": 18,
+                "evidence": {
+                  "kind": "follows",
+                  "source": "conversation:product-direction/message:pd-2",
+                  "target": "conversation:product-direction/message:pd-3"
+                }
+              }
+            ],
+            "token_cost": 30,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:product-direction/message:pd-5",
+            "source_type": "message",
+            "source_id": "pd-5",
+            "score": 18,
+            "reasons": [
+              {
+                "signal": "message_adjacency",
+                "weight": 18,
+                "evidence": {
+                  "kind": "follows",
+                  "source": "conversation:product-direction/message:pd-4",
+                  "target": "conversation:product-direction/message:pd-5"
+                }
+              }
+            ],
+            "token_cost": 25,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:runtime-constraints/message:rc-1",
+            "source_type": "message",
+            "source_id": "rc-1",
+            "score": 18,
+            "reasons": [
+              {
+                "signal": "message_adjacency",
+                "weight": 18,
+                "evidence": {
+                  "kind": "follows",
+                  "source": "conversation:runtime-constraints/message:rc-1",
+                  "target": "conversation:runtime-constraints/message:rc-2"
+                }
+              }
+            ],
+            "token_cost": 30,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:runtime-constraints/message:rc-3",
+            "source_type": "message",
+            "source_id": "rc-3",
+            "score": 18,
+            "reasons": [
+              {
+                "signal": "message_adjacency",
+                "weight": 18,
+                "evidence": {
+                  "kind": "follows",
+                  "source": "conversation:runtime-constraints/message:rc-2",
+                  "target": "conversation:runtime-constraints/message:rc-3"
+                }
+              }
+            ],
+            "token_cost": 34,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:product-direction/message:pd-2",
+            "source_type": "message",
+            "source_id": "pd-2",
+            "score": 6.169,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "storage",
+                "weight": 6.169
+              }
+            ],
+            "token_cost": 23,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:runtime-constraints/message:rc-2",
+            "source_type": "message",
+            "source_id": "rc-2",
+            "score": 6.154,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "metadata",
+                "weight": 6.154
+              }
+            ],
+            "token_cost": 39,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          }
+        ],
+        "included_units": [
+          "conversation:product-direction/message:pd-4",
+          "conversation:product-direction/message:pd-1",
+          "conversation:product-direction/message:pd-3",
+          "conversation:product-direction/message:pd-5",
+          "conversation:runtime-constraints/message:rc-1",
+          "conversation:runtime-constraints/message:rc-3",
+          "conversation:product-direction/message:pd-2",
+          "conversation:runtime-constraints/message:rc-2"
+        ],
+        "omitted_units": [],
+        "context": "[message:pd-4]\nThe current evaluation fixture uses PostgreSQL for JSONB metadata storage. Repository indexing and dependency graphs remain supported through a RepositoryAdapter.\n\n---\n\n[message:pd-1]\nThe original Conceptualize plan focused on repository structure for coding agents.\n\n---\n\n[message:pd-3]\nChange the product direction: make it model-independent context infrastructure. Repositories are one context source alongside conversations and documents.\n\n---\n\n[message:pd-5]\nKeep the product model-independent. Do not claim that selecting context improves task quality unless measured.\n\n---\n\n[message:rc-1]\nUse deterministic scoring with explicit reasons, source relationships, fingerprints, session history, deltas, invalidation and token budgets.\n\n---\n\n[message:rc-3]\nDo not use embeddings, vector databases, RAG models, rerankers, hidden model calls, machine learning or AI-generated summaries.\n\n---\n\n[message:pd-2]\nThe first storage prototype used SQLite and treated source files as the only context units.\n\n---\n\n[message:rc-2]\nThe ContextUnit fields include id, source_type, source_id, parent_id, content, content_hash, version, token_count, timestamps, relationships and metadata.",
+        "retrieval_notice": "Lexical ranking is deterministic and does not represent semantic understanding."
+      },
+      "context_token_difference": -143,
+      "same_deterministic_fact_coverage": true
+    },
+    {
+      "task_id": "runtime-constraints",
+      "query": "What constraints govern deterministic context scoring, session deltas, and model use?",
+      "token_budget": 420,
+      "control": {
+        "condition": "full_context_control",
+        "success": true,
+        "required_facts": [
+          "explicit reasons",
+          "session history",
+          "Do not use embeddings",
+          "not semantic understanding"
+        ],
+        "facts_recovered": [
+          "explicit reasons",
+          "session history",
+          "Do not use embeddings",
+          "not semantic understanding"
+        ],
+        "context_tokens": 383,
+        "model_input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "elapsed_ms": null,
+        "tool_operations": 0,
+        "context": "[user] The original Conceptualize plan focused on repository structure for coding agents.\n\n[assistant] The first storage prototype used SQLite and treated source files as the only context units.\n\n[user] Change the product direction: make it model-independent context infrastructure. Repositories are one context source alongside conversations and documents.\n\n[assistant] The current evaluation fixture uses PostgreSQL for JSONB metadata storage. Repository indexing and dependency graphs remain supported through a RepositoryAdapter.\n\n[user] Keep the product model-independent. Do not claim that selecting context improves task quality unless measured.\n\n[user] Use deterministic scoring with explicit reasons, source relationships, fingerprints, session history, deltas, invalidation and token budgets.\n\n[assistant] The ContextUnit fields include id, source_type, source_id, parent_id, content, content_hash, version, token_count, timestamps, relationships and metadata.\n\n[user] Do not use embeddings, vector databases, RAG models, rerankers, hidden model calls, machine learning or AI-generated summaries.\n\n[assistant] Lexical conversation matching can rank exact phrases and term overlap, but must state that lexical relevance is not semantic understanding. The host AI remains responsible for reasoning.\n\n[user] Do not add billing, OAuth, team management, or another dashboard redesign in this milestone.\n\n[assistant] Conversation ingestion should preserve message order, role, timestamps, explicit references, attachment references, and parent-child relationships.\n\n[user] Compare full conversation context with bounded Conceptualize context. Track fact coverage, context tokens and elapsed runtime, but do not treat lower token count as success if facts are lost.\n\n[assistant] Model input, cached input and output token telemetry must remain unavailable when the host does not report those values. Cost estimates require an explicit versioned pricing snapshot.\n\n[user] Compare train schedules for a weekend trip and find vegetarian lunch near the station.\n\n[assistant] Pack a light jacket, reserve lunch, and leave enough time for the return train."
+      },
+      "conceptualize": {
+        "condition": "conceptualize_runtime_selection",
+        "success": true,
+        "required_facts": [
+          "explicit reasons",
+          "session history",
+          "Do not use embeddings",
+          "not semantic understanding"
+        ],
+        "facts_recovered": [
+          "explicit reasons",
+          "session history",
+          "Do not use embeddings",
+          "not semantic understanding"
+        ],
+        "context_tokens": 391,
+        "candidate_tokens": 380,
+        "selected_tokens": 380,
+        "model_input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "elapsed_ms": 3.198,
+        "tool_operations": 1,
+        "selection": [
+          {
+            "unit_id": "conversation:runtime-constraints/message:rc-1",
+            "source_type": "message",
+            "source_id": "rc-1",
+            "score": 46.154,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "deterministic",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "scoring",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "session",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "deltas",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "use",
+                "weight": 6.154
+              }
+            ],
+            "token_cost": 30,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:product-direction/message:pd-1",
+            "source_type": "message",
+            "source_id": "pd-1",
+            "score": 18,
+            "reasons": [
+              {
+                "signal": "message_adjacency",
+                "weight": 18,
+                "evidence": {
+                  "kind": "follows",
+                  "source": "conversation:product-direction/message:pd-1",
+                  "target": "conversation:product-direction/message:pd-2"
+                }
+              }
+            ],
+            "token_cost": 21,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:product-direction/message:pd-4",
+            "source_type": "message",
+            "source_id": "pd-4",
+            "score": 18,
+            "reasons": [
+              {
+                "signal": "message_adjacency",
+                "weight": 18,
+                "evidence": {
+                  "kind": "follows",
+                  "source": "conversation:product-direction/message:pd-3",
+                  "target": "conversation:product-direction/message:pd-4"
+                }
+              }
+            ],
+            "token_cost": 31,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:runtime-constraints/message:rc-2",
+            "source_type": "message",
+            "source_id": "rc-2",
+            "score": 18,
+            "reasons": [
+              {
+                "signal": "message_adjacency",
+                "weight": 18,
+                "evidence": {
+                  "kind": "follows",
+                  "source": "conversation:runtime-constraints/message:rc-1",
+                  "target": "conversation:runtime-constraints/message:rc-2"
+                }
+              }
+            ],
+            "token_cost": 39,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:runtime-constraints/message:rc-4",
+            "source_type": "message",
+            "source_id": "rc-4",
+            "score": 18,
+            "reasons": [
+              {
+                "signal": "message_adjacency",
+                "weight": 18,
+                "evidence": {
+                  "kind": "follows",
+                  "source": "conversation:runtime-constraints/message:rc-3",
+                  "target": "conversation:runtime-constraints/message:rc-4"
+                }
+              }
+            ],
+            "token_cost": 38,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:scope-decisions/message:sd-2",
+            "source_type": "message",
+            "source_id": "sd-2",
+            "score": 18,
+            "reasons": [
+              {
+                "signal": "message_adjacency",
+                "weight": 18,
+                "evidence": {
+                  "kind": "follows",
+                  "source": "conversation:scope-decisions/message:sd-2",
+                  "target": "conversation:scope-decisions/message:sd-3"
+                }
+              }
+            ],
+            "token_cost": 29,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:product-direction/message:pd-3",
+            "source_type": "message",
+            "source_id": "pd-3",
+            "score": 10.183,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "context",
+                "weight": 6.789
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "model",
+                "weight": 3.394
+              }
+            ],
+            "token_cost": 30,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:scope-decisions/message:sd-3",
+            "source_type": "message",
+            "source_id": "sd-3",
+            "score": 9.946,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "context",
+                "weight": 9.946
+              }
+            ],
+            "token_cost": 42,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:runtime-constraints/message:rc-3",
+            "source_type": "message",
+            "source_id": "rc-3",
+            "score": 9.526,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "model",
+                "weight": 3.402
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "use",
+                "weight": 6.124
+              }
+            ],
+            "token_cost": 34,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:product-direction/message:pd-5",
+            "source_type": "message",
+            "source_id": "pd-5",
+            "score": 6.838,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "context",
+                "weight": 3.419
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "model",
+                "weight": 3.419
+              }
+            ],
+            "token_cost": 25,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:product-direction/message:pd-2",
+            "source_type": "message",
+            "source_id": "pd-2",
+            "score": 3.427,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "context",
+                "weight": 3.427
+              }
+            ],
+            "token_cost": 23,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:scope-decisions/message:sd-4",
+            "source_type": "message",
+            "source_id": "sd-4",
+            "score": 3.331,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "model",
+                "weight": 3.331
+              }
+            ],
+            "token_cost": 38,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          }
+        ],
+        "included_units": [
+          "conversation:runtime-constraints/message:rc-1",
+          "conversation:product-direction/message:pd-1",
+          "conversation:product-direction/message:pd-4",
+          "conversation:runtime-constraints/message:rc-2",
+          "conversation:runtime-constraints/message:rc-4",
+          "conversation:scope-decisions/message:sd-2",
+          "conversation:product-direction/message:pd-3",
+          "conversation:scope-decisions/message:sd-3",
+          "conversation:runtime-constraints/message:rc-3",
+          "conversation:product-direction/message:pd-5",
+          "conversation:product-direction/message:pd-2",
+          "conversation:scope-decisions/message:sd-4"
+        ],
+        "omitted_units": [],
+        "context": "[message:rc-1]\nUse deterministic scoring with explicit reasons, source relationships, fingerprints, session history, deltas, invalidation and token budgets.\n\n---\n\n[message:pd-1]\nThe original Conceptualize plan focused on repository structure for coding agents.\n\n---\n\n[message:pd-4]\nThe current evaluation fixture uses PostgreSQL for JSONB metadata storage. Repository indexing and dependency graphs remain supported through a RepositoryAdapter.\n\n---\n\n[message:rc-2]\nThe ContextUnit fields include id, source_type, source_id, parent_id, content, content_hash, version, token_count, timestamps, relationships and metadata.\n\n---\n\n[message:rc-4]\nLexical conversation matching can rank exact phrases and term overlap, but must state that lexical relevance is not semantic understanding. The host AI remains responsible for reasoning.\n\n---\n\n[message:sd-2]\nConversation ingestion should preserve message order, role, timestamps, explicit references, attachment references, and parent-child relationships.\n\n---\n\n[message:pd-3]\nChange the product direction: make it model-independent context infrastructure. Repositories are one context source alongside conversations and documents.\n\n---\n\n[message:sd-3]\nCompare full conversation context with bounded Conceptualize context. Track fact coverage, context tokens and elapsed runtime, but do not treat lower token count as success if facts are lost.\n\n---\n\n[message:rc-3]\nDo not use embeddings, vector databases, RAG models, rerankers, hidden model calls, machine learning or AI-generated summaries.\n\n---\n\n[message:pd-5]\nKeep the product model-independent. Do not claim that selecting context improves task quality unless measured.\n\n---\n\n[message:pd-2]\nThe first storage prototype used SQLite and treated source files as the only context units.\n\n---\n\n[message:sd-4]\nModel input, cached input and output token telemetry must remain unavailable when the host does not report those values. Cost estimates require an explicit versioned pricing snapshot.",
+        "retrieval_notice": "Lexical ranking is deterministic and does not represent semantic understanding."
+      },
+      "context_token_difference": 8,
+      "same_deterministic_fact_coverage": true
+    },
+    {
+      "task_id": "excluded-scope",
+      "query": "Which product features were explicitly excluded from the milestone?",
+      "token_budget": 220,
+      "control": {
+        "condition": "full_context_control",
+        "success": true,
+        "required_facts": [
+          "billing",
+          "OAuth",
+          "team management",
+          "dashboard redesign"
+        ],
+        "facts_recovered": [
+          "billing",
+          "OAuth",
+          "team management",
+          "dashboard redesign"
+        ],
+        "context_tokens": 383,
+        "model_input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "elapsed_ms": null,
+        "tool_operations": 0,
+        "context": "[user] The original Conceptualize plan focused on repository structure for coding agents.\n\n[assistant] The first storage prototype used SQLite and treated source files as the only context units.\n\n[user] Change the product direction: make it model-independent context infrastructure. Repositories are one context source alongside conversations and documents.\n\n[assistant] The current evaluation fixture uses PostgreSQL for JSONB metadata storage. Repository indexing and dependency graphs remain supported through a RepositoryAdapter.\n\n[user] Keep the product model-independent. Do not claim that selecting context improves task quality unless measured.\n\n[user] Use deterministic scoring with explicit reasons, source relationships, fingerprints, session history, deltas, invalidation and token budgets.\n\n[assistant] The ContextUnit fields include id, source_type, source_id, parent_id, content, content_hash, version, token_count, timestamps, relationships and metadata.\n\n[user] Do not use embeddings, vector databases, RAG models, rerankers, hidden model calls, machine learning or AI-generated summaries.\n\n[assistant] Lexical conversation matching can rank exact phrases and term overlap, but must state that lexical relevance is not semantic understanding. The host AI remains responsible for reasoning.\n\n[user] Do not add billing, OAuth, team management, or another dashboard redesign in this milestone.\n\n[assistant] Conversation ingestion should preserve message order, role, timestamps, explicit references, attachment references, and parent-child relationships.\n\n[user] Compare full conversation context with bounded Conceptualize context. Track fact coverage, context tokens and elapsed runtime, but do not treat lower token count as success if facts are lost.\n\n[assistant] Model input, cached input and output token telemetry must remain unavailable when the host does not report those values. Cost estimates require an explicit versioned pricing snapshot.\n\n[user] Compare train schedules for a weekend trip and find vegetarian lunch near the station.\n\n[assistant] Pack a light jacket, reserve lunch, and leave enough time for the return train."
+      },
+      "conceptualize": {
+        "condition": "conceptualize_runtime_selection",
+        "success": true,
+        "required_facts": [
+          "billing",
+          "OAuth",
+          "team management",
+          "dashboard redesign"
+        ],
+        "facts_recovered": [
+          "billing",
+          "OAuth",
+          "team management",
+          "dashboard redesign"
+        ],
+        "context_tokens": 168,
+        "candidate_tokens": 163,
+        "selected_tokens": 163,
+        "model_input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "elapsed_ms": 1.426,
+        "tool_operations": 1,
+        "selection": [
+          {
+            "unit_id": "conversation:product-direction/message:pd-2",
+            "source_type": "message",
+            "source_id": "pd-2",
+            "score": 18,
+            "reasons": [
+              {
+                "signal": "message_adjacency",
+                "weight": 18,
+                "evidence": {
+                  "kind": "follows",
+                  "source": "conversation:product-direction/message:pd-2",
+                  "target": "conversation:product-direction/message:pd-3"
+                }
+              }
+            ],
+            "token_cost": 23,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:product-direction/message:pd-4",
+            "source_type": "message",
+            "source_id": "pd-4",
+            "score": 18,
+            "reasons": [
+              {
+                "signal": "message_adjacency",
+                "weight": 18,
+                "evidence": {
+                  "kind": "follows",
+                  "source": "conversation:product-direction/message:pd-3",
+                  "target": "conversation:product-direction/message:pd-4"
+                }
+              }
+            ],
+            "token_cost": 31,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:scope-decisions/message:sd-2",
+            "source_type": "message",
+            "source_id": "sd-2",
+            "score": 18,
+            "reasons": [
+              {
+                "signal": "message_adjacency",
+                "weight": 18,
+                "evidence": {
+                  "kind": "follows",
+                  "source": "conversation:scope-decisions/message:sd-1",
+                  "target": "conversation:scope-decisions/message:sd-2"
+                }
+              }
+            ],
+            "token_cost": 29,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:scope-decisions/message:sd-1",
+            "source_type": "message",
+            "source_id": "sd-1",
+            "score": 10.0,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "milestone",
+                "weight": 10.0
+              }
+            ],
+            "token_cost": 25,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:product-direction/message:pd-5",
+            "source_type": "message",
+            "source_id": "pd-5",
+            "score": 6.154,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "product",
+                "weight": 6.154
+              }
+            ],
+            "token_cost": 25,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:product-direction/message:pd-3",
+            "source_type": "message",
+            "source_id": "pd-3",
+            "score": 6.11,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "product",
+                "weight": 6.11
+              }
+            ],
+            "token_cost": 30,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          }
+        ],
+        "included_units": [
+          "conversation:product-direction/message:pd-2",
+          "conversation:product-direction/message:pd-4",
+          "conversation:scope-decisions/message:sd-2",
+          "conversation:scope-decisions/message:sd-1",
+          "conversation:product-direction/message:pd-5",
+          "conversation:product-direction/message:pd-3"
+        ],
+        "omitted_units": [],
+        "context": "[message:pd-2]\nThe first storage prototype used SQLite and treated source files as the only context units.\n\n---\n\n[message:pd-4]\nThe current evaluation fixture uses PostgreSQL for JSONB metadata storage. Repository indexing and dependency graphs remain supported through a RepositoryAdapter.\n\n---\n\n[message:sd-2]\nConversation ingestion should preserve message order, role, timestamps, explicit references, attachment references, and parent-child relationships.\n\n---\n\n[message:sd-1]\nDo not add billing, OAuth, team management, or another dashboard redesign in this milestone.\n\n---\n\n[message:pd-5]\nKeep the product model-independent. Do not claim that selecting context improves task quality unless measured.\n\n---\n\n[message:pd-3]\nChange the product direction: make it model-independent context infrastructure. Repositories are one context source alongside conversations and documents.",
+        "retrieval_notice": "Lexical ranking is deterministic and does not represent semantic understanding."
+      },
+      "context_token_difference": -215,
+      "same_deterministic_fact_coverage": true
+    },
+    {
+      "task_id": "direction-change",
+      "query": "How did the product direction change from the original repository-only plan?",
+      "token_budget": 300,
+      "control": {
+        "condition": "full_context_control",
+        "success": true,
+        "required_facts": [
+          "focused on repository structure",
+          "model-independent context infrastructure",
+          "conversations and documents"
+        ],
+        "facts_recovered": [
+          "focused on repository structure",
+          "model-independent context infrastructure",
+          "conversations and documents"
+        ],
+        "context_tokens": 383,
+        "model_input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "elapsed_ms": null,
+        "tool_operations": 0,
+        "context": "[user] The original Conceptualize plan focused on repository structure for coding agents.\n\n[assistant] The first storage prototype used SQLite and treated source files as the only context units.\n\n[user] Change the product direction: make it model-independent context infrastructure. Repositories are one context source alongside conversations and documents.\n\n[assistant] The current evaluation fixture uses PostgreSQL for JSONB metadata storage. Repository indexing and dependency graphs remain supported through a RepositoryAdapter.\n\n[user] Keep the product model-independent. Do not claim that selecting context improves task quality unless measured.\n\n[user] Use deterministic scoring with explicit reasons, source relationships, fingerprints, session history, deltas, invalidation and token budgets.\n\n[assistant] The ContextUnit fields include id, source_type, source_id, parent_id, content, content_hash, version, token_count, timestamps, relationships and metadata.\n\n[user] Do not use embeddings, vector databases, RAG models, rerankers, hidden model calls, machine learning or AI-generated summaries.\n\n[assistant] Lexical conversation matching can rank exact phrases and term overlap, but must state that lexical relevance is not semantic understanding. The host AI remains responsible for reasoning.\n\n[user] Do not add billing, OAuth, team management, or another dashboard redesign in this milestone.\n\n[assistant] Conversation ingestion should preserve message order, role, timestamps, explicit references, attachment references, and parent-child relationships.\n\n[user] Compare full conversation context with bounded Conceptualize context. Track fact coverage, context tokens and elapsed runtime, but do not treat lower token count as success if facts are lost.\n\n[assistant] Model input, cached input and output token telemetry must remain unavailable when the host does not report those values. Cost estimates require an explicit versioned pricing snapshot.\n\n[user] Compare train schedules for a weekend trip and find vegetarian lunch near the station.\n\n[assistant] Pack a light jacket, reserve lunch, and leave enough time for the return train."
+      },
+      "conceptualize": {
+        "condition": "conceptualize_runtime_selection",
+        "success": true,
+        "required_facts": [
+          "focused on repository structure",
+          "model-independent context infrastructure",
+          "conversations and documents"
+        ],
+        "facts_recovered": [
+          "focused on repository structure",
+          "model-independent context infrastructure",
+          "conversations and documents"
+        ],
+        "context_tokens": 134,
+        "candidate_tokens": 130,
+        "selected_tokens": 130,
+        "model_input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "elapsed_ms": 1.313,
+        "tool_operations": 1,
+        "selection": [
+          {
+            "unit_id": "conversation:product-direction/message:pd-1",
+            "source_type": "message",
+            "source_id": "pd-1",
+            "score": 26.229,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "original",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "repository",
+                "weight": 6.229
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "plan",
+                "weight": 10.0
+              }
+            ],
+            "token_cost": 21,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:product-direction/message:pd-3",
+            "source_type": "message",
+            "source_id": "pd-3",
+            "score": 26.11,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "product",
+                "weight": 6.11
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "direction",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "change",
+                "weight": 10.0
+              }
+            ],
+            "token_cost": 30,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:product-direction/message:pd-2",
+            "source_type": "message",
+            "source_id": "pd-2",
+            "score": 10.0,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "only",
+                "weight": 10.0
+              }
+            ],
+            "token_cost": 23,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:product-direction/message:pd-5",
+            "source_type": "message",
+            "source_id": "pd-5",
+            "score": 6.154,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "product",
+                "weight": 6.154
+              }
+            ],
+            "token_cost": 25,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:product-direction/message:pd-4",
+            "source_type": "message",
+            "source_id": "pd-4",
+            "score": 6.095,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "repository",
+                "weight": 6.095
+              }
+            ],
+            "token_cost": 31,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          }
+        ],
+        "included_units": [
+          "conversation:product-direction/message:pd-1",
+          "conversation:product-direction/message:pd-3",
+          "conversation:product-direction/message:pd-2",
+          "conversation:product-direction/message:pd-5",
+          "conversation:product-direction/message:pd-4"
+        ],
+        "omitted_units": [],
+        "context": "[message:pd-1]\nThe original Conceptualize plan focused on repository structure for coding agents.\n\n---\n\n[message:pd-3]\nChange the product direction: make it model-independent context infrastructure. Repositories are one context source alongside conversations and documents.\n\n---\n\n[message:pd-2]\nThe first storage prototype used SQLite and treated source files as the only context units.\n\n---\n\n[message:pd-5]\nKeep the product model-independent. Do not claim that selecting context improves task quality unless measured.\n\n---\n\n[message:pd-4]\nThe current evaluation fixture uses PostgreSQL for JSONB metadata storage. Repository indexing and dependency graphs remain supported through a RepositoryAdapter.",
+        "retrieval_notice": "Lexical ranking is deterministic and does not represent semantic understanding."
+      },
+      "context_token_difference": -249,
+      "same_deterministic_fact_coverage": true
+    }
+  ],
+  "aggregate": {
+    "tasks": 4,
+    "control_passes": 4,
+    "conceptualize_fact_coverage_passes": 4,
+    "same_fact_coverage_tasks": 4,
+    "control_context_tokens_per_task": 383,
+    "conceptualize_context_tokens": 933,
+    "model_input_tokens": null,
+    "cached_input_tokens": null,
+    "output_tokens": null,
+    "estimated_cost": null,
+    "autonomous_adoption": "not measured; this diagnostic invokes the runtime directly",
+    "forced_context_agent_quality": "not measured; no model was called"
+  },
+  "categories": {
+    "effectiveness": {
+      "control_fact_checks_passed": 4,
+      "conceptualize_fact_checks_passed": 4,
+      "checks": 4,
+      "model_answer_correctness": null
+    },
+    "efficiency": {
+      "full_context_tokens_per_task": 383,
+      "conceptualize_context_tokens_total": 933,
+      "candidate_context_tokens_total": 906,
+      "tool_operations": 4,
+      "average_runtime_selection_ms": 2.554,
+      "model_input_tokens": null,
+      "cached_input_tokens": null,
+      "output_tokens": null
+    },
+    "economics": {
+      "pricing_snapshot": null,
+      "baseline_model_cost": null,
+      "conceptualize_model_cost": null,
+      "estimated_cost_difference": null
+    }
+  },
+  "limitations": [
+    "String-based fact checks measure selected-context coverage, not model answer correctness.",
+    "The control supplies the complete fixture history to every task and is intentionally broad.",
+    "Context string tokens are not model-reported input tokens.",
+    "No pricing estimate is emitted without actual input/cached/output token telemetry and an explicit pricing snapshot."
+  ]
+}

@@ -85,6 +85,76 @@ def test_authenticated_dashboard_index_creates_real_repository_snapshot(api, tmp
     assert client.post("/v1/index", headers=other_headers, json={"path": str(repo / "missing")}).status_code == 400
 
 
+def test_conversation_ingestion_and_source_aware_search_are_project_scoped(api):
+    client, headers, other, _, project_id = api
+    payload = {
+        "conversations": [
+            {
+                "id": "product-decisions",
+                "title": "Context runtime",
+                "messages": [
+                    {"id": "old", "role": "user", "content": "We first considered MySQL."},
+                    {
+                        "id": "final",
+                        "role": "assistant",
+                        "content": "We chose PostgreSQL because JSONB stores source metadata.",
+                        "parent_id": "old",
+                    },
+                ],
+            }
+        ]
+    }
+    ingested = client.post("/v1/context/conversations", headers=headers, json=payload)
+    assert ingested.status_code == 200
+    assert ingested.json()["units"] == 3
+    assert client.get("/v1/overview", headers=headers).json()["context_sources"] == ["conversation", "repository"]
+    result = client.post(
+        "/v1/runtime",
+        headers={**headers, "X-MCP-Session": "generic-context"},
+        json={"operation": "search", "query": "PostgreSQL JSONB metadata", "source_types": ["conversation"]},
+    )
+    assert result.status_code == 200
+    assert "PostgreSQL" in result.json()["context"]
+    assert result.json()["selection"][0]["source_type"] == "message"
+    assert result.json()["overhead"]["context_source_load_ms"] >= 0
+    assert result.json()["overhead"]["scoring_ms"] >= 0
+    assert result.json()["overhead"]["packing_ms"] >= 0
+    isolated = client.post(
+        "/v1/runtime",
+        headers=other,
+        json={"operation": "search", "query": "PostgreSQL JSONB metadata", "source_types": ["conversation"]},
+    )
+    assert isolated.status_code == 200
+    assert isolated.json()["context"] == ""
+
+
+def test_conversation_context_delta_and_changed_content_invalidation(api):
+    client, headers, _, _, _ = api
+    prefix = {**headers, "X-MCP-Session": "conversation-delta"}
+    body = {"operation": "pack", "query": "PostgreSQL JSONB", "source_types": ["conversation"]}
+    payload = {
+        "conversations": [
+            {"id": "c1", "messages": [{"id": "m1", "role": "user", "content": "PostgreSQL uses JSONB."}]}
+        ]
+    }
+    assert client.post("/v1/context/conversations", headers=headers, json=payload).status_code == 200
+    revision = client.get("/v1/overview", headers=headers).json()["project"]["revision"]
+    duplicate_ingest = client.post("/v1/context/conversations", headers=headers, json=payload)
+    assert duplicate_ingest.json()["unchanged"] is True
+    assert client.get("/v1/overview", headers=headers).json()["project"]["revision"] == revision
+    first = client.post("/v1/runtime", headers=prefix, json=body).json()
+    second = client.post("/v1/runtime", headers=prefix, json=body).json()
+    assert first["context"]
+    assert second["context"] == ""
+    assert second["metrics"]["duplicate_tokens_avoided"] > 0
+    payload["conversations"][0]["messages"][0]["content"] = "PostgreSQL now uses JSONB and JSON path filters."
+    assert client.post("/v1/context/conversations", headers=headers, json=payload).status_code == 200
+    assert client.get("/v1/overview", headers=headers).json()["project"]["revision"] == revision + 1
+    changed = client.post("/v1/runtime", headers=prefix, json=body).json()
+    assert "JSON path filters" in changed["context"]
+    assert changed["invalidated_context"]
+
+
 def test_cache_hit_still_records_trace_and_reindex_invalidates(api, tmp_path):
     client, headers, _, session, project_id = api
     body = {"operation": "pack", "paths": ["src/session.py"], "token_budget": 1000}

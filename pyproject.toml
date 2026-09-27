@@ -16,6 +16,7 @@ conceptualize = "conceptualize.cli:main"
 conceptualize-mcp = "conceptualize_mcp.server:main"
 conceptualize-mcp-setup = "conceptualize_mcp.setup:main"
 conceptualize-evaluate = "conceptualize_evaluation.runner:main"
+conceptualize-evaluate-conversations = "conceptualize_evaluation.conversation_benchmark:main"
 
 [tool.setuptools.packages.find]
 where = ["apps/api", "apps/mcp", "packages"]

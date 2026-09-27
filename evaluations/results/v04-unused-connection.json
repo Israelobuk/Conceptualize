@@ -1,19 +1,31 @@
 {
   "summary": {
-    "trials": 8,
-    "all_answers_correct": true,
-    "mcp_calls": 0,
-    "mean_elapsed_seconds": {
-      "control": 6.766,
-      "connected": 11.14825
+    "control": {
+      "mean_seconds": 6.766,
+      "median_seconds": 6.5275,
+      "min_seconds": 6.15,
+      "max_seconds": 7.859,
+      "sample_sd_seconds": 0.7573845346541829,
+      "first_message_mean_ms": 4695.1125,
+      "mean_usage": {
+        "input_tokens": 19016,
+        "cached_input_tokens": 10912,
+        "output_tokens": 5
+      }
     },
-    "mean_first_message_arrival_ms": {
-      "control": 4695.1125,
-      "connected": 8584.01
-    },
-    "causal_attribution": null,
-    "startup_ms": null,
-    "mcp_initialization_ms": null
+    "connected": {
+      "mean_seconds": 11.14825,
+      "median_seconds": 11.3835,
+      "min_seconds": 9.941,
+      "max_seconds": 11.885,
+      "sample_sd_seconds": 0.8970987961200255,
+      "first_message_mean_ms": 8584.01,
+      "mean_usage": {
+        "input_tokens": 23864,
+        "cached_input_tokens": 14208,
+        "output_tokens": 5
+      }
+    }
   },
   "trials": [
     {
@@ -49,7 +61,12 @@
       "answer_correct": true,
       "mcp_calls": 0,
       "unused_connection": false,
-      "causal_overhead_attribution": null
+      "causal_overhead_attribution": null,
+      "provider_interruptions_observed": false,
+      "host_retries": null,
+      "startup_ms": null,
+      "mcp_initialization_ms": null,
+      "tool_listing_bytes": 0
     },
     {
       "repetition": 0,
@@ -84,7 +101,12 @@
       "answer_correct": true,
       "mcp_calls": 0,
       "unused_connection": true,
-      "causal_overhead_attribution": null
+      "causal_overhead_attribution": null,
+      "provider_interruptions_observed": false,
+      "host_retries": null,
+      "startup_ms": null,
+      "mcp_initialization_ms": null,
+      "tool_listing_bytes": 4885
     },
     {
       "repetition": 1,
@@ -119,7 +141,12 @@
       "answer_correct": true,
       "mcp_calls": 0,
       "unused_connection": true,
-      "causal_overhead_attribution": null
+      "causal_overhead_attribution": null,
+      "provider_interruptions_observed": false,
+      "host_retries": null,
+      "startup_ms": null,
+      "mcp_initialization_ms": null,
+      "tool_listing_bytes": 4885
     },
     {
       "repetition": 1,
@@ -154,7 +181,12 @@
       "answer_correct": true,
       "mcp_calls": 0,
       "unused_connection": false,
-      "causal_overhead_attribution": null
+      "causal_overhead_attribution": null,
+      "provider_interruptions_observed": false,
+      "host_retries": null,
+      "startup_ms": null,
+      "mcp_initialization_ms": null,
+      "tool_listing_bytes": 0
     },
     {
       "repetition": 2,
@@ -189,7 +221,12 @@
       "answer_correct": true,
       "mcp_calls": 0,
       "unused_connection": false,
-      "causal_overhead_attribution": null
+      "causal_overhead_attribution": null,
+      "provider_interruptions_observed": false,
+      "host_retries": null,
+      "startup_ms": null,
+      "mcp_initialization_ms": null,
+      "tool_listing_bytes": 0
     },
     {
       "repetition": 2,
@@ -224,7 +261,12 @@
       "answer_correct": true,
       "mcp_calls": 0,
       "unused_connection": true,
-      "causal_overhead_attribution": null
+      "causal_overhead_attribution": null,
+      "provider_interruptions_observed": false,
+      "host_retries": null,
+      "startup_ms": null,
+      "mcp_initialization_ms": null,
+      "tool_listing_bytes": 4885
     },
     {
       "repetition": 3,
@@ -259,7 +301,12 @@
       "answer_correct": true,
       "mcp_calls": 0,
       "unused_connection": true,
-      "causal_overhead_attribution": null
+      "causal_overhead_attribution": null,
+      "provider_interruptions_observed": false,
+      "host_retries": null,
+      "startup_ms": null,
+      "mcp_initialization_ms": null,
+      "tool_listing_bytes": 4885
     },
     {
       "repetition": 3,
@@ -294,7 +341,17 @@
       "answer_correct": true,
       "mcp_calls": 0,
       "unused_connection": false,
-      "causal_overhead_attribution": null
+      "causal_overhead_attribution": null,
+      "provider_interruptions_observed": false,
+      "host_retries": null,
+      "startup_ms": null,
+      "mcp_initialization_ms": null,
+      "tool_listing_bytes": 0
     }
-  ]
+  ],
+  "causal_attribution": null,
+  "host_startup_and_initialization": null,
+  "host_retries": null,
+  "observed_input_difference_per_trial": 4848,
+  "input_difference_interpretation": "Consistent with extra host prompt/tool material; exact packing and causality unavailable."
 }

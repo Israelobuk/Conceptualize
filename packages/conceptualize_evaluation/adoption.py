@@ -24,8 +24,9 @@ def adoption_metrics(events, observations, trace_data, relevant, available):
     if first and reads:
         timing = "before observed relevant manual read" if first[0] < min(reads) else "after observed relevant manual read"
     surfaced = set()
+    surfaced_steps = {}
     results_observed = False
-    for _, item in calls:
+    for step, item in calls:
         result = item.get("result") or {}
         payload = result.get("structured_content")
         if not payload:
@@ -38,12 +39,21 @@ def adoption_metrics(events, observations, trace_data, relevant, available):
         if not isinstance(payload, dict):
             continue
         results_observed = True
+        current = set()
         for edge in payload.get("relationships", []):
-            surfaced.update([edge.get("source"), edge.get("target")])
+            current.update([edge.get("source"), edge.get("target")])
         for key in ("consumers", "dependencies", "tests"):
-            surfaced.update(payload.get("environment", {}).get(key, []))
+            current.update(payload.get("environment", {}).get(key, []))
+        surfaced.update(current)
+        for path in current:
+            surfaced_steps.setdefault(path, step)
     useful = bool(set(relevant) & surfaced) if results_observed else None
-    return {"tool_available": available, "tool_invoked": bool(calls),
+    discovery = {}
+    for path in sorted(set(relevant) & surfaced):
+        read_step = observations["first_observed_read"].get(path)
+        discovery[path] = {"surfaced_step": surfaced_steps[path], "observed_read_step": read_step,
+                           "when": "unknown" if read_step is None else ("before observed read" if surfaced_steps[path] < read_step else "after observed read")}
+    return {"relationship_discovery": discovery, "tool_available": available, "tool_invoked": bool(calls),
             "first_operation": first[1].get("tool", "").removeprefix("conceptualize_") if first else None,
             "when_invoked": timing, "useful_relationship_surfaced": useful,
             "relationship_used_in_final_change": None,

@@ -18,3 +18,10 @@ def test_only_delivered_relationships_count_and_timing_uses_observed_reads():
     assert result["useful_relationship_surfaced"] is True
     assert result["when_invoked"] == "before observed relevant manual read"
     assert result["relationship_used_in_final_change"] is None
+
+
+def test_per_relationship_discovery_does_not_infer_missing_reads():
+    events = [{"type": "item.completed", "item": {"type": "mcp_tool_call", "server": "conceptualize", "tool": "conceptualize_inspect", "status": "completed", "result": {"structured_content": {"environment": {"consumers": ["shop/warehouse.py", "shop/orders.py"]}}}}}]
+    result = adoption_metrics(events, {"first_observed_read": {"shop/warehouse.py": 3}}, [], ["shop/warehouse.py", "shop/orders.py"], True)
+    assert result["relationship_discovery"]["shop/warehouse.py"]["when"] == "before observed read"
+    assert result["relationship_discovery"]["shop/orders.py"]["when"] == "unknown"

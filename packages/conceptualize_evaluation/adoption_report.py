@@ -65,6 +65,24 @@ def generate(output):
             trials = [r for r in cohort["trials"] if r["manifest"]["mode"] == mode]
             if trials:
                 lines += [f"{mode}: {sum(r['tests_passed'] for r in trials)}/{len(trials)} checks passed; mean elapsed {mean(r['execution']['elapsed_seconds'] for r in trials):.2f}s; MCP invoked in {sum(r['adoption']['tool_invoked'] for r in trials)} trials."]
+    lines += ["", "## Selective adoption and interpretation", ""]
+    for name, cohort in cohorts.items():
+        for row in cohort["trials"]:
+            if row["manifest"]["mode"] != "conceptualize":
+                continue
+            ad = row["adoption"]
+            if name == "negative":
+                interpretation = "Skipped MCP for a clearly local edit, consistent with the intended decision boundary." if not ad["tool_invoked"] else "MCP was invoked for a local edit; this is not counted as product utility."
+            elif ad["useful_relationship_surfaced"]:
+                interpretation = "Delivered required relationship paths, appropriate for cross-file understanding; causal use and speed benefit remain unproven."
+            elif not ad["tool_invoked"]:
+                interpretation = "No MCP call. A passing manual implementation does not show that skipping was wrong, or that the context runtime affected this trial."
+            else:
+                interpretation = "Invocation did not establish a required delivered relationship; useful source context may still exist, so utility is inconclusive."
+            lines += [f"{name}/{row['manifest']['task']} #{row['repetition']+1}: {interpretation}"]
+            warehouse = ad["relationship_discovery"].get("shop/warehouse.py")
+            if warehouse:
+                lines += [f"Warehouse relationship discovery: {warehouse['when']} (surfaced event {warehouse['surfaced_step']}, observed read event {warehouse['observed_read_step']})."]
     lines += ["", "Files/read counts are supported command-derived lower bounds. Useful relationships mean required oracle paths appeared in delivered relationship metadata, not merely in the full trace. Their causal use in changes remains unknown. Positive results do not imply faster execution; unnecessary-files proxies include legitimate tests and alternative implementations. Agent usage, cached tokens, wire bytes, full trace bytes, comparability checks and sandbox/account-limit observations are in ADOPTION-SUITE.json.", "", "The eight connected-but-unused trials are separate in BASELINE-OVERHEAD.md. Historical V0.2/V0.3 evidence is unchanged. No model runs inside Conceptualize."]
     (output / "ADOPTION.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     return result

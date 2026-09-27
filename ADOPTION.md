@@ -10,14 +10,26 @@ Explicit pre/post-change reachability proves that Codex can see and invoke inspe
 | adoption | delivery-contract #1 | conceptualize | True | 102.53 | 1 | 0 | 1 | 275 | inspect | before observed relevant manual read | True |
 | adoption | unicode-identity #1 | conceptualize | True | 103.97 | 0 | 0 | 1 | 261 | inspect | unknown | True |
 | adoption | unicode-identity #1 | control | True | 82.46 | 0 | 0 | 0 | 0 | none | unknown | None |
+| adoption | batch-contract #1 | control | True | 87.60 | 0 | 0 | 0 | 0 | none | unknown | None |
+| adoption | batch-contract #1 | conceptualize | True | 119.55 | 7 | 0 | 0 | 0 | none | unknown | None |
+| adoption | retry-interface #1 | conceptualize | True | 113.48 | 0 | 0 | 0 | 0 | none | unknown | None |
+| adoption | retry-interface #1 | control | True | 71.14 | 0 | 0 | 0 | 0 | none | unknown | None |
+| adoption | record-schema #1 | control | True | 88.67 | 0 | 0 | 0 | 0 | none | unknown | None |
 
-adoption: 4/12 trials recorded.
-control: 2/2 checks passed; mean elapsed 79.23s; MCP invoked in 0 trials.
-conceptualize: 2/2 checks passed; mean elapsed 103.25s; MCP invoked in 2 trials.
+adoption: 9/12 trials recorded.
+control: 5/5 checks passed; mean elapsed 81.18s; MCP invoked in 0 trials.
+conceptualize: 4/4 checks passed; mean elapsed 109.88s; MCP invoked in 2 trials.
 
 receipts: 0/6 trials recorded.
 
 negative: 0/6 trials recorded.
+
+## Selective adoption and interpretation
+
+adoption/delivery-contract #1: Delivered required relationship paths, appropriate for cross-file understanding; causal use and speed benefit remain unproven.
+adoption/unicode-identity #1: Delivered required relationship paths, appropriate for cross-file understanding; causal use and speed benefit remain unproven.
+adoption/batch-contract #1: No MCP call. A passing manual implementation does not show that skipping was wrong, or that the context runtime affected this trial.
+adoption/retry-interface #1: No MCP call. A passing manual implementation does not show that skipping was wrong, or that the context runtime affected this trial.
 
 Files/read counts are supported command-derived lower bounds. Useful relationships mean required oracle paths appeared in delivered relationship metadata, not merely in the full trace. Their causal use in changes remains unknown. Positive results do not imply faster execution; unnecessary-files proxies include legitimate tests and alternative implementations. Agent usage, cached tokens, wire bytes, full trace bytes, comparability checks and sandbox/account-limit observations are in ADOPTION-SUITE.json.
 

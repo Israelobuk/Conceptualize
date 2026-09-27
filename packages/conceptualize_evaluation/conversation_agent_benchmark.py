@@ -151,6 +151,23 @@ def _trace_details(api_url: str, api_key: str | None, payloads: list[dict]) -> l
     return traces
 
 
+def _precompile_context(api_url: str, api_key: str, query: str, token_budget: int) -> tuple[dict, int]:
+    body = json.dumps({
+        "operation": "context",
+        "query": query,
+        "token_budget": token_budget,
+        "source_types": ["conversation"],
+    }).encode("utf-8")
+    request = urllib.request.Request(
+        api_url.rstrip("/") + "/v1/runtime",
+        data=body,
+        headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+        method="POST",
+    )
+    with urllib.request.urlopen(request, timeout=30) as response:
+        return json.loads(response.read()), len(body)
+
+
 def _run_codex(
     *, codex: str, model: str, prompt: str, output: Path, enabled: bool,
     api_url: str, mcp_command: str | None, mcp_args: list[str], env: dict, timeout: int,
@@ -221,10 +238,23 @@ def run_one(fixture: dict, *, model: str, condition: str, repetition: int, outpu
             codex: str, api_url: str, api_key: str | None, mcp_command: str | None,
             mcp_args: list[str], timeout: int, pricing: dict | None, diagnostic: bool = False,
             mcp_required: bool = False) -> dict:
-    enabled = condition != "control_full_history"
+    condition_started = time.perf_counter()
+    enabled = condition in {"autonomous_conceptualize_available", "mode_c_autonomous_mcp"}
+    precompiled = condition in {"precompiled_conceptualize", "mode_b_precompiled"}
     history_text = _history_text(fixture)
+    precompile_elapsed_ms = None
     prompt = "\n\n".join(fixture["prompt_rules"])
     if enabled:
+        prompt += "\n\n" + fixture["question"]
+    elif precompiled:
+        if not api_key:
+            raise ValueError("--api-key is required for precompiled context mode")
+        precompile_started = time.perf_counter()
+        precompiled_result, precompile_request_bytes = _precompile_context(
+            api_url, api_key, fixture["question"], fixture["settings"]["token_budget"]
+        )
+        precompile_elapsed_ms = round((time.perf_counter() - precompile_started) * 1000, 2)
+        prompt += "\n\nSelected project context:\n" + precompiled_result.get("context", "")
         prompt += "\n\n" + fixture["question"]
     else:
         prompt += "\n\n" + history_text + "\n\n" + fixture["question"]
@@ -241,6 +271,7 @@ def run_one(fixture: dict, *, model: str, condition: str, repetition: int, outpu
         prompt = "\n\n".join(fixture["prompt_rules"]) + "\n\nSelected project context:\n" + pack["context"] + "\n\n" + fixture["question"]
         condition = "forced_context_diagnostic"
         enabled = False
+        precompiled = False
     output.mkdir(parents=True, exist_ok=False)
     cwd = output / "workspace"
     cwd.mkdir()
@@ -251,7 +282,7 @@ def run_one(fixture: dict, *, model: str, condition: str, repetition: int, outpu
         "prompt_sha256": hashlib.sha256(prompt.encode()).hexdigest(),
         "history_sha256": hashlib.sha256(history_text.encode()).hexdigest(),
         "grading_version": fixture["version"], "cli_version": _run([codex, "--version"], cwd=ROOT),
-        "api_url": api_url if enabled else None,
+        "api_url": api_url if enabled or precompiled else None,
         "workspace_instructions": "fresh temporary CODEX_HOME and empty cwd; no user/project instructions or MCP servers",
     })
     env = dict(os.environ)
@@ -287,38 +318,77 @@ def run_one(fixture: dict, *, model: str, condition: str, repetition: int, outpu
         ) / 1_000_000
     mcp_payloads = result.get("mcp_payloads", [])
     traces = _trace_details(api_url, api_key, mcp_payloads) if enabled else []
+    if precompiled:
+        traces = _trace_details(api_url, api_key, [
+            {"trace_id": precompiled_result["trace_id"], "operation": "context", "metrics": precompiled_result["metrics"]}
+        ])
     trace_by_id = {trace.get("id"): trace for trace in traces}
-    compact_metrics = [payload.get("metrics", {}) for payload in mcp_payloads]
     trace_results = []
     for payload in mcp_payloads:
         trace = trace_by_id.get(payload.get("trace_id"), {})
         persisted = trace.get("result") or {}
         trace_results.append({
             "trace_id": payload.get("trace_id"),
-            "operation": payload.get("operation"),
-            "metrics": payload.get("metrics", {}),
+            "operation": payload.get("operation", "context" if condition in {"mode_c_autonomous_mcp", "autonomous_conceptualize_available"} else None),
+            "metrics": persisted.get("metrics", payload.get("metrics", {})),
             "overhead": persisted.get("overhead", {}),
             "timings_ms": persisted.get("timings_ms", {}),
         })
-    conceptualize_tokens = sum(row.get("returned_tokens", 0) for row in compact_metrics)
-    duplicate_avoided = sum(row.get("previously_supplied_tokens", 0) for row in compact_metrics)
+    conceptualize_tokens = sum(token_count(payload.get("context", "")) for payload in mcp_payloads)
+    trace_metrics = [row.get("metrics", {}) for row in trace_results]
+    request_payload_bytes = sum(
+        len(json.dumps(call.get("arguments", {}), separators=(",", ":"), ensure_ascii=False).encode("utf-8"))
+        for call in result["tool_calls"]
+    )
+    response_payload_bytes = sum(
+        len(json.dumps(call.get("result", {}), separators=(",", ":"), ensure_ascii=False).encode("utf-8"))
+        for call in result["tool_calls"]
+    )
+    duplicate_avoided = sum(
+        row.get("duplicate_tokens_suppressed", 0) + row.get("unchanged_context_tokens", 0)
+        for row in trace_metrics
+    )
+    if not duplicate_avoided and any(payload.get("previous_context_reused") for payload in mcp_payloads):
+        duplicate_avoided = None
     result_data = {
         "benchmark": fixture["version"], "model": model, "condition": condition,
         "repetition": repetition, "exit_code": result["exit_code"],
         "success": result["exit_code"] == 0, "grade": score,
         "elapsed_ms": result["elapsed_ms"], "model_reported_usage": telemetry,
+        "condition_elapsed_ms": round((time.perf_counter() - condition_started) * 1000, 2),
+        "precompile_elapsed_ms": precompile_elapsed_ms,
         "context_available_tokens": token_count(history_text),
         "context_string_tokens_delivered_by_conceptualize": conceptualize_tokens if mcp_payloads else (0 if enabled else None),
+        "precompiled_context_tokens": precompiled_result.get("metrics", {}).get("returned_tokens") if precompiled else None,
+        "precompile_request_bytes": precompile_request_bytes if precompiled else None,
         "context_string_tokens_full_history": token_count(history_text) if condition == "control_full_history" else None,
         "context_string_tokens_forced_diagnostic": token_count(pack["context"]) if diagnostic else None,
-        "conceptualize_available": condition == "autonomous_conceptualize_available",
+        "conceptualize_available": enabled,
         "conceptualize_invoked": bool(result["tool_calls"]),
-        "adoption": "invoked" if result["tool_calls"] else ("enabled_but_unused" if condition == "autonomous_conceptualize_available" else "not_applicable"),
+        "adoption": "invoked" if result["tool_calls"] else ("enabled_but_unused" if enabled else "not_applicable"),
         "first_operation": result["tool_calls"][0].get("tool") if result["tool_calls"] else None,
         "operations": [call.get("tool") for call in result["tool_calls"]],
         "tool_calls": result["tool_calls"], "conceptualize_traces": trace_results,
         "duplicate_context_avoided_tokens": duplicate_avoided if mcp_payloads else (0 if enabled else None),
-        "session_reuse": any(row.get("previously_supplied_tokens", 0) > 0 for row in compact_metrics) if mcp_payloads else (False if enabled else None),
+        "session_reuse": (
+            any(payload.get("previous_context_reused") for payload in mcp_payloads)
+            or any(row.get("previously_supplied_tokens", 0) > 0 for row in trace_metrics)
+            if mcp_payloads else (False if enabled else None)
+        ),
+        "conceptualize_call_count": len(result["tool_calls"]),
+        "mcp_tool_argument_payload_bytes": request_payload_bytes if enabled else None,
+        "mcp_tool_result_payload_bytes": response_payload_bytes if enabled else None,
+        "mcp_tool_result_payload_tokens": sum(
+            token_count(content.get("text", ""))
+            for call in result["tool_calls"]
+            for content in (call.get("result") or {}).get("content", [])
+            if content.get("text")
+        ) if enabled else None,
+        "host_non_mcp_tool_call_count": sum(
+            1 for event in result["events"]
+            if event.get("type") == "item.completed"
+            and event.get("item", {}).get("type") not in {"agent_message", "mcp_tool_call"}
+        ),
         "mcp_tool_elapsed_ms": [row.get("overhead", {}).get("total_runtime_ms") for row in trace_results],
         "estimated_model_cost": estimated,
         "pricing_snapshot": pricing.get("version") if pricing and estimated is not None else None,
@@ -336,7 +406,11 @@ def run_one(fixture: dict, *, model: str, condition: str, repetition: int, outpu
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--models", nargs="+", required=True)
-    parser.add_argument("--conditions", nargs="+", choices=["control_full_history", "autonomous_conceptualize_available", "forced_context_diagnostic"], default=["control_full_history", "autonomous_conceptualize_available"])
+    parser.add_argument("--conditions", nargs="+", choices=[
+        "control_full_history", "autonomous_conceptualize_available", "precompiled_conceptualize",
+        "mode_a_full_context", "mode_b_precompiled", "mode_c_autonomous_mcp",
+        "forced_context_diagnostic",
+    ], default=["control_full_history", "autonomous_conceptualize_available"])
     parser.add_argument("--repetitions", type=int, default=3)
     parser.add_argument("--codex", default=shutil.which("codex") or "codex")
     parser.add_argument("--api-url", default=os.environ.get("CONCEPTUALIZE_API_URL", "http://127.0.0.1:8000"))

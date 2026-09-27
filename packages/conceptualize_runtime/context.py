@@ -14,6 +14,37 @@ _STOPWORDS = {
 }
 
 
+def _normalized_text(value: str) -> str:
+    value = re.sub(r"^\s*>\s?", "", value, flags=re.MULTILINE)
+    return " ".join(re.findall(r"[\w]+", value.casefold()))
+
+
+def _redundant(left: str, right: str) -> bool:
+    """Detect exact, quoted, and very high-overlap copies without semantic models."""
+    a, b = _normalized_text(left), _normalized_text(right)
+    if not a or not b:
+        return False
+    if a == b or a in b or b in a:
+        return True
+    wa, wb = a.split(), b.split()
+    if min(len(wa), len(wb)) < 8:
+        return False
+    ta, tb = set(wa), set(wb)
+    token_overlap = len(ta & tb) / len(ta | tb)
+    if token_overlap >= 0.7:
+        return True
+    sa = set(zip(wa, wa[1:], wa[2:]))
+    sb = set(zip(wb, wb[1:], wb[2:]))
+    return bool(sa and sb) and len(sa & sb) / len(sa | sb) >= 0.88
+
+
+def _low_information(value: str) -> bool:
+    words = _normalized_text(value).split()
+    return len(words) <= 3 and bool(words) and set(words) <= {
+        "ok", "okay", "thanks", "thank", "understood", "noted", "confirmed", "yes", "sure", "great"
+    }
+
+
 @dataclass
 class ContextUnit:
     id: str
@@ -172,7 +203,7 @@ class ContextUnitRuntime:
             decision_pattern = re.compile(
                 r"\b(?:must|must not|do not|don't|not adding|exclude\w*|out of scope|"
                 r"supersed\w*|final (?:architecture|review|decision)|constraint|"
-                r"first release|v1|keep .{0,45} (?:until|out|local)|we are not|"
+                r"first release|v1|keep .{0,140} (?:until|out|local)|we are not|"
                 r"no\s+web\s?socket|not semantic understanding)\b",
                 re.IGNORECASE,
             )
@@ -272,9 +303,18 @@ class ContextUnitRuntime:
         seed_ids = set(direct_ids)
         relation_signals = {
             "imports": "direct_import",
+            "depends_on": "direct_import",
             "references_symbol": "referenced_symbol",
             "references": "related_unit",
+            "related_to": "related_unit",
             "related_test": "related_test",
+            "tested_by": "related_test",
+            "consumed_by": "consumer",
+            "decision_for": "related_unit",
+            "constraint_for": "related_unit",
+            "updates": "decision_context",
+            "contradicts": "decision_context",
+            "supersedes": "final_state",
             "cochanged": "cochanged",
         }
         for owner in self.units:
@@ -321,6 +361,28 @@ class ContextUnitRuntime:
         matches.sort(key=lambda row: (-row["score"], row["unit"].id))
         candidates = []
         seen_content = set()
+        unit_by_id = {unit.id: unit for unit in self.units}
+        seen_context_content = [
+            {"unit_id": row.get("unit_id"), "content": unit_by_id[row["unit_id"]].content}
+            for row in history
+            if row.get("unit_id") in unit_by_id
+            and row.get("content_hash") == unit_by_id[row["unit_id"]].content_hash
+        ]
+        relationship_pairs = []
+        matched_unit_ids = {row["unit"].id for row in matches}
+        superseded_by = {}
+        for owner in self.units:
+            for relation in owner.relationships:
+                if relation.get("kind") not in {"supersedes", "updates"} or relation.get("heuristic"):
+                    continue
+                source = resolve_endpoint(relation.get("source", owner.id))
+                target = resolve_endpoint(relation.get("target", ""))
+                if source and target and source.id in matched_unit_ids:
+                    superseded_by[target.id] = source.id
+        duplicate_tokens_suppressed = 0
+        low_information_tokens_suppressed = 0
+        low_relevance_tokens_suppressed = 0
+        superseded_tokens_suppressed = 0
         for match in matches:
             unit = match["unit"]
             prior = prior_by_id.get(unit.id, [])
@@ -420,6 +482,23 @@ class ContextUnitRuntime:
                     "previous": known_prior or (prior[-1] if prior else None),
                 }
             )
+            relationship_pairs.extend(
+                1 for relationship in unit.relationships
+                if relationship.get("kind") in relation_signals
+            )
+        best_conversation_score = max(
+            (
+                row["score"] for row in candidates
+                if row["unit"].source_type == "message"
+                and row.get("lexical_only")
+                and not any(
+                    reason["signal"] in {"decision_context", "final_state", "explicit_target"}
+                    for reason in row["reasons"]
+                )
+            ),
+            default=0,
+        )
+        conversation_relevance_floor = max(2, min(30, best_conversation_score * 0.65))
         candidate_tokens = sum(row["block_tokens"] for row in candidates)
         scoring_ms = (perf_counter() - scoring_started) * 1000
         compilation_started = perf_counter()
@@ -430,6 +509,48 @@ class ContextUnitRuntime:
         deliveries = []
         for row in candidates:
             unit = row["unit"]
+            replacement_id = superseded_by.get(unit.id)
+            if replacement_id:
+                row["status"] = "omitted"
+                row["omission_reason"] = "superseded by explicit newer context"
+                row["superseded_by"] = replacement_id
+                omitted.append(unit.id)
+                superseded_tokens_suppressed += row["block_tokens"]
+                continue
+            if (
+                unit.source_type == "message"
+                and row.get("lexical_only")
+                and not row["already_known"]
+                and row["score"] < conversation_relevance_floor
+                and not any(reason["signal"] in {"decision_context", "final_state", "explicit_target"} for reason in row["reasons"])
+                and not any(
+                    relation.get("kind") in {"supersedes", "updates"}
+                    and relation.get("heuristic") is not True
+                    for relation in unit.relationships
+                )
+            ):
+                row["status"] = "omitted"
+                row["omission_reason"] = "below deterministic conversation relevance floor"
+                row["reasons"].append({
+                    "signal": "conversation_relevance_floor",
+                    "weight": 0,
+                    "origin": "deterministic_policy",
+                    "threshold": round(conversation_relevance_floor, 3),
+                })
+                omitted.append(unit.id)
+                low_relevance_tokens_suppressed += row["block_tokens"]
+                continue
+            if unit.source_type == "message" and _low_information(unit.content):
+                row["status"] = "omitted"
+                row["omission_reason"] = "low-information acknowledgement"
+                row["reasons"].append({
+                    "signal": "low_information",
+                    "weight": configured["duplicate_content"],
+                    "origin": "deterministic_acknowledgement_rule",
+                })
+                omitted.append(unit.id)
+                low_information_tokens_suppressed += row["block_tokens"]
+                continue
             if row["already_known"]:
                 previous_context.append(
                     {
@@ -444,6 +565,27 @@ class ContextUnitRuntime:
                 )
                 row["status"] = "referenced"
                 selected.append(row)
+                seen_context_content.append({"unit_id": unit.id, "content": unit.content})
+                continue
+            duplicate = next(
+                (
+                    prior for prior in seen_context_content
+                    if prior["unit_id"] != unit.id and _redundant(prior["content"], unit.content)
+                ),
+                None,
+            )
+            if duplicate:
+                row["status"] = "omitted"
+                row["omission_reason"] = "near-duplicate content already selected"
+                row["duplicate_of"] = duplicate["unit_id"]
+                row["reasons"].append({
+                    "signal": "content_redundancy",
+                    "weight": configured["duplicate_content"],
+                    "origin": "deterministic_normalized_text_and_shingles",
+                    "evidence": duplicate["unit_id"],
+                })
+                omitted.append(unit.id)
+                duplicate_tokens_suppressed += row["block_tokens"]
                 continue
             separator = "\n\n---\n\n" if context else ""
             proposed = context + separator + row["block"]
@@ -458,8 +600,13 @@ class ContextUnitRuntime:
                         "content_hash": unit.content_hash,
                         "level": level,
                         "token_count": token_count(row["block"]),
+                        "source_version": unit.version,
+                        "ranges": unit.metadata.get("ranges", []),
+                        "relationships": unit.relationships,
+                        "query": query,
                     }
                 )
+                seen_context_content.append({"unit_id": unit.id, "content": unit.content})
             else:
                 row["status"] = "omitted"
                 row["omission_reason"] = "does not fit remaining token budget"
@@ -479,6 +626,8 @@ class ContextUnitRuntime:
                 "already_known": row["already_known"],
                 "invalidated": row["invalidated"],
                 "status": row["status"],
+                **({"duplicate_of": row["duplicate_of"]} if "duplicate_of" in row else {}),
+                **({"superseded_by": row["superseded_by"]} if "superseded_by" in row else {}),
                 **({"omission_reason": row["omission_reason"]} if "omission_reason" in row else {}),
             }
             for row in candidates
@@ -508,6 +657,14 @@ class ContextUnitRuntime:
                 "candidate_units": len(candidates),
                 "selected_units": len(selected),
                 "omitted_units": len(omitted),
+                "duplicate_tokens_suppressed": duplicate_tokens_suppressed,
+                "low_relevance_tokens_suppressed": low_relevance_tokens_suppressed,
+                "low_information_tokens_suppressed": low_information_tokens_suppressed,
+                "superseded_units_suppressed": sum(1 for row in candidates if row.get("superseded_by")),
+                "superseded_tokens_suppressed": superseded_tokens_suppressed,
+                "relationships_followed": relationship_pairs,
+                "sources_represented": sorted({row["unit"].source_type for row in selected if not row["already_known"]}),
+                "budget_utilization": round(token_count(context) / token_budget, 4),
             },
             "timings_ms": {
                 "scoring": round(scoring_ms, 3),

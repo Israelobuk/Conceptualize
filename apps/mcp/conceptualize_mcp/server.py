@@ -23,6 +23,19 @@ async def lifespan(server):
 def compact_response(payload):
     """Only next-decision context crosses MCP; the API trace retains all evidence."""
     metrics = payload["metrics"]
+    if payload.get("operation") == "context":
+        context = payload.get("context", "")
+        if not context and payload.get("previous_context"):
+            context = "Existing session context remains available; no relevant changes were found."
+        return {
+            "context": context,
+            "new_context_tokens": metrics.get("new_context_tokens", metrics.get("returned_tokens", 0)),
+            "previous_context_reused": bool(
+                payload.get("previous_context") or metrics.get("previously_supplied_tokens", 0)
+            ),
+            "sources": metrics.get("sources_represented", []),
+            "trace_id": payload["trace_id"],
+        }
     result = {"operation": payload.get("operation"), "context": payload.get("context", ""),
               "included_files": payload.get("included_files", []), "trace_id": payload["trace_id"],
               "metrics": {k: metrics[k] for k in ("returned_tokens", "token_budget", "new_context_tokens", "previously_supplied_tokens") if k in metrics}}
@@ -63,9 +76,10 @@ def compact_response(payload):
 mcp = FastMCP(
     "Conceptualize",
     lifespan=lifespan,
-    instructions="Read-only model-independent context from indexed repositories and ingested conversations. Pass source_types to search/map/expand/inspect/pack to choose context sources; lexical matching is not semantic understanding. For a known repository change-impact target use inspect; for an unknown location use map/search; dependencies is repository-specific; expand reveals a prior result; pack compiles bounded context. No mandatory tool chain. Unchanged context is referenced; force_refresh resends it if your host lost context. Full diagnostics stay in traces. Available source counts are at conceptualize://capabilities.",
+    instructions="When additional prior or project context is needed, call conceptualize_context once with the current task. Results are deterministic, bounded, and model-free. Advanced tools are for debugging only when enabled.",
 )
 SESSION_ID = os.getenv("CONCEPTUALIZE_SESSION_ID") or str(uuid4())
+ADVANCED_TOOLS = os.getenv("CONCEPTUALIZE_MCP_ADVANCED", "").casefold() in {"1", "true", "yes"}
 
 
 async def call(operation: str, inputs: dict, ctx: Context | None = None) -> CallToolResult:
@@ -128,6 +142,22 @@ async def call(operation: str, inputs: dict, ctx: Context | None = None) -> Call
         raise ValueError(
             "Cannot reach Conceptualize API; verify it is running and the URL is correct"
         ) from exc
+
+
+@mcp.tool(structured_output=False, annotations=ToolAnnotations(readOnlyHint=True, destructiveHint=False))
+async def conceptualize_context(
+    query: str,
+    token_budget: int = 4000,
+    source_types: list[str] | None = None,
+    force_refresh: bool = False,
+    ctx: Context = None,
+) -> CallToolResult:
+    """When additional prior or project context is needed, call once with the task's specific request and key entities, not a generic summary. Conceptualize deterministically plans relevant retrieval and returns one bounded context delta."""
+    return await call(
+        "context",
+        {"query": query, "token_budget": token_budget, "source_types": source_types, "force_refresh": force_refresh},
+        ctx,
+    )
 
 
 @mcp.tool(structured_output=False, annotations=ToolAnnotations(readOnlyHint=True, destructiveHint=False))
@@ -270,7 +300,6 @@ async def conceptualize_inspect(
     )
 
 
-@mcp.resource("conceptualize://capabilities", description="Compact indexed file/symbol counts and repository context capabilities; no source or map is injected.")
 async def repository_capabilities() -> dict:
     key = os.getenv("CONCEPTUALIZE_API_KEY", "")
     async with httpx.AsyncClient(timeout=3) as http:
@@ -286,6 +315,23 @@ async def repository_capabilities() -> dict:
         "available": ["repository graph", "conversation search", "bounded cross-source context", "session deltas"],
         "use": "Select source_types when searching or packing repository and conversation context.",
     }
+
+
+if ADVANCED_TOOLS:
+    mcp.resource(
+        "conceptualize://capabilities",
+        description="Compact indexed file/symbol counts and repository context capabilities.",
+    )(repository_capabilities)
+else:
+    for _tool_name in (
+        "conceptualize_map",
+        "conceptualize_search",
+        "conceptualize_dependencies",
+        "conceptualize_expand",
+        "conceptualize_pack",
+        "conceptualize_inspect",
+    ):
+        mcp._tool_manager.remove_tool(_tool_name)
 
 
 def main():

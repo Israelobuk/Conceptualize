@@ -1,0 +1,109 @@
+{
+  "registration_name": "conceptualize",
+  "connected": true,
+  "connection_scope": "SDK stdio handshake; separate host reachability required",
+  "initialization": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {
+      "experimental": {},
+      "prompts": {
+        "listChanged": false
+      },
+      "resources": {
+        "subscribe": false,
+        "listChanged": false
+      },
+      "tools": {
+        "listChanged": false
+      }
+    },
+    "serverInfo": {
+      "name": "Conceptualize",
+      "version": "1.30.0"
+    },
+    "instructions": "When additional prior or project context is needed, call conceptualize_context once with the current task. Results are deterministic, bounded, and model-free. Advanced tools are for debugging only when enabled."
+  },
+  "tools": [
+    {
+      "name": "conceptualize_context",
+      "description": "When additional prior or project context is needed, call once with the task's specific request and key entities, not a generic summary. Conceptualize deterministically plans relevant retrieval and returns one bounded context delta.",
+      "inputSchema": {
+        "properties": {
+          "query": {
+            "title": "Query",
+            "type": "string"
+          },
+          "token_budget": {
+            "default": 4000,
+            "title": "Token Budget",
+            "type": "integer"
+          },
+          "source_types": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Source Types"
+          },
+          "force_refresh": {
+            "default": false,
+            "title": "Force Refresh",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "title": "conceptualize_contextArguments",
+        "type": "object"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
+      }
+    }
+  ],
+  "resources": {
+    "resources": []
+  },
+  "resource_templates": {
+    "resourceTemplates": []
+  },
+  "startup_and_initialize_ms": 2124.1520999756176,
+  "discovery_complete_ms": 2132.4803000024986,
+  "registration": {
+    "command": "C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\.venv\\Scripts\\python.exe",
+    "args": [
+      "-m",
+      "conceptualize_mcp.server"
+    ],
+    "api_url": null,
+    "advanced": false,
+    "credential": "environment variable; value not recorded"
+  },
+  "profile": {
+    "tools": 1,
+    "description_characters": 231,
+    "schema_bytes": 431,
+    "tool_listing_bytes": 764,
+    "tool_listing_tokens_cl100k_estimate": 161,
+    "initialization_bytes": 466,
+    "initialization_tokens_cl100k_estimate": 102,
+    "server_instruction_bytes": 210,
+    "server_instruction_tokens_cl100k_estimate": 38,
+    "capability_resource_bytes": 67,
+    "capability_resource_tokens_cl100k_estimate": 14,
+    "combined_serialized_bytes": 1297,
+    "combined_token_estimate": 277,
+    "model_visible_tokens": null,
+    "scope": "Local MCP handshake/listing/resource serialization tokenized with cl100k_base; host prompt packing and provider token accounting unavailable."
+  }
+}

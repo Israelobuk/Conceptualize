@@ -99,7 +99,7 @@ class ConversationAdapter:
                 unit_id = f"conversation:{conversation_id}/message:{message_id}"
                 parent_message_id = message.get("parent_id") or prior_id
                 relationships = [
-                    {"kind": "member_of", "target": f"conversation:{conversation_id}"}
+                    {"kind": "member_of", "target": f"conversation:{conversation_id}", "origin": "conversation_structure", "heuristic": False}
                 ]
                 if prior_id:
                     relationships.append(
@@ -107,6 +107,8 @@ class ConversationAdapter:
                             "kind": "follows",
                             "source": f"conversation:{conversation_id}/message:{prior_id}",
                             "target": unit_id,
+                            "origin": "conversation_structure",
+                            "heuristic": False,
                         }
                     )
                 if parent_message_id:
@@ -115,8 +117,44 @@ class ConversationAdapter:
                             "kind": "reply_to",
                             "source": unit_id,
                             "target": f"conversation:{conversation_id}/message:{parent_message_id}",
+                            "origin": "explicit_parent" if message.get("parent_id") else "conversation_order",
+                            "heuristic": not bool(message.get("parent_id")),
                         }
                     )
+                for reference in message.get("references", []):
+                    target = str(reference)
+                    if "/message:" not in target:
+                        target = f"conversation:{conversation_id}/message:{target}"
+                    relationships.append({
+                        "kind": "references", "source": unit_id, "target": target,
+                        "origin": "explicit_reference", "heuristic": False,
+                    })
+                explicit = message.get("metadata", {}) or {}
+                explicit_relations = list(explicit.get("relationships", []))
+                supersedes = explicit.get("supersedes", [])
+                if isinstance(supersedes, str):
+                    supersedes = [supersedes]
+                explicit_relations.extend(
+                    {"kind": "supersedes", "target": target} for target in supersedes
+                )
+                for relation in explicit_relations:
+                    if not isinstance(relation, dict) or relation.get("kind") not in {
+                        "references", "replies_to", "depends_on", "consumed_by", "tested_by",
+                        "related_to", "updates", "supersedes", "contradicts", "decision_for", "constraint_for",
+                    }:
+                        continue
+                    target = str(relation.get("target", ""))
+                    if not target:
+                        continue
+                    if "/message:" not in target and not target.startswith("repository:"):
+                        target = f"conversation:{conversation_id}/message:{target}"
+                    relationships.append({
+                        **relation,
+                        "source": unit_id,
+                        "target": target,
+                        "origin": "explicit_metadata",
+                        "heuristic": False,
+                    })
                 attachments = message.get("attachments", [])
                 if attachments is None:
                     attachments = []
@@ -144,7 +182,7 @@ class ConversationAdapter:
                             "references": message.get("references", []),
                             "explicit_metadata": message.get("metadata", {}),
                         },
-                        relationships=relationships,
+                    relationships=relationships,
                     )
                 )
                 prior_id = message_id
@@ -162,6 +200,8 @@ class ConversationAdapter:
                             "kind": "contains",
                             "source": conversation_unit_id,
                             "target": f"conversation:{conversation_id}/message:{message['id']}",
+                            "origin": "conversation_structure",
+                            "heuristic": False,
                         }
                         for message in messages
                     ],

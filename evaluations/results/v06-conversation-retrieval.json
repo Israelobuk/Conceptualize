@@ -1,0 +1,1237 @@
+{
+  "benchmark": "V0.6 conversation retrieval query fidelity diagnostic",
+  "fixture_version": "v0.5-single-context-recovery-1",
+  "history_messages": 39,
+  "token_budget": 1200,
+  "tokenizer": "cl100k_base estimate",
+  "queries": [
+    {
+      "query_kind": "complete_task",
+      "query": "Based on everything we've decided so far, give me the current implementation plan. Include the final architecture, the constraints we must preserve, what earlier decisions have been superseded, and the next implementation step.",
+      "candidate_units": 23,
+      "selected_units": 16,
+      "candidate_tokens": 861,
+      "selected_context_tokens": 677,
+      "full_history_tokens": 1046,
+      "duplicate_tokens_suppressed": 0,
+      "low_relevance_tokens_suppressed": 199,
+      "superseded_units_suppressed": 0,
+      "required_facts_available": 16,
+      "required_facts_total": 16,
+      "fact_coverage_percent": 100.0,
+      "fact_results": [
+        {
+          "id": "architecture_pwa_api",
+          "available": true
+        },
+        {
+          "id": "records_indexeddb",
+          "available": true
+        },
+        {
+          "id": "attachment_prefer_filesystem",
+          "available": true
+        },
+        {
+          "id": "attachment_fallback_blob",
+          "available": true
+        },
+        {
+          "id": "replaceable_contract",
+          "available": true
+        },
+        {
+          "id": "sync_engine_resumable",
+          "available": true
+        },
+        {
+          "id": "idempotent_uuid",
+          "available": true
+        },
+        {
+          "id": "version_conflict",
+          "available": true
+        },
+        {
+          "id": "retry_policy",
+          "available": true
+        },
+        {
+          "id": "next_attachment_adapter_tests",
+          "available": true
+        },
+        {
+          "id": "keep_local_until_authenticated_upload",
+          "available": true
+        },
+        {
+          "id": "preserve_draft_conflict",
+          "available": true
+        },
+        {
+          "id": "no_websocket",
+          "available": true
+        },
+        {
+          "id": "accessible_status",
+          "available": true
+        },
+        {
+          "id": "plain_text_fields",
+          "available": true
+        },
+        {
+          "id": "exclude_analytics_admin_push_background",
+          "available": true
+        }
+      ],
+      "known_irrelevant_messages_selected": [],
+      "elapsed_ms": 33.989,
+      "selection": [
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h33",
+          "source_type": "message",
+          "source_id": "h33",
+          "score": 120.549,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "final",
+              "weight": 10.0
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "architecture",
+              "weight": 7.549
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "next",
+              "weight": 10.0
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "step",
+              "weight": 10.0
+            },
+            {
+              "signal": "decision_context",
+              "weight": 28
+            },
+            {
+              "signal": "final_state",
+              "weight": 55
+            }
+          ],
+          "token_cost": 98,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h34",
+          "source_type": "message",
+          "source_id": "h34",
+          "score": 46.718,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "current",
+              "weight": 10.0
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "implementation",
+              "weight": 6.718
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "plan",
+              "weight": 10.0
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "preserve",
+              "weight": 10.0
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "superseded",
+              "weight": 10.0
+            }
+          ],
+          "token_cost": 45,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h03",
+          "source_type": "message",
+          "source_id": "h03",
+          "score": 44.765,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "based",
+              "weight": 10.0
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "so",
+              "weight": 6.765
+            },
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 40,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h05",
+          "source_type": "message",
+          "source_id": "h05",
+          "score": 41.928,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "architecture",
+              "weight": 8.23
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "must",
+              "weight": 5.698
+            },
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 40,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h09",
+          "source_type": "message",
+          "source_id": "h09",
+          "score": 41.406,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "so",
+              "weight": 6.703
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "implementation",
+              "weight": 6.703
+            },
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 45,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h11",
+          "source_type": "message",
+          "source_id": "h11",
+          "score": 40.49,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "so",
+              "weight": 6.765
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "must",
+              "weight": 5.725
+            },
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 37,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h29",
+          "source_type": "message",
+          "source_id": "h29",
+          "score": 34.813,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "implementation",
+              "weight": 6.813
+            },
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 38,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h27",
+          "source_type": "message",
+          "source_id": "h27",
+          "score": 33.861,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "must",
+              "weight": 5.861
+            },
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 28,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h15",
+          "source_type": "message",
+          "source_id": "h15",
+          "score": 33.778,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "must",
+              "weight": 5.778
+            },
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 37,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h25",
+          "source_type": "message",
+          "source_id": "h25",
+          "score": 33.62,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "must",
+              "weight": 5.62
+            },
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 49,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h17",
+          "source_type": "message",
+          "source_id": "h17",
+          "score": 28,
+          "reasons": [
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 34,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h21",
+          "source_type": "message",
+          "source_id": "h21",
+          "score": 28,
+          "reasons": [
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 29,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h23",
+          "source_type": "message",
+          "source_id": "h23",
+          "score": 28,
+          "reasons": [
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 48,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h24",
+          "source_type": "message",
+          "source_id": "h24",
+          "score": 28,
+          "reasons": [
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 23,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h31",
+          "source_type": "message",
+          "source_id": "h31",
+          "score": 28,
+          "reasons": [
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 31,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h35",
+          "source_type": "message",
+          "source_id": "h35",
+          "score": 28,
+          "reasons": [
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 40,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h26",
+          "source_type": "message",
+          "source_id": "h26",
+          "score": 26.845,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "based",
+              "weight": 10.0
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "so",
+              "weight": 6.845
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "preserve",
+              "weight": 10.0
+            },
+            {
+              "signal": "conversation_relevance_floor",
+              "weight": 0,
+              "origin": "deterministic_policy",
+              "threshold": 30
+            }
+          ],
+          "token_cost": 34,
+          "already_known": false,
+          "invalidated": false,
+          "status": "omitted",
+          "omission_reason": "below deterministic conversation relevance floor"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h04",
+          "source_type": "message",
+          "source_id": "h04",
+          "score": 10.0,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "current",
+              "weight": 10.0
+            },
+            {
+              "signal": "conversation_relevance_floor",
+              "weight": 0,
+              "origin": "deterministic_policy",
+              "threshold": 30
+            }
+          ],
+          "token_cost": 25,
+          "already_known": false,
+          "invalidated": false,
+          "status": "omitted",
+          "omission_reason": "below deterministic conversation relevance floor"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h20",
+          "source_type": "message",
+          "source_id": "h20",
+          "score": 10.0,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "earlier",
+              "weight": 10.0
+            },
+            {
+              "signal": "conversation_relevance_floor",
+              "weight": 0,
+              "origin": "deterministic_policy",
+              "threshold": 30
+            }
+          ],
+          "token_cost": 39,
+          "already_known": false,
+          "invalidated": false,
+          "status": "omitted",
+          "omission_reason": "below deterministic conversation relevance floor"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h28",
+          "source_type": "message",
+          "source_id": "h28",
+          "score": 10.0,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "include",
+              "weight": 10.0
+            },
+            {
+              "signal": "conversation_relevance_floor",
+              "weight": 0,
+              "origin": "deterministic_policy",
+              "threshold": 30
+            }
+          ],
+          "token_cost": 16,
+          "already_known": false,
+          "invalidated": false,
+          "status": "omitted",
+          "omission_reason": "below deterministic conversation relevance floor"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h38",
+          "source_type": "message",
+          "source_id": "h38",
+          "score": 10.0,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "plan",
+              "weight": 10.0
+            },
+            {
+              "signal": "conversation_relevance_floor",
+              "weight": 0,
+              "origin": "deterministic_policy",
+              "threshold": 30
+            }
+          ],
+          "token_cost": 17,
+          "already_known": false,
+          "invalidated": false,
+          "status": "omitted",
+          "omission_reason": "below deterministic conversation relevance floor"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h10",
+          "source_type": "message",
+          "source_id": "h10",
+          "score": 8.466,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "architecture",
+              "weight": 8.466
+            },
+            {
+              "signal": "conversation_relevance_floor",
+              "weight": 0,
+              "origin": "deterministic_policy",
+              "threshold": 30
+            }
+          ],
+          "token_cost": 31,
+          "already_known": false,
+          "invalidated": false,
+          "status": "omitted",
+          "omission_reason": "below deterministic conversation relevance floor"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h37",
+          "source_type": "message",
+          "source_id": "h37",
+          "score": 6.813,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "implementation",
+              "weight": 6.813
+            },
+            {
+              "signal": "conversation_relevance_floor",
+              "weight": 0,
+              "origin": "deterministic_policy",
+              "threshold": 30
+            }
+          ],
+          "token_cost": 37,
+          "already_known": false,
+          "invalidated": false,
+          "status": "omitted",
+          "omission_reason": "below deterministic conversation relevance floor"
+        }
+      ],
+      "context": "[message:h33]\nFinal architecture review: keep the PWA over the HTTPS JSON API; LocalStore has IndexedDB for inspection records and an attachment adapter that prefers filesystem storage and falls back to IndexedDB blobs; SyncEngine is resumable, client-triggered, idempotent by client UUID, version-checks updates, and backs off only on transient failures. The next step is to implement the LocalStore attachment adapter with the shared backend contract and fallback tests before wiring SyncEngine.\n\n---\n\n[message:h34]\nI will use that review as the current implementation plan. The early localStorage proposal is superseded. Keep local data until authenticated upload succeeds, preserve drafts on conflicts, and announce offline/error state accessibly.\n\n---\n\n[message:h03]\nNew direction: ship a browser-based PWA for desktop and mobile. Keep the cloud API, but package local persistence and synchronization as separate layers so we can replace either independently.\n\n---\n\n[message:h05]\nImportant security decision for the first architecture review: inspection photos and drafts remain on the device until an authenticated upload succeeds. A failed or deferred upload must never discard the local copy.\n\n---\n\n[message:h09]\nSupersede my localStorage proposal. Use IndexedDB for structured drafts and a separate filesystem-backed attachment store where the browser supports it. Keep a small adapter boundary around both so the storage implementation can change.\n\n---\n\n[message:h11]\nEvery inspection needs a stable client-generated UUID before sync. The API must treat repeated submissions of that UUID as the same inspection so reconnect retries do not create duplicates.\n\n---\n\n[message:h29]\nFor now keep admin dashboards, analytics, push notifications, and background periodic sync out of this implementation. The priority is durable offline inspection and explicit user-visible recovery.\n\n---\n\n[message:h27]\nAccessibility constraint: offline status and sync errors must be available to screen readers, not conveyed only by color or icons.\n\n---\n\n[message:h15]\nSync must be resumable and use exponential backoff with jitter for transient network errors. Validation errors should be surfaced to the user and not retried forever.\n\n---\n\n[message:h25]\nThe API team is using PostgreSQL. An inspection row stores its stable client UUID, server ID, version, and sync state. The server must reject a stale update with a conflict response rather than silently overwrite a newer inspection.\n\n---\n\n[message:h17]\nFor the first release, keep inspection text fields plain text. Rich text is not needed. That makes the local-to-server payload easier to version.\n\n---\n\n[message:h21]\nA quick repeat of the retry discussion: transient failures back off, while validation failures do not retry. This remains true.\n\n---\n\n[message:h23]\nAfter reviewing operations, we are not adding websocket push in this release. Sync starts on app launch, when the user pulls to refresh, and after a local edit when online. The server remains an HTTPS JSON API.\n\n---\n\n[message:h24]\nNo websocket dependency for V1. Sync is client-triggered over the existing HTTPS API.\n\n---\n\n[message:h31]\nSmall naming note: call the browser persistence boundary LocalStore and the transfer boundary SyncEngine. Please don't rename the server API.\n\n---\n\n[message:h35]\nRepeat for the issue tracker: LocalStore records are in IndexedDB; attachments use filesystem storage where available and IndexedDB blob fallback. Don't let upload failure erase local content."
+    },
+    {
+      "query_kind": "observed_agent_query",
+      "query": "Retrieve supplied project history needed to summarize current implementation plan: final architecture, constraints to preserve, superseded decisions, next implementation step.",
+      "candidate_units": 22,
+      "selected_units": 17,
+      "candidate_tokens": 855,
+      "selected_context_tokens": 727,
+      "full_history_tokens": 1046,
+      "duplicate_tokens_suppressed": 0,
+      "low_relevance_tokens_suppressed": 144,
+      "superseded_units_suppressed": 0,
+      "required_facts_available": 16,
+      "required_facts_total": 16,
+      "fact_coverage_percent": 100.0,
+      "fact_results": [
+        {
+          "id": "architecture_pwa_api",
+          "available": true
+        },
+        {
+          "id": "records_indexeddb",
+          "available": true
+        },
+        {
+          "id": "attachment_prefer_filesystem",
+          "available": true
+        },
+        {
+          "id": "attachment_fallback_blob",
+          "available": true
+        },
+        {
+          "id": "replaceable_contract",
+          "available": true
+        },
+        {
+          "id": "sync_engine_resumable",
+          "available": true
+        },
+        {
+          "id": "idempotent_uuid",
+          "available": true
+        },
+        {
+          "id": "version_conflict",
+          "available": true
+        },
+        {
+          "id": "retry_policy",
+          "available": true
+        },
+        {
+          "id": "next_attachment_adapter_tests",
+          "available": true
+        },
+        {
+          "id": "keep_local_until_authenticated_upload",
+          "available": true
+        },
+        {
+          "id": "preserve_draft_conflict",
+          "available": true
+        },
+        {
+          "id": "no_websocket",
+          "available": true
+        },
+        {
+          "id": "accessible_status",
+          "available": true
+        },
+        {
+          "id": "plain_text_fields",
+          "available": true
+        },
+        {
+          "id": "exclude_analytics_admin_push_background",
+          "available": true
+        }
+      ],
+      "known_irrelevant_messages_selected": [],
+      "elapsed_ms": 17.761,
+      "selection": [
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h39",
+          "source_type": "message",
+          "source_id": "h39",
+          "score": 191.155,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "current",
+              "weight": 10.0
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "implementation",
+              "weight": 10.0
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "plan",
+              "weight": 10.0
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "final",
+              "weight": 10.0
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "architecture",
+              "weight": 8.155
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "constraints",
+              "weight": 10.0
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "preserve",
+              "weight": 10.0
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "superseded",
+              "weight": 10.0
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "decisions",
+              "weight": 10.0
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "next",
+              "weight": 10.0
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "step",
+              "weight": 10.0
+            },
+            {
+              "signal": "decision_context",
+              "weight": 28
+            },
+            {
+              "signal": "final_state",
+              "weight": 55
+            }
+          ],
+          "token_cost": 49,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h33",
+          "source_type": "message",
+          "source_id": "h33",
+          "score": 120.549,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "final",
+              "weight": 10.0
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "architecture",
+              "weight": 7.549
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "next",
+              "weight": 10.0
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "step",
+              "weight": 10.0
+            },
+            {
+              "signal": "decision_context",
+              "weight": 28
+            },
+            {
+              "signal": "final_state",
+              "weight": 55
+            }
+          ],
+          "token_cost": 98,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h34",
+          "source_type": "message",
+          "source_id": "h34",
+          "score": 46.718,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "current",
+              "weight": 10.0
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "implementation",
+              "weight": 6.718
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "plan",
+              "weight": 10.0
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "preserve",
+              "weight": 10.0
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "superseded",
+              "weight": 10.0
+            }
+          ],
+          "token_cost": 45,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h17",
+          "source_type": "message",
+          "source_id": "h17",
+          "score": 38.0,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "needed",
+              "weight": 10.0
+            },
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 34,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h05",
+          "source_type": "message",
+          "source_id": "h05",
+          "score": 36.230000000000004,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "architecture",
+              "weight": 8.23
+            },
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 40,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h29",
+          "source_type": "message",
+          "source_id": "h29",
+          "score": 34.813,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "implementation",
+              "weight": 6.813
+            },
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 38,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h09",
+          "source_type": "message",
+          "source_id": "h09",
+          "score": 34.703,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "implementation",
+              "weight": 6.703
+            },
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 45,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h03",
+          "source_type": "message",
+          "source_id": "h03",
+          "score": 28,
+          "reasons": [
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 40,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h11",
+          "source_type": "message",
+          "source_id": "h11",
+          "score": 28,
+          "reasons": [
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 37,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h15",
+          "source_type": "message",
+          "source_id": "h15",
+          "score": 28,
+          "reasons": [
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 37,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h21",
+          "source_type": "message",
+          "source_id": "h21",
+          "score": 28,
+          "reasons": [
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 29,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h23",
+          "source_type": "message",
+          "source_id": "h23",
+          "score": 28,
+          "reasons": [
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 48,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h24",
+          "source_type": "message",
+          "source_id": "h24",
+          "score": 28,
+          "reasons": [
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 23,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h25",
+          "source_type": "message",
+          "source_id": "h25",
+          "score": 28,
+          "reasons": [
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 49,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h27",
+          "source_type": "message",
+          "source_id": "h27",
+          "score": 28,
+          "reasons": [
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 28,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h31",
+          "source_type": "message",
+          "source_id": "h31",
+          "score": 28,
+          "reasons": [
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 31,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h35",
+          "source_type": "message",
+          "source_id": "h35",
+          "score": 28,
+          "reasons": [
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 40,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h04",
+          "source_type": "message",
+          "source_id": "h04",
+          "score": 10.0,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "current",
+              "weight": 10.0
+            },
+            {
+              "signal": "conversation_relevance_floor",
+              "weight": 0,
+              "origin": "deterministic_policy",
+              "threshold": 30
+            }
+          ],
+          "token_cost": 25,
+          "already_known": false,
+          "invalidated": false,
+          "status": "omitted",
+          "omission_reason": "below deterministic conversation relevance floor"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h26",
+          "source_type": "message",
+          "source_id": "h26",
+          "score": 10.0,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "preserve",
+              "weight": 10.0
+            },
+            {
+              "signal": "conversation_relevance_floor",
+              "weight": 0,
+              "origin": "deterministic_policy",
+              "threshold": 30
+            }
+          ],
+          "token_cost": 34,
+          "already_known": false,
+          "invalidated": false,
+          "status": "omitted",
+          "omission_reason": "below deterministic conversation relevance floor"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h38",
+          "source_type": "message",
+          "source_id": "h38",
+          "score": 10.0,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "plan",
+              "weight": 10.0
+            },
+            {
+              "signal": "conversation_relevance_floor",
+              "weight": 0,
+              "origin": "deterministic_policy",
+              "threshold": 30
+            }
+          ],
+          "token_cost": 17,
+          "already_known": false,
+          "invalidated": false,
+          "status": "omitted",
+          "omission_reason": "below deterministic conversation relevance floor"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h10",
+          "source_type": "message",
+          "source_id": "h10",
+          "score": 8.466,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "architecture",
+              "weight": 8.466
+            },
+            {
+              "signal": "conversation_relevance_floor",
+              "weight": 0,
+              "origin": "deterministic_policy",
+              "threshold": 30
+            }
+          ],
+          "token_cost": 31,
+          "already_known": false,
+          "invalidated": false,
+          "status": "omitted",
+          "omission_reason": "below deterministic conversation relevance floor"
+        },
+        {
+          "unit_id": "conversation:atlas-sync-decisions/message:h37",
+          "source_type": "message",
+          "source_id": "h37",
+          "score": 6.813,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "implementation",
+              "weight": 6.813
+            },
+            {
+              "signal": "conversation_relevance_floor",
+              "weight": 0,
+              "origin": "deterministic_policy",
+              "threshold": 30
+            }
+          ],
+          "token_cost": 37,
+          "already_known": false,
+          "invalidated": false,
+          "status": "omitted",
+          "omission_reason": "below deterministic conversation relevance floor"
+        }
+      ],
+      "context": "[message:h39]\nCurrent request: Based on everything we've decided so far, give me the current implementation plan. Include the final architecture, the constraints we must preserve, what earlier decisions have been superseded, and the next implementation step.\n\n---\n\n[message:h33]\nFinal architecture review: keep the PWA over the HTTPS JSON API; LocalStore has IndexedDB for inspection records and an attachment adapter that prefers filesystem storage and falls back to IndexedDB blobs; SyncEngine is resumable, client-triggered, idempotent by client UUID, version-checks updates, and backs off only on transient failures. The next step is to implement the LocalStore attachment adapter with the shared backend contract and fallback tests before wiring SyncEngine.\n\n---\n\n[message:h34]\nI will use that review as the current implementation plan. The early localStorage proposal is superseded. Keep local data until authenticated upload succeeds, preserve drafts on conflicts, and announce offline/error state accessibly.\n\n---\n\n[message:h17]\nFor the first release, keep inspection text fields plain text. Rich text is not needed. That makes the local-to-server payload easier to version.\n\n---\n\n[message:h05]\nImportant security decision for the first architecture review: inspection photos and drafts remain on the device until an authenticated upload succeeds. A failed or deferred upload must never discard the local copy.\n\n---\n\n[message:h29]\nFor now keep admin dashboards, analytics, push notifications, and background periodic sync out of this implementation. The priority is durable offline inspection and explicit user-visible recovery.\n\n---\n\n[message:h09]\nSupersede my localStorage proposal. Use IndexedDB for structured drafts and a separate filesystem-backed attachment store where the browser supports it. Keep a small adapter boundary around both so the storage implementation can change.\n\n---\n\n[message:h03]\nNew direction: ship a browser-based PWA for desktop and mobile. Keep the cloud API, but package local persistence and synchronization as separate layers so we can replace either independently.\n\n---\n\n[message:h11]\nEvery inspection needs a stable client-generated UUID before sync. The API must treat repeated submissions of that UUID as the same inspection so reconnect retries do not create duplicates.\n\n---\n\n[message:h15]\nSync must be resumable and use exponential backoff with jitter for transient network errors. Validation errors should be surfaced to the user and not retried forever.\n\n---\n\n[message:h21]\nA quick repeat of the retry discussion: transient failures back off, while validation failures do not retry. This remains true.\n\n---\n\n[message:h23]\nAfter reviewing operations, we are not adding websocket push in this release. Sync starts on app launch, when the user pulls to refresh, and after a local edit when online. The server remains an HTTPS JSON API.\n\n---\n\n[message:h24]\nNo websocket dependency for V1. Sync is client-triggered over the existing HTTPS API.\n\n---\n\n[message:h25]\nThe API team is using PostgreSQL. An inspection row stores its stable client UUID, server ID, version, and sync state. The server must reject a stale update with a conflict response rather than silently overwrite a newer inspection.\n\n---\n\n[message:h27]\nAccessibility constraint: offline status and sync errors must be available to screen readers, not conveyed only by color or icons.\n\n---\n\n[message:h31]\nSmall naming note: call the browser persistence boundary LocalStore and the transfer boundary SyncEngine. Please don't rename the server API.\n\n---\n\n[message:h35]\nRepeat for the issue tracker: LocalStore records are in IndexedDB; attachments use filesystem storage where available and IndexedDB blob fallback. Don't let upload failure erase local content."
+    }
+  ],
+  "diagnostic": "The autonomous run's model-generated query omits some entities from the complete user task. Differences in context selection between these two cases isolate that query-information loss; they are not model-answer quality results."
+}

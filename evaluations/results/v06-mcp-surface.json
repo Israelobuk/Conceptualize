@@ -1,0 +1,596 @@
+{
+  "benchmark": "V0.6 MCP serialized tool surface profile",
+  "default": {
+    "registration_name": "conceptualize",
+    "connected": true,
+    "connection_scope": "SDK stdio handshake; separate host reachability required",
+    "initialization": {
+      "protocolVersion": "2025-11-25",
+      "capabilities": {
+        "experimental": {},
+        "prompts": {
+          "listChanged": false
+        },
+        "resources": {
+          "subscribe": false,
+          "listChanged": false
+        },
+        "tools": {
+          "listChanged": false
+        }
+      },
+      "serverInfo": {
+        "name": "Conceptualize",
+        "version": "1.30.0"
+      },
+      "instructions": "When additional prior or project context is needed, call conceptualize_context once with the current task. Results are deterministic, bounded, and model-free. Advanced tools are for debugging only when enabled."
+    },
+    "tools": [
+      {
+        "name": "conceptualize_context",
+        "description": "When additional prior or project context is needed, call once with the task's specific request and key entities, not a generic summary. Conceptualize deterministically plans relevant retrieval and returns one bounded context delta.",
+        "inputSchema": {
+          "properties": {
+            "query": {
+              "title": "Query",
+              "type": "string"
+            },
+            "token_budget": {
+              "default": 4000,
+              "title": "Token Budget",
+              "type": "integer"
+            },
+            "source_types": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Source Types"
+            },
+            "force_refresh": {
+              "default": false,
+              "title": "Force Refresh",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "query"
+          ],
+          "title": "conceptualize_contextArguments",
+          "type": "object"
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false
+        }
+      }
+    ],
+    "resources": {
+      "resources": []
+    },
+    "resource_templates": {
+      "resourceTemplates": []
+    },
+    "startup_and_initialize_ms": 2124.1520999756176,
+    "discovery_complete_ms": 2132.4803000024986,
+    "registration": {
+      "command": "C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\.venv\\Scripts\\python.exe",
+      "args": [
+        "-m",
+        "conceptualize_mcp.server"
+      ],
+      "api_url": null,
+      "advanced": false,
+      "credential": "environment variable; value not recorded"
+    },
+    "profile": {
+      "tools": 1,
+      "description_characters": 231,
+      "schema_bytes": 431,
+      "tool_listing_bytes": 764,
+      "tool_listing_tokens_cl100k_estimate": 161,
+      "initialization_bytes": 466,
+      "initialization_tokens_cl100k_estimate": 102,
+      "server_instruction_bytes": 210,
+      "server_instruction_tokens_cl100k_estimate": 38,
+      "capability_resource_bytes": 67,
+      "capability_resource_tokens_cl100k_estimate": 14,
+      "combined_serialized_bytes": 1297,
+      "combined_token_estimate": 277,
+      "model_visible_tokens": null,
+      "scope": "Local MCP handshake/listing/resource serialization tokenized with cl100k_base; host prompt packing and provider token accounting unavailable."
+    }
+  },
+  "advanced": {
+    "registration_name": "conceptualize",
+    "connected": true,
+    "connection_scope": "SDK stdio handshake; separate host reachability required",
+    "initialization": {
+      "protocolVersion": "2025-11-25",
+      "capabilities": {
+        "experimental": {},
+        "prompts": {
+          "listChanged": false
+        },
+        "resources": {
+          "subscribe": false,
+          "listChanged": false
+        },
+        "tools": {
+          "listChanged": false
+        }
+      },
+      "serverInfo": {
+        "name": "Conceptualize",
+        "version": "1.30.0"
+      },
+      "instructions": "When additional prior or project context is needed, call conceptualize_context once with the current task. Results are deterministic, bounded, and model-free. Advanced tools are for debugging only when enabled."
+    },
+    "tools": [
+      {
+        "name": "conceptualize_context",
+        "description": "When additional prior or project context is needed, call once with the task's specific request and key entities, not a generic summary. Conceptualize deterministically plans relevant retrieval and returns one bounded context delta.",
+        "inputSchema": {
+          "properties": {
+            "query": {
+              "title": "Query",
+              "type": "string"
+            },
+            "token_budget": {
+              "default": 4000,
+              "title": "Token Budget",
+              "type": "integer"
+            },
+            "source_types": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Source Types"
+            },
+            "force_refresh": {
+              "default": false,
+              "title": "Force Refresh",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "query"
+          ],
+          "title": "conceptualize_contextArguments",
+          "type": "object"
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false
+        }
+      },
+      {
+        "name": "conceptualize_map",
+        "description": "Orient in an unfamiliar or large repository when the relevant subsystem is unknown. For conversation sources this returns conversation titles/counts only; call pack or search once for bounded relevant history. Do not expand every message. Scope repository maps to a directory; for a known target use inspect instead.",
+        "inputSchema": {
+          "properties": {
+            "path": {
+              "default": "",
+              "title": "Path",
+              "type": "string"
+            },
+            "token_budget": {
+              "default": 2000,
+              "title": "Token Budget",
+              "type": "integer"
+            },
+            "source_types": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Source Types"
+            },
+            "force_refresh": {
+              "default": false,
+              "title": "Force Refresh",
+              "type": "boolean"
+            }
+          },
+          "title": "conceptualize_mapArguments",
+          "type": "object"
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false
+        }
+      },
+      {
+        "name": "conceptualize_search",
+        "description": "Search indexed context using exact text/identifiers. Optional source_types can include repository, conversation, message or repository_file. For conversation context prefer one bounded pack over repeated per-message expands. Lexical ranking is not semantic search.",
+        "inputSchema": {
+          "properties": {
+            "query": {
+              "title": "Query",
+              "type": "string"
+            },
+            "token_budget": {
+              "default": 3000,
+              "title": "Token Budget",
+              "type": "integer"
+            },
+            "limit": {
+              "default": 30,
+              "title": "Limit",
+              "type": "integer"
+            },
+            "source_types": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Source Types"
+            },
+            "level": {
+              "default": "structure",
+              "title": "Level",
+              "type": "string"
+            },
+            "force_refresh": {
+              "default": false,
+              "title": "Force Refresh",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "query"
+          ],
+          "title": "conceptualize_searchArguments",
+          "type": "object"
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false
+        }
+      },
+      {
+        "name": "conceptualize_dependencies",
+        "description": "Answer a specific change-impact question: imports, reverse consumers, referenced symbols and tests around a file or symbol. Use inspect for a broader starting context; avoid repeating relationships already supplied.",
+        "inputSchema": {
+          "properties": {
+            "target": {
+              "title": "Target",
+              "type": "string"
+            },
+            "token_budget": {
+              "default": 3000,
+              "title": "Token Budget",
+              "type": "integer"
+            },
+            "force_refresh": {
+              "default": false,
+              "title": "Force Refresh",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "target"
+          ],
+          "title": "conceptualize_dependenciesArguments",
+          "type": "object"
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false
+        }
+      },
+      {
+        "name": "conceptualize_expand",
+        "description": "Read a precise file or symbol identified by an earlier result. Choose structure for signatures/relations or source for implementation. Do not expand a conversation title or enumerate transcript messages; use one bounded pack/search. Unchanged ranges return references; force_refresh resends when host context was lost.",
+        "inputSchema": {
+          "properties": {
+            "target": {
+              "title": "Target",
+              "type": "string"
+            },
+            "token_budget": {
+              "default": 4000,
+              "title": "Token Budget",
+              "type": "integer"
+            },
+            "level": {
+              "default": "source",
+              "title": "Level",
+              "type": "string"
+            },
+            "source_types": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Source Types"
+            },
+            "force_refresh": {
+              "default": false,
+              "title": "Force Refresh",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "target"
+          ],
+          "title": "conceptualize_expandArguments",
+          "type": "object"
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false
+        }
+      },
+      {
+        "name": "conceptualize_pack",
+        "description": "Assemble bounded context from selected source types. Repository graph relationships remain available for repository-only packs; mixed-source packs use deterministic lexical and explicit relationships. Full selection evidence stays in the trace.",
+        "inputSchema": {
+          "properties": {
+            "paths": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Paths"
+            },
+            "token_budget": {
+              "default": 8000,
+              "title": "Token Budget",
+              "type": "integer"
+            },
+            "include_dependencies": {
+              "default": true,
+              "title": "Include Dependencies",
+              "type": "boolean"
+            },
+            "include_tests": {
+              "default": true,
+              "title": "Include Tests",
+              "type": "boolean"
+            },
+            "include_consumers": {
+              "default": true,
+              "title": "Include Consumers",
+              "type": "boolean"
+            },
+            "query": {
+              "default": "",
+              "title": "Query",
+              "type": "string"
+            },
+            "source_types": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Source Types"
+            },
+            "force_refresh": {
+              "default": false,
+              "title": "Force Refresh",
+              "type": "boolean"
+            },
+            "score_weights": {
+              "anyOf": [
+                {
+                  "additionalProperties": {
+                    "type": "integer"
+                  },
+                  "type": "object"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Score Weights"
+            },
+            "limit": {
+              "default": 24,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          "title": "conceptualize_packArguments",
+          "type": "object"
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false
+        }
+      },
+      {
+        "name": "conceptualize_inspect",
+        "description": "Preferred entry for a known file, symbol, shared type, interface, configuration, authentication or persistence target whose change may affect other files. Finds dependencies, hidden consumers and tests plus bounded source before editing. Skip isolated one-file edits, exact source already loaded or simple textual lookups. manifest_only shows costs/structure first; depth controls scope.",
+        "inputSchema": {
+          "properties": {
+            "target": {
+              "title": "Target",
+              "type": "string"
+            },
+            "depth": {
+              "default": 1,
+              "title": "Depth",
+              "type": "integer"
+            },
+            "include_dependencies": {
+              "default": true,
+              "title": "Include Dependencies",
+              "type": "boolean"
+            },
+            "include_consumers": {
+              "default": true,
+              "title": "Include Consumers",
+              "type": "boolean"
+            },
+            "include_tests": {
+              "default": true,
+              "title": "Include Tests",
+              "type": "boolean"
+            },
+            "include_git": {
+              "default": true,
+              "title": "Include Git",
+              "type": "boolean"
+            },
+            "token_budget": {
+              "default": 4000,
+              "title": "Token Budget",
+              "type": "integer"
+            },
+            "manifest_only": {
+              "default": false,
+              "title": "Manifest Only",
+              "type": "boolean"
+            },
+            "force_refresh": {
+              "default": false,
+              "title": "Force Refresh",
+              "type": "boolean"
+            },
+            "source_types": {
+              "anyOf": [
+                {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Source Types"
+            }
+          },
+          "required": [
+            "target"
+          ],
+          "title": "conceptualize_inspectArguments",
+          "type": "object"
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "destructiveHint": false
+        }
+      }
+    ],
+    "resources": {
+      "resources": [
+        {
+          "name": "repository_capabilities",
+          "uri": "conceptualize://capabilities",
+          "description": "Compact indexed file/symbol counts and repository context capabilities.",
+          "mimeType": "text/plain"
+        }
+      ]
+    },
+    "resource_templates": {
+      "resourceTemplates": []
+    },
+    "startup_and_initialize_ms": 2124.154399993131,
+    "discovery_complete_ms": 2134.286799991969,
+    "registration": {
+      "command": "C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\.venv\\Scripts\\python.exe",
+      "args": [
+        "-m",
+        "conceptualize_mcp.server"
+      ],
+      "api_url": null,
+      "advanced": true,
+      "credential": "environment variable; value not recorded"
+    },
+    "profile": {
+      "tools": 7,
+      "description_characters": 1975,
+      "schema_bytes": 4058,
+      "tool_listing_bytes": 6737,
+      "tool_listing_tokens_cl100k_estimate": 1397,
+      "initialization_bytes": 466,
+      "initialization_tokens_cl100k_estimate": 102,
+      "server_instruction_bytes": 210,
+      "server_instruction_tokens_cl100k_estimate": 38,
+      "capability_resource_bytes": 250,
+      "capability_resource_tokens_cl100k_estimate": 46,
+      "combined_serialized_bytes": 7453,
+      "combined_token_estimate": 1545,
+      "model_visible_tokens": null,
+      "scope": "Local MCP handshake/listing/resource serialization tokenized with cl100k_base; host prompt packing and provider token accounting unavailable."
+    }
+  },
+  "token_estimate_reduction_percent": 82.07,
+  "limitation": "MCP server initialization/listing/resource serialization is measured locally with cl100k_base. Codex host prompt packing and provider token attribution are separate and not observable from these payload sizes.",
+  "v05_to_v06_default_comparison": {
+    "v05_source": "committed HEAD b54353deca79f40864a392d0e310877dd2fd2ca8 profiled from a temporary source snapshot",
+    "v05_tools": 6,
+    "v05_schema_bytes": 3627,
+    "v05_combined_serialized_bytes": 7126,
+    "v05_combined_token_estimate": 1466,
+    "v06_default_tools": 1,
+    "v06_default_schema_bytes": 431,
+    "v06_default_combined_serialized_bytes": 1297,
+    "v06_default_combined_token_estimate": 277,
+    "local_combined_token_estimate_reduction_percent": 81.11,
+    "model_visible_tokens": null,
+    "limitation": "Local cl100k serialization estimates; not provider-visible model token telemetry."
+  }
+}

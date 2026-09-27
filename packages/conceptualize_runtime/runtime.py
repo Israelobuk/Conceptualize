@@ -78,7 +78,10 @@ class ContextRuntime:
 
         if operation == "dependencies":
             raise ValueError("dependency analysis is repository-specific")
+        if operation == "context":
+            return self.plan_context(inputs, units)
         level = inputs.get("level") or {
+            "context": "pack",
             "map": "map",
             "search": "structure",
             "expand": "source",
@@ -228,6 +231,105 @@ class ContextRuntime:
             "timings_ms": result["timings_ms"],
             "budget_scope": "Compiled context string; metadata and MCP serialization add tokens.",
         }
+
+    def plan_context(self, inputs: dict, units: list) -> dict:
+        """Deterministically plan one bounded package across selected sources."""
+
+        query = inputs.get("query", "").strip()
+        source_types = set(inputs.get("source_types") or [])
+        aliases = {
+            "repository": {"repository_file", "code_symbol"},
+            "conversation": {"conversation", "message"},
+        }
+        selected_sources = set().union(*(aliases.get(source, {source}) for source in source_types))
+        available_sources = {unit.source_type for unit in units}
+        repo_only = selected_sources and selected_sources <= {"repository_file", "code_symbol"}
+        explicit_targets = []
+        normalized_query = query.replace("\\", "/").casefold()
+        for unit in units:
+            if unit.source_type == "repository_file":
+                path = unit.metadata.get("path", unit.source_id)
+                if path.casefold() in normalized_query:
+                    explicit_targets.append(path)
+            elif unit.source_type == "code_symbol":
+                name = unit.metadata.get("name", "")
+                if name and re.search(rf"(?<![\w]){re.escape(name)}(?![\w])", query):
+                    explicit_targets.append(unit.source_id)
+        explicit_targets = list(dict.fromkeys(explicit_targets))
+
+        if repo_only:
+            result = self.execute(
+                "pack",
+                {
+                    "paths": explicit_targets,
+                    "query": query,
+                    "token_budget": inputs.get("token_budget", 4000),
+                    "include_dependencies": True,
+                    "include_consumers": True,
+                    "include_tests": True,
+                    "_history": inputs.get("_history", []),
+                },
+            )
+            result["operation"] = "context"
+            result["planner"] = {
+                "strategy": "repository_graph",
+                "operations": ["target_resolution", "dependencies", "consumers", "tests", "bounded_pack"],
+                "explicit_targets": explicit_targets,
+                "sources_available": sorted(available_sources),
+            }
+            result["metrics"].update(
+                {
+                    "candidate_units": result["metrics"].get("candidate_files", 0),
+                    "selected_units": result["metrics"].get("selected_files", 0),
+                    "duplicate_tokens_suppressed": 0,
+                    "superseded_units_suppressed": 0,
+                    "relationships_followed": len(result.get("relationships", [])),
+                    "sources_represented": sorted({"repository"} if result.get("selected_files") else set()),
+                    "budget_utilization": round(
+                        result["metrics"]["returned_tokens"] / max(1, inputs.get("token_budget", 4000)), 4
+                    ),
+                }
+            )
+            return result
+
+        result = self.execute_context_units(
+            "pack",
+            {
+                **inputs,
+                "paths": explicit_targets,
+                "level": "pack",
+                "_history": inputs.get("_history", []),
+            },
+            units,
+        )
+        result["operation"] = "context"
+        result["planner"] = {
+            "strategy": (
+                "conversation_history"
+                if selected_sources and selected_sources <= {"conversation", "message"}
+                else "mixed_source_deterministic"
+            ),
+            "operations": ["explicit_target_resolution", "lexical_retrieval", "explicit_relationships", "session_delta", "bounded_pack"],
+            "explicit_targets": explicit_targets,
+            "sources_available": sorted(available_sources),
+        }
+        metrics = result["metrics"]
+        represented = sorted(
+            {item["source_type"] for item in result.get("selection", []) if item.get("status") == "selected"}
+        )
+        metrics.update(
+            {
+                "candidate_units": metrics.get("candidate_units", 0),
+                "duplicate_tokens_suppressed": metrics.get("duplicate_tokens_suppressed", 0),
+                "superseded_units_suppressed": metrics.get("superseded_units_suppressed", 0),
+                "relationships_followed": metrics.get("relationships_followed", 0),
+                "sources_represented": represented,
+                "budget_utilization": round(
+                    metrics["returned_tokens"] / max(1, inputs.get("token_budget", 4000)), 4
+                ),
+            }
+        )
+        return result
 
     def execute(self, operation: str, inputs: dict) -> dict:
         if operation == "inspect":

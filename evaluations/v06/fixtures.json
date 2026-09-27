@@ -1,0 +1,80 @@
+{
+  "version": "v0.6-deterministic-context-fixtures-1",
+  "token_budget": 900,
+  "fixtures": [
+    {
+      "id": "conversation-continuity",
+      "category": "conversation continuity",
+      "query": "current offline attachment architecture sync constraints and next step",
+      "messages": [
+        {"id":"old-db","role":"user","content":"Use PostgreSQL for the offline inspection cache."},
+        {"id":"noise-1","role":"user","content":"The launch icon should be teal."},
+        {"id":"constraint","role":"user","content":"The inspection app must work fully offline and preserve drafts until upload is confirmed."},
+        {"id":"repeat","role":"user","content":"The inspection app must work fully offline and preserve drafts until upload is confirmed."},
+        {"id":"quote","role":"assistant","content":"Earlier request: \"The inspection app must work fully offline and preserve drafts until upload is confirmed.\""},
+        {"id":"new-db","role":"user","content":"We are switching the local inspection cache from PostgreSQL to SQLite.","metadata":{"supersedes":"old-db"}},
+        {"id":"next","role":"assistant","content":"Next step: add attachment adapter tests for retrying uploads."}
+      ],
+      "required_facts": ["switching the local inspection cache from PostgreSQL to SQLite", "work fully offline", "preserve drafts until upload is confirmed", "attachment adapter tests"],
+      "irrelevant_markers": ["icon should be teal"],
+      "kind": "conversation"
+    },
+    {
+      "id": "cross-file-hidden-consumer",
+      "category": "cross-file coding context",
+      "query": "change shared PaymentStatus contract and find downstream consumers and tests",
+      "files": [
+        {"id":"repository:contracts/payment.py","source_type":"repository_file","source_id":"contracts/payment.py","content":"class PaymentStatus: PENDING = 'pending'; SETTLED = 'settled'","relationships":[{"kind":"consumed_by","source":"contracts/payment.py","target":"repository:billing/reconcile.py","origin":"repository_graph","heuristic":false}]},
+        {"id":"repository:billing/reconcile.py","source_type":"repository_file","source_id":"billing/reconcile.py","content":"def reconcile(status: PaymentStatus): return status == PaymentStatus.SETTLED","relationships":[{"kind":"depends_on","source":"billing/reconcile.py","target":"repository:contracts/payment.py","origin":"repository_graph","heuristic":false}]},
+        {"id":"repository:tests/test_reconcile.py","source_type":"repository_file","source_id":"tests/test_reconcile.py","content":"def test_reconcile_settled_status(): assert reconcile(PaymentStatus.SETTLED)","relationships":[{"kind":"tested_by","source":"contracts/payment.py","target":"repository:tests/test_reconcile.py","origin":"repository_graph","heuristic":false}]}
+      ],
+      "required_files": ["contracts/payment.py", "billing/reconcile.py", "tests/test_reconcile.py"],
+      "kind": "repository"
+    },
+    {
+      "id": "session-continuation",
+      "category": "session continuation",
+      "query": "SQLite offline draft retention upload confirmation",
+      "messages": [
+        {"id":"decision","role":"user","content":"Use SQLite for offline drafts and keep drafts until upload confirmation arrives."},
+        {"id":"followup","role":"user","content":"Use SQLite for offline drafts and keep drafts until upload confirmation arrives."}
+      ],
+      "required_facts": ["Use SQLite", "keep drafts until upload confirmation"],
+      "kind": "session"
+    },
+    {
+      "id": "topic-shift",
+      "category": "topic shift",
+      "query": "dashboard accent color choice",
+      "messages": [
+        {"id":"task-a","role":"user","content":"Use SQLite for offline drafts and preserve them on upload retries."},
+        {"id":"task-b","role":"user","content":"Use cobalt blue as the dashboard accent color."}
+      ],
+      "required_facts": ["cobalt blue"],
+      "excluded_markers": ["SQLite", "upload retries"],
+      "kind": "topic"
+    },
+    {
+      "id": "explicit-supersession",
+      "category": "superseded context",
+      "query": "current local database choice",
+      "messages": [
+        {"id":"old","role":"user","content":"Use PostgreSQL for the local component."},
+        {"id":"new","role":"user","content":"We are switching the local component to SQLite.","metadata":{"supersedes":"old"}}
+      ],
+      "required_facts": ["switching the local component to SQLite"],
+      "excluded_markers": ["Use PostgreSQL"],
+      "kind": "supersession"
+    },
+    {
+      "id": "negative-control",
+      "category": "local-only negative control",
+      "query": "rename local variable total to item_count in this one line",
+      "messages": [
+        {"id":"unrelated","role":"user","content":"The mobile sync strategy uses SQLite and exponential backoff."}
+      ],
+      "required_facts": [],
+      "kind": "negative"
+    }
+  ]
+}

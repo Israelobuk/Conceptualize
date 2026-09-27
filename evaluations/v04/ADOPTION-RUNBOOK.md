@@ -15,7 +15,7 @@ After reachability passes, run cohorts serially. Each destination must be new. E
 .venv/Scripts/python.exe -m conceptualize_evaluation.adoption --kind adoption --output evaluations/runs/v04-adoption-isolated --codex <codex.exe> --model <same-model> --api-url <local-api>
 .venv/Scripts/python.exe -m conceptualize_evaluation.adoption --kind receipts --repetitions 3 --output evaluations/runs/v04-receipts-repeated --codex <codex.exe> --model <same-model> --api-url <local-api>
 .venv/Scripts/python.exe -m conceptualize_evaluation.adoption --kind negative --output evaluations/runs/v04-negative-controls --codex <codex.exe> --model <same-model> --api-url <local-api>
-.venv/Scripts/python.exe -m conceptualize_evaluation.adoption_report
+.venv/Scripts/python.exe -m conceptualize_evaluation.adoption_report --output evaluations/v04
 ```
 
 The report reads the named V0.4 cohorts and verifies paired baseline commit, prompt hash, model and CLI version. For new versioned cohorts, update the report input names deliberately; preserve historical folders. Raw events, arrival timelines, registration, stderr, independent checks, traces and results remain in each run folder, which Git ignores. Public reports retain actual measured outcomes and unknowns. Never treat an incomplete report as complete.

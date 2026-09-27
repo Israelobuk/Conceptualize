@@ -1,0 +1,85 @@
+{
+  "benchmark": "V0.6 autonomous MCP integration overhead",
+  "mode_c_invoked": true,
+  "tool_calls": 1,
+  "host_non_mcp_tool_calls": 0,
+  "input_tokens": 94943,
+  "input_tokens_mode_a": 15781,
+  "model_input_increment": 79162,
+  "mcp_argument_payload_bytes": 247,
+  "mcp_result_payload_bytes": 8347,
+  "mcp_result_payload_tokens": 900,
+  "context_tokens_returned": 743,
+  "trace": [
+    {
+      "trace_id": "a73b4d8c-f532-4d8d-9bb7-5a83be6a9f22",
+      "operation": "context",
+      "metrics": {
+        "candidate_tokens": 955,
+        "returned_tokens": 743,
+        "token_budget": 6500,
+        "latency_ms": 258,
+        "cache_hit": false,
+        "available_context_tokens": 1051,
+        "selected_tokens": 726,
+        "previously_supplied_tokens": 0,
+        "unchanged_context_tokens": 0,
+        "invalidated_context_tokens": 0,
+        "new_context_tokens": 743,
+        "duplicate_tokens_avoided": 0,
+        "candidate_units": 26,
+        "selected_units": 18,
+        "omitted_units": 8,
+        "duplicate_tokens_suppressed": 0,
+        "low_relevance_tokens_suppressed": 229,
+        "low_information_tokens_suppressed": 0,
+        "superseded_units_suppressed": 0,
+        "superseded_tokens_suppressed": 0,
+        "relationships_followed": [],
+        "sources_represented": [
+          "conversation",
+          "message"
+        ],
+        "budget_utilization": 0.1143,
+        "full_selected_tokens": 726,
+        "candidate_files": 26,
+        "returned_files": 18
+      },
+      "overhead": {
+        "transport_ms": null,
+        "index_lookup_ms": 0.023,
+        "graph_ms": 0.09,
+        "context_source_load_ms": 4.219,
+        "git_ms": 0,
+        "scoring_ms": 11.633,
+        "packing_ms": 16.872,
+        "cache_ms": 220.782,
+        "trace_write_ms": 3.409,
+        "total_runtime_ms": 261.2
+      },
+      "timings_ms": {
+        "scoring": 11.633,
+        "context_compilation": 16.872,
+        "context_source_load": 4.219,
+        "snapshot_and_graph": 0.112,
+        "graph_build": 0.09,
+        "cache": 220.782,
+        "database_trace_before_commit": 3.409
+      }
+    }
+  ],
+  "unused_probe": {
+    "model_input_tokens": 45976,
+    "mode_a_input_tokens": 15781,
+    "increment_over_mode_a": 30195,
+    "conceptualize_invoked": false,
+    "conceptualize_calls": 0,
+    "mcp_context_tokens": 0,
+    "increment_beyond_surface_estimate": 29918,
+    "raw_run": "evaluations\\runs\\v06-final-c\\gpt-6-sol\\mode_c_autonomous_mcp\\rep-1\\result.json"
+  },
+  "host_accounting_unattributed_tokens": 79162,
+  "default_serialized_mcp_surface_token_estimate": 277,
+  "invoked_run_increment_beyond_surface_estimate": 78885,
+  "interpretation": "The measured compact MCP schema/surface is far smaller than the provider-reported mode-C increment. The no-adoption probe still had a large increment despite zero Conceptualize calls and zero context returned, so the response payload cannot explain it. The observed cause is MCP-enabled Codex host execution/configuration; Codex turn telemetry does not expose component-level attribution, so it cannot identify which internal Codex prompt field or integration stage accounts for the remaining tokens."
+}

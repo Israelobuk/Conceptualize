@@ -8,7 +8,8 @@ from pathlib import Path
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 
-EXPECTED_TOOLS = frozenset(
+PRIMARY_TOOLS = frozenset({"conceptualize_context"})
+ADVANCED_TOOLS = frozenset(
     {
         "conceptualize_map",
         "conceptualize_search",
@@ -20,28 +21,33 @@ EXPECTED_TOOLS = frozenset(
 )
 
 
-async def verify(command: str, url: str) -> dict:
+async def verify(command: str, url: str, advanced: bool = False) -> dict:
+    env = {**os.environ, "CONCEPTUALIZE_API_URL": url}
+    if advanced:
+        env["CONCEPTUALIZE_MCP_ADVANCED"] = "true"
     params = StdioServerParameters(
         command=command,
         args=["-m", "conceptualize_mcp.server"],
-        env={**os.environ, "CONCEPTUALIZE_API_URL": url},
+        env=env,
     )
     async with stdio_client(params) as (read, write):
         async with ClientSession(read, write) as session:
             await session.initialize()
             tools = (await session.list_tools()).tools
-            if {t.name for t in tools} != EXPECTED_TOOLS:
-                raise ValueError("Server did not expose the six expected tools")
-            response = await session.call_tool("conceptualize_map", {"token_budget": 1000})
+            expected = PRIMARY_TOOLS | ADVANCED_TOOLS if advanced else PRIMARY_TOOLS
+            if {t.name for t in tools} != expected:
+                raise ValueError("Server tool surface differs from the requested profile")
+            response = await session.call_tool(
+                "conceptualize_context", {"query": "current project context", "token_budget": 1000}
+            )
             if response.isError:
-                raise ValueError("Map failed; verify API, key and indexed project")
+                raise ValueError("Context retrieval failed; verify API, key and indexed project")
             data = response.structuredContent
             return {
-                "tools": sorted(EXPECTED_TOOLS),
-                "map_trace_id": data["trace_id"],
-                "indexed_files_returned": data["included_files"],
-                "index": data.get("index"),
-                "budget_respected": data["metrics"]["returned_tokens"] <= 1000,
+                "tools": sorted(expected),
+                "context_trace_id": data["trace_id"],
+                "sources_returned": data.get("sources", []),
+                "new_context_tokens": data["new_context_tokens"],
             }
 
 
@@ -51,6 +57,7 @@ def main():
     )
     parser.add_argument("action", choices=["config", "doctor"])
     parser.add_argument("--format", choices=["json", "codex"], default="json")
+    parser.add_argument("--advanced", action="store_true", help="Expose legacy retrieval/debug tools too")
     parser.add_argument(
         "--api-url", default=os.environ.get("CONCEPTUALIZE_API_URL", "http://127.0.0.1:8000")
     )
@@ -58,7 +65,7 @@ def main():
     command = str(Path(sys.executable).resolve())
     if args.action == "doctor":
         try:
-            print(json.dumps(asyncio.run(verify(command, args.api_url)), indent=2))
+            print(json.dumps(asyncio.run(verify(command, args.api_url, args.advanced)), indent=2))
         except Exception as exc:
             parser.exit(1, f"MCP verification failed: {exc}\n")
     elif args.format == "json":
@@ -72,6 +79,7 @@ def main():
                             "env": {
                                 "CONCEPTUALIZE_API_URL": args.api_url,
                                 "CONCEPTUALIZE_API_KEY": "REPLACE_WITH_PROJECT_KEY",
+                                **({"CONCEPTUALIZE_MCP_ADVANCED": "true"} if args.advanced else {}),
                             },
                         }
                     }
@@ -85,6 +93,7 @@ def main():
             + json.dumps(command)
             + '\nargs = ["-m", "conceptualize_mcp.server"]\nenv_vars = ["CONCEPTUALIZE_API_KEY"]\n\n[mcp_servers.conceptualize.env]\nCONCEPTUALIZE_API_URL = '
             + json.dumps(args.api_url)
+            + ('\nCONCEPTUALIZE_MCP_ADVANCED = "true"' if args.advanced else '')
         )
 
 

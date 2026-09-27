@@ -255,7 +255,65 @@ def test_session_delta_is_durable_scoped_and_refreshable(api):
             select(McpSession).where(McpSession.session_id == "session-one")
         ).context_state
         assert state["deliveries"]
+        delivery = state["deliveries"][0]
+        assert delivery["delivered_at"]
+        assert delivery["invalidation_state"] == "current"
     assert client.get("/v1/traces/" + first["trace_id"], headers=other).status_code == 404
+
+
+def test_context_conversation_only_skips_repository_refresh_and_records_ledger_query(api, monkeypatch):
+    from conceptualize import main
+    from conceptualize.models import McpSession
+
+    client, headers, _, session, _ = api
+    payload = {"conversations": [{"id": "history", "messages": [
+        {"id": "m1", "role": "user", "content": "Use SQLite for offline drafts."}
+    ]}]}
+    assert client.post("/v1/context/conversations", headers=headers, json=payload).status_code == 200
+
+    def unexpected_refresh(*args, **kwargs):
+        raise AssertionError("conversation-only context must not refresh the repository")
+
+    monkeypatch.setattr(main, "index_project", unexpected_refresh)
+    scoped = {**headers, "X-MCP-Session": "conversation-only"}
+    query = "What did we decide about SQLite offline drafts?"
+    result = client.post("/v1/runtime", headers=scoped, json={
+        "operation": "context", "query": query, "source_types": ["conversation"], "token_budget": 500
+    })
+    assert result.status_code == 200, result.text
+    assert "SQLite" in result.json()["context"]
+    assert result.json()["planner"]["strategy"] == "conversation_history"
+    with session() as db:
+        state = db.scalar(select(McpSession).where(McpSession.session_id == "conversation-only")).context_state
+    assert state["deliveries"]
+    delivery = state["deliveries"][0]
+    assert delivery["query"] == query
+    assert delivery["source_version"] == "1"
+    assert delivery["content_hash"]
+
+
+def test_source_freshness_registry_dispatches_only_requested_provider_once():
+    from conceptualize.service import SourceFreshnessRegistry
+
+    registry = SourceFreshnessRegistry()
+    calls = []
+
+    def strategy(_db, _project, *, force_refresh, source_snapshot):
+        calls.append((force_refresh, source_snapshot))
+        return {"provider_ms": 2}
+
+    registry.register("repository", strategy)
+    registry.register("conversation", strategy)
+    result = registry.refresh(
+        None,
+        None,
+        {"repository_file", "code_symbol", "conversation", "message"},
+        force_refresh=True,
+        source_snapshots={"repository": "repo-snapshot", "conversation": "history-snapshot"},
+    )
+
+    assert calls == [(True, "repo-snapshot"), (True, "history-snapshot")]
+    assert result == {"git_ms": 0, "provider_ms": 2}
 
 
 def test_inspect_refreshes_changed_files_without_full_reparse(api, monkeypatch):

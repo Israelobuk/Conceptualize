@@ -125,6 +125,89 @@ def test_conversation_pack_does_not_expand_every_sibling_message():
     assert result["metrics"]["selected_units"] == 1
 
 
+def test_conversation_pack_omits_low_relevance_lexical_noise_but_keeps_decisions():
+    units = ConversationAdapter().ingest({"conversations": [{"id": "planning", "messages": [
+        {"id": "decision", "role": "user", "content": "Architecture decision: keep offline drafts until authenticated upload succeeds."},
+        {"id": "noise", "role": "user", "content": "Implementation meeting moved to Thursday; lunch is at noon."},
+    ]}]})
+    result = ContextUnitRuntime(units).pack(
+        "current implementation architecture plan", 500, source_types={"message"}
+    )
+
+    assert "offline drafts" in result["context"]
+    assert "lunch is at noon" not in result["context"]
+    noise = next(row for row in result["selection"] if row["source_id"] == "noise")
+    assert noise["status"] == "omitted"
+    assert noise["omission_reason"] == "below deterministic conversation relevance floor"
+    assert result["metrics"]["low_relevance_tokens_suppressed"] > 0
+
+
+def test_repeated_and_quoted_conversation_messages_are_suppressed_with_provenance():
+    statement = "Use SQLite for the offline cache and keep local drafts until the server confirms upload."
+    units = ConversationAdapter().ingest(
+        {"conversations": [{"id": "repeat", "messages": [
+            {"id": "original", "role": "user", "content": statement},
+            {"id": "quote", "role": "assistant", "content": f'We agreed: "{statement}"'},
+            {"id": "ack", "role": "assistant", "content": "Understood."},
+        ]}]}
+    )
+    result = ContextUnitRuntime(units).pack(
+        "SQLite offline cache local drafts server upload", 500,
+        source_types={"message"}, targets=["conversation:repeat/message:ack"]
+    )
+
+    assert result["context"].count("Use SQLite") == 1
+    assert result["metrics"]["duplicate_tokens_suppressed"] > 0
+    assert result["metrics"]["low_information_tokens_suppressed"] > 0
+    suppressed = [row for row in result["selection"] if row["status"] == "omitted"]
+    assert any(row.get("duplicate_of") for row in suppressed)
+    assert any("acknowledgement" in row.get("omission_reason", "") for row in suppressed)
+
+
+def test_explicit_supersession_prefers_current_decision_and_keeps_trace_provenance():
+    units = ConversationAdapter().ingest(
+        {"conversations": [{"id": "decisions", "messages": [
+            {"id": "old", "role": "user", "content": "Use PostgreSQL for the local component."},
+            {"id": "new", "role": "user", "content": "We are switching the local component to SQLite.",
+             "metadata": {"supersedes": "old"}},
+        ]}]}
+    )
+    result = ContextUnitRuntime(units).pack(
+        "current local component database decision", 500, source_types={"message"}
+    )
+
+    assert "switching" in result["context"]
+    old = next(row for row in result["selection"] if row["source_id"] == "old")
+    assert old["status"] == "omitted"
+    assert old["omission_reason"] == "superseded by explicit newer context"
+    assert result["metrics"]["superseded_units_suppressed"] == 1
+    relationship = next(
+        edge for unit in units for edge in unit.relationships if edge["kind"] == "supersedes"
+    )
+    assert relationship["origin"] == "explicit_metadata"
+    assert relationship["heuristic"] is False
+
+
+def test_session_delta_suppresses_near_duplicate_on_follow_up_but_allows_topic_shift():
+    units = ConversationAdapter().ingest(
+        {"conversations": [{"id": "c", "messages": [
+            {"id": "a", "role": "user", "content": "Use SQLite for offline drafts and keep them until upload succeeds."},
+            {"id": "b", "role": "assistant", "content": "Use SQLite for offline drafts and keep each draft until upload succeeds."},
+            {"id": "c", "role": "user", "content": "Use blue as the primary accent for the dashboard."},
+        ]}]}
+    )
+    runtime = ContextUnitRuntime(units)
+    first = runtime.pack("SQLite offline drafts upload", 500, source_types={"message"})
+    followup = runtime.pack(
+        "SQLite offline drafts upload retries", 500, source_types={"message"}, history=first["deliveries"]
+    )
+    topic_shift = runtime.pack("blue dashboard accent", 500, source_types={"message"}, history=first["deliveries"])
+
+    assert followup["context"] == ""
+    assert followup["metrics"]["duplicate_tokens_suppressed"] > 0
+    assert "blue" in topic_shift["context"]
+
+
 def test_conversation_map_returns_compact_navigation_instead_of_message_ids():
     units = ConversationAdapter().ingest(
         {

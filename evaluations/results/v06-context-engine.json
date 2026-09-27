@@ -1,0 +1,607 @@
+{
+  "benchmark": "Conceptualize V0.6 deterministic context engine",
+  "fixture_version": "v0.6-deterministic-context-fixtures-1",
+  "run_type": "runtime only; no AI model invoked",
+  "tokenizer": "cl100k_base estimate",
+  "token_budget": 900,
+  "tasks": [
+    {
+      "id": "conversation-continuity",
+      "category": "conversation continuity",
+      "query": "current offline attachment architecture sync constraints and next step",
+      "success": true,
+      "required_facts": [
+        "switching the local inspection cache from PostgreSQL to SQLite",
+        "work fully offline",
+        "preserve drafts until upload is confirmed",
+        "attachment adapter tests"
+      ],
+      "required_fact_selected": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "excluded_markers": [
+        "icon should be teal"
+      ],
+      "excluded_markers_present": [],
+      "candidate_units": 6,
+      "selected_units": 3,
+      "candidate_tokens": 112,
+      "selected_tokens": 54,
+      "new_context_tokens": 56,
+      "duplicate_tokens_suppressed": 20,
+      "low_relevance_tokens_suppressed": 24,
+      "unchanged_tokens_avoided": 0,
+      "superseded_units_suppressed": 1,
+      "relationships_followed": [
+        1
+      ],
+      "sources_represented": [
+        "message"
+      ],
+      "budget_utilization": 0.0622,
+      "elapsed_ms": 3.806,
+      "selection": [
+        {
+          "unit_id": "conversation:conversation-continuity/message:new-db",
+          "source_type": "message",
+          "source_id": "new-db",
+          "score": 55,
+          "reasons": [
+            {
+              "signal": "final_state",
+              "weight": 55,
+              "evidence": {
+                "kind": "supersedes",
+                "target": "conversation:conversation-continuity/message:old-db",
+                "source": "conversation:conversation-continuity/message:new-db",
+                "origin": "explicit_metadata",
+                "heuristic": false
+              }
+            }
+          ],
+          "token_cost": 17,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:conversation-continuity/message:constraint",
+          "source_type": "message",
+          "source_id": "constraint",
+          "score": 29.718,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "offline",
+              "weight": 1.718
+            },
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 20,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:conversation-continuity/message:repeat",
+          "source_type": "message",
+          "source_id": "repeat",
+          "score": 11.718,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "offline",
+              "weight": 1.718
+            },
+            {
+              "signal": "decision_context",
+              "weight": 28
+            },
+            {
+              "signal": "duplicate_content",
+              "weight": -18
+            },
+            {
+              "signal": "content_redundancy",
+              "weight": -18,
+              "origin": "deterministic_normalized_text_and_shingles",
+              "evidence": "conversation:conversation-continuity/message:constraint"
+            }
+          ],
+          "token_cost": 20,
+          "already_known": false,
+          "invalidated": false,
+          "status": "omitted",
+          "duplicate_of": "conversation:conversation-continuity/message:constraint",
+          "omission_reason": "near-duplicate content already selected"
+        },
+        {
+          "unit_id": "conversation:conversation-continuity/message:next",
+          "source_type": "message",
+          "source_id": "next",
+          "score": 15.648,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "attachment",
+              "weight": 5.216
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "next",
+              "weight": 5.216
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "step",
+              "weight": 5.216
+            }
+          ],
+          "token_cost": 17,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "conversation:conversation-continuity/message:old-db",
+          "source_type": "message",
+          "source_id": "old-db",
+          "score": 1.747,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "offline",
+              "weight": 1.747
+            }
+          ],
+          "token_cost": 14,
+          "already_known": false,
+          "invalidated": false,
+          "status": "omitted",
+          "superseded_by": "conversation:conversation-continuity/message:new-db",
+          "omission_reason": "superseded by explicit newer context"
+        },
+        {
+          "unit_id": "conversation:conversation-continuity/message:quote",
+          "source_type": "message",
+          "source_id": "quote",
+          "score": 1.709,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "offline",
+              "weight": 1.709
+            },
+            {
+              "signal": "conversation_relevance_floor",
+              "weight": 0,
+              "origin": "deterministic_policy",
+              "threshold": 10.171
+            }
+          ],
+          "token_cost": 24,
+          "already_known": false,
+          "invalidated": false,
+          "status": "omitted",
+          "omission_reason": "below deterministic conversation relevance floor"
+        }
+      ],
+      "context": "[message:new-db]\nWe are switching the local inspection cache from PostgreSQL to SQLite.\n\n---\n\n[message:constraint]\nThe inspection app must work fully offline and preserve drafts until upload is confirmed.\n\n---\n\n[message:next]\nNext step: add attachment adapter tests for retrying uploads.",
+      "redundancy_diagnostic": {
+        "duplicate_tokens_suppressed": 20,
+        "source_messages_preserved": 7,
+        "selected_messages": 3,
+        "suppressed_duplicate_items": [
+          {
+            "source_id": "repeat",
+            "duplicate_of": "conversation:conversation-continuity/message:constraint",
+            "omission_reason": "near-duplicate content already selected"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cross-file-hidden-consumer",
+      "category": "cross-file coding context",
+      "query": "change shared PaymentStatus contract and find downstream consumers and tests",
+      "success": true,
+      "required_facts": [
+        "contracts/payment.py",
+        "billing/reconcile.py",
+        "tests/test_reconcile.py"
+      ],
+      "required_fact_selected": [
+        true,
+        true,
+        true
+      ],
+      "excluded_markers": [],
+      "excluded_markers_present": [],
+      "candidate_units": 3,
+      "selected_units": 3,
+      "candidate_tokens": 81,
+      "selected_tokens": 81,
+      "new_context_tokens": 84,
+      "duplicate_tokens_suppressed": 0,
+      "low_relevance_tokens_suppressed": 0,
+      "unchanged_tokens_avoided": 0,
+      "superseded_units_suppressed": 0,
+      "relationships_followed": [
+        1,
+        1,
+        1
+      ],
+      "sources_represented": [
+        "repository_file"
+      ],
+      "budget_utilization": 0.0933,
+      "elapsed_ms": 1.117,
+      "selection": [
+        {
+          "unit_id": "repository:contracts/payment.py",
+          "source_type": "repository_file",
+          "source_id": "contracts/payment.py",
+          "score": 101.126,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "paymentstatus",
+              "weight": 1.126
+            },
+            {
+              "signal": "explicit_target",
+              "weight": 100
+            }
+          ],
+          "token_cost": 26,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "repository:billing/reconcile.py",
+          "source_type": "repository_file",
+          "source_id": "billing/reconcile.py",
+          "score": 2.241,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "paymentstatus",
+              "weight": 2.241
+            }
+          ],
+          "token_cost": 25,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        {
+          "unit_id": "repository:tests/test_reconcile.py",
+          "source_type": "repository_file",
+          "source_id": "tests/test_reconcile.py",
+          "score": 1.126,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "paymentstatus",
+              "weight": 1.126
+            }
+          ],
+          "token_cost": 30,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        }
+      ],
+      "context": "[repository_file:contracts/payment.py]\nclass PaymentStatus: PENDING = 'pending'; SETTLED = 'settled'\n\n---\n\n[repository_file:billing/reconcile.py]\ndef reconcile(status: PaymentStatus): return status == PaymentStatus.SETTLED\n\n---\n\n[repository_file:tests/test_reconcile.py]\ndef test_reconcile_settled_status(): assert reconcile(PaymentStatus.SETTLED)"
+    },
+    {
+      "id": "session-continuation",
+      "category": "session continuation",
+      "query": "SQLite offline draft retention upload confirmation",
+      "success": true,
+      "required_facts": [
+        "Use SQLite",
+        "keep drafts until upload confirmation"
+      ],
+      "required_fact_selected": [
+        true,
+        true
+      ],
+      "excluded_markers": [],
+      "excluded_markers_present": [],
+      "candidate_units": 2,
+      "selected_units": 1,
+      "candidate_tokens": 37,
+      "selected_tokens": 18,
+      "new_context_tokens": 0,
+      "duplicate_tokens_suppressed": 0,
+      "low_relevance_tokens_suppressed": 19,
+      "unchanged_tokens_avoided": 18,
+      "superseded_units_suppressed": 0,
+      "relationships_followed": [],
+      "sources_represented": [],
+      "budget_utilization": 0.0,
+      "elapsed_ms": 0.232,
+      "selection": [
+        {
+          "unit_id": "conversation:session-continuation/message:decision",
+          "source_type": "message",
+          "source_id": "decision",
+          "score": -30.34,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "sqlite",
+              "weight": 1.165
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "offline",
+              "weight": 1.165
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "upload",
+              "weight": 1.165
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "confirmation",
+              "weight": 1.165
+            },
+            {
+              "signal": "redundancy",
+              "weight": -35,
+              "evidence": null
+            }
+          ],
+          "token_cost": 18,
+          "already_known": true,
+          "invalidated": false,
+          "status": "referenced"
+        },
+        {
+          "unit_id": "conversation:session-continuation/message:followup",
+          "source_type": "message",
+          "source_id": "followup",
+          "score": -13.34,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "sqlite",
+              "weight": 1.165
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "offline",
+              "weight": 1.165
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "upload",
+              "weight": 1.165
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "confirmation",
+              "weight": 1.165
+            },
+            {
+              "signal": "duplicate_content",
+              "weight": -18
+            },
+            {
+              "signal": "conversation_relevance_floor",
+              "weight": 0,
+              "origin": "deterministic_policy",
+              "threshold": 2
+            }
+          ],
+          "token_cost": 19,
+          "already_known": false,
+          "invalidated": false,
+          "status": "omitted",
+          "omission_reason": "below deterministic conversation relevance floor"
+        }
+      ],
+      "context": "",
+      "previous_call_context_tokens": 18,
+      "followup_context_tokens": 0,
+      "delta_is_smaller": true,
+      "previous_context": [
+        {
+          "unit_id": "conversation:session-continuation/message:decision",
+          "source_type": "message",
+          "source_id": "decision",
+          "supplied_in_operation": null,
+          "unchanged": true
+        }
+      ],
+      "first_call_candidate_tokens": 37,
+      "first_call_new_context_tokens": 18
+    },
+    {
+      "id": "topic-shift",
+      "category": "topic shift",
+      "query": "dashboard accent color choice",
+      "success": true,
+      "required_facts": [
+        "cobalt blue"
+      ],
+      "required_fact_selected": [
+        true
+      ],
+      "excluded_markers": [
+        "SQLite",
+        "upload retries"
+      ],
+      "excluded_markers_present": [],
+      "candidate_units": 1,
+      "selected_units": 1,
+      "candidate_tokens": 16,
+      "selected_tokens": 16,
+      "new_context_tokens": 16,
+      "duplicate_tokens_suppressed": 0,
+      "low_relevance_tokens_suppressed": 0,
+      "unchanged_tokens_avoided": 0,
+      "superseded_units_suppressed": 0,
+      "relationships_followed": [],
+      "sources_represented": [
+        "message"
+      ],
+      "budget_utilization": 0.0178,
+      "elapsed_ms": 0.187,
+      "selection": [
+        {
+          "unit_id": "conversation:topic-shift/message:task-b",
+          "source_type": "message",
+          "source_id": "task-b",
+          "score": 5.883,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "dashboard",
+              "weight": 1.961
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "accent",
+              "weight": 1.961
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "color",
+              "weight": 1.961
+            }
+          ],
+          "token_cost": 16,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        }
+      ],
+      "context": "[message:task-b]\nUse cobalt blue as the dashboard accent color.",
+      "topic_shift_context_is_relevant": true
+    },
+    {
+      "id": "explicit-supersession",
+      "category": "superseded context",
+      "query": "current local database choice",
+      "success": true,
+      "required_facts": [
+        "switching the local component to SQLite"
+      ],
+      "required_fact_selected": [
+        true
+      ],
+      "excluded_markers": [
+        "Use PostgreSQL"
+      ],
+      "excluded_markers_present": [],
+      "candidate_units": 2,
+      "selected_units": 1,
+      "candidate_tokens": 25,
+      "selected_tokens": 13,
+      "new_context_tokens": 13,
+      "duplicate_tokens_suppressed": 0,
+      "low_relevance_tokens_suppressed": 0,
+      "unchanged_tokens_avoided": 0,
+      "superseded_units_suppressed": 1,
+      "relationships_followed": [
+        1
+      ],
+      "sources_represented": [
+        "message"
+      ],
+      "budget_utilization": 0.0144,
+      "elapsed_ms": 0.231,
+      "selection": [
+        {
+          "unit_id": "conversation:explicit-supersession/message:old",
+          "source_type": "message",
+          "source_id": "old",
+          "score": 1.182,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "local",
+              "weight": 1.182
+            }
+          ],
+          "token_cost": 12,
+          "already_known": false,
+          "invalidated": false,
+          "status": "omitted",
+          "superseded_by": "conversation:explicit-supersession/message:new",
+          "omission_reason": "superseded by explicit newer context"
+        },
+        {
+          "unit_id": "conversation:explicit-supersession/message:new",
+          "source_type": "message",
+          "source_id": "new",
+          "score": 1.176,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "local",
+              "weight": 1.176
+            }
+          ],
+          "token_cost": 13,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        }
+      ],
+      "context": "[message:new]\nWe are switching the local component to SQLite."
+    },
+    {
+      "id": "negative-control",
+      "category": "local-only negative control",
+      "query": "rename local variable total to item_count in this one line",
+      "success": true,
+      "required_facts": [],
+      "required_fact_selected": [],
+      "excluded_markers": [],
+      "excluded_markers_present": [],
+      "candidate_units": 0,
+      "selected_units": 0,
+      "candidate_tokens": 0,
+      "selected_tokens": 0,
+      "new_context_tokens": 0,
+      "duplicate_tokens_suppressed": 0,
+      "low_relevance_tokens_suppressed": 0,
+      "unchanged_tokens_avoided": 0,
+      "superseded_units_suppressed": 0,
+      "relationships_followed": [],
+      "sources_represented": [],
+      "budget_utilization": 0.0,
+      "elapsed_ms": 0.108,
+      "selection": [],
+      "context": "",
+      "minimal_context": true
+    }
+  ],
+  "aggregate": {
+    "tasks": 6,
+    "passed_required_fact_or_file_checks": 6,
+    "all_required_context_surfaced": true,
+    "total_candidate_tokens": 271,
+    "total_selected_tokens": 182,
+    "duplicate_tokens_suppressed": 20,
+    "superseded_units_suppressed": 2,
+    "context_delta_smaller": true,
+    "negative_control_minimal": true
+  },
+  "limitations": [
+    "Synthetic deterministic fixtures measure retrieval behavior, not model-answer correctness.",
+    "Token figures count compiled context strings and do not include MCP or host prompt framing."
+  ]
+}

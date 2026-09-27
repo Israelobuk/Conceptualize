@@ -1,57 +1,27 @@
 # Conceptualize
 
-**Conceptualize is model-independent context infrastructure for AI systems.** It connects AI agents and applications to structured context sources, tracks what context has already been supplied or changed, and compiles bounded context for each interaction. Repositories are one supported source; conversation history is another. The host AI performs reasoning. Conceptualize manages context.
-
-**The context engine uses no AI models, model API calls, embeddings, vectors, or model credentials.** The evaluation harness invokes an external coding agent for comparison; it is separate from the runtime.
+**Conceptualize is a deterministic context runtime for AI agents.** An agent can ask once for the context relevant to its current task. Conceptualize selects bounded repository or conversation context, records what it supplied for the MCP session, and returns only new or changed context on follow-up calls. It is model-independent and uses no AI model, embeddings, vector database, or semantic reranker.
 
 ## Architecture
 
 ```text
-AI system → MCP (stdio) → FastAPI → generic context runtime
-                                     ├─ ContextUnit + source adapters
-                                     ├─ conversation lexical retrieval
-                                     ├─ RepositoryAdapter (Tree-sitter + graph + Git)
-                                     ├─ fingerprints, session deltas + bounded packs
-                                     ├─ Redis ephemeral cache
-                                     └─ PostgreSQL context + metadata + traces
-Next.js dashboard → local server proxy → FastAPI
+AI agent → one conceptualize_context MCP call → deterministic context planner
+                                              ├─ repository graph and Git metadata
+                                              ├─ lexical conversation retrieval
+                                              ├─ explicit, provenance-preserving relationships
+                                              ├─ session ledger and context deltas
+                                              └─ bounded package + complete developer trace
 ```
 
-`packages/conceptualize_runtime` contains the source-agnostic `ContextUnit`, deterministic retrieval and pack compiler. `RepositoryAdapter` maps existing indexed files and symbols into that boundary while retaining repository-only dependency analysis. `ConversationAdapter` preserves conversation membership, message order, roles, timestamps, explicit references, attachments, and parent/child links. The API stores each project's units; the MCP server exposes the existing six operations over an explicitly selected source set. Full selection provenance remains in API traces.
+Repository and conversation adapters feed source-agnostic ContextUnits. Repository changes retain structural dependency, consumer, and test traversal. Selection scores, provenance, relationships, session state, and suppression reasons are recorded in traces; the model-facing result stays compact. Advanced MCP tools remain available with `CONCEPTUALIZE_MCP_ADVANCED=true` for debugging and compatibility.
 
-## Benchmark
+## V0.6 evaluation status
 
-Conceptualize was tested on one identical context-recovery problem across two model configurations, with the full conversation supplied in Control and Conceptualize MCP available in the autonomous condition. The 39-message synthetic history asks for the current architecture of an offline inspection app, its constraints, superseded decisions, and next implementation step.
+V0.6 separates context-engine quality from integration cost using three modes: full context to model (A), precompiled Conceptualize context without MCP tools (B), and autonomous MCP (C). Current evidence is exploratory and does **not** establish an end-to-end token or speed saving. A real one-repetition `gpt-6-sol` comparison recorded 15,781 input tokens in A, 14,823 in B, and 94,943 in C. B delivered 693 context tokens; C invoked the one primary tool and returned 743 context tokens. All three answers failed the strict frozen rubric. The large C input increase remains unexplained by the measured local MCP surface (277 estimated serialized tokens), so it is not attributed to context selection or presented as an efficiency gain. Runtime traces showed 261 ms total on the local unavailable-Redis setup, including about 221 ms of cache timeout; this is environment-specific. A second C probe used 45,976 input tokens despite not invoking the tool.
 
-| Model | Condition | Pass Rate | Avg Input Tokens | Avg Output Tokens | Avg Context Delivered | Avg Latency | Est. Cost | Conceptualize Adoption |
-|---|---|---:|---:|---:|---:|---:|---:|---:|
-| `gpt-6-sol` | Control — full history | 0/2 | 16,232 | 341 | 1,671* | 16.1 s | N/A | N/A |
-| `gpt-6-sol` | Conceptualize available | 0/2 | 154,450.5 | 666.5 | N/A** | 36.1 s | N/A | 2/2 |
-| `gpt-5.6-sol` | Control — full history | 0/2 | 15,375 | 356.5 | 1,671* | 13.0 s | N/A | N/A |
-| `gpt-5.6-sol` | Conceptualize available | 0/2 | 19,312 | 128 | N/A** | 10.6 s | N/A | 0/2 |
+Reports and frozen fixtures: [V0.6 evaluation](evaluations/V06.md), [three-mode model results](evaluations/results/v06-three-mode.json), [context-engine results](evaluations/results/v06-context-engine.json), and [MCP surface profile](evaluations/results/v06-mcp-surface.json). Raw model events and responses are retained in ignored local `evaluations/runs/v06-three-mode*` directories. Historical negative/inconclusive V0.5 and V0.4 results remain linked from the evaluation docs. No model runs inside Conceptualize.
 
-Every response failed the frozen all-checks rubric. Mean deterministic fact coverage was 80.56% vs 69.44% for `gpt-6-sol`, and 83.33% vs 0% for `gpt-5.6-sol` (control vs enabled). These exact-term checks are wording-sensitive; the reported coverage is a reproducible string match, not a semantic judgment. The autonomous input-token result is worse for both model cohorts; no cost estimate is available.
-
-### What the benchmark tests
-
-Whether an agent can recover a current implementation state from a long project conversation while avoiding unnecessary historical context. The history includes a superseded storage choice, constraints introduced at different times, repeated decisions, and unrelated discussion.
-
-### Methodology
-
-Both conditions use the same frozen 39-message history, final question, model settings, and deterministic rubric. Control receives the complete history. In the autonomous condition, the model receives the question and can independently invoke Conceptualize; no tool use is requested in the prompt. We ran two repetitions for each condition on each exact model ID, plus a separate forced-context diagnostic per model. Models were selected with the repaired Codex CLI `0.157.1` using `codex exec --model`; the exact IDs are `gpt-6-sol` and `gpt-5.6-sol`. Pricing snapshot: none supplied, so estimated model cost is N/A. Model input/output counts come from Codex JSON turn telemetry and include agent orchestration; they are not equivalent to Conceptualize context-string counts.
-
-### Current conclusion
-
-This benchmark does not show that Conceptualize preserved correctness while reducing model input or cost. `gpt-6-sol` invoked Conceptualize in both enabled runs but had lower exact-term coverage, higher input, and longer latency than its full-history controls. `gpt-5.6-sol` did not invoke it and returned answers that failed every exact-term check. The MCP pack returned nearly all available history in its direct test (1,173 context-string tokens out of 1,256 candidate tokens); the separate forced pack returned 1,045 tokens under a 1,200-token budget and both forced-context model answers also failed the strict rubric. Two repetitions per model are exploratory evidence only.
-
-`*` Full conversation history alone, tokenized with `cl100k_base`; excludes Codex prompt/system/tool framing. `**` Agent-selected context tokens are N/A because tool traces were not tied to each model response in the measurement pipeline. Per-run results, grading details, Codex events, trace snapshots, limitations, and the benchmark fixture are in [`evaluations/results/v05-model-matrix.json`](evaluations/results/v05-model-matrix.json), [`evaluations/V05.md`](evaluations/V05.md), and ignored local raw-run directories. The previous 4-task fixture result remains separate and is labeled **DETERMINISTIC RUNTIME TEST**.
-
-### Compact-map optimization retest
-
-After the initial results, conversation map fan-out was fixed: a map now returns conversation titles and message counts instead of every message ID, and the MCP tool guidance favors one bounded pack/search over repeated message expansion. A frozen-task retest (one repetition per cell) measured 858 Conceptualize context-string tokens versus 1,671 full-history string tokens. However, it did **not** establish lower total model input or elapsed time: `gpt-6-sol` used 82,136 input tokens and 22.6 s with Conceptualize available versus 16,232 and 14.9 s in its paired control; `gpt-5.6-sol` did not invoke Conceptualize and used 41,963 input tokens and 18.6 s versus 15,375 and 11.6 s in control. Exact-rubric coverage was 88.89% vs 72.22% for `gpt-6-sol`, and 0% vs 83.33% for `gpt-5.6-sol`; no run passed all checks. This one-run-per-cell retest is negative/inconclusive, not evidence of a speed or overall token improvement. The full measurements and limits are in [`evaluations/results/v05-optimization-investigation.json`](evaluations/results/v05-optimization-investigation.json); raw events and traces remain in ignored local run directories.
-
-Context retrieval is deterministic and lexical; lexical matching is not semantic understanding. There are no embeddings, vector database, reranker, summarizer, hidden model calls, or model credentials in Conceptualize. Context savings are not treated as success unless required task information remains available.
-
+The `0.6.0` Python package version tracks the product milestone; benchmark-fixture revisions have their own `fixture_version` fields and are not package versions.
 ## Local setup (PowerShell)
 
 Prerequisites: Python 3.11+, Node.js 22+, Docker Desktop with its Linux engine running, and Git. Run commands from this repository root. `uv` is optional but convenient when the system Python is unavailable.
@@ -138,18 +108,7 @@ CONCEPTUALIZE_API_URL = "http://127.0.0.1:8000"
 CONCEPTUALIZE_API_KEY = "YOUR_CX_KEY"
 ```
 
-Available tools:
-
-| Tool | Purpose |
-| --- | --- |
-| `conceptualize_map(path?, token_budget?)` | Compact paths, declarations, and line boundaries |
-| `conceptualize_search(query, token_budget?, limit?, source_types?, level?)` | Lexical content discovery in repositories or conversations |
-| `conceptualize_dependencies(target, token_budget?)` | Direct dependencies, consumers, and related tests |
-| `conceptualize_expand(target, token_budget?, source_types?, level?)` | Progressively reveal a repository or conversation result |
-| `conceptualize_pack(paths, query?, token_budget?, source_types?, include_dependencies?, include_tests?, include_consumers?)` | Compile bounded context from selected sources |
-| `conceptualize_inspect(target, depth?, token_budget?, manifest_only?)` | Preferred entry for a known cross-file target: structure, consumers, tests and bounded source |
-
-Give your connected agent an ordinary repository task, for example: “Replace the Identity role field with explicit permissions while preserving refund authorization.” Use inspect for a known target whose change may affect other files; use map/search for an unknown location, dependencies for a precise relationship question, expand for more detail, and pack for a known bounded source set. Skip isolated edits or already-loaded context. The descriptions do not prescribe a tool chain; the prompt need not mention Conceptualize. Tool adoption still depends on the host agent.
+The default MCP surface exposes one tool: `conceptualize_context(query, token_budget?, source_types?, force_refresh?)`. When relevant repository or prior-conversation context is missing, the agent can call it once with the task; the runtime chooses sources, follows deterministic relationships, and returns a bounded context delta. The six map/search/dependencies/expand/pack/inspect tools and capability resource are opt-in through `CONCEPTUALIZE_MCP_ADVANCED=true` for debugging and compatibility.
 
 Generate an absolute-path configuration and verify the real connection:
 
@@ -161,7 +120,7 @@ python -m conceptualize_mcp.setup doctor --api-url http://127.0.0.1:8000
 # Other MCP clients: python -m conceptualize_mcp.setup config --format json
 ```
 
-Doctor initializes a real stdio MCP session, discovers all six tools, calls map and reports its persisted trace ID. Configuration generation never prints your key. Pass project credentials explicitly when a client does not inherit environment variables. The server remains a thin HTTP adapter.
+Doctor initializes a real stdio MCP session, discovers the default unified tool, calls it once, and reports its persisted trace ID. Use `python -m conceptualize_mcp.setup config --format codex --advanced` only when you need the optional debugging tools. Configuration generation never prints your key. Pass project credentials explicitly when a client does not inherit environment variables.
 
 ## HTTP operations
 
@@ -173,7 +132,7 @@ Invoke-RestMethod http://127.0.0.1:8000/v1/runtime -Method Post -Headers $header
   -ContentType 'application/json' -Body $body
 ```
 
-`POST /v1/runtime` accepts one of the six operations; OpenAPI documents request validation. `source_types` optionally selects `repository`, `conversation`, `message`, or `repository_file` for generic search/map/expand/inspect/pack. Repository-only requests keep their graph-aware implementation; mixed-source packs use transparent lexical scores and explicit source relationships. `GET /v1/overview`, `/v1/traces`, `/v1/traces/{id}`, `/v1/graph`, and `/v1/git?path=src/auth` expose project-scoped observations. Trace listing supports `limit` and `offset`. Git history and cochanges are based on the last 20 indexed commits. Indexing chooses an available main/master base automatically for other branches; `--base` overrides it. Working-tree and committed branch changes, merge base and diff statistics are recorded separately.
+`POST /v1/runtime` accepts the primary `context` operation plus the advanced operations; OpenAPI documents request validation. A context request can select `repository`, `conversation`, or both with `source_types`; inferred sources are checked before freshness work so conversation-only requests skip repository refresh/indexing. Repository context follows graph relationships; conversation context uses deterministic lexical ranking and explicit metadata. Traces retain candidate scores, provenance, session state, timings, and token diagnostics. `GET /v1/overview`, `/v1/traces`, `/v1/traces/{id}`, `/v1/graph`, and `/v1/git?path=src/auth` expose project-scoped observations.
 
 ### Conversation context
 
@@ -193,7 +152,7 @@ Invoke-RestMethod http://127.0.0.1:8000/v1/context/conversations -Method Post -H
   -ContentType 'application/json' -Body $body
 ```
 
-Use the existing `conceptualize_search` or `conceptualize_pack` operation with `source_types: ["conversation"]`; select `["repository", "conversation"]` to compile from both. Search uses exact phrase and lexical term overlap, then may include directly related messages. The trace lists scores, signal reasons, source IDs, token cost, status, and whether each unit was already known. MCP session history references unchanged deliveries and returns new content when fingerprints change. No conversation summaries or model-generated topics are created.
+The primary `conceptualize_context` call can select `source_types: ["conversation"]` or `["repository", "conversation"]`. Conversation ingestion preserves explicit `supersedes`, `updates`, and other declared relationships with provenance. Session history references unchanged deliveries and returns changed/new context; deterministic duplicate suppression only changes selection, never stored source data. No conversation summaries or model-generated topics are created.
 
 Provider pricing is supplied as a versioned JSON snapshot and loaded with `conceptualize_runtime.economics.load_pricing`, then passed to `estimate_cost`. Conceptualize ships no live price table. Costs remain unavailable if any input, cached-input, or output token telemetry is missing; context-string token counts are not substituted for model telemetry.
 
@@ -226,6 +185,6 @@ Revoke a key locally with `conceptualize revoke-key --prefix cx_PREFIX`. Keep `.
 
 ## Evaluation
 
-See [evaluations/V05.md](evaluations/V05.md) for the generic-context architecture and benchmark limits. The **DETERMINISTIC RUNTIME TEST** is `python -m conceptualize_evaluation.conversation_benchmark`; it writes to `evaluations/results/v05-conversations.json` without invoking an AI model. The separate real-model harness is `python -m conceptualize_evaluation.conversation_agent_benchmark --models gpt-6-sol gpt-5.6-sol`; it requires a benchmark Codex home, local API containing the frozen conversation, and API key. Fixtures and historical runs are not loaded by normal startup or shown in the dashboard.
+Run the deterministic V0.6 fixtures with `.venv/Scripts/python.exe -m conceptualize_evaluation.v06_context_benchmark`; results are written to `evaluations/results/v06-context-engine.json`. They cover conversation continuity, a hidden cross-file consumer, session continuation, topic shift, explicit supersession, and a negative control. This is a retrieval diagnostic, not a model-quality test.
 
-V0.4 evidence is in [evaluations/V04.md](evaluations/V04.md), [ADOPTION.md](ADOPTION.md), [ADOPTION-SUITE.json](ADOPTION-SUITE.json), [MCP-SURFACE.md](MCP-SURFACE.md), [MCP_SURFACE_PROFILE.json](MCP_SURFACE_PROFILE.json), and five machine-readable cohort/surface reports under `evaluations/results/v04-*.json`. The [runbook](evaluations/ADOPTION-RUNBOOK.md) reproduces six cross-file adoption tasks, three paired receipt repetitions, three paired local negative controls, and a separate connected-but-unused baseline. Reports preserve unavailable measurements explicitly; autonomous invocation is not proof of speed or exploration improvement.
+The real-model runner supports Mode A full context, Mode B precompiled context without MCP, and Mode C autonomous MCP. Its output retains raw Codex events, answers, prompts, tool calls, and per-run result JSON. MCP serialized surface measurements compare the default one-tool registration to the seven-tool advanced surface. Host-side token telemetry remains separate because its prompt packing and hidden integration costs cannot be derived from local JSON sizes. See [evaluations/V06.md](evaluations/V06.md) for the measured result and limits. V0.5 and earlier historical evidence is organized under [evaluations](evaluations/README.md), including [V0.4 adoption](evaluations/v04/ADOPTION.md), [the V0.4 report](evaluations/v04/V04.md), and [its runbook](evaluations/v04/ADOPTION-RUNBOOK.md).

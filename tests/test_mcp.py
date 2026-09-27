@@ -45,6 +45,7 @@ def test_real_mcp_protocol_calls_api_and_persists_traces(tmp_path):
         "DATABASE_URL": db_url,
         "CONCEPTUALIZE_API_KEY": key,
         "CONCEPTUALIZE_API_URL": f"http://127.0.0.1:{port}",
+        "CONCEPTUALIZE_MCP_ADVANCED": "true",
         "REDIS_URL": "redis://127.0.0.1:1/0",
         "OTEL_EXPORTER_OTLP_ENDPOINT": "",
         "PYTHONPATH": os.pathsep.join(str(root / p) for p in ("apps/api", "apps/mcp", "packages")),
@@ -114,11 +115,15 @@ def test_real_mcp_protocol_calls_api_and_persists_traces(tmp_path):
                     assert json.loads(capability.contents[0].text)["indexed_files"] == 3
                     assert "conversation" in json.loads(capability.contents[0].text)["context_sources"]
                     assert {t.name for t in listing.tools} == {
-                        "conceptualize_" + op
-                        for op in ("map", "search", "dependencies", "expand", "pack", "inspect")
+                        "conceptualize_context",
+                        *{
+                            "conceptualize_" + op
+                            for op in ("map", "search", "dependencies", "expand", "pack", "inspect")
+                        },
                     }
                     assert all(t.description and len(t.description) > 80 for t in listing.tools)
                     operations = [
+                        ("context", {"query": "src/session.py auth session implementation", "token_budget": 1000}),
                         ("map", {"path": "src"}),
                         ("search", {"query": "login"}),
                         (
@@ -139,6 +144,12 @@ def test_real_mcp_protocol_calls_api_and_persists_traces(tmp_path):
                         response = await session.call_tool("conceptualize_" + op, inputs)
                         assert not response.isError, response.content
                         payload = response.structuredContent
+                        if op == "context":
+                            assert "src/session.py" in payload["context"]
+                            assert payload["new_context_tokens"] <= 1000
+                            assert payload["sources"]
+                            trace_ids.append(payload["trace_id"])
+                            continue
                         if op == "search" and inputs.get("source_types"):
                             assert "PostgreSQL" in payload["context"]
                             assert payload["included_context"]
@@ -169,7 +180,7 @@ def test_real_mcp_protocol_calls_api_and_persists_traces(tmp_path):
             assert all(
                 "priority" in row and "token_cost" in row for row in detail["result"]["selection"]
             )
-            assert client.get("/v1/overview").json()["total_operations"] == 7
+            assert client.get("/v1/overview").json()["total_operations"] == 8
     finally:
         process.terminate()
         process.wait(timeout=10)

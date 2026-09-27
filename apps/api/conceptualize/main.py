@@ -1,6 +1,7 @@
 import hashlib
 import json
 import logging
+import re
 import time
 from pathlib import Path
 from typing import Literal
@@ -26,14 +27,14 @@ from .models import (
     Repository,
     now,
 )
-from .service import index_project, project_runtime
+from .service import index_project, project_runtime, source_freshness
 from .telemetry import tracer
 
 log = logging.getLogger(__name__)
 logging.basicConfig(level=getattr(logging, settings.log_level))
 app = FastAPI(
     title="Conceptualize",
-    version="0.3.0",
+    version="0.6.0",
     docs_url="/docs" if settings.app_env == "development" else None,
     redoc_url="/redoc" if settings.app_env == "development" else None,
     openapi_url="/openapi.json" if settings.app_env == "development" else None,
@@ -41,7 +42,7 @@ app = FastAPI(
 
 
 class OperationInput(BaseModel):
-    operation: Literal["map", "search", "dependencies", "expand", "pack", "inspect"]
+    operation: Literal["context", "map", "search", "dependencies", "expand", "pack", "inspect"]
     path: str = Field(default="", max_length=1000)
     target: str = Field(default="", max_length=1000)
     query: str = Field(default="", max_length=4000)
@@ -119,19 +120,38 @@ def operate(
         .with_for_update()
         .execution_options(populate_existing=True)
     )
-    refresh_started = time.perf_counter()
     registered = db.scalar(select(Repository).where(Repository.project_id == project.id))
-    refresh = (
-        index_project(
-            db,
-            project,
-            Path(registered.root),
-            registered.git_info.get("base"),
-            incremental=not body.force_refresh,
-            commit=False,
+    requested_sources = set(body.source_types or [])
+    if body.operation == "context" and body.source_types is None:
+        aliases = re.compile(
+            r"\b(previous|earlier|history|conversation|we(?:'ve| have)? decided|"
+            r"prior decision|last time|superseded)\b",
+            re.I,
         )
-        if registered
-        else {"git_ms": 0}
+        conversation_available = db.scalar(
+            select(func.count()).select_from(ContextUnitRecord).where(
+                ContextUnitRecord.project_id == project.id,
+                ContextUnitRecord.source_type.in_(["conversation", "message"]),
+            )
+        ) > 0
+        if aliases.search(body.query) and conversation_available:
+            requested_sources = {"conversation"}
+            if registered and re.search(r"(?:[\w.-]+/)+[\w.-]+|\b(?:file|module|symbol|implementation|code|tests?)\b", body.query, re.I):
+                requested_sources.add("repository")
+        elif registered:
+            requested_sources = {"repository"}
+        elif conversation_available:
+            requested_sources = {"conversation"}
+    elif body.source_types is None:
+        requested_sources = {"repository"}
+    repository_requested = bool(requested_sources & {"repository", "repository_file", "code_symbol"})
+    refresh_started = time.perf_counter()
+    refresh = source_freshness.refresh(
+        db,
+        project,
+        requested_sources,
+        force_refresh=body.force_refresh,
+        source_snapshots={"repository": registered} if registered else {},
     )
     refresh_ms = (time.perf_counter() - refresh_started) * 1000
     session = None
@@ -171,11 +191,15 @@ def operate(
         try:
             if not hit:
                 snapshot_started = time.perf_counter()
-                runtime, _ = project_runtime(db, project.id)
+                if repository_requested:
+                    runtime, _ = project_runtime(db, project.id)
+                else:
+                    from conceptualize_runtime.runtime import ContextRuntime
+
+                    runtime = ContextRuntime({})
                 snapshot_ms = (time.perf_counter() - snapshot_started) * 1000
-                requested_sources = set(body.source_types or [])
                 repository_only = requested_sources in ({"repository"}, {"repository_file"})
-                if body.source_types is not None and not repository_only and body.operation != "dependencies":
+                if body.operation == "context" or (body.source_types is not None and not repository_only and body.operation != "dependencies"):
                     source_load_started = time.perf_counter()
                     from conceptualize_runtime.adapters import RepositoryAdapter
                     from conceptualize_runtime.context import ContextUnit
@@ -185,10 +209,10 @@ def operate(
                         "conversation": {"conversation", "message"},
                     }
                     source_types = set().union(
-                        *(aliases.get(source, {source}) for source in body.source_types)
+                        *(aliases.get(source, {source}) for source in requested_sources)
                     )
                     units = []
-                    if source_types.intersection({"repository_file", "code_symbol"}):
+                    if repository_requested and source_types.intersection({"repository_file", "code_symbol"}):
                         units.extend(RepositoryAdapter().adapt(runtime.files, runtime.graph))
                     rows = db.scalars(
                         select(ContextUnitRecord).where(
@@ -299,7 +323,25 @@ def operate(
                 units = result.get("deliveries", []) + (
                     [result["bundle_delivery"]] if result.get("bundle_delivery") else []
                 )
-                additions = [{**unit, "trace_id": trace.id} for unit in units]
+                selected_by_id = {
+                    item.get("path") or item.get("id"): item
+                    for item in result.get("selection", [])
+                }
+                delivered_at = now().isoformat()
+                additions = [
+                    {
+                        **unit,
+                        "trace_id": trace.id,
+                        "operation_id": trace.id,
+                        "query": body.query or " ".join(body.paths) or body.target or body.path,
+                        "delivered_at": delivered_at,
+                        "source_version": unit.get("source_version") or unit.get("content_hash"),
+                        "relationships": unit.get("relationships")
+                        or selected_by_id.get(unit.get("path") or unit.get("unit_id"), {}).get("relationship"),
+                        "invalidation_state": "current",
+                    }
+                    for unit in units
+                ]
                 # Bound state conservatively: evicted evidence is re-sent, never treated as known.
                 session.context_state = {
                     "deliveries": (history + additions)[-1000:],

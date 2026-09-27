@@ -198,7 +198,7 @@ def generate(output):
 
 def main():
     parser = argparse.ArgumentParser(__doc__)
-    parser.add_argument("--output", type=Path, default=ROOT)
+    parser.add_argument("--output", type=Path, default=ROOT / "evaluations" / "v04")
     args = parser.parse_args()
     result = generate(args.output)
     print(json.dumps({"complete": result["complete"], "recorded": {k: v["recorded_trials"] for k, v in result["cohorts"].items()}}))

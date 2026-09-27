@@ -25,7 +25,7 @@ class Selection(BaseModel):
 
 class CompiledContext(BaseModel):
     model_config = ConfigDict(extra="allow", strict=True)
-    operation: Literal["map", "search", "dependencies", "expand", "pack", "inspect"]
+    operation: Literal["context", "map", "search", "dependencies", "expand", "pack", "inspect"]
     context: str
     metrics: Metrics
     included_files: list[str]

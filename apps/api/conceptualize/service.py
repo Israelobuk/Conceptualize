@@ -2,6 +2,7 @@ import hashlib
 import json
 from pathlib import Path
 from time import perf_counter
+from typing import Callable
 
 from conceptualize_runtime.git import metadata
 from conceptualize_runtime.index import inspect_repository
@@ -122,6 +123,63 @@ def project_runtime(db, project_id: str) -> tuple[ContextRuntime, Repository | N
         )
         files = {r.path: {**r.structure, "content": r.content} for r in rows}
     return ContextRuntime(files, repository.git_info if repository else {}), repository
+
+
+class SourceFreshnessRegistry:
+    """Dispatch freshness checks only to requested source providers."""
+
+    def __init__(self) -> None:
+        self._strategies: dict[str, Callable] = {}
+        self._aliases = {"repository_file": "repository", "code_symbol": "repository"}
+
+    def register(self, source_type: str, strategy: Callable) -> None:
+        self._strategies[source_type] = strategy
+
+    def refresh(
+        self,
+        db,
+        project: Project,
+        requested_sources: set[str],
+        *,
+        force_refresh: bool,
+        source_snapshots: dict | None = None,
+    ) -> dict:
+        results = {"git_ms": 0}
+        snapshots = source_snapshots or {}
+        checked = set()
+        for source_type in sorted(requested_sources):
+            provider = self._aliases.get(source_type, source_type)
+            if provider in checked:
+                continue
+            checked.add(provider)
+            strategy = self._strategies.get(provider)
+            if strategy is not None:
+                results.update(
+                    strategy(
+                        db,
+                        project,
+                        force_refresh=force_refresh,
+                        source_snapshot=snapshots.get(provider),
+                    )
+                )
+        return results
+
+
+def _refresh_repository(db, project: Project, *, force_refresh: bool, source_snapshot=None) -> dict:
+    if source_snapshot is None:
+        return {"git_ms": 0}
+    return index_project(
+        db,
+        project,
+        Path(source_snapshot.root),
+        source_snapshot.git_info.get("base"),
+        incremental=not force_refresh,
+        commit=False,
+    )
+
+
+source_freshness = SourceFreshnessRegistry()
+source_freshness.register("repository", _refresh_repository)
 
 
 def git_signature(root):

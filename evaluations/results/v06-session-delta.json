@@ -1,0 +1,146 @@
+{
+  "benchmark": "V0.6 session context delta evaluation",
+  "fixture_version": "v0.6-deterministic-context-fixtures-1",
+  "task": {
+    "id": "session-continuation",
+    "category": "session continuation",
+    "query": "SQLite offline draft retention upload confirmation",
+    "success": true,
+    "required_facts": [
+      "Use SQLite",
+      "keep drafts until upload confirmation"
+    ],
+    "required_fact_selected": [
+      true,
+      true
+    ],
+    "excluded_markers": [],
+    "excluded_markers_present": [],
+    "candidate_units": 2,
+    "selected_units": 1,
+    "candidate_tokens": 37,
+    "selected_tokens": 18,
+    "new_context_tokens": 0,
+    "duplicate_tokens_suppressed": 0,
+    "low_relevance_tokens_suppressed": 19,
+    "unchanged_tokens_avoided": 18,
+    "superseded_units_suppressed": 0,
+    "relationships_followed": [],
+    "sources_represented": [],
+    "budget_utilization": 0.0,
+    "elapsed_ms": 0.313,
+    "selection": [
+      {
+        "unit_id": "conversation:session-continuation/message:decision",
+        "source_type": "message",
+        "source_id": "decision",
+        "score": -30.34,
+        "reasons": [
+          {
+            "signal": "lexical_overlap",
+            "term": "sqlite",
+            "weight": 1.165
+          },
+          {
+            "signal": "lexical_overlap",
+            "term": "offline",
+            "weight": 1.165
+          },
+          {
+            "signal": "lexical_overlap",
+            "term": "upload",
+            "weight": 1.165
+          },
+          {
+            "signal": "lexical_overlap",
+            "term": "confirmation",
+            "weight": 1.165
+          },
+          {
+            "signal": "redundancy",
+            "weight": -35,
+            "evidence": null
+          }
+        ],
+        "token_cost": 18,
+        "already_known": true,
+        "invalidated": false,
+        "status": "referenced"
+      },
+      {
+        "unit_id": "conversation:session-continuation/message:followup",
+        "source_type": "message",
+        "source_id": "followup",
+        "score": -13.34,
+        "reasons": [
+          {
+            "signal": "lexical_overlap",
+            "term": "sqlite",
+            "weight": 1.165
+          },
+          {
+            "signal": "lexical_overlap",
+            "term": "offline",
+            "weight": 1.165
+          },
+          {
+            "signal": "lexical_overlap",
+            "term": "upload",
+            "weight": 1.165
+          },
+          {
+            "signal": "lexical_overlap",
+            "term": "confirmation",
+            "weight": 1.165
+          },
+          {
+            "signal": "duplicate_content",
+            "weight": -18
+          },
+          {
+            "signal": "conversation_relevance_floor",
+            "weight": 0,
+            "origin": "deterministic_policy",
+            "threshold": 2
+          }
+        ],
+        "token_cost": 19,
+        "already_known": false,
+        "invalidated": false,
+        "status": "omitted",
+        "omission_reason": "below deterministic conversation relevance floor"
+      }
+    ],
+    "context": "",
+    "previous_call_context_tokens": 18,
+    "followup_context_tokens": 0,
+    "delta_is_smaller": true,
+    "previous_context": [
+      {
+        "unit_id": "conversation:session-continuation/message:decision",
+        "source_type": "message",
+        "source_id": "decision",
+        "supplied_in_operation": null,
+        "unchanged": true
+      }
+    ],
+    "first_call_candidate_tokens": 37,
+    "first_call_new_context_tokens": 18
+  },
+  "result": {
+    "first_call_new_context_tokens": 18,
+    "first_call_candidate_tokens": 37,
+    "followup_context_tokens": 0,
+    "followup_delta_smaller": true,
+    "second_call_previous_context_references": [
+      {
+        "unit_id": "conversation:session-continuation/message:decision",
+        "source_type": "message",
+        "source_id": "decision",
+        "supplied_in_operation": null,
+        "unchanged": true
+      }
+    ]
+  },
+  "run_type": "deterministic runtime fixture; no model invoked"
+}

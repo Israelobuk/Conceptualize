@@ -4,6 +4,7 @@ import ast
 import hashlib
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -19,6 +20,22 @@ def adoption_metrics(events, observations, trace_data, relevant, available):
              if e.get("type") == "item.completed" and e.get("item", {}).get("type") == "mcp_tool_call"
              and e["item"].get("server") == "conceptualize"]
     first = calls[0] if calls else None
+    source_steps = dict(observations["first_observed_read"])
+    for step, event in enumerate(events):
+        item = event.get("item", {})
+        if event.get("type") != "item.completed" or item.get("type") != "command_execution" or item.get("exit_code") != 0:
+            continue
+        command_text = item.get("command", "")
+        if not re.search(r"\brg\b|\bgrep\b|Select-String", command_text, re.I):
+            continue
+        output = item.get("aggregated_output", "").replace("\\", "/")
+        for path in relevant:
+            if re.search(r"(?<![\w./-])" + re.escape(path) + r":", output) or re.search(r"/" + re.escape(path) + r":", output):
+                source_steps[path] = min(step, source_steps.get(path, step))
+    source_reads = [step for path, step in source_steps.items() if path in relevant]
+    discovery_timing = "unknown"
+    if first and source_reads:
+        discovery_timing = "before observed relevant source evidence" if first[0] < min(source_reads) else "after observed relevant source evidence"
     reads = [v for p, v in observations["first_observed_read"].items() if p in relevant]
     timing = "unknown"
     if first and reads:
@@ -41,7 +58,10 @@ def adoption_metrics(events, observations, trace_data, relevant, available):
         results_observed = True
         current = set()
         for edge in payload.get("relationships", []):
-            current.update([edge.get("source"), edge.get("target")])
+            source = (edge.get("source") or "").split("::", 1)[0]
+            target = (edge.get("target") or "").split("::", 1)[0]
+            if source != target and source in relevant and target in relevant:
+                current.update([source, target])
         for key in ("consumers", "dependencies", "tests"):
             current.update(payload.get("environment", {}).get(key, []))
         surfaced.update(current)
@@ -51,14 +71,17 @@ def adoption_metrics(events, observations, trace_data, relevant, available):
     discovery = {}
     for path in sorted(set(relevant) & surfaced):
         read_step = observations["first_observed_read"].get(path)
+        source_step = source_steps.get(path)
         discovery[path] = {"surfaced_step": surfaced_steps[path], "observed_read_step": read_step,
+                           "observed_source_evidence_step": source_step,
+                           "relative_to_source_discovery": "unknown" if source_step is None else ("before observed source evidence" if surfaced_steps[path] < source_step else "after observed source evidence"),
                            "when": "unknown" if read_step is None else ("before observed read" if surfaced_steps[path] < read_step else "after observed read")}
-    return {"relationship_discovery": discovery, "tool_available": available, "tool_invoked": bool(calls),
+    return {"when_invoked_vs_observed_discovery": discovery_timing, "relationship_discovery": discovery, "tool_available": available, "tool_invoked": bool(calls),
             "first_operation": first[1].get("tool", "").removeprefix("conceptualize_") if first else None,
             "when_invoked": timing, "useful_relationship_surfaced": useful,
             "relationship_used_in_final_change": None,
             "required_relationship_paths_surfaced": sorted(set(relevant) & surfaced),
-            "limits": "Manual discovery is an explicit-command lower bound; causal use in final changes is not inferred from invocation or passing tests."}
+            "limits": "Manual discovery uses supported read commands and source-bearing search output as lower bounds; causal use in final changes is not inferred from invocation or passing tests."}
 
 
 def prepare_adoption(task, mode, destination):
@@ -140,7 +163,7 @@ def main():
     args.output.mkdir(parents=True, exist_ok=False)
     tasks = json.loads((ROOT / "evaluations/adoption-tasks.json").read_text())
     if args.kind == "receipts":
-        tasks = [{"id": "receipts", "relevant_files": ["shop/warehouse.py", "shop/contracts.py", "shop/orders.py"]}]
+        tasks = [{"id": "receipts", "relevant_files": ["shop/warehouse.py", "shop/contracts.py", "shop/checkout.py", "shop/orders.py", "test_shop.py"]}]
     elif args.kind == "negative":
         tasks = [
             {"id": "typo", "prompt": "Fix GREETING in relay/isolated.py from Helo to Hello. Change nothing else.", "expected": 'GREETING = "Hello"'},

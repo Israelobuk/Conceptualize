@@ -20,7 +20,7 @@ def load_cohort(path, expected):
         registry = json.loads((ROOT / "evaluations/adoption-tasks.json").read_text())
         relevant = next((t["relevant_files"] for t in registry if t["id"] == task), [])
         if task == "receipts":
-            relevant = ["shop/warehouse.py", "shop/contracts.py", "shop/orders.py"]
+            relevant = ["shop/warehouse.py", "shop/contracts.py", "shop/checkout.py", "shop/orders.py", "test_shop.py"]
         stderr = (directory / "host/agent-stderr.txt").read_text(encoding="utf-8")
         initialization_failed = "required MCP servers failed to initialize: conceptualize" in stderr
         row["adoption"] = adoption_metrics(events, row["exploration"], traces, relevant,
@@ -62,7 +62,7 @@ def generate(output):
             ex = row["execution"]
             ob = row["exploration"]
             ad = row["adoption"]
-            lines.append(f"| {name} | {row['manifest']['task']} #{row['repetition']+1} | {row['manifest']['mode']} | {row['tests_passed']} | {ex['elapsed_seconds']:.2f} | {len(ob['observed_files_inspected'])} | {ob['observed_repeated_reads']} | {row['mcp_calls']} | {row['context_tokens']} | {ad['first_operation'] or 'none'} | {ad['when_invoked']} | {ad['useful_relationship_surfaced']} |")
+            lines.append(f"| {name} | {row['manifest']['task']} #{row['repetition']+1} | {row['manifest']['mode']} | {row['tests_passed']} | {ex['elapsed_seconds']:.2f} | {len(ob['observed_files_inspected'])} | {ob['observed_repeated_reads']} | {row['mcp_calls']} | {row['context_tokens']} | {ad['first_operation'] or 'none'} | {ad['when_invoked_vs_observed_discovery']} | {ad['useful_relationship_surfaced']} |")
         lines += ["", f"{name}: {cohort['recorded_trials']}/{cohort['expected_trials']} trials recorded."]
         for mode in ("control", "conceptualize"):
             trials = [r for r in cohort["trials"] if r["manifest"]["mode"] == mode]
@@ -87,8 +87,8 @@ def generate(output):
                 lines += [f"Persisted API operation latencies: {row['api_operation_latency_ms']} ms. Host startup, model wait and client transport are not included or inferred from these values."]
             warehouse = ad["relationship_discovery"].get("shop/warehouse.py")
             if warehouse:
-                lines += [f"Warehouse relationship discovery: {warehouse['when']} (surfaced event {warehouse['surfaced_step']}, observed read event {warehouse['observed_read_step']})."]
-    lines += ["", "Files/read counts are supported command-derived lower bounds. Useful relationships mean required oracle paths appeared in delivered relationship metadata, not merely in the full trace. Their causal use in changes remains unknown. Positive results do not imply faster execution; unnecessary-files proxies include legitimate tests and alternative implementations. Agent usage, cached tokens, wire bytes, full trace bytes, comparability checks and sandbox/account-limit observations are in ADOPTION-SUITE.json.", "", "The eight connected-but-unused trials are separate in BASELINE-OVERHEAD.md. Historical V0.2/V0.3 evidence is unchanged. No model runs inside Conceptualize."]
+                lines += [f"Warehouse relationship discovery: {warehouse['relative_to_source_discovery']} (surfaced event {warehouse['surfaced_step']}, source evidence event {warehouse['observed_source_evidence_step']}, explicit read event {warehouse['observed_read_step']})."]
+    lines += ["", "Files/read counts are supported command-derived lower bounds. Discovery also considers source-bearing rg/grep/Select-String output; plain directory/file listings do not establish a relationship. Useful relationships mean required oracle paths appeared in delivered relationship metadata, not merely in the full trace. Their causal use in changes remains unknown. Positive results do not imply faster execution; unnecessary-files proxies include legitimate tests and alternative implementations. Agent usage, cached tokens, wire bytes, full trace bytes, comparability checks and sandbox/account-limit observations are in ADOPTION-SUITE.json.", "", "Coding agent trials ran serially on a shared development host; local validation and normal background activity were not eliminated. Scheduling, approval/sandbox failures and provider effects remain timing confounders. The eight connected-but-unused trials are separate in BASELINE-OVERHEAD.md. Historical V0.2/V0.3 evidence is unchanged. No model runs inside Conceptualize."]
     (output / "ADOPTION.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     return result
 

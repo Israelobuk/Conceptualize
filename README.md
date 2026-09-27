@@ -17,7 +17,7 @@ AI coding client → MCP (stdio) → FastAPI → context runtime
 Next.js dashboard → local server proxy → FastAPI
 ```
 
-`packages/conceptualize_runtime` is the product: parsing/indexing, graph, Git intelligence, and context operations. It has no API or database dependency. `apps/api` handles auth, persistence, caching, and traces. `apps/mcp` only forwards the five tools. `apps/web` displays observations; it does not select context.
+`packages/conceptualize_runtime` is the product: parsing/indexing, graph, Git intelligence, and context operations. It has no API or database dependency. `apps/api` handles auth, persistence, caching, and traces. `apps/mcp` exposes six context tools and projects compact model-facing responses; full provenance remains in API traces. `apps/web` displays observations; it does not select context.
 
 The compact Python package groups these modules instead of publishing five mostly empty packages. LangGraph and LlamaIndex are intentionally deferred: these V1 workflows are direct deterministic functions and neither framework would add meaningful behavior. No LLM/embedding configuration is installed.
 
@@ -112,8 +112,9 @@ Available tools:
 | `conceptualize_dependencies(target, token_budget?)` | Direct dependencies, consumers, and related tests |
 | `conceptualize_expand(target, token_budget?)` | Deeper inspection of a path, symbol, or lexical query |
 | `conceptualize_pack(paths, token_budget?, include_dependencies?, include_tests?, include_consumers?)` | Compile bounded source context |
+| `conceptualize_inspect(target, depth?, token_budget?, manifest_only?)` | Preferred entry for a known cross-file target: structure, consumers, tests and bounded source |
 
-Give your connected agent an ordinary repository task, for example: “Replace the Identity role field with explicit permissions while preserving refund authorization.” The tool descriptions explain when to map, search, inspect dependencies, expand and pack; the prompt need not mention Conceptualize. Tool adoption still depends on the host agent.
+Give your connected agent an ordinary repository task, for example: “Replace the Identity role field with explicit permissions while preserving refund authorization.” Use inspect for a known target whose change may affect other files; use map/search for an unknown location, dependencies for a precise relationship question, expand for more detail, and pack for a known bounded source set. Skip isolated edits or already-loaded context. The descriptions do not prescribe a tool chain; the prompt need not mention Conceptualize. Tool adoption still depends on the host agent.
 
 Generate an absolute-path configuration and verify the real connection:
 
@@ -125,7 +126,7 @@ python -m conceptualize_mcp.setup doctor --api-url http://127.0.0.1:8000
 # Other MCP clients: python -m conceptualize_mcp.setup config --format json
 ```
 
-Doctor initializes a real stdio MCP session, discovers all five tools, calls map and reports its persisted trace ID. Configuration generation never prints your key. Pass project credentials explicitly when a client does not inherit environment variables. The server remains a thin HTTP adapter.
+Doctor initializes a real stdio MCP session, discovers all six tools, calls map and reports its persisted trace ID. Configuration generation never prints your key. Pass project credentials explicitly when a client does not inherit environment variables. The server remains a thin HTTP adapter.
 
 ## HTTP operations
 
@@ -137,7 +138,7 @@ Invoke-RestMethod http://127.0.0.1:8000/v1/runtime -Method Post -Headers $header
   -ContentType 'application/json' -Body $body
 ```
 
-`POST /v1/runtime` accepts one of the five operations; OpenAPI documents request validation. `GET /v1/overview`, `/v1/traces`, `/v1/traces/{id}`, `/v1/graph`, and `/v1/git?path=src/auth` expose project-scoped observations. Trace listing supports `limit` and `offset`. Git history and cochanges are based on the last 20 indexed commits. Indexing chooses an available main/master base automatically for other branches; `--base` overrides it. Working-tree and committed branch changes, merge base and diff statistics are recorded separately.
+`POST /v1/runtime` accepts one of the six operations; OpenAPI documents request validation. `GET /v1/overview`, `/v1/traces`, `/v1/traces/{id}`, `/v1/graph`, and `/v1/git?path=src/auth` expose project-scoped observations. Trace listing supports `limit` and `offset`. Git history and cochanges are based on the last 20 indexed commits. Indexing chooses an available main/master base automatically for other branches; `--base` overrides it. Working-tree and committed branch changes, merge base and diff statistics are recorded separately.
 
 ## Deterministic behavior and limits
 
@@ -168,4 +169,6 @@ Revoke a key locally with `conceptualize revoke-key --prefix cx_PREFIX`. Keep `.
 
 ## Real-agent evaluation
 
-See [evaluations/README.md](evaluations/README.md) for paired CONTROL/CONCEPTUALIZE runs, three cross-file tasks, independent checks and JSON evidence. [evaluations/DEMO.md](evaluations/DEMO.md) records the actual demonstration, including failed setup attempts and limitations. The evaluator is an external-agent test harness; it adds no model calls to the context runtime.
+See [evaluations/README.md](evaluations/README.md) for historical paired CONTROL/CONCEPTUALIZE runs, independent checks and JSON evidence. [evaluations/DEMO.md](evaluations/DEMO.md) records the actual demonstration, including failed setup attempts and limitations. The evaluator is an external-agent test harness; it adds no model calls to the context runtime.
+
+V0.4 evidence is in [ADOPTION.md](ADOPTION.md), [ADOPTION-SUITE.json](ADOPTION-SUITE.json), [MCP-SURFACE.md](MCP-SURFACE.md), [MCP_SURFACE_PROFILE.json](MCP_SURFACE_PROFILE.json) and [BASELINE-OVERHEAD.md](BASELINE-OVERHEAD.md). The [runbook](evaluations/ADOPTION-RUNBOOK.md) reproduces six cross-file adoption tasks, three paired receipt repetitions, three paired local negative controls and a separate connected-but-unused baseline. Reports state incomplete cohorts and unavailable measurements explicitly; autonomous invocation is not proof of speed or exploration improvement.

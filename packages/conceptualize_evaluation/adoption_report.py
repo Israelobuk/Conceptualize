@@ -31,6 +31,9 @@ def load_cohort(path, expected):
         row["mcp_calls"] = sum(e.get("type") == "item.completed" and e.get("item", {}).get("type") == "mcp_tool_call" and e["item"].get("server") == "conceptualize" for e in events)
         row["mcp_result_bytes"] = sum(len(encoded(e["item"].get("result"))) for e in events if e.get("type") == "item.completed" and e.get("item", {}).get("type") == "mcp_tool_call" and e["item"].get("server") == "conceptualize")
         row["full_trace_bytes"] = sum(len(encoded(t)) for t in traces)
+        row["api_operation_latency_ms"] = [t["latency_ms"] for t in traces]
+        row["runtime_stage_timings"] = [t["result"].get("timings_ms", {}) for t in traces]
+        row["client_transport_and_host_wait_ms"] = None
         row["observed_unnecessary_files"] = sorted(set(row["exploration"]["observed_files_inspected"]) - set(relevant)) if relevant else None
         row["unnecessary_scope"] = "Task oracle file set; additional tests and legitimate alternative implementations may be useful. Not total unnecessary exploration."
     pairs = []
@@ -80,6 +83,8 @@ def generate(output):
             else:
                 interpretation = "Invocation did not establish a required delivered relationship; useful source context may still exist, so utility is inconclusive."
             lines += [f"{name}/{row['manifest']['task']} #{row['repetition']+1}: {interpretation}"]
+            if row["api_operation_latency_ms"]:
+                lines += [f"Persisted API operation latencies: {row['api_operation_latency_ms']} ms. Host startup, model wait and client transport are not included or inferred from these values."]
             warehouse = ad["relationship_discovery"].get("shop/warehouse.py")
             if warehouse:
                 lines += [f"Warehouse relationship discovery: {warehouse['when']} (surfaced event {warehouse['surfaced_step']}, observed read event {warehouse['observed_read_step']})."]

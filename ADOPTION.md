@@ -15,10 +15,13 @@ Explicit pre/post-change reachability proves that Codex can see and invoke inspe
 | adoption | retry-interface #1 | conceptualize | True | 113.48 | 0 | 0 | 0 | 0 | none | unknown | None |
 | adoption | retry-interface #1 | control | True | 71.14 | 0 | 0 | 0 | 0 | none | unknown | None |
 | adoption | record-schema #1 | control | True | 88.67 | 0 | 0 | 0 | 0 | none | unknown | None |
+| adoption | record-schema #1 | conceptualize | True | 107.89 | 2 | 0 | 1 | 348 | inspect | before observed relevant manual read | True |
+| adoption | route-normalization #1 | conceptualize | True | 107.48 | 1 | 0 | 0 | 0 | none | unknown | None |
+| adoption | route-normalization #1 | control | True | 74.62 | 0 | 0 | 0 | 0 | none | unknown | None |
 
-adoption: 9/12 trials recorded.
-control: 5/5 checks passed; mean elapsed 81.18s; MCP invoked in 0 trials.
-conceptualize: 4/4 checks passed; mean elapsed 109.88s; MCP invoked in 2 trials.
+adoption: 12/12 trials recorded.
+control: 6/6 checks passed; mean elapsed 80.08s; MCP invoked in 0 trials.
+conceptualize: 6/6 checks passed; mean elapsed 109.15s; MCP invoked in 3 trials.
 
 receipts: 0/6 trials recorded.
 
@@ -27,9 +30,14 @@ negative: 0/6 trials recorded.
 ## Selective adoption and interpretation
 
 adoption/delivery-contract #1: Delivered required relationship paths, appropriate for cross-file understanding; causal use and speed benefit remain unproven.
+Persisted API operation latencies: [266] ms. Host startup, model wait and client transport are not included or inferred from these values.
 adoption/unicode-identity #1: Delivered required relationship paths, appropriate for cross-file understanding; causal use and speed benefit remain unproven.
+Persisted API operation latencies: [251] ms. Host startup, model wait and client transport are not included or inferred from these values.
 adoption/batch-contract #1: No MCP call. A passing manual implementation does not show that skipping was wrong, or that the context runtime affected this trial.
 adoption/retry-interface #1: No MCP call. A passing manual implementation does not show that skipping was wrong, or that the context runtime affected this trial.
+adoption/record-schema #1: Delivered required relationship paths, appropriate for cross-file understanding; causal use and speed benefit remain unproven.
+Persisted API operation latencies: [256] ms. Host startup, model wait and client transport are not included or inferred from these values.
+adoption/route-normalization #1: No MCP call. A passing manual implementation does not show that skipping was wrong, or that the context runtime affected this trial.
 
 Files/read counts are supported command-derived lower bounds. Useful relationships mean required oracle paths appeared in delivered relationship metadata, not merely in the full trace. Their causal use in changes remains unknown. Positive results do not imply faster execution; unnecessary-files proxies include legitimate tests and alternative implementations. Agent usage, cached tokens, wire bytes, full trace bytes, comparability checks and sandbox/account-limit observations are in ADOPTION-SUITE.json.
 

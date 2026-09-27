@@ -1,0 +1,318 @@
+{
+  "registration_name": "conceptualize",
+  "connected": true,
+  "connection_scope": "SDK stdio handshake; separate host reachability required",
+  "initialization": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {
+      "experimental": {},
+      "prompts": {
+        "listChanged": false
+      },
+      "resources": {
+        "subscribe": false,
+        "listChanged": false
+      },
+      "tools": {
+        "listChanged": false
+      }
+    },
+    "serverInfo": {
+      "name": "Conceptualize",
+      "version": "1.30.0"
+    },
+    "instructions": "Read-only indexed repository context. Known cross-file target: inspect; unknown location: map/search; precise impact question: dependencies; deepen a result: expand; known source set still needed: pack. Inspect shared types, APIs, configuration, auth or persistence to find hidden consumers/tests before editing. Skip isolated edits and already loaded source. No mandatory tool chain. Unchanged context is referenced; force_refresh resends it if your host lost context. Full diagnostics stay in traces. Compact index counts are available at conceptualize://capabilities."
+  },
+  "tools": [
+    {
+      "name": "conceptualize_map",
+      "description": "Orient in an unfamiliar or large repository when the relevant subsystem is unknown. Scope to a directory when possible. Do not call automatically for a known target; use inspect instead.",
+      "inputSchema": {
+        "properties": {
+          "path": {
+            "default": "",
+            "title": "Path",
+            "type": "string"
+          },
+          "token_budget": {
+            "default": 2000,
+            "title": "Token Budget",
+            "type": "integer"
+          },
+          "force_refresh": {
+            "default": false,
+            "title": "Force Refresh",
+            "type": "boolean"
+          }
+        },
+        "title": "conceptualize_mapArguments",
+        "type": "object"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
+      }
+    },
+    {
+      "name": "conceptualize_search",
+      "description": "Locate an unknown file or symbol using an exact identifier or text. Lexical lookup, not semantic search. For surroundings of a known target use inspect; for a trivial grep, normal text search may suffice.",
+      "inputSchema": {
+        "properties": {
+          "query": {
+            "title": "Query",
+            "type": "string"
+          },
+          "token_budget": {
+            "default": 3000,
+            "title": "Token Budget",
+            "type": "integer"
+          },
+          "limit": {
+            "default": 30,
+            "title": "Limit",
+            "type": "integer"
+          },
+          "force_refresh": {
+            "default": false,
+            "title": "Force Refresh",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "title": "conceptualize_searchArguments",
+        "type": "object"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
+      }
+    },
+    {
+      "name": "conceptualize_dependencies",
+      "description": "Answer a specific change-impact question: imports, reverse consumers, referenced symbols and tests around a file or symbol. Use inspect for a broader starting context; avoid repeating relationships already supplied.",
+      "inputSchema": {
+        "properties": {
+          "target": {
+            "title": "Target",
+            "type": "string"
+          },
+          "token_budget": {
+            "default": 3000,
+            "title": "Token Budget",
+            "type": "integer"
+          },
+          "force_refresh": {
+            "default": false,
+            "title": "Force Refresh",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "target"
+        ],
+        "title": "conceptualize_dependenciesArguments",
+        "type": "object"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
+      }
+    },
+    {
+      "name": "conceptualize_expand",
+      "description": "Read a precise file or symbol identified by an earlier result. Choose structure for signatures/relations or source for implementation. Unchanged ranges return references; force_refresh resends when host context was lost.",
+      "inputSchema": {
+        "properties": {
+          "target": {
+            "title": "Target",
+            "type": "string"
+          },
+          "token_budget": {
+            "default": 4000,
+            "title": "Token Budget",
+            "type": "integer"
+          },
+          "level": {
+            "default": "source",
+            "title": "Level",
+            "type": "string"
+          },
+          "force_refresh": {
+            "default": false,
+            "title": "Force Refresh",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "target"
+        ],
+        "title": "conceptualize_expandArguments",
+        "type": "object"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
+      }
+    },
+    {
+      "name": "conceptualize_pack",
+      "description": "Assemble bounded implementation source after relevant entities are known. Include consumers/tests by default. Skip if sufficient source is already loaded; do not run a mandatory map/search/dependencies/pack sequence. Full selection evidence stays in the trace.",
+      "inputSchema": {
+        "properties": {
+          "paths": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Paths",
+            "type": "array"
+          },
+          "token_budget": {
+            "default": 8000,
+            "title": "Token Budget",
+            "type": "integer"
+          },
+          "include_dependencies": {
+            "default": true,
+            "title": "Include Dependencies",
+            "type": "boolean"
+          },
+          "include_tests": {
+            "default": true,
+            "title": "Include Tests",
+            "type": "boolean"
+          },
+          "include_consumers": {
+            "default": true,
+            "title": "Include Consumers",
+            "type": "boolean"
+          },
+          "force_refresh": {
+            "default": false,
+            "title": "Force Refresh",
+            "type": "boolean"
+          },
+          "score_weights": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "integer"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Score Weights"
+          }
+        },
+        "required": [
+          "paths"
+        ],
+        "title": "conceptualize_packArguments",
+        "type": "object"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
+      }
+    },
+    {
+      "name": "conceptualize_inspect",
+      "description": "Preferred entry for a known file, symbol, shared type, interface, configuration, authentication or persistence target whose change may affect other files. Finds dependencies, hidden consumers and tests plus bounded source before editing. Skip isolated one-file edits, exact source already loaded or simple textual lookups. manifest_only shows costs/structure first; depth controls scope.",
+      "inputSchema": {
+        "properties": {
+          "target": {
+            "title": "Target",
+            "type": "string"
+          },
+          "depth": {
+            "default": 1,
+            "title": "Depth",
+            "type": "integer"
+          },
+          "include_dependencies": {
+            "default": true,
+            "title": "Include Dependencies",
+            "type": "boolean"
+          },
+          "include_consumers": {
+            "default": true,
+            "title": "Include Consumers",
+            "type": "boolean"
+          },
+          "include_tests": {
+            "default": true,
+            "title": "Include Tests",
+            "type": "boolean"
+          },
+          "include_git": {
+            "default": true,
+            "title": "Include Git",
+            "type": "boolean"
+          },
+          "token_budget": {
+            "default": 4000,
+            "title": "Token Budget",
+            "type": "integer"
+          },
+          "manifest_only": {
+            "default": false,
+            "title": "Manifest Only",
+            "type": "boolean"
+          },
+          "force_refresh": {
+            "default": false,
+            "title": "Force Refresh",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "target"
+        ],
+        "title": "conceptualize_inspectArguments",
+        "type": "object"
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false
+      }
+    }
+  ],
+  "resources": {
+    "resources": [
+      {
+        "name": "repository_capabilities",
+        "uri": "conceptualize://capabilities",
+        "description": "Compact indexed file/symbol counts and repository context capabilities; no source or map is injected.",
+        "mimeType": "text/plain"
+      }
+    ]
+  },
+  "resource_templates": {
+    "resourceTemplates": []
+  },
+  "startup_and_initialize_ms": 2303.737699985504,
+  "discovery_complete_ms": 2316.338499978883,
+  "registration": {
+    "command": "C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\.venv\\Scripts\\python.exe",
+    "args": [
+      "-m",
+      "conceptualize_mcp.server"
+    ],
+    "api_url": "http://127.0.0.1:8029",
+    "credential": "environment variable; value not recorded"
+  },
+  "profile": {
+    "tools": 6,
+    "description_characters": 1472,
+    "schema_bytes": 2810,
+    "tool_listing_bytes": 4885,
+    "initialization_bytes": 826,
+    "model_visible_tokens": null,
+    "scope": "JSON serialization measurements; host prompt packing/token causality unavailable."
+  }
+}

@@ -1,4 +1,5 @@
 import asyncio
+import json
 import os
 import socket
 import subprocess
@@ -89,6 +90,8 @@ def test_real_mcp_protocol_calls_api_and_persists_traces(tmp_path):
                 async with ClientSession(read, write) as session:
                     await session.initialize()
                     listing = await session.list_tools()
+                    capability = await session.read_resource("conceptualize://capabilities")
+                    assert json.loads(capability.contents[0].text)["indexed_files"] == 3
                     assert {t.name for t in listing.tools} == {
                         "conceptualize_" + op
                         for op in ("map", "search", "dependencies", "expand", "pack", "inspect")

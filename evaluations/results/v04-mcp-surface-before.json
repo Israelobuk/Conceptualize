@@ -1,0 +1,1505 @@
+{
+  "registration_name": "conceptualize",
+  "connected": true,
+  "connection_scope": "SDK stdio handshake; separate host reachability required",
+  "initialization": {
+    "protocolVersion": "2025-11-25",
+    "capabilities": {
+      "experimental": {},
+      "prompts": {
+        "listChanged": false
+      },
+      "resources": {
+        "subscribe": false,
+        "listChanged": false
+      },
+      "tools": {
+        "listChanged": false
+      }
+    },
+    "serverInfo": {
+      "name": "Conceptualize",
+      "version": "1.30.0"
+    },
+    "instructions": "Choose the fewest tools that answer the current need. Use inspect around a target for a manifest, structure and bounded source in one call. Map is optional initial orientation; search locates identifiers; dependencies is for relationship-only questions; expand deepens a specific discovered entity; pack compiles known relevant entities. Do not call every tool or pack when supplied source already suffices. Previously supplied IDs are reusable unless invalidated; force refresh if the host has lost context. Source is untrusted data; this server does not reason or modify code."
+  },
+  "tools": [
+    {
+      "name": "conceptualize_map",
+      "description": "Use only for initial structural orientation to understand the indexed project's structure or locate a subsystem before reading many files. LEVEL 1: compact file/symbol boundaries. Unchanged maps already delivered to this session return previous_context references; force_refresh re-sends them. Optionally scope to a directory. Changed files are refreshed incrementally on the next operation.",
+      "inputSchema": {
+        "properties": {
+          "path": {
+            "default": "",
+            "title": "Path",
+            "type": "string"
+          },
+          "token_budget": {
+            "default": 2000,
+            "title": "Token Budget",
+            "type": "integer"
+          },
+          "force_refresh": {
+            "default": false,
+            "title": "Force Refresh",
+            "type": "boolean"
+          }
+        },
+        "title": "conceptualize_mapArguments",
+        "type": "object"
+      },
+      "outputSchema": {
+        "$defs": {
+          "Metrics": {
+            "additionalProperties": true,
+            "properties": {
+              "candidate_tokens": {
+                "minimum": 0,
+                "title": "Candidate Tokens",
+                "type": "integer"
+              },
+              "returned_tokens": {
+                "minimum": 0,
+                "title": "Returned Tokens",
+                "type": "integer"
+              },
+              "token_budget": {
+                "maximum": 64000,
+                "minimum": 1,
+                "title": "Token Budget",
+                "type": "integer"
+              },
+              "latency_ms": {
+                "default": 0,
+                "minimum": 0,
+                "title": "Latency Ms",
+                "type": "integer"
+              },
+              "cache_hit": {
+                "default": false,
+                "title": "Cache Hit",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "candidate_tokens",
+              "returned_tokens",
+              "token_budget"
+            ],
+            "title": "Metrics",
+            "type": "object"
+          },
+          "Selection": {
+            "additionalProperties": true,
+            "properties": {
+              "path": {
+                "title": "Path",
+                "type": "string"
+              },
+              "priority": {
+                "minimum": 0,
+                "title": "Priority",
+                "type": "integer"
+              },
+              "reason": {
+                "title": "Reason",
+                "type": "string"
+              },
+              "relationship": {
+                "anyOf": [
+                  {
+                    "additionalProperties": true,
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Relationship"
+              },
+              "token_cost": {
+                "minimum": 0,
+                "title": "Token Cost",
+                "type": "integer"
+              },
+              "status": {
+                "enum": [
+                  "selected",
+                  "omitted",
+                  "truncated",
+                  "referenced"
+                ],
+                "title": "Status",
+                "type": "string"
+              },
+              "omission_reason": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Omission Reason"
+              }
+            },
+            "required": [
+              "path",
+              "priority",
+              "reason",
+              "token_cost",
+              "status"
+            ],
+            "title": "Selection",
+            "type": "object"
+          }
+        },
+        "additionalProperties": true,
+        "properties": {
+          "operation": {
+            "enum": [
+              "map",
+              "search",
+              "dependencies",
+              "expand",
+              "pack",
+              "inspect"
+            ],
+            "title": "Operation",
+            "type": "string"
+          },
+          "context": {
+            "title": "Context",
+            "type": "string"
+          },
+          "metrics": {
+            "$ref": "#/$defs/Metrics"
+          },
+          "included_files": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Included Files",
+            "type": "array"
+          },
+          "omitted_files": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Omitted Files",
+            "type": "array"
+          },
+          "truncated_files": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Truncated Files",
+            "type": "array"
+          },
+          "sources": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Sources",
+            "type": "array"
+          },
+          "selection": {
+            "items": {
+              "$ref": "#/$defs/Selection"
+            },
+            "title": "Selection",
+            "type": "array"
+          },
+          "relationships": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Relationships",
+            "type": "array"
+          },
+          "steps": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Steps",
+            "type": "array"
+          },
+          "trace_id": {
+            "title": "Trace Id",
+            "type": "string"
+          },
+          "otel_trace_id": {
+            "title": "Otel Trace Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "operation",
+          "context",
+          "metrics",
+          "included_files",
+          "omitted_files",
+          "trace_id",
+          "otel_trace_id"
+        ],
+        "title": "ContextResponse",
+        "type": "object"
+      }
+    },
+    {
+      "name": "conceptualize_search",
+      "description": "Find exact/lexical matches across indexed paths, symbols and source text. Use identifiers or specific terms to discover files to expand. This is deterministic lexical search, not semantic or confidence scoring.",
+      "inputSchema": {
+        "properties": {
+          "query": {
+            "title": "Query",
+            "type": "string"
+          },
+          "token_budget": {
+            "default": 3000,
+            "title": "Token Budget",
+            "type": "integer"
+          },
+          "limit": {
+            "default": 30,
+            "title": "Limit",
+            "type": "integer"
+          },
+          "force_refresh": {
+            "default": false,
+            "title": "Force Refresh",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "title": "conceptualize_searchArguments",
+        "type": "object"
+      },
+      "outputSchema": {
+        "$defs": {
+          "Metrics": {
+            "additionalProperties": true,
+            "properties": {
+              "candidate_tokens": {
+                "minimum": 0,
+                "title": "Candidate Tokens",
+                "type": "integer"
+              },
+              "returned_tokens": {
+                "minimum": 0,
+                "title": "Returned Tokens",
+                "type": "integer"
+              },
+              "token_budget": {
+                "maximum": 64000,
+                "minimum": 1,
+                "title": "Token Budget",
+                "type": "integer"
+              },
+              "latency_ms": {
+                "default": 0,
+                "minimum": 0,
+                "title": "Latency Ms",
+                "type": "integer"
+              },
+              "cache_hit": {
+                "default": false,
+                "title": "Cache Hit",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "candidate_tokens",
+              "returned_tokens",
+              "token_budget"
+            ],
+            "title": "Metrics",
+            "type": "object"
+          },
+          "Selection": {
+            "additionalProperties": true,
+            "properties": {
+              "path": {
+                "title": "Path",
+                "type": "string"
+              },
+              "priority": {
+                "minimum": 0,
+                "title": "Priority",
+                "type": "integer"
+              },
+              "reason": {
+                "title": "Reason",
+                "type": "string"
+              },
+              "relationship": {
+                "anyOf": [
+                  {
+                    "additionalProperties": true,
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Relationship"
+              },
+              "token_cost": {
+                "minimum": 0,
+                "title": "Token Cost",
+                "type": "integer"
+              },
+              "status": {
+                "enum": [
+                  "selected",
+                  "omitted",
+                  "truncated",
+                  "referenced"
+                ],
+                "title": "Status",
+                "type": "string"
+              },
+              "omission_reason": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Omission Reason"
+              }
+            },
+            "required": [
+              "path",
+              "priority",
+              "reason",
+              "token_cost",
+              "status"
+            ],
+            "title": "Selection",
+            "type": "object"
+          }
+        },
+        "additionalProperties": true,
+        "properties": {
+          "operation": {
+            "enum": [
+              "map",
+              "search",
+              "dependencies",
+              "expand",
+              "pack",
+              "inspect"
+            ],
+            "title": "Operation",
+            "type": "string"
+          },
+          "context": {
+            "title": "Context",
+            "type": "string"
+          },
+          "metrics": {
+            "$ref": "#/$defs/Metrics"
+          },
+          "included_files": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Included Files",
+            "type": "array"
+          },
+          "omitted_files": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Omitted Files",
+            "type": "array"
+          },
+          "truncated_files": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Truncated Files",
+            "type": "array"
+          },
+          "sources": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Sources",
+            "type": "array"
+          },
+          "selection": {
+            "items": {
+              "$ref": "#/$defs/Selection"
+            },
+            "title": "Selection",
+            "type": "array"
+          },
+          "relationships": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Relationships",
+            "type": "array"
+          },
+          "steps": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Steps",
+            "type": "array"
+          },
+          "trace_id": {
+            "title": "Trace Id",
+            "type": "string"
+          },
+          "otel_trace_id": {
+            "title": "Otel Trace Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "operation",
+          "context",
+          "metrics",
+          "included_files",
+          "omitted_files",
+          "trace_id",
+          "otel_trace_id"
+        ],
+        "title": "ContextResponse",
+        "type": "object"
+      }
+    },
+    {
+      "name": "conceptualize_dependencies",
+      "description": "Use when relationship information specifically is needed. LEVEL 2: inspect before modifying a file, module, directory or symbol to inspect signatures, direct imports, consumers and related tests without implementation bodies. Local imports are resolved structurally; heuristic relationships are explicitly marked. Follow discovered paths with expand or pack.",
+      "inputSchema": {
+        "properties": {
+          "target": {
+            "title": "Target",
+            "type": "string"
+          },
+          "token_budget": {
+            "default": 3000,
+            "title": "Token Budget",
+            "type": "integer"
+          },
+          "force_refresh": {
+            "default": false,
+            "title": "Force Refresh",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "target"
+        ],
+        "title": "conceptualize_dependenciesArguments",
+        "type": "object"
+      },
+      "outputSchema": {
+        "$defs": {
+          "Metrics": {
+            "additionalProperties": true,
+            "properties": {
+              "candidate_tokens": {
+                "minimum": 0,
+                "title": "Candidate Tokens",
+                "type": "integer"
+              },
+              "returned_tokens": {
+                "minimum": 0,
+                "title": "Returned Tokens",
+                "type": "integer"
+              },
+              "token_budget": {
+                "maximum": 64000,
+                "minimum": 1,
+                "title": "Token Budget",
+                "type": "integer"
+              },
+              "latency_ms": {
+                "default": 0,
+                "minimum": 0,
+                "title": "Latency Ms",
+                "type": "integer"
+              },
+              "cache_hit": {
+                "default": false,
+                "title": "Cache Hit",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "candidate_tokens",
+              "returned_tokens",
+              "token_budget"
+            ],
+            "title": "Metrics",
+            "type": "object"
+          },
+          "Selection": {
+            "additionalProperties": true,
+            "properties": {
+              "path": {
+                "title": "Path",
+                "type": "string"
+              },
+              "priority": {
+                "minimum": 0,
+                "title": "Priority",
+                "type": "integer"
+              },
+              "reason": {
+                "title": "Reason",
+                "type": "string"
+              },
+              "relationship": {
+                "anyOf": [
+                  {
+                    "additionalProperties": true,
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Relationship"
+              },
+              "token_cost": {
+                "minimum": 0,
+                "title": "Token Cost",
+                "type": "integer"
+              },
+              "status": {
+                "enum": [
+                  "selected",
+                  "omitted",
+                  "truncated",
+                  "referenced"
+                ],
+                "title": "Status",
+                "type": "string"
+              },
+              "omission_reason": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Omission Reason"
+              }
+            },
+            "required": [
+              "path",
+              "priority",
+              "reason",
+              "token_cost",
+              "status"
+            ],
+            "title": "Selection",
+            "type": "object"
+          }
+        },
+        "additionalProperties": true,
+        "properties": {
+          "operation": {
+            "enum": [
+              "map",
+              "search",
+              "dependencies",
+              "expand",
+              "pack",
+              "inspect"
+            ],
+            "title": "Operation",
+            "type": "string"
+          },
+          "context": {
+            "title": "Context",
+            "type": "string"
+          },
+          "metrics": {
+            "$ref": "#/$defs/Metrics"
+          },
+          "included_files": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Included Files",
+            "type": "array"
+          },
+          "omitted_files": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Omitted Files",
+            "type": "array"
+          },
+          "truncated_files": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Truncated Files",
+            "type": "array"
+          },
+          "sources": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Sources",
+            "type": "array"
+          },
+          "selection": {
+            "items": {
+              "$ref": "#/$defs/Selection"
+            },
+            "title": "Selection",
+            "type": "array"
+          },
+          "relationships": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Relationships",
+            "type": "array"
+          },
+          "steps": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Steps",
+            "type": "array"
+          },
+          "trace_id": {
+            "title": "Trace Id",
+            "type": "string"
+          },
+          "otel_trace_id": {
+            "title": "Otel Trace Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "operation",
+          "context",
+          "metrics",
+          "included_files",
+          "omitted_files",
+          "trace_id",
+          "otel_trace_id"
+        ],
+        "title": "ContextResponse",
+        "type": "object"
+      }
+    },
+    {
+      "name": "conceptualize_expand",
+      "description": "Progressive disclosure of a precise file or path::symbol:line. Choose level=\"structure\" for LEVEL 2 signatures/relations without bodies; default level=\"source\" is LEVEL 3 implementation for explicitly targeted entities only. Previous unchanged source ranges are referenced; missing ranges are delivered as deltas. If previous context is unavailable in your host conversation, request force_refresh=True for correctness.",
+      "inputSchema": {
+        "properties": {
+          "target": {
+            "title": "Target",
+            "type": "string"
+          },
+          "token_budget": {
+            "default": 4000,
+            "title": "Token Budget",
+            "type": "integer"
+          },
+          "level": {
+            "default": "source",
+            "title": "Level",
+            "type": "string"
+          },
+          "force_refresh": {
+            "default": false,
+            "title": "Force Refresh",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "target"
+        ],
+        "title": "conceptualize_expandArguments",
+        "type": "object"
+      },
+      "outputSchema": {
+        "$defs": {
+          "Metrics": {
+            "additionalProperties": true,
+            "properties": {
+              "candidate_tokens": {
+                "minimum": 0,
+                "title": "Candidate Tokens",
+                "type": "integer"
+              },
+              "returned_tokens": {
+                "minimum": 0,
+                "title": "Returned Tokens",
+                "type": "integer"
+              },
+              "token_budget": {
+                "maximum": 64000,
+                "minimum": 1,
+                "title": "Token Budget",
+                "type": "integer"
+              },
+              "latency_ms": {
+                "default": 0,
+                "minimum": 0,
+                "title": "Latency Ms",
+                "type": "integer"
+              },
+              "cache_hit": {
+                "default": false,
+                "title": "Cache Hit",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "candidate_tokens",
+              "returned_tokens",
+              "token_budget"
+            ],
+            "title": "Metrics",
+            "type": "object"
+          },
+          "Selection": {
+            "additionalProperties": true,
+            "properties": {
+              "path": {
+                "title": "Path",
+                "type": "string"
+              },
+              "priority": {
+                "minimum": 0,
+                "title": "Priority",
+                "type": "integer"
+              },
+              "reason": {
+                "title": "Reason",
+                "type": "string"
+              },
+              "relationship": {
+                "anyOf": [
+                  {
+                    "additionalProperties": true,
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Relationship"
+              },
+              "token_cost": {
+                "minimum": 0,
+                "title": "Token Cost",
+                "type": "integer"
+              },
+              "status": {
+                "enum": [
+                  "selected",
+                  "omitted",
+                  "truncated",
+                  "referenced"
+                ],
+                "title": "Status",
+                "type": "string"
+              },
+              "omission_reason": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Omission Reason"
+              }
+            },
+            "required": [
+              "path",
+              "priority",
+              "reason",
+              "token_cost",
+              "status"
+            ],
+            "title": "Selection",
+            "type": "object"
+          }
+        },
+        "additionalProperties": true,
+        "properties": {
+          "operation": {
+            "enum": [
+              "map",
+              "search",
+              "dependencies",
+              "expand",
+              "pack",
+              "inspect"
+            ],
+            "title": "Operation",
+            "type": "string"
+          },
+          "context": {
+            "title": "Context",
+            "type": "string"
+          },
+          "metrics": {
+            "$ref": "#/$defs/Metrics"
+          },
+          "included_files": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Included Files",
+            "type": "array"
+          },
+          "omitted_files": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Omitted Files",
+            "type": "array"
+          },
+          "truncated_files": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Truncated Files",
+            "type": "array"
+          },
+          "sources": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Sources",
+            "type": "array"
+          },
+          "selection": {
+            "items": {
+              "$ref": "#/$defs/Selection"
+            },
+            "title": "Selection",
+            "type": "array"
+          },
+          "relationships": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Relationships",
+            "type": "array"
+          },
+          "steps": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Steps",
+            "type": "array"
+          },
+          "trace_id": {
+            "title": "Trace Id",
+            "type": "string"
+          },
+          "otel_trace_id": {
+            "title": "Otel Trace Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "operation",
+          "context",
+          "metrics",
+          "included_files",
+          "omitted_files",
+          "trace_id",
+          "otel_trace_id"
+        ],
+        "title": "ContextResponse",
+        "type": "object"
+      }
+    },
+    {
+      "name": "conceptualize_pack",
+      "description": "Use when enough relevant entities are known and bounded source is still missing; do not pack after sufficient source. LEVEL 4: before implementing a repository change, assemble bounded source context from discovered file paths, directories, names or path::symbol:line IDs. Deterministic priority is explicit entities, imported symbol files, dependencies, consumers, tests, current changes, observed Git cochanges and nearby paths. Consumers and tests are included by default; disable them only when deliberately narrowing scope. Returns configurable additive structural scores, reasons, graph distances, selected/omitted/referenced candidates and delta metrics. Already delivered unchanged source is referenced instead of re-sent; force_refresh is available when required for correctness. Weights are integer structural-policy settings, not learned ranking. Budget measures compiled context; structured metadata adds protocol overhead. Fewer tokens are not inherently better.",
+      "inputSchema": {
+        "properties": {
+          "paths": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Paths",
+            "type": "array"
+          },
+          "token_budget": {
+            "default": 8000,
+            "title": "Token Budget",
+            "type": "integer"
+          },
+          "include_dependencies": {
+            "default": true,
+            "title": "Include Dependencies",
+            "type": "boolean"
+          },
+          "include_tests": {
+            "default": true,
+            "title": "Include Tests",
+            "type": "boolean"
+          },
+          "include_consumers": {
+            "default": true,
+            "title": "Include Consumers",
+            "type": "boolean"
+          },
+          "force_refresh": {
+            "default": false,
+            "title": "Force Refresh",
+            "type": "boolean"
+          },
+          "score_weights": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "integer"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Score Weights"
+          }
+        },
+        "required": [
+          "paths"
+        ],
+        "title": "conceptualize_packArguments",
+        "type": "object"
+      },
+      "outputSchema": {
+        "$defs": {
+          "Metrics": {
+            "additionalProperties": true,
+            "properties": {
+              "candidate_tokens": {
+                "minimum": 0,
+                "title": "Candidate Tokens",
+                "type": "integer"
+              },
+              "returned_tokens": {
+                "minimum": 0,
+                "title": "Returned Tokens",
+                "type": "integer"
+              },
+              "token_budget": {
+                "maximum": 64000,
+                "minimum": 1,
+                "title": "Token Budget",
+                "type": "integer"
+              },
+              "latency_ms": {
+                "default": 0,
+                "minimum": 0,
+                "title": "Latency Ms",
+                "type": "integer"
+              },
+              "cache_hit": {
+                "default": false,
+                "title": "Cache Hit",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "candidate_tokens",
+              "returned_tokens",
+              "token_budget"
+            ],
+            "title": "Metrics",
+            "type": "object"
+          },
+          "Selection": {
+            "additionalProperties": true,
+            "properties": {
+              "path": {
+                "title": "Path",
+                "type": "string"
+              },
+              "priority": {
+                "minimum": 0,
+                "title": "Priority",
+                "type": "integer"
+              },
+              "reason": {
+                "title": "Reason",
+                "type": "string"
+              },
+              "relationship": {
+                "anyOf": [
+                  {
+                    "additionalProperties": true,
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Relationship"
+              },
+              "token_cost": {
+                "minimum": 0,
+                "title": "Token Cost",
+                "type": "integer"
+              },
+              "status": {
+                "enum": [
+                  "selected",
+                  "omitted",
+                  "truncated",
+                  "referenced"
+                ],
+                "title": "Status",
+                "type": "string"
+              },
+              "omission_reason": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Omission Reason"
+              }
+            },
+            "required": [
+              "path",
+              "priority",
+              "reason",
+              "token_cost",
+              "status"
+            ],
+            "title": "Selection",
+            "type": "object"
+          }
+        },
+        "additionalProperties": true,
+        "properties": {
+          "operation": {
+            "enum": [
+              "map",
+              "search",
+              "dependencies",
+              "expand",
+              "pack",
+              "inspect"
+            ],
+            "title": "Operation",
+            "type": "string"
+          },
+          "context": {
+            "title": "Context",
+            "type": "string"
+          },
+          "metrics": {
+            "$ref": "#/$defs/Metrics"
+          },
+          "included_files": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Included Files",
+            "type": "array"
+          },
+          "omitted_files": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Omitted Files",
+            "type": "array"
+          },
+          "truncated_files": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Truncated Files",
+            "type": "array"
+          },
+          "sources": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Sources",
+            "type": "array"
+          },
+          "selection": {
+            "items": {
+              "$ref": "#/$defs/Selection"
+            },
+            "title": "Selection",
+            "type": "array"
+          },
+          "relationships": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Relationships",
+            "type": "array"
+          },
+          "steps": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Steps",
+            "type": "array"
+          },
+          "trace_id": {
+            "title": "Trace Id",
+            "type": "string"
+          },
+          "otel_trace_id": {
+            "title": "Otel Trace Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "operation",
+          "context",
+          "metrics",
+          "included_files",
+          "omitted_files",
+          "trace_id",
+          "otel_trace_id"
+        ],
+        "title": "ContextResponse",
+        "type": "object"
+      }
+    },
+    {
+      "name": "conceptualize_inspect",
+      "description": "Use around a particular file, directory, symbol or lexical query when compact surroundings help. One call returns a cost manifest, bounded signatures/relationships and highest-priority source fitting the remaining budget. Depth is 0..3. Set manifest_only to inspect cost/structure before accepting source. Dependency, consumer, test and Git flags control graph traversal. Stable context IDs and stale-unit notices support session reuse. This is structural, not semantic reasoning; stop when the answer already suffices rather than chaining every tool.",
+      "inputSchema": {
+        "properties": {
+          "target": {
+            "title": "Target",
+            "type": "string"
+          },
+          "depth": {
+            "default": 1,
+            "title": "Depth",
+            "type": "integer"
+          },
+          "include_dependencies": {
+            "default": true,
+            "title": "Include Dependencies",
+            "type": "boolean"
+          },
+          "include_consumers": {
+            "default": true,
+            "title": "Include Consumers",
+            "type": "boolean"
+          },
+          "include_tests": {
+            "default": true,
+            "title": "Include Tests",
+            "type": "boolean"
+          },
+          "include_git": {
+            "default": true,
+            "title": "Include Git",
+            "type": "boolean"
+          },
+          "token_budget": {
+            "default": 4000,
+            "title": "Token Budget",
+            "type": "integer"
+          },
+          "manifest_only": {
+            "default": false,
+            "title": "Manifest Only",
+            "type": "boolean"
+          },
+          "force_refresh": {
+            "default": false,
+            "title": "Force Refresh",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "target"
+        ],
+        "title": "conceptualize_inspectArguments",
+        "type": "object"
+      },
+      "outputSchema": {
+        "$defs": {
+          "Metrics": {
+            "additionalProperties": true,
+            "properties": {
+              "candidate_tokens": {
+                "minimum": 0,
+                "title": "Candidate Tokens",
+                "type": "integer"
+              },
+              "returned_tokens": {
+                "minimum": 0,
+                "title": "Returned Tokens",
+                "type": "integer"
+              },
+              "token_budget": {
+                "maximum": 64000,
+                "minimum": 1,
+                "title": "Token Budget",
+                "type": "integer"
+              },
+              "latency_ms": {
+                "default": 0,
+                "minimum": 0,
+                "title": "Latency Ms",
+                "type": "integer"
+              },
+              "cache_hit": {
+                "default": false,
+                "title": "Cache Hit",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "candidate_tokens",
+              "returned_tokens",
+              "token_budget"
+            ],
+            "title": "Metrics",
+            "type": "object"
+          },
+          "Selection": {
+            "additionalProperties": true,
+            "properties": {
+              "path": {
+                "title": "Path",
+                "type": "string"
+              },
+              "priority": {
+                "minimum": 0,
+                "title": "Priority",
+                "type": "integer"
+              },
+              "reason": {
+                "title": "Reason",
+                "type": "string"
+              },
+              "relationship": {
+                "anyOf": [
+                  {
+                    "additionalProperties": true,
+                    "type": "object"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Relationship"
+              },
+              "token_cost": {
+                "minimum": 0,
+                "title": "Token Cost",
+                "type": "integer"
+              },
+              "status": {
+                "enum": [
+                  "selected",
+                  "omitted",
+                  "truncated",
+                  "referenced"
+                ],
+                "title": "Status",
+                "type": "string"
+              },
+              "omission_reason": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "default": null,
+                "title": "Omission Reason"
+              }
+            },
+            "required": [
+              "path",
+              "priority",
+              "reason",
+              "token_cost",
+              "status"
+            ],
+            "title": "Selection",
+            "type": "object"
+          }
+        },
+        "additionalProperties": true,
+        "properties": {
+          "operation": {
+            "enum": [
+              "map",
+              "search",
+              "dependencies",
+              "expand",
+              "pack",
+              "inspect"
+            ],
+            "title": "Operation",
+            "type": "string"
+          },
+          "context": {
+            "title": "Context",
+            "type": "string"
+          },
+          "metrics": {
+            "$ref": "#/$defs/Metrics"
+          },
+          "included_files": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Included Files",
+            "type": "array"
+          },
+          "omitted_files": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Omitted Files",
+            "type": "array"
+          },
+          "truncated_files": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Truncated Files",
+            "type": "array"
+          },
+          "sources": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Sources",
+            "type": "array"
+          },
+          "selection": {
+            "items": {
+              "$ref": "#/$defs/Selection"
+            },
+            "title": "Selection",
+            "type": "array"
+          },
+          "relationships": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Relationships",
+            "type": "array"
+          },
+          "steps": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "title": "Steps",
+            "type": "array"
+          },
+          "trace_id": {
+            "title": "Trace Id",
+            "type": "string"
+          },
+          "otel_trace_id": {
+            "title": "Otel Trace Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "operation",
+          "context",
+          "metrics",
+          "included_files",
+          "omitted_files",
+          "trace_id",
+          "otel_trace_id"
+        ],
+        "title": "ContextResponse",
+        "type": "object"
+      }
+    }
+  ],
+  "resources": {
+    "resources": []
+  },
+  "resource_templates": {
+    "resourceTemplates": []
+  },
+  "startup_and_initialize_ms": 2666.835699987132,
+  "discovery_complete_ms": 2679.480999999214,
+  "registration": {
+    "command": "C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\.venv\\Scripts\\python.exe",
+    "args": [
+      "-m",
+      "conceptualize_mcp.server"
+    ],
+    "api_url": "http://127.0.0.1:8029",
+    "credential": "environment variable; value not recorded"
+  },
+  "profile": {
+    "tools": 6,
+    "description_characters": 2904,
+    "schema_bytes": 17078,
+    "tool_listing_bytes": 20349,
+    "initialization_bytes": 834,
+    "model_visible_tokens": null,
+    "scope": "JSON serialization measurements; host prompt packing/token causality unavailable."
+  }
+}

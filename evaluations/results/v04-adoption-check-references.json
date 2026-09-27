@@ -1,0 +1,32 @@
+[
+  {
+    "task": "delivery-contract",
+    "reference_check_exit": 0,
+    "output": ".......                                                                  [100%]\n7 passed in 1.06s\n"
+  },
+  {
+    "task": "unicode-identity",
+    "reference_check_exit": 0,
+    "output": ".......                                                                  [100%]\n7 passed in 1.04s\n"
+  },
+  {
+    "task": "batch-contract",
+    "reference_check_exit": 0,
+    "output": ".......                                                                  [100%]\n7 passed in 1.05s\n"
+  },
+  {
+    "task": "retry-interface",
+    "reference_check_exit": 0,
+    "output": ".......                                                                  [100%]\n7 passed in 1.10s\n"
+  },
+  {
+    "task": "record-schema",
+    "reference_check_exit": 0,
+    "output": ".......                                                                  [100%]\n7 passed in 1.02s\n"
+  },
+  {
+    "task": "route-normalization",
+    "reference_check_exit": 0,
+    "output": ".......                                                                  [100%]\n7 passed in 0.99s\n"
+  }
+]

@@ -67,7 +67,14 @@ def execute(repo, destination, prompt, codex, model, api_url, key=None, timeout=
             pass
     timeline = [json.loads(line) for line in (destination / "event-timeline.jsonl").read_text().splitlines()]
     first = next((i for i, e in enumerate(events) if e.get("item", {}).get("type") == "agent_message"), None)
-    result = {"exit_code": exit_code, "elapsed_seconds": round(perf_counter() - started, 3),
+    stderr = (destination / "agent-stderr.txt").read_text(encoding="utf-8")
+    failure_signals = {
+        "account_usage_limit": "hit your usage limit" in stderr or any("hit your usage limit" in str(e) for e in events),
+        "provider_interruptions_observed": any(x in stderr for x in ("workspace routing discovery failed", "No such host is known", "Connection failed: error sending request")),
+        "required_mcp_startup_failed": "required MCP servers failed to initialize: conceptualize" in stderr,
+        "timeout": exit_code == 124,
+    }
+    result = {"failure_signals": failure_signals, "host_retry_count": None, "exit_code": exit_code, "elapsed_seconds": round(perf_counter() - started, 3),
               "first_model_message_arrival_ms": timeline[first]["arrival_elapsed_ms"] if first is not None else None,
               "model": model, **event_metrics(events),
               "startup_time_ms": None, "mcp_initialization_time_ms": None,

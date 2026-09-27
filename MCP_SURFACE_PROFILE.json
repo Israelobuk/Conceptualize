@@ -18,5 +18,16 @@
     "scope": "JSON serialization measurements; host prompt packing/token causality unavailable."
   },
   "host_prompt_token_effect": null,
-  "scope": "SDK serialization; host reachability captured separately"
+  "scope": "SDK serialization; host reachability captured separately",
+  "actual_inspect_result": {
+    "host_event_result_bytes": 4614,
+    "structured_payload_bytes": 2210,
+    "text_payload_bytes": 2210,
+    "full_api_trace_bytes": 14146,
+    "full_api_result_bytes": 13460,
+    "candidate_metadata_in_agent": false,
+    "source_content_in_text_and_structured": true,
+    "host_consumes_both_copies": null,
+    "trace_id": "68ed1abf-d84c-4d2f-b324-815884a24d63"
+  }
 }

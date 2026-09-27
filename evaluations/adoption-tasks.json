@@ -1,0 +1,68 @@
+[
+  {
+    "id": "delivery-contract",
+    "category": "shared-contract",
+    "prompt": "Change Delivery to expose byte_count instead of size. Keep submitted billing dictionaries compatible, reject negative or non-integer byte counts, and update affected tests.",
+    "relevant_files": [
+      "relay/contracts.py",
+      "relay/publish.py",
+      "relay/accounting.py",
+      "relay/gateway.py"
+    ],
+    "check": "delivery-contract.py"
+  },
+  {
+    "id": "unicode-identity",
+    "category": "hidden-consumer",
+    "prompt": "Account names must use whitespace-trimmed Unicode casefold identity rather than lowercase. Preserve account lookup and all derived account identifiers; add regression coverage.",
+    "relevant_files": [
+      "relay/names.py",
+      "relay/directory.py",
+      "relay/ledger.py"
+    ],
+    "check": "unicode-identity.py"
+  },
+  {
+    "id": "batch-contract",
+    "category": "configuration",
+    "prompt": "Replace the scalar batch setting with a frozen BatchPolicy record exposing maximum=25. Startup options and batch admission must use that shared policy. Reject boolean, zero, negative and out-of-range counts; preserve valid integer admission.",
+    "relevant_files": [
+      "relay/settings.py",
+      "relay/bootstrap.py",
+      "relay/admission.py"
+    ],
+    "check": "batch-contract.py"
+  },
+  {
+    "id": "retry-interface",
+    "category": "indirect-interface",
+    "prompt": "Notification delivery must attempt transient TimeoutError failures at most three times, return successful values unchanged, and propagate other exceptions immediately. Put retry policy in one shared place and add tests through the public notification entry point.",
+    "relevant_files": [
+      "relay/retry.py",
+      "relay/dispatch.py",
+      "relay/adapter.py"
+    ],
+    "check": "retry-interface.py"
+  },
+  {
+    "id": "record-schema",
+    "category": "persistence",
+    "prompt": "New stored account records must use a version 2 schema with id, version=2 and state=\"enabled\" or \"disabled\", replacing active. Reading existing unversioned active records must remain compatible. Preserve public load tuples and reporting behavior; reject unsupported versions or states.",
+    "relevant_files": [
+      "relay/records.py",
+      "relay/store.py",
+      "relay/reporting.py"
+    ],
+    "check": "record-schema.py"
+  },
+  {
+    "id": "route-normalization",
+    "category": "noncolocated-test",
+    "prompt": "Message route labels must contain only lowercase ASCII letters and digits separated by single dashes. Collapse repeated separators and remove leading/trailing separators; reject labels that become empty. Preserve ordinary routes and add regression tests.",
+    "relevant_files": [
+      "relay/labels.py",
+      "relay/routes.py"
+    ],
+    "check": "route-normalization.py"
+  }
+]

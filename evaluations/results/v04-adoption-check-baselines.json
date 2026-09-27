@@ -1,0 +1,38 @@
+[
+  {
+    "task": "delivery-contract",
+    "baseline_check_exit": 1,
+    "rejects_unchanged_fixture": true,
+    "output": "F                                                                        [100%]\n================================== FAILURES ===================================\n________________________________ test_contract ________________________________\n\n    def test_contract():\n>       assert Delivery(\"x\", 12).byte_count == 12\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE       AttributeError: 'Delivery' object has no attribute 'byte_count'\n\nevaluations\\adoption-checks\\delivery-contract.py:6: AttributeError\n=========================== short test summary info ===========================\nFAILED evaluations/adoption-checks/delivery-contract.py::test_contract - Attr...\n1 failed in 0.50s\n"
+  },
+  {
+    "task": "unicode-identity",
+    "baseline_check_exit": 1,
+    "rejects_unchanged_fixture": true,
+    "output": "F                                                                        [100%]\n================================== FAILURES ===================================\n________________________________ test_identity ________________________________\n\n    def test_identity():\n>       assert lookup(\" STRA\\u1e9eE \", {\"strasse\": 7}) == 7\nE       AssertionError: assert None == 7\nE        +  where None = lookup(' STRA\\u1e9eE ', {'strasse': 7})\n\nevaluations\\adoption-checks\\unicode-identity.py:4: AssertionError\n=========================== short test summary info ===========================\nFAILED evaluations/adoption-checks/unicode-identity.py::test_identity - Asser...\n1 failed in 0.51s\n"
+  },
+  {
+    "task": "batch-contract",
+    "baseline_check_exit": 2,
+    "rejects_unchanged_fixture": true,
+    "output": "\n=================================== ERRORS ====================================\n_______ ERROR collecting evaluations/adoption-checks/batch-contract.py ________\nImportError while importing test module 'C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\evaluations\\adoption-checks\\batch-contract.py'.\nHint: make sure your test modules/packages have valid Python names.\nTraceback:\nevaluations\\adoption-checks\\batch-contract.py:1: in <module>\n    from relay.settings import BatchPolicy\nE   ImportError: cannot import name 'BatchPolicy' from 'relay.settings' (C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\evaluations\\adoption-fixture\\relay\\settings.py)\n=========================== short test summary info ===========================\nERROR evaluations/adoption-checks/batch-contract.py\n!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\n1 error in 0.62s\n"
+  },
+  {
+    "task": "retry-interface",
+    "baseline_check_exit": 1,
+    "rejects_unchanged_fixture": true,
+    "output": "F                                                                        [100%]\n================================== FAILURES ===================================\n_________________________________ test_retry __________________________________\n\n    def test_retry():\n        calls=[]\n        def attempt():\n            calls.append(1)\n            if len(calls)<3: raise TimeoutError()\n            return \"ok\"\n>       assert send_notification(attempt)==\"ok\" and len(calls)==3\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^\n\nevaluations\\adoption-checks\\retry-interface.py:9: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\nevaluations\\adoption-fixture\\relay\\adapter.py:3: in send_notification\n    return dispatch(attempt)\n           ^^^^^^^^^^^^^^^^^\nevaluations\\adoption-fixture\\relay\\dispatch.py:3: in dispatch\n    return run(attempt)\n           ^^^^^^^^^^^^\nevaluations\\adoption-fixture\\relay\\retry.py:4: in run\n    return attempt()\n           ^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _\n\n    def attempt():\n        calls.append(1)\n>       if len(calls)<3: raise TimeoutError()\n                         ^^^^^^^^^^^^^^^^^^^^\nE       TimeoutError\n\nevaluations\\adoption-checks\\retry-interface.py:7: TimeoutError\n=========================== short test summary info ===========================\nFAILED evaluations/adoption-checks/retry-interface.py::test_retry - TimeoutError\n1 failed in 0.52s\n"
+  },
+  {
+    "task": "record-schema",
+    "baseline_check_exit": 1,
+    "rejects_unchanged_fixture": true,
+    "output": "F                                                                        [100%]\n================================== FAILURES ===================================\n_________________________________ test_schema _________________________________\n\n    def test_schema():\n>       assert save(\"x\",True)=={\"id\":\"x\",\"version\":2,\"state\":\"enabled\"}\nE       AssertionError: assert {'active': True, 'id': 'x'} == {'id': 'x', '... 'version': 2}\nE         \nE         Omitting 1 identical items, use -vv to show\nE         Left contains 1 more item:\nE         {'active': True}\nE         Right contains 2 more items:\nE         {'state': 'enabled', 'version': 2}\nE         Use -v to get more diff\n\nevaluations\\adoption-checks\\record-schema.py:5: AssertionError\n=========================== short test summary info ===========================\nFAILED evaluations/adoption-checks/record-schema.py::test_schema - AssertionE...\n1 failed in 0.49s\n"
+  },
+  {
+    "task": "route-normalization",
+    "baseline_check_exit": 1,
+    "rejects_unchanged_fixture": true,
+    "output": "F                                                                        [100%]\n================================== FAILURES ===================================\n_________________________________ test_routes _________________________________\n\n    def test_routes():\n>       assert route(\" --Hello__ WORLD!! \")==\"/messages/hello-world\"\nE       AssertionError: assert '/messages/--hello__-world!!' == '/messages/hello-world'\nE         \nE         - /messages/hello-world\nE         + /messages/--hello__-world!!\nE         ?           ++     ++      ++\n\nevaluations\\adoption-checks\\route-normalization.py:4: AssertionError\n=========================== short test summary info ===========================\nFAILED evaluations/adoption-checks/route-normalization.py::test_routes - Asse...\n1 failed in 0.54s\n"
+  }
+]

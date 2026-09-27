@@ -8,6 +8,17 @@ from pathlib import Path
 from mcp import ClientSession, StdioServerParameters
 from mcp.client.stdio import stdio_client
 
+EXPECTED_TOOLS = frozenset(
+    {
+        "conceptualize_map",
+        "conceptualize_search",
+        "conceptualize_dependencies",
+        "conceptualize_expand",
+        "conceptualize_pack",
+        "conceptualize_inspect",
+    }
+)
+
 
 async def verify(command: str, url: str) -> dict:
     params = StdioServerParameters(
@@ -19,17 +30,14 @@ async def verify(command: str, url: str) -> dict:
         async with ClientSession(read, write) as session:
             await session.initialize()
             tools = (await session.list_tools()).tools
-            expected = {
-                "conceptualize_" + op for op in ("map", "search", "dependencies", "expand", "pack")
-            }
-            if {t.name for t in tools} != expected:
-                raise ValueError("Server did not expose the five expected tools")
+            if {t.name for t in tools} != EXPECTED_TOOLS:
+                raise ValueError("Server did not expose the six expected tools")
             response = await session.call_tool("conceptualize_map", {"token_budget": 1000})
             if response.isError:
                 raise ValueError("Map failed; verify API, key and indexed project")
             data = response.structuredContent
             return {
-                "tools": sorted(expected),
+                "tools": sorted(EXPECTED_TOOLS),
                 "map_trace_id": data["trace_id"],
                 "indexed_files_returned": data["included_files"],
                 "index": data.get("index"),

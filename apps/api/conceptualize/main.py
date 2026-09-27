@@ -15,6 +15,7 @@ from sqlalchemy.exc import SQLAlchemyError
 
 from .auth import authenticate
 from .cache import cache
+from .config import settings
 from .db import get_db
 from .models import (
     ContextRequest,
@@ -28,7 +29,14 @@ from .service import index_project, project_runtime
 from .telemetry import tracer
 
 log = logging.getLogger(__name__)
-app = FastAPI(title="Conceptualize", version="0.3.0")
+logging.basicConfig(level=getattr(logging, settings.log_level))
+app = FastAPI(
+    title="Conceptualize",
+    version="0.3.0",
+    docs_url="/docs" if settings.app_env == "development" else None,
+    redoc_url="/redoc" if settings.app_env == "development" else None,
+    openapi_url="/openapi.json" if settings.app_env == "development" else None,
+)
 
 
 class OperationInput(BaseModel):
@@ -66,6 +74,11 @@ class OperationInput(BaseModel):
         ):
             raise ValueError("Invalid score weights")
         return self
+
+
+class IndexInput(BaseModel):
+    path: str = Field(min_length=1, max_length=4096)
+    base: str | None = Field(default=None, max_length=200)
 
 
 @app.exception_handler(SQLAlchemyError)
@@ -301,6 +314,19 @@ def overview(project: Project = Depends(authenticate), db=Depends(get_db)):
         "cache_hit_rate": hits / total if total else 0,
         "indexed_at": repo.indexed_at.isoformat() if repo else None,
     }
+
+
+@app.post("/v1/index")
+def index_repository(body: IndexInput, project: Project = Depends(authenticate), db=Depends(get_db)):
+    """Index the local repository selected in the loopback dashboard."""
+    root = Path(body.path).expanduser()
+    try:
+        if not root.is_dir():
+            raise ValueError("Choose an existing local repository directory")
+        return index_project(db, project, root, body.base)
+    except (OSError, ValueError) as exc:
+        db.rollback()
+        raise HTTPException(400, str(exc)) from exc
 
 
 def trace_summary(row: ContextRequest) -> dict:

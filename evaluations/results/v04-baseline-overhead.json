@@ -1,0 +1,357 @@
+{
+  "summary": {
+    "control": {
+      "mean_seconds": 6.766,
+      "median_seconds": 6.5275,
+      "min_seconds": 6.15,
+      "max_seconds": 7.859,
+      "sample_sd_seconds": 0.7573845346541829,
+      "first_message_mean_ms": 4695.1125,
+      "mean_usage": {
+        "input_tokens": 19016,
+        "cached_input_tokens": 10912,
+        "output_tokens": 5
+      }
+    },
+    "connected": {
+      "mean_seconds": 11.14825,
+      "median_seconds": 11.3835,
+      "min_seconds": 9.941,
+      "max_seconds": 11.885,
+      "sample_sd_seconds": 0.8970987961200255,
+      "first_message_mean_ms": 8584.01,
+      "mean_usage": {
+        "input_tokens": 23864,
+        "cached_input_tokens": 14208,
+        "output_tokens": 5
+      }
+    }
+  },
+  "trials": [
+    {
+      "repetition": 0,
+      "mode": "control",
+      "order": [
+        "control",
+        "connected"
+      ],
+      "execution": {
+        "exit_code": 0,
+        "elapsed_seconds": 6.399,
+        "first_model_message_arrival_ms": 4712.025,
+        "model": "gpt-6-sol",
+        "command_executions": 0,
+        "command_evidence": [],
+        "mcp_call_evidence": [],
+        "agent_usage": {
+          "input_tokens": 19016,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 5,
+          "reasoning_output_tokens": 0
+        },
+        "agent_final_message": "42",
+        "files_inspected": null,
+        "unnecessary_repository_reads": null,
+        "corrective_iterations": null,
+        "startup_time_ms": null,
+        "mcp_initialization_time_ms": null,
+        "timing_scope": "CLI arrival timestamps; host does not expose separate initialization/model scheduling timing."
+      },
+      "answer_correct": true,
+      "mcp_calls": 0,
+      "unused_connection": false,
+      "causal_overhead_attribution": null,
+      "provider_interruptions_observed": false,
+      "host_retries": null,
+      "startup_ms": null,
+      "mcp_initialization_ms": null,
+      "tool_listing_bytes": 0
+    },
+    {
+      "repetition": 0,
+      "mode": "connected",
+      "order": [
+        "control",
+        "connected"
+      ],
+      "execution": {
+        "exit_code": 0,
+        "elapsed_seconds": 11.773,
+        "first_model_message_arrival_ms": 8570.287,
+        "model": "gpt-6-sol",
+        "command_executions": 0,
+        "command_evidence": [],
+        "mcp_call_evidence": [],
+        "agent_usage": {
+          "input_tokens": 23864,
+          "cached_input_tokens": 12416,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 5,
+          "reasoning_output_tokens": 0
+        },
+        "agent_final_message": "42",
+        "files_inspected": null,
+        "unnecessary_repository_reads": null,
+        "corrective_iterations": null,
+        "startup_time_ms": null,
+        "mcp_initialization_time_ms": null,
+        "timing_scope": "CLI arrival timestamps; host does not expose separate initialization/model scheduling timing."
+      },
+      "answer_correct": true,
+      "mcp_calls": 0,
+      "unused_connection": true,
+      "causal_overhead_attribution": null,
+      "provider_interruptions_observed": false,
+      "host_retries": null,
+      "startup_ms": null,
+      "mcp_initialization_ms": null,
+      "tool_listing_bytes": 4885
+    },
+    {
+      "repetition": 1,
+      "mode": "connected",
+      "order": [
+        "connected",
+        "control"
+      ],
+      "execution": {
+        "exit_code": 0,
+        "elapsed_seconds": 9.941,
+        "first_model_message_arrival_ms": 8389.611,
+        "model": "gpt-6-sol",
+        "command_executions": 0,
+        "command_evidence": [],
+        "mcp_call_evidence": [],
+        "agent_usage": {
+          "input_tokens": 23864,
+          "cached_input_tokens": 12416,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 5,
+          "reasoning_output_tokens": 0
+        },
+        "agent_final_message": "42",
+        "files_inspected": null,
+        "unnecessary_repository_reads": null,
+        "corrective_iterations": null,
+        "startup_time_ms": null,
+        "mcp_initialization_time_ms": null,
+        "timing_scope": "CLI arrival timestamps; host does not expose separate initialization/model scheduling timing."
+      },
+      "answer_correct": true,
+      "mcp_calls": 0,
+      "unused_connection": true,
+      "causal_overhead_attribution": null,
+      "provider_interruptions_observed": false,
+      "host_retries": null,
+      "startup_ms": null,
+      "mcp_initialization_ms": null,
+      "tool_listing_bytes": 4885
+    },
+    {
+      "repetition": 1,
+      "mode": "control",
+      "order": [
+        "connected",
+        "control"
+      ],
+      "execution": {
+        "exit_code": 0,
+        "elapsed_seconds": 7.859,
+        "first_model_message_arrival_ms": 4624.119,
+        "model": "gpt-6-sol",
+        "command_executions": 0,
+        "command_evidence": [],
+        "mcp_call_evidence": [],
+        "agent_usage": {
+          "input_tokens": 19016,
+          "cached_input_tokens": 12416,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 5,
+          "reasoning_output_tokens": 0
+        },
+        "agent_final_message": "42",
+        "files_inspected": null,
+        "unnecessary_repository_reads": null,
+        "corrective_iterations": null,
+        "startup_time_ms": null,
+        "mcp_initialization_time_ms": null,
+        "timing_scope": "CLI arrival timestamps; host does not expose separate initialization/model scheduling timing."
+      },
+      "answer_correct": true,
+      "mcp_calls": 0,
+      "unused_connection": false,
+      "causal_overhead_attribution": null,
+      "provider_interruptions_observed": false,
+      "host_retries": null,
+      "startup_ms": null,
+      "mcp_initialization_ms": null,
+      "tool_listing_bytes": 0
+    },
+    {
+      "repetition": 2,
+      "mode": "control",
+      "order": [
+        "control",
+        "connected"
+      ],
+      "execution": {
+        "exit_code": 0,
+        "elapsed_seconds": 6.656,
+        "first_model_message_arrival_ms": 4716.676,
+        "model": "gpt-6-sol",
+        "command_executions": 0,
+        "command_evidence": [],
+        "mcp_call_evidence": [],
+        "agent_usage": {
+          "input_tokens": 19016,
+          "cached_input_tokens": 18816,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 5,
+          "reasoning_output_tokens": 0
+        },
+        "agent_final_message": "42",
+        "files_inspected": null,
+        "unnecessary_repository_reads": null,
+        "corrective_iterations": null,
+        "startup_time_ms": null,
+        "mcp_initialization_time_ms": null,
+        "timing_scope": "CLI arrival timestamps; host does not expose separate initialization/model scheduling timing."
+      },
+      "answer_correct": true,
+      "mcp_calls": 0,
+      "unused_connection": false,
+      "causal_overhead_attribution": null,
+      "provider_interruptions_observed": false,
+      "host_retries": null,
+      "startup_ms": null,
+      "mcp_initialization_ms": null,
+      "tool_listing_bytes": 0
+    },
+    {
+      "repetition": 2,
+      "mode": "connected",
+      "order": [
+        "control",
+        "connected"
+      ],
+      "execution": {
+        "exit_code": 0,
+        "elapsed_seconds": 11.885,
+        "first_model_message_arrival_ms": 9139.242,
+        "model": "gpt-6-sol",
+        "command_executions": 0,
+        "command_evidence": [],
+        "mcp_call_evidence": [],
+        "agent_usage": {
+          "input_tokens": 23864,
+          "cached_input_tokens": 23680,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 5,
+          "reasoning_output_tokens": 0
+        },
+        "agent_final_message": "42",
+        "files_inspected": null,
+        "unnecessary_repository_reads": null,
+        "corrective_iterations": null,
+        "startup_time_ms": null,
+        "mcp_initialization_time_ms": null,
+        "timing_scope": "CLI arrival timestamps; host does not expose separate initialization/model scheduling timing."
+      },
+      "answer_correct": true,
+      "mcp_calls": 0,
+      "unused_connection": true,
+      "causal_overhead_attribution": null,
+      "provider_interruptions_observed": false,
+      "host_retries": null,
+      "startup_ms": null,
+      "mcp_initialization_ms": null,
+      "tool_listing_bytes": 4885
+    },
+    {
+      "repetition": 3,
+      "mode": "connected",
+      "order": [
+        "connected",
+        "control"
+      ],
+      "execution": {
+        "exit_code": 0,
+        "elapsed_seconds": 10.994,
+        "first_model_message_arrival_ms": 8236.9,
+        "model": "gpt-6-sol",
+        "command_executions": 0,
+        "command_evidence": [],
+        "mcp_call_evidence": [],
+        "agent_usage": {
+          "input_tokens": 23864,
+          "cached_input_tokens": 8320,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 5,
+          "reasoning_output_tokens": 0
+        },
+        "agent_final_message": "42",
+        "files_inspected": null,
+        "unnecessary_repository_reads": null,
+        "corrective_iterations": null,
+        "startup_time_ms": null,
+        "mcp_initialization_time_ms": null,
+        "timing_scope": "CLI arrival timestamps; host does not expose separate initialization/model scheduling timing."
+      },
+      "answer_correct": true,
+      "mcp_calls": 0,
+      "unused_connection": true,
+      "causal_overhead_attribution": null,
+      "provider_interruptions_observed": false,
+      "host_retries": null,
+      "startup_ms": null,
+      "mcp_initialization_ms": null,
+      "tool_listing_bytes": 4885
+    },
+    {
+      "repetition": 3,
+      "mode": "control",
+      "order": [
+        "connected",
+        "control"
+      ],
+      "execution": {
+        "exit_code": 0,
+        "elapsed_seconds": 6.15,
+        "first_model_message_arrival_ms": 4727.63,
+        "model": "gpt-6-sol",
+        "command_executions": 0,
+        "command_evidence": [],
+        "mcp_call_evidence": [],
+        "agent_usage": {
+          "input_tokens": 19016,
+          "cached_input_tokens": 12416,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 5,
+          "reasoning_output_tokens": 0
+        },
+        "agent_final_message": "42",
+        "files_inspected": null,
+        "unnecessary_repository_reads": null,
+        "corrective_iterations": null,
+        "startup_time_ms": null,
+        "mcp_initialization_time_ms": null,
+        "timing_scope": "CLI arrival timestamps; host does not expose separate initialization/model scheduling timing."
+      },
+      "answer_correct": true,
+      "mcp_calls": 0,
+      "unused_connection": false,
+      "causal_overhead_attribution": null,
+      "provider_interruptions_observed": false,
+      "host_retries": null,
+      "startup_ms": null,
+      "mcp_initialization_ms": null,
+      "tool_listing_bytes": 0
+    }
+  ],
+  "causal_attribution": null,
+  "host_startup_and_initialization": null,
+  "host_retries": null,
+  "observed_input_difference_per_trial": 4848,
+  "input_difference_interpretation": "Consistent with extra host prompt/tool material; exact packing and causality unavailable."
+}

@@ -101,11 +101,13 @@ def index_project(
     return {
         "files": len(files),
         "symbols": sum(len(f["symbols"]) for f in files.values()),
+        "languages": sorted({f["language"] for f in files.values() if f.get("language")}),
         "changed_files": changed,
         "deleted_files": len(removed),
         "revision": project.revision,
         "repository_id": repository.id,
         "git_available": git_info["available"],
+        "git_branch": git_info.get("branch"),
         "index_lookup_ms": scan_ms,
         "git_ms": git_ms,
     }

@@ -1,0 +1,151 @@
+{
+  "stage_samples_ms": {
+    "cache": [
+      205.066,
+      208.377,
+      212.66,
+      210.242,
+      210.877,
+      215.116
+    ],
+    "context_compilation": [
+      17.203,
+      12.966,
+      9.827,
+      12.229,
+      2.419,
+      2.536
+    ],
+    "database_trace_before_commit": [
+      1.608,
+      1.121,
+      1.351,
+      1.401,
+      1.508,
+      1.662
+    ],
+    "graph_build": [
+      3.07,
+      1.901,
+      2.227,
+      3.196,
+      3.746,
+      3.175
+    ],
+    "graph_traversal": [
+      0.863,
+      0.412,
+      0.396,
+      0.639,
+      0.553,
+      0.822
+    ],
+    "inspect_total": [
+      19.058,
+      14.086,
+      10.898,
+      13.724,
+      3.486,
+      4.337
+    ],
+    "overhead_cache_ms": [
+      205.066,
+      208.377,
+      212.66,
+      210.242,
+      210.877,
+      215.116
+    ],
+    "overhead_git_ms": [
+      0.064,
+      0.033,
+      0.065,
+      0.047,
+      0.076,
+      0.076
+    ],
+    "overhead_graph_ms": [
+      3.933,
+      2.313,
+      2.623,
+      3.835,
+      4.299,
+      3.997
+    ],
+    "overhead_index_lookup_ms": [
+      33.234,
+      24.375,
+      28.261,
+      30.688,
+      36.76,
+      31.941
+    ],
+    "overhead_packing_ms": [
+      17.203,
+      12.966,
+      9.827,
+      12.229,
+      2.419,
+      2.536
+    ],
+    "overhead_scoring_ms": [
+      0.992,
+      0.708,
+      0.675,
+      0.856,
+      0.514,
+      0.9789999999999999
+    ],
+    "overhead_total_runtime_ms": [
+      267.87,
+      252.361,
+      257.929,
+      261.709,
+      260.341,
+      259.513
+    ],
+    "overhead_trace_write_ms": [
+      1.608,
+      1.121,
+      1.351,
+      1.401,
+      1.508,
+      1.662
+    ],
+    "scoring": [
+      0.992,
+      0.708,
+      0.675,
+      0.856,
+      0.514,
+      0.9789999999999999
+    ],
+    "snapshot_and_graph": [
+      5.827,
+      3.719,
+      4.059,
+      6.017,
+      6.865,
+      5.121
+    ]
+  },
+  "stage_mean_ms": {
+    "cache": 210.39,
+    "context_compilation": 9.53,
+    "database_trace_before_commit": 1.442,
+    "graph_build": 2.886,
+    "graph_traversal": 0.614,
+    "inspect_total": 10.931,
+    "overhead_cache_ms": 210.39,
+    "overhead_git_ms": 0.06,
+    "overhead_graph_ms": 3.5,
+    "overhead_index_lookup_ms": 30.877,
+    "overhead_packing_ms": 9.53,
+    "overhead_scoring_ms": 0.787,
+    "overhead_total_runtime_ms": 259.954,
+    "overhead_trace_write_ms": 1.442,
+    "scoring": 0.787,
+    "snapshot_and_graph": 5.268
+  },
+  "scope": "Persisted operation stage timings from actual adoption/receipt traces. MCP transport and per-run Git indexing analysis are not separable in these samples."
+}

@@ -1,0 +1,1178 @@
+{
+  "expected_trials": 6,
+  "recorded_trials": 6,
+  "complete": true,
+  "pairs": [
+    {
+      "repetition": 0,
+      "task": "receipts",
+      "comparable": true
+    },
+    {
+      "repetition": 1,
+      "task": "receipts",
+      "comparable": true
+    },
+    {
+      "repetition": 2,
+      "task": "receipts",
+      "comparable": true
+    }
+  ],
+  "trials": [
+    {
+      "manifest": {
+        "schema_version": 1,
+        "task": "receipts",
+        "mode": "control",
+        "repository": "C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\evaluations\\runs\\v04-receipts-repeated\\0-receipts-control\\repository",
+        "baseline": "de7975d1ee253309a001db3bb9ab2e194e061800",
+        "prompt_sha256": "8cc12d2ead7e7cc03c70b17ac68462a28ec3358240644e95d26516459263d43d",
+        "check": "receipts.py",
+        "category": "shared-interface",
+        "suite_sha256": "3dafa744e46105d7c07d0d52ee39793233f3af2c500cd49a07ecb325cb0552b9"
+      },
+      "execution": {
+        "failure_signals": {
+          "account_usage_limit": false,
+          "provider_interruptions_observed": false,
+          "required_mcp_startup_failed": false,
+          "timeout": false
+        },
+        "host_retry_count": null,
+        "exit_code": 0,
+        "elapsed_seconds": 80.731,
+        "first_model_message_arrival_ms": 6858.807,
+        "model": "gpt-6-sol",
+        "command_executions": 6,
+        "command_evidence": [
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"rg --files -g '\"'!*.pyc'\"' -g '\"'!__pycache__'\"' -g '\"'!*lock*'\"'; Get-ChildItem -Path . -Filter AGENTS.md\"",
+            "exit_code": -1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"rg --files -g '\"'!*.pyc'\"' -g '\"'!__pycache__'\"'\"",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-ChildItem -Force -Name; Get-Content shop/contracts.py,shop/checkout.py,shop/orders.py,shop/audit_sink.py,test_shop.py; rg -n 'Receipt|checkout|place_order|\\\\.total|amount_cents' .\"",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command 'Get-Content shop/warehouse.py; git status --short; Get-ChildItem -Path .. -Filter AGENTS.md -Force; Get-ChildItem -Path shop -Filter AGENTS.md -Force'",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command 'git diff --check; git diff --stat'",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"& 'C:\\\\Users\\\\isobu\\\\OneDrive\\\\Desktop\\\\Projects\\\\Conceptualize\\\\.venv\\\\Scripts\\\\python.exe' -m pytest -q\"",
+            "exit_code": 0
+          }
+        ],
+        "mcp_call_evidence": [],
+        "agent_usage": {
+          "input_tokens": 188940,
+          "cached_input_tokens": 168960,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1298,
+          "reasoning_output_tokens": 6
+        },
+        "agent_final_message": "Implemented integer cents for `Receipt`, `checkout`, and `place_order`. Negative and non-integer amounts are rejected; audit summaries remain in dollars.\n\nUpdated tests: **21 passed** using your specified interpreter. `git diff --check` passed.",
+        "files_inspected": null,
+        "unnecessary_repository_reads": null,
+        "corrective_iterations": null,
+        "startup_time_ms": null,
+        "mcp_initialization_time_ms": null,
+        "timing_scope": "CLI arrival timestamps; host does not expose separate initialization/model scheduling timing."
+      },
+      "tests_passed": true,
+      "exploration": {
+        "observed_file_reads": 6,
+        "observed_repeated_reads": 0,
+        "observed_files_inspected": [
+          "shop/audit_sink.py",
+          "shop/checkout.py",
+          "shop/contracts.py",
+          "shop/orders.py",
+          "shop/warehouse.py",
+          "test_shop.py"
+        ],
+        "first_observed_read": {
+          "shop/audit_sink.py": 8,
+          "shop/checkout.py": 8,
+          "shop/contracts.py": 8,
+          "shop/orders.py": 8,
+          "test_shop.py": 8,
+          "shop/warehouse.py": 10
+        },
+        "read_evidence": [
+          {
+            "step": 8,
+            "path": "shop/audit_sink.py",
+            "evidence": "Get-Content shop/contracts.py,shop/checkout.py,shop/orders.py,shop/audit_sink.py,test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 8,
+            "path": "shop/checkout.py",
+            "evidence": "Get-Content shop/contracts.py,shop/checkout.py,shop/orders.py,shop/audit_sink.py,test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 8,
+            "path": "shop/contracts.py",
+            "evidence": "Get-Content shop/contracts.py,shop/checkout.py,shop/orders.py,shop/audit_sink.py,test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 8,
+            "path": "shop/orders.py",
+            "evidence": "Get-Content shop/contracts.py,shop/checkout.py,shop/orders.py,shop/audit_sink.py,test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 8,
+            "path": "test_shop.py",
+            "evidence": "Get-Content shop/contracts.py,shop/checkout.py,shop/orders.py,shop/audit_sink.py,test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 10,
+            "path": "shop/warehouse.py",
+            "evidence": "Get-Content shop/warehouse.py",
+            "confidence": "explicit successful read command; lower bound"
+          }
+        ],
+        "searches": 1,
+        "grep_operations": 0,
+        "directory_listings": 4,
+        "unresolved_read_commands": [],
+        "observed_failed_test_commands": [],
+        "all_file_reads": null,
+        "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+      },
+      "adoption": {
+        "when_invoked_vs_observed_discovery": "unknown",
+        "relationship_discovery": {},
+        "tool_available": false,
+        "tool_invoked": false,
+        "first_operation": null,
+        "when_invoked": "unknown",
+        "useful_relationship_surfaced": null,
+        "relationship_used_in_final_change": null,
+        "required_relationship_paths_surfaced": [],
+        "limits": "Manual discovery uses supported read commands and source-bearing search output as lower bounds; causal use in final changes is not inferred from invocation or passing tests."
+      },
+      "context_tokens": 0,
+      "trace_ids": [],
+      "repetition": 0,
+      "order": [
+        "control",
+        "conceptualize"
+      ],
+      "kind": "receipts",
+      "agent_version": "codex-cli 0.158.0-alpha.2.1",
+      "sandbox_failures_observed": true,
+      "account_limit_observed": false,
+      "mcp_calls": 0,
+      "mcp_result_bytes": 0,
+      "full_trace_bytes": 0,
+      "api_operation_latency_ms": [],
+      "runtime_stage_timings": [],
+      "client_transport_and_host_wait_ms": null,
+      "observed_files_outside_task_oracle": [
+        "shop/audit_sink.py"
+      ],
+      "observed_unnecessary_files": null,
+      "unnecessary_scope": "Outside-oracle files are a descriptive list, not proven unnecessary reads; useful tests and alternative implementations may lie outside the oracle. Actual unnecessary reads remain unknown."
+    },
+    {
+      "manifest": {
+        "schema_version": 1,
+        "task": "receipts",
+        "mode": "conceptualize",
+        "repository": "C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\evaluations\\runs\\v04-receipts-repeated\\0-receipts-conceptualize\\repository",
+        "baseline": "de7975d1ee253309a001db3bb9ab2e194e061800",
+        "prompt_sha256": "8cc12d2ead7e7cc03c70b17ac68462a28ec3358240644e95d26516459263d43d",
+        "check": "receipts.py",
+        "category": "shared-interface",
+        "suite_sha256": "3dafa744e46105d7c07d0d52ee39793233f3af2c500cd49a07ecb325cb0552b9"
+      },
+      "execution": {
+        "failure_signals": {
+          "account_usage_limit": false,
+          "provider_interruptions_observed": false,
+          "required_mcp_startup_failed": false,
+          "timeout": false
+        },
+        "host_retry_count": null,
+        "exit_code": 0,
+        "elapsed_seconds": 97.644,
+        "first_model_message_arrival_ms": 9557.19,
+        "model": "gpt-6-sol",
+        "command_executions": 6,
+        "command_evidence": [
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Location; rg --files -g AGENTS.md -g '*payment*' -g '*checkout*' -g '*order*' -g '*test*' -g pyproject.toml -g README.md; Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/using-superpowers/SKILL.md\"",
+            "exit_code": -1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"rg --files; Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/using-superpowers/SKILL.md; rg -n 'Conceptualize|receipt' C:/Users/isobu/.codex/memories/MEMORY.md\"",
+            "exit_code": 1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command 'Get-ChildItem -Force -Name; Get-Content shop/contracts.py,shop/checkout.py,shop/orders.py,shop/audit_sink.py,test_shop.py; Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/test-driven-development/SKILL.md,C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/verification-before-completion/SKILL.md; git status --short'",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"rg -n 'Receipt|\\\\.total|checkout\\\\(|place_order\\\\(|audit_row|receipt' .; Get-Content shop/warehouse.py; Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/test-driven-development/writing-good-tests.md; Get-ChildItem -Path .. -Filter AGENTS.md -Force\"",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"& 'C:\\\\Users\\\\isobu\\\\OneDrive\\\\Desktop\\\\Projects\\\\Conceptualize\\\\.venv\\\\Scripts\\\\python.exe' -m pytest -q\"",
+            "exit_code": 1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"& 'C:\\\\Users\\\\isobu\\\\OneDrive\\\\Desktop\\\\Projects\\\\Conceptualize\\\\.venv\\\\Scripts\\\\python.exe' -m pytest -q; git diff --check; git diff --stat; git diff\"",
+            "exit_code": 0
+          }
+        ],
+        "mcp_call_evidence": [
+          {
+            "server": "conceptualize",
+            "tool": "conceptualize_inspect",
+            "status": "completed"
+          }
+        ],
+        "agent_usage": {
+          "input_tokens": 297762,
+          "cached_input_tokens": 260608,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1701,
+          "reasoning_output_tokens": 10
+        },
+        "agent_final_message": "Implemented the cents migration:\n\n- `Receipt` exposes `amount_cents` instead of `total`.\n- `checkout` and `place_order` accept integer cents and reject negative amounts and non-integers, including booleans.\n- Audit summaries remain in dollars.\n- Existing tests were updated; unrelated behavior stayed unchanged.\n\nAll **22 tests passed** using the specified Python interpreter. `git diff --check` also passed.",
+        "files_inspected": null,
+        "unnecessary_repository_reads": null,
+        "corrective_iterations": null,
+        "startup_time_ms": null,
+        "mcp_initialization_time_ms": null,
+        "timing_scope": "CLI arrival timestamps; host does not expose separate initialization/model scheduling timing."
+      },
+      "tests_passed": true,
+      "exploration": {
+        "observed_file_reads": 6,
+        "observed_repeated_reads": 0,
+        "observed_files_inspected": [
+          "shop/audit_sink.py",
+          "shop/checkout.py",
+          "shop/contracts.py",
+          "shop/orders.py",
+          "shop/warehouse.py",
+          "test_shop.py"
+        ],
+        "first_observed_read": {
+          "shop/audit_sink.py": 10,
+          "shop/checkout.py": 10,
+          "shop/contracts.py": 10,
+          "shop/orders.py": 10,
+          "test_shop.py": 10,
+          "shop/warehouse.py": 13
+        },
+        "read_evidence": [
+          {
+            "step": 10,
+            "path": "shop/audit_sink.py",
+            "evidence": "Get-Content shop/contracts.py,shop/checkout.py,shop/orders.py,shop/audit_sink.py,test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 10,
+            "path": "shop/checkout.py",
+            "evidence": "Get-Content shop/contracts.py,shop/checkout.py,shop/orders.py,shop/audit_sink.py,test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 10,
+            "path": "shop/contracts.py",
+            "evidence": "Get-Content shop/contracts.py,shop/checkout.py,shop/orders.py,shop/audit_sink.py,test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 10,
+            "path": "shop/orders.py",
+            "evidence": "Get-Content shop/contracts.py,shop/checkout.py,shop/orders.py,shop/audit_sink.py,test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 10,
+            "path": "test_shop.py",
+            "evidence": "Get-Content shop/contracts.py,shop/checkout.py,shop/orders.py,shop/audit_sink.py,test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 13,
+            "path": "shop/warehouse.py",
+            "evidence": "Get-Content shop/warehouse.py",
+            "confidence": "explicit successful read command; lower bound"
+          }
+        ],
+        "searches": 1,
+        "grep_operations": 0,
+        "directory_listings": 2,
+        "unresolved_read_commands": [
+          {
+            "step": 10,
+            "command": "Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/test-driven-development/SKILL.md,C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/verification-before-completion/SKILL.md",
+            "reason": "unresolved literal/variable path"
+          },
+          {
+            "step": 13,
+            "command": "Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/test-driven-development/writing-good-tests.md",
+            "reason": "unresolved literal/variable path"
+          }
+        ],
+        "observed_failed_test_commands": [
+          {
+            "step": 17,
+            "command": "\"C://Users//isobu//.cache//codex-runtimes//codex-primary-runtime//dependencies//native//powershell//pwsh.exe\" -Command \"& 'C://Users//isobu//OneDrive//Desktop//Projects//Conceptualize//.venv//Scripts//python.exe' -m pytest -q\"",
+            "exit_code": 1
+          }
+        ],
+        "all_file_reads": null,
+        "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+      },
+      "adoption": {
+        "when_invoked_vs_observed_discovery": "before observed relevant source evidence",
+        "relationship_discovery": {
+          "shop/contracts.py": {
+            "surfaced_step": 8,
+            "observed_read_step": 10,
+            "observed_source_evidence_step": 10,
+            "relative_to_source_discovery": "before observed source evidence",
+            "when": "before observed read"
+          },
+          "shop/orders.py": {
+            "surfaced_step": 8,
+            "observed_read_step": 10,
+            "observed_source_evidence_step": 10,
+            "relative_to_source_discovery": "before observed source evidence",
+            "when": "before observed read"
+          },
+          "test_shop.py": {
+            "surfaced_step": 8,
+            "observed_read_step": 10,
+            "observed_source_evidence_step": 10,
+            "relative_to_source_discovery": "before observed source evidence",
+            "when": "before observed read"
+          }
+        },
+        "tool_available": true,
+        "tool_invoked": true,
+        "first_operation": "inspect",
+        "when_invoked": "before observed relevant manual read",
+        "useful_relationship_surfaced": true,
+        "relationship_used_in_final_change": null,
+        "required_relationship_paths_surfaced": [
+          "shop/contracts.py",
+          "shop/orders.py",
+          "test_shop.py"
+        ],
+        "limits": "Manual discovery uses supported read commands and source-bearing search output as lower bounds; causal use in final changes is not inferred from invocation or passing tests."
+      },
+      "context_tokens": 591,
+      "trace_ids": [
+        "a5129f86-e1fd-4e62-872c-035ef754015d"
+      ],
+      "repetition": 0,
+      "order": [
+        "control",
+        "conceptualize"
+      ],
+      "kind": "receipts",
+      "agent_version": "codex-cli 0.158.0-alpha.2.1",
+      "sandbox_failures_observed": true,
+      "account_limit_observed": false,
+      "mcp_calls": 1,
+      "mcp_result_bytes": 6731,
+      "full_trace_bytes": 19575,
+      "api_operation_latency_ms": [
+        260
+      ],
+      "runtime_stage_timings": [
+        {
+          "scoring": 0.856,
+          "context_compilation": 12.229,
+          "inspect_total": 13.724,
+          "graph_traversal": 0.639,
+          "snapshot_and_graph": 6.017,
+          "graph_build": 3.196,
+          "cache": 210.242,
+          "database_trace_before_commit": 1.401,
+          "overhead_transport_ms": null,
+          "overhead_index_lookup_ms": 30.688,
+          "overhead_graph_ms": 3.835,
+          "overhead_git_ms": 0.047,
+          "overhead_scoring_ms": 0.856,
+          "overhead_packing_ms": 12.229,
+          "overhead_cache_ms": 210.242,
+          "overhead_trace_write_ms": 1.401,
+          "overhead_total_runtime_ms": 261.709
+        }
+      ],
+      "client_transport_and_host_wait_ms": null,
+      "observed_files_outside_task_oracle": [
+        "shop/audit_sink.py"
+      ],
+      "observed_unnecessary_files": null,
+      "unnecessary_scope": "Outside-oracle files are a descriptive list, not proven unnecessary reads; useful tests and alternative implementations may lie outside the oracle. Actual unnecessary reads remain unknown."
+    },
+    {
+      "manifest": {
+        "schema_version": 1,
+        "task": "receipts",
+        "mode": "conceptualize",
+        "repository": "C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\evaluations\\runs\\v04-receipts-repeated\\1-receipts-conceptualize\\repository",
+        "baseline": "de7975d1ee253309a001db3bb9ab2e194e061800",
+        "prompt_sha256": "8cc12d2ead7e7cc03c70b17ac68462a28ec3358240644e95d26516459263d43d",
+        "check": "receipts.py",
+        "category": "shared-interface",
+        "suite_sha256": "3dafa744e46105d7c07d0d52ee39793233f3af2c500cd49a07ecb325cb0552b9"
+      },
+      "execution": {
+        "failure_signals": {
+          "account_usage_limit": false,
+          "provider_interruptions_observed": false,
+          "required_mcp_startup_failed": false,
+          "timeout": false
+        },
+        "host_retry_count": null,
+        "exit_code": 0,
+        "elapsed_seconds": 101.594,
+        "first_model_message_arrival_ms": 8705.293,
+        "model": "gpt-6-sol",
+        "command_executions": 6,
+        "command_evidence": [
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Location; rg --files -g AGENTS.md -g '*payment*' -g '*checkout*' -g '*order*' -g '*test*' -g pyproject.toml -g README.md; Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/using-superpowers/SKILL.md\"",
+            "exit_code": -1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command 'rg --files'",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content shop/contracts.py,shop/orders.py,test_shop.py; rg -n 'total|checkout|Receipt|place_order|audit_row' .; Get-ChildItem -Force -Name; Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/using-superpowers/SKILL.md\"",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/test-driven-development/SKILL.md,C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/verification-before-completion/SKILL.md; git status --short; rg --files --hidden -g AGENTS.md -g '\"'! .git'\"'\"",
+            "exit_code": 1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"& 'C:/Users/isobu/OneDrive/Desktop/Projects/Conceptualize/.venv/Scripts/python.exe' -m pytest -q\"",
+            "exit_code": 1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"& 'C:/Users/isobu/OneDrive/Desktop/Projects/Conceptualize/.venv/Scripts/python.exe' -m pytest -q; git diff --check; git diff --stat; git diff\"",
+            "exit_code": 0
+          }
+        ],
+        "mcp_call_evidence": [
+          {
+            "server": "conceptualize",
+            "tool": "conceptualize_inspect",
+            "status": "completed"
+          }
+        ],
+        "agent_usage": {
+          "input_tokens": 284470,
+          "cached_input_tokens": 250240,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1533,
+          "reasoning_output_tokens": 10
+        },
+        "agent_final_message": "Implemented integer cents throughout receipts, checkout, and place_order. Negative and non-integer amounts are rejected; audit summaries remain in dollars. Receipt now exposes `amount_cents` instead of `total`.\n\nUpdated tests: **20 passed** using your specified Python interpreter. `git diff --check` passed. Unrelated behavior was left unchanged.",
+        "files_inspected": null,
+        "unnecessary_repository_reads": null,
+        "corrective_iterations": null,
+        "startup_time_ms": null,
+        "mcp_initialization_time_ms": null,
+        "timing_scope": "CLI arrival timestamps; host does not expose separate initialization/model scheduling timing."
+      },
+      "tests_passed": true,
+      "exploration": {
+        "observed_file_reads": 3,
+        "observed_repeated_reads": 0,
+        "observed_files_inspected": [
+          "shop/contracts.py",
+          "shop/orders.py",
+          "test_shop.py"
+        ],
+        "first_observed_read": {
+          "shop/contracts.py": 10,
+          "shop/orders.py": 10,
+          "test_shop.py": 10
+        },
+        "read_evidence": [
+          {
+            "step": 10,
+            "path": "shop/contracts.py",
+            "evidence": "Get-Content shop/contracts.py,shop/orders.py,test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 10,
+            "path": "shop/orders.py",
+            "evidence": "Get-Content shop/contracts.py,shop/orders.py,test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 10,
+            "path": "test_shop.py",
+            "evidence": "Get-Content shop/contracts.py,shop/orders.py,test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          }
+        ],
+        "searches": 1,
+        "grep_operations": 0,
+        "directory_listings": 2,
+        "unresolved_read_commands": [
+          {
+            "step": 10,
+            "command": "Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/using-superpowers/SKILL.md\"",
+            "reason": "unresolved literal/variable path"
+          }
+        ],
+        "observed_failed_test_commands": [
+          {
+            "step": 17,
+            "command": "\"C://Users//isobu//.cache//codex-runtimes//codex-primary-runtime//dependencies//native//powershell//pwsh.exe\" -Command \"& 'C:/Users/isobu/OneDrive/Desktop/Projects/Conceptualize/.venv/Scripts/python.exe' -m pytest -q\"",
+            "exit_code": 1
+          }
+        ],
+        "all_file_reads": null,
+        "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+      },
+      "adoption": {
+        "when_invoked_vs_observed_discovery": "before observed relevant source evidence",
+        "relationship_discovery": {
+          "shop/checkout.py": {
+            "surfaced_step": 8,
+            "observed_read_step": null,
+            "observed_source_evidence_step": 10,
+            "relative_to_source_discovery": "before observed source evidence",
+            "when": "unknown"
+          },
+          "shop/warehouse.py": {
+            "surfaced_step": 8,
+            "observed_read_step": null,
+            "observed_source_evidence_step": 10,
+            "relative_to_source_discovery": "before observed source evidence",
+            "when": "unknown"
+          }
+        },
+        "tool_available": true,
+        "tool_invoked": true,
+        "first_operation": "inspect",
+        "when_invoked": "before observed relevant manual read",
+        "useful_relationship_surfaced": true,
+        "relationship_used_in_final_change": null,
+        "required_relationship_paths_surfaced": [
+          "shop/checkout.py",
+          "shop/warehouse.py"
+        ],
+        "limits": "Manual discovery uses supported read commands and source-bearing search output as lower bounds; causal use in final changes is not inferred from invocation or passing tests."
+      },
+      "context_tokens": 317,
+      "trace_ids": [
+        "b65d6a9c-09cb-48c1-b13e-ce7424764a1b"
+      ],
+      "repetition": 1,
+      "order": [
+        "conceptualize",
+        "control"
+      ],
+      "kind": "receipts",
+      "agent_version": "codex-cli 0.158.0-alpha.2.1",
+      "sandbox_failures_observed": true,
+      "account_limit_observed": false,
+      "mcp_calls": 1,
+      "mcp_result_bytes": 4462,
+      "full_trace_bytes": 14437,
+      "api_operation_latency_ms": [
+        259
+      ],
+      "runtime_stage_timings": [
+        {
+          "scoring": 0.514,
+          "context_compilation": 2.419,
+          "inspect_total": 3.486,
+          "graph_traversal": 0.553,
+          "snapshot_and_graph": 6.865,
+          "graph_build": 3.746,
+          "cache": 210.877,
+          "database_trace_before_commit": 1.508,
+          "overhead_transport_ms": null,
+          "overhead_index_lookup_ms": 36.76,
+          "overhead_graph_ms": 4.299,
+          "overhead_git_ms": 0.076,
+          "overhead_scoring_ms": 0.514,
+          "overhead_packing_ms": 2.419,
+          "overhead_cache_ms": 210.877,
+          "overhead_trace_write_ms": 1.508,
+          "overhead_total_runtime_ms": 260.341
+        }
+      ],
+      "client_transport_and_host_wait_ms": null,
+      "observed_files_outside_task_oracle": [],
+      "observed_unnecessary_files": null,
+      "unnecessary_scope": "Outside-oracle files are a descriptive list, not proven unnecessary reads; useful tests and alternative implementations may lie outside the oracle. Actual unnecessary reads remain unknown."
+    },
+    {
+      "manifest": {
+        "schema_version": 1,
+        "task": "receipts",
+        "mode": "control",
+        "repository": "C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\evaluations\\runs\\v04-receipts-repeated\\1-receipts-control\\repository",
+        "baseline": "de7975d1ee253309a001db3bb9ab2e194e061800",
+        "prompt_sha256": "8cc12d2ead7e7cc03c70b17ac68462a28ec3358240644e95d26516459263d43d",
+        "check": "receipts.py",
+        "category": "shared-interface",
+        "suite_sha256": "3dafa744e46105d7c07d0d52ee39793233f3af2c500cd49a07ecb325cb0552b9"
+      },
+      "execution": {
+        "failure_signals": {
+          "account_usage_limit": false,
+          "provider_interruptions_observed": false,
+          "required_mcp_startup_failed": false,
+          "timeout": false
+        },
+        "host_retry_count": null,
+        "exit_code": 0,
+        "elapsed_seconds": 85.553,
+        "first_model_message_arrival_ms": 5236.152,
+        "model": "gpt-6-sol",
+        "command_executions": 6,
+        "command_evidence": [
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"rg --files -g '\"'! .git'\"'\"",
+            "exit_code": -1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"rg --files --hidden -g '\"'!.git'\"'\"",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content shop/checkout.py, shop/orders.py, shop/contracts.py, shop/audit_sink.py, test_shop.py; rg -n 'Receipt|checkout|place_order|\\\\.total|amount' shop; Get-ChildItem -Force -Name; git status --short\"",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command 'Get-Content shop/warehouse.py; $taskPath = Get-Item .; while ($null -ne $taskPath) { $instructionPath = Join-Path $taskPath.FullName '\"'AGENTS.md'; if (Test-Path -LiteralPath \"'$instructionPath) { Write-Output $instructionPath; Get-Content -LiteralPath $instructionPath }; $taskPath = $taskPath.Parent }'",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command 'git diff --check; git diff --stat; git diff'",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"& 'C:\\\\Users\\\\isobu\\\\OneDrive\\\\Desktop\\\\Projects\\\\Conceptualize\\\\.venv\\\\Scripts\\\\python.exe' -m pytest\"",
+            "exit_code": 0
+          }
+        ],
+        "mcp_call_evidence": [],
+        "agent_usage": {
+          "input_tokens": 223063,
+          "cached_input_tokens": 200960,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1430,
+          "reasoning_output_tokens": 15
+        },
+        "agent_final_message": "Implemented integer-cent receipts:\n\n- `Receipt.amount_cents` replaces `total`.\n- `checkout` and `place_order` accept `amount_cents` and reject negative or non-integer values.\n- Audit summaries remain in dollars.\n- Existing tests updated; unrelated behavior unchanged.\n\nAll **21 tests passed** using the supplied interpreter. `git diff --check` passed.",
+        "files_inspected": null,
+        "unnecessary_repository_reads": null,
+        "corrective_iterations": null,
+        "startup_time_ms": null,
+        "mcp_initialization_time_ms": null,
+        "timing_scope": "CLI arrival timestamps; host does not expose separate initialization/model scheduling timing."
+      },
+      "tests_passed": true,
+      "exploration": {
+        "observed_file_reads": 6,
+        "observed_repeated_reads": 0,
+        "observed_files_inspected": [
+          "shop/audit_sink.py",
+          "shop/checkout.py",
+          "shop/contracts.py",
+          "shop/orders.py",
+          "shop/warehouse.py",
+          "test_shop.py"
+        ],
+        "first_observed_read": {
+          "shop/audit_sink.py": 8,
+          "shop/checkout.py": 8,
+          "shop/contracts.py": 8,
+          "shop/orders.py": 8,
+          "test_shop.py": 8,
+          "shop/warehouse.py": 10
+        },
+        "read_evidence": [
+          {
+            "step": 8,
+            "path": "shop/audit_sink.py",
+            "evidence": "Get-Content shop/checkout.py, shop/orders.py, shop/contracts.py, shop/audit_sink.py, test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 8,
+            "path": "shop/checkout.py",
+            "evidence": "Get-Content shop/checkout.py, shop/orders.py, shop/contracts.py, shop/audit_sink.py, test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 8,
+            "path": "shop/contracts.py",
+            "evidence": "Get-Content shop/checkout.py, shop/orders.py, shop/contracts.py, shop/audit_sink.py, test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 8,
+            "path": "shop/orders.py",
+            "evidence": "Get-Content shop/checkout.py, shop/orders.py, shop/contracts.py, shop/audit_sink.py, test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 8,
+            "path": "test_shop.py",
+            "evidence": "Get-Content shop/checkout.py, shop/orders.py, shop/contracts.py, shop/audit_sink.py, test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 10,
+            "path": "shop/warehouse.py",
+            "evidence": "Get-Content shop/warehouse.py",
+            "confidence": "explicit successful read command; lower bound"
+          }
+        ],
+        "searches": 1,
+        "grep_operations": 0,
+        "directory_listings": 2,
+        "unresolved_read_commands": [
+          {
+            "step": 10,
+            "command": "Get-Content -LiteralPath $instructionPath }",
+            "reason": "unresolved literal/variable path"
+          }
+        ],
+        "observed_failed_test_commands": [],
+        "all_file_reads": null,
+        "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+      },
+      "adoption": {
+        "when_invoked_vs_observed_discovery": "unknown",
+        "relationship_discovery": {},
+        "tool_available": false,
+        "tool_invoked": false,
+        "first_operation": null,
+        "when_invoked": "unknown",
+        "useful_relationship_surfaced": null,
+        "relationship_used_in_final_change": null,
+        "required_relationship_paths_surfaced": [],
+        "limits": "Manual discovery uses supported read commands and source-bearing search output as lower bounds; causal use in final changes is not inferred from invocation or passing tests."
+      },
+      "context_tokens": 0,
+      "trace_ids": [],
+      "repetition": 1,
+      "order": [
+        "conceptualize",
+        "control"
+      ],
+      "kind": "receipts",
+      "agent_version": "codex-cli 0.158.0-alpha.2.1",
+      "sandbox_failures_observed": true,
+      "account_limit_observed": false,
+      "mcp_calls": 0,
+      "mcp_result_bytes": 0,
+      "full_trace_bytes": 0,
+      "api_operation_latency_ms": [],
+      "runtime_stage_timings": [],
+      "client_transport_and_host_wait_ms": null,
+      "observed_files_outside_task_oracle": [
+        "shop/audit_sink.py"
+      ],
+      "observed_unnecessary_files": null,
+      "unnecessary_scope": "Outside-oracle files are a descriptive list, not proven unnecessary reads; useful tests and alternative implementations may lie outside the oracle. Actual unnecessary reads remain unknown."
+    },
+    {
+      "manifest": {
+        "schema_version": 1,
+        "task": "receipts",
+        "mode": "control",
+        "repository": "C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\evaluations\\runs\\v04-receipts-repeated\\2-receipts-control\\repository",
+        "baseline": "de7975d1ee253309a001db3bb9ab2e194e061800",
+        "prompt_sha256": "8cc12d2ead7e7cc03c70b17ac68462a28ec3358240644e95d26516459263d43d",
+        "check": "receipts.py",
+        "category": "shared-interface",
+        "suite_sha256": "3dafa744e46105d7c07d0d52ee39793233f3af2c500cd49a07ecb325cb0552b9"
+      },
+      "execution": {
+        "failure_signals": {
+          "account_usage_limit": false,
+          "provider_interruptions_observed": false,
+          "required_mcp_startup_failed": false,
+          "timeout": false
+        },
+        "host_retry_count": null,
+        "exit_code": 0,
+        "elapsed_seconds": 96.417,
+        "first_model_message_arrival_ms": 6705.227,
+        "model": "gpt-6-sol",
+        "command_executions": 6,
+        "command_evidence": [
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"pwd; rg --files -g '\"'! .git'\"' -g 'AGENTS.md' -g '*.py' -g 'pyproject.toml' -g 'README*'\"",
+            "exit_code": -1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -NoProfile -Command 'rg --files'",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -NoProfile -Command \"Get-ChildItem -Force -Name; Get-Content shop/contracts.py,shop/checkout.py,shop/orders.py,shop/audit_sink.py,test_shop.py; rg -n 'Receipt|checkout|place_order|\\\\.total|amount_cents' .\"",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -NoProfile -Command 'Get-Content shop/warehouse.py; git status --short; Get-ChildItem -Path .. -Filter AGENTS.md -Force; Get-ChildItem -Path . -Filter AGENTS.md -Recurse -Force'",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -NoProfile -Command 'git diff --check; git diff --stat; git diff'",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -NoProfile -Command \"& 'C:\\\\Users\\\\isobu\\\\OneDrive\\\\Desktop\\\\Projects\\\\Conceptualize\\\\.venv\\\\Scripts\\\\python.exe' -m pytest -q\"",
+            "exit_code": 0
+          }
+        ],
+        "mcp_call_evidence": [],
+        "agent_usage": {
+          "input_tokens": 202265,
+          "cached_input_tokens": 183936,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1567,
+          "reasoning_output_tokens": 7
+        },
+        "agent_final_message": "Implemented integer-cent receipts:\n\n- `Receipt.amount_cents` replaces `total`.\n- `checkout` and `place_order` accept `amount_cents` and reject negative or non-integer values, including booleans.\n- Audit summaries remain in dollars.\n- Updated tests; unrelated behavior unchanged.\n\nAll **21 tests passed** using the specified interpreter. `git diff --check` passed.",
+        "files_inspected": null,
+        "unnecessary_repository_reads": null,
+        "corrective_iterations": null,
+        "startup_time_ms": null,
+        "mcp_initialization_time_ms": null,
+        "timing_scope": "CLI arrival timestamps; host does not expose separate initialization/model scheduling timing."
+      },
+      "tests_passed": true,
+      "exploration": {
+        "observed_file_reads": 6,
+        "observed_repeated_reads": 0,
+        "observed_files_inspected": [
+          "shop/audit_sink.py",
+          "shop/checkout.py",
+          "shop/contracts.py",
+          "shop/orders.py",
+          "shop/warehouse.py",
+          "test_shop.py"
+        ],
+        "first_observed_read": {
+          "shop/audit_sink.py": 8,
+          "shop/checkout.py": 8,
+          "shop/contracts.py": 8,
+          "shop/orders.py": 8,
+          "test_shop.py": 8,
+          "shop/warehouse.py": 10
+        },
+        "read_evidence": [
+          {
+            "step": 8,
+            "path": "shop/audit_sink.py",
+            "evidence": "Get-Content shop/contracts.py,shop/checkout.py,shop/orders.py,shop/audit_sink.py,test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 8,
+            "path": "shop/checkout.py",
+            "evidence": "Get-Content shop/contracts.py,shop/checkout.py,shop/orders.py,shop/audit_sink.py,test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 8,
+            "path": "shop/contracts.py",
+            "evidence": "Get-Content shop/contracts.py,shop/checkout.py,shop/orders.py,shop/audit_sink.py,test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 8,
+            "path": "shop/orders.py",
+            "evidence": "Get-Content shop/contracts.py,shop/checkout.py,shop/orders.py,shop/audit_sink.py,test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 8,
+            "path": "test_shop.py",
+            "evidence": "Get-Content shop/contracts.py,shop/checkout.py,shop/orders.py,shop/audit_sink.py,test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 10,
+            "path": "shop/warehouse.py",
+            "evidence": "Get-Content shop/warehouse.py",
+            "confidence": "explicit successful read command; lower bound"
+          }
+        ],
+        "searches": 1,
+        "grep_operations": 0,
+        "directory_listings": 4,
+        "unresolved_read_commands": [],
+        "observed_failed_test_commands": [],
+        "all_file_reads": null,
+        "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+      },
+      "adoption": {
+        "when_invoked_vs_observed_discovery": "unknown",
+        "relationship_discovery": {},
+        "tool_available": false,
+        "tool_invoked": false,
+        "first_operation": null,
+        "when_invoked": "unknown",
+        "useful_relationship_surfaced": null,
+        "relationship_used_in_final_change": null,
+        "required_relationship_paths_surfaced": [],
+        "limits": "Manual discovery uses supported read commands and source-bearing search output as lower bounds; causal use in final changes is not inferred from invocation or passing tests."
+      },
+      "context_tokens": 0,
+      "trace_ids": [],
+      "repetition": 2,
+      "order": [
+        "control",
+        "conceptualize"
+      ],
+      "kind": "receipts",
+      "agent_version": "codex-cli 0.158.0-alpha.2.1",
+      "sandbox_failures_observed": true,
+      "account_limit_observed": false,
+      "mcp_calls": 0,
+      "mcp_result_bytes": 0,
+      "full_trace_bytes": 0,
+      "api_operation_latency_ms": [],
+      "runtime_stage_timings": [],
+      "client_transport_and_host_wait_ms": null,
+      "observed_files_outside_task_oracle": [
+        "shop/audit_sink.py"
+      ],
+      "observed_unnecessary_files": null,
+      "unnecessary_scope": "Outside-oracle files are a descriptive list, not proven unnecessary reads; useful tests and alternative implementations may lie outside the oracle. Actual unnecessary reads remain unknown."
+    },
+    {
+      "manifest": {
+        "schema_version": 1,
+        "task": "receipts",
+        "mode": "conceptualize",
+        "repository": "C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\evaluations\\runs\\v04-receipts-repeated\\2-receipts-conceptualize\\repository",
+        "baseline": "de7975d1ee253309a001db3bb9ab2e194e061800",
+        "prompt_sha256": "8cc12d2ead7e7cc03c70b17ac68462a28ec3358240644e95d26516459263d43d",
+        "check": "receipts.py",
+        "category": "shared-interface",
+        "suite_sha256": "3dafa744e46105d7c07d0d52ee39793233f3af2c500cd49a07ecb325cb0552b9"
+      },
+      "execution": {
+        "failure_signals": {
+          "account_usage_limit": false,
+          "provider_interruptions_observed": false,
+          "required_mcp_startup_failed": false,
+          "timeout": false
+        },
+        "host_retry_count": null,
+        "exit_code": 0,
+        "elapsed_seconds": 109.1,
+        "first_model_message_arrival_ms": 9410.195,
+        "model": "gpt-6-sol",
+        "command_executions": 6,
+        "command_evidence": [
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-ChildItem -Force | Select-Object Name; rg --files -g AGENTS.md -g '*.py' -g 'pyproject.toml' -g 'pytest.ini'; rg -n 'Conceptualize|receipts' C:\\\\Users\\\\isobu\\\\.codex\\\\memories\\\\MEMORY.md\"",
+            "exit_code": -1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command 'Get-ChildItem -Force | Select-Object Name'",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"rg --files --hidden -g '\"'!.git/**'\"'; Get-Content shop\\\\*.py,test_shop.py; Get-Content C:\\\\Users\\\\isobu\\\\.codex\\\\plugins\\\\cache\\\\openai-curated-remote\\\\superpowers\\\\6.4.2\\\\skills\\\\using-superpowers\\\\SKILL.md; rg -n 'Conceptualize|receipts' C:\\\\Users\\\\isobu\\\\.codex\\\\memories\\\\MEMORY.md; git status --short\"",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content C:\\\\Users\\\\isobu\\\\.codex\\\\plugins\\\\cache\\\\openai-curated-remote\\\\superpowers\\\\6.4.2\\\\skills\\\\test-driven-development\\\\SKILL.md; Get-Content C:\\\\Users\\\\isobu\\\\.codex\\\\plugins\\\\cache\\\\openai-curated-remote\\\\superpowers\\\\6.4.2\\\\skills\\\\verification-before-completion\\\\SKILL.md\"",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"& 'C:\\\\Users\\\\isobu\\\\OneDrive\\\\Desktop\\\\Projects\\\\Conceptualize\\\\.venv\\\\Scripts\\\\python.exe' -m pytest -q\"",
+            "exit_code": 1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"& 'C:\\\\Users\\\\isobu\\\\OneDrive\\\\Desktop\\\\Projects\\\\Conceptualize\\\\.venv\\\\Scripts\\\\python.exe' -m pytest -q; git diff --check; git diff --stat; git diff\"",
+            "exit_code": 0
+          }
+        ],
+        "mcp_call_evidence": [
+          {
+            "server": "conceptualize",
+            "tool": "conceptualize_inspect",
+            "status": "completed"
+          }
+        ],
+        "agent_usage": {
+          "input_tokens": 289082,
+          "cached_input_tokens": 253184,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1555,
+          "reasoning_output_tokens": 11
+        },
+        "agent_final_message": "Implemented integer cents throughout receipts, checkout, and place_order. Negative and non-integer amounts are rejected; audit summaries remain in dollars. Unrelated behavior is unchanged.\n\nUpdated tests: **21 passed** using your specified interpreter. `git diff --check` passed.",
+        "files_inspected": null,
+        "unnecessary_repository_reads": null,
+        "corrective_iterations": null,
+        "startup_time_ms": null,
+        "mcp_initialization_time_ms": null,
+        "timing_scope": "CLI arrival timestamps; host does not expose separate initialization/model scheduling timing."
+      },
+      "tests_passed": true,
+      "exploration": {
+        "observed_file_reads": 1,
+        "observed_repeated_reads": 0,
+        "observed_files_inspected": [
+          "test_shop.py"
+        ],
+        "first_observed_read": {
+          "test_shop.py": 10
+        },
+        "read_evidence": [
+          {
+            "step": 10,
+            "path": "test_shop.py",
+            "evidence": "Get-Content shop//*.py,test_shop.py",
+            "confidence": "explicit successful read command; lower bound"
+          }
+        ],
+        "searches": 1,
+        "grep_operations": 0,
+        "directory_listings": 2,
+        "unresolved_read_commands": [
+          {
+            "step": 10,
+            "command": "Get-Content C://Users//isobu//.codex//plugins//cache//openai-curated-remote//superpowers//6.4.2//skills//using-superpowers//SKILL.md",
+            "reason": "unresolved literal/variable path"
+          },
+          {
+            "step": 13,
+            "command": "Get-Content C://Users//isobu//.codex//plugins//cache//openai-curated-remote//superpowers//6.4.2//skills//test-driven-development//SKILL.md",
+            "reason": "unresolved literal/variable path"
+          },
+          {
+            "step": 13,
+            "command": "Get-Content C://Users//isobu//.codex//plugins//cache//openai-curated-remote//superpowers//6.4.2//skills//verification-before-completion//SKILL.md\"",
+            "reason": "unresolved literal/variable path"
+          }
+        ],
+        "observed_failed_test_commands": [
+          {
+            "step": 4,
+            "command": "\"C://Users//isobu//.cache//codex-runtimes//codex-primary-runtime//dependencies//native//powershell//pwsh.exe\" -Command \"Get-ChildItem -Force | Select-Object Name; rg --files -g AGENTS.md -g '*.py' -g 'pyproject.toml' -g 'pytest.ini'; rg -n 'Conceptualize|receipts' C://Users//isobu//.codex//memories//MEMORY.md\"",
+            "exit_code": -1
+          },
+          {
+            "step": 17,
+            "command": "\"C://Users//isobu//.cache//codex-runtimes//codex-primary-runtime//dependencies//native//powershell//pwsh.exe\" -Command \"& 'C://Users//isobu//OneDrive//Desktop//Projects//Conceptualize//.venv//Scripts//python.exe' -m pytest -q\"",
+            "exit_code": 1
+          }
+        ],
+        "all_file_reads": null,
+        "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+      },
+      "adoption": {
+        "when_invoked_vs_observed_discovery": "before observed relevant source evidence",
+        "relationship_discovery": {
+          "shop/checkout.py": {
+            "surfaced_step": 8,
+            "observed_read_step": null,
+            "observed_source_evidence_step": null,
+            "relative_to_source_discovery": "unknown",
+            "when": "unknown"
+          },
+          "shop/warehouse.py": {
+            "surfaced_step": 8,
+            "observed_read_step": null,
+            "observed_source_evidence_step": null,
+            "relative_to_source_discovery": "unknown",
+            "when": "unknown"
+          }
+        },
+        "tool_available": true,
+        "tool_invoked": true,
+        "first_operation": "inspect",
+        "when_invoked": "before observed relevant manual read",
+        "useful_relationship_surfaced": true,
+        "relationship_used_in_final_change": null,
+        "required_relationship_paths_surfaced": [
+          "shop/checkout.py",
+          "shop/warehouse.py"
+        ],
+        "limits": "Manual discovery uses supported read commands and source-bearing search output as lower bounds; causal use in final changes is not inferred from invocation or passing tests."
+      },
+      "context_tokens": 317,
+      "trace_ids": [
+        "1c252d3a-2db9-4c8a-88a7-a89a65858260"
+      ],
+      "repetition": 2,
+      "order": [
+        "control",
+        "conceptualize"
+      ],
+      "kind": "receipts",
+      "agent_version": "codex-cli 0.158.0-alpha.2.1",
+      "sandbox_failures_observed": true,
+      "account_limit_observed": false,
+      "mcp_calls": 1,
+      "mcp_result_bytes": 4462,
+      "full_trace_bytes": 14464,
+      "api_operation_latency_ms": [
+        258
+      ],
+      "runtime_stage_timings": [
+        {
+          "scoring": 0.9789999999999999,
+          "context_compilation": 2.536,
+          "inspect_total": 4.337,
+          "graph_traversal": 0.822,
+          "snapshot_and_graph": 5.121,
+          "graph_build": 3.175,
+          "cache": 215.116,
+          "database_trace_before_commit": 1.662,
+          "overhead_transport_ms": null,
+          "overhead_index_lookup_ms": 31.941,
+          "overhead_graph_ms": 3.997,
+          "overhead_git_ms": 0.076,
+          "overhead_scoring_ms": 0.9789999999999999,
+          "overhead_packing_ms": 2.536,
+          "overhead_cache_ms": 215.116,
+          "overhead_trace_write_ms": 1.662,
+          "overhead_total_runtime_ms": 259.513
+        }
+      ],
+      "client_transport_and_host_wait_ms": null,
+      "observed_files_outside_task_oracle": [],
+      "observed_unnecessary_files": null,
+      "unnecessary_scope": "Outside-oracle files are a descriptive list, not proven unnecessary reads; useful tests and alternative implementations may lie outside the oracle. Actual unnecessary reads remain unknown."
+    }
+  ]
+}

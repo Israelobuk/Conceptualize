@@ -1,0 +1,25 @@
+{
+  "before": {
+    "tools": 6,
+    "description_characters": 2904,
+    "schema_bytes": 17078,
+    "tool_listing_bytes": 20349,
+    "initialization_bytes": 834,
+    "model_visible_tokens": null,
+    "scope": "JSON serialization measurements; host prompt packing/token causality unavailable."
+  },
+  "after": {
+    "tools": 6,
+    "description_characters": 1472,
+    "schema_bytes": 2810,
+    "tool_listing_bytes": 4885,
+    "initialization_bytes": 826,
+    "model_visible_tokens": null,
+    "scope": "JSON serialization measurements; host prompt packing/token causality unavailable."
+  },
+  "payload_observation": null,
+  "host_prompt_token_effect": null,
+  "scope": "Serialized MCP JSON and a captured host event; model-visible token packing and duplicate consumption are unavailable.",
+  "tool_listing_bytes_reduction": 15464,
+  "tool_listing_reduction_percent": 75.99
+}

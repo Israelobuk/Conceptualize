@@ -66,6 +66,25 @@ def test_authentication_and_project_trace_isolation(api):
         assert all(not k.key_hash.startswith("cx_") for k in db.scalars(select(ApiKey)))
 
 
+def test_authenticated_dashboard_index_creates_real_repository_snapshot(api, tmp_path):
+    client, _, other_headers, _, _ = api
+    empty = client.get("/v1/overview", headers=other_headers).json()
+    assert empty["indexed_files"] == 0
+    assert empty["indexed_at"] is None
+    assert client.get("/v1/traces", headers=other_headers).json()["items"] == []
+    repo = tmp_path / "new-repository"
+    repo.mkdir()
+    (repo / "entry.py").write_text("def entry():\n    return 1\n")
+    response = client.post("/v1/index", headers=other_headers, json={"path": str(repo)})
+    assert response.status_code == 200
+    assert response.json()["files"] == 1
+    overview = client.get("/v1/overview", headers=other_headers).json()
+    assert overview["indexed_files"] == 1
+    assert overview["indexed_symbols"] == 1
+    assert overview["indexed_at"]
+    assert client.post("/v1/index", headers=other_headers, json={"path": str(repo / "missing")}).status_code == 400
+
+
 def test_cache_hit_still_records_trace_and_reindex_invalidates(api, tmp_path):
     client, headers, _, session, project_id = api
     body = {"operation": "pack", "paths": ["src/session.py"], "token_budget": 1000}

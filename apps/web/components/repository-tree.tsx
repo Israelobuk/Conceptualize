@@ -17,5 +17,5 @@ export default function RepositoryTree({paths, selected, onSelect, expandedView=
       {node.folder && open && node.children.map(child=>render(child,depth+1))}
     </div>;
   }
-  return <div className={expandedView?"repository-tree expanded-tree":"repository-tree"} aria-label="Repository files">{root.children.map(node=>render(node,0))}{!paths.length && <div className="panel-empty">No indexed files available.</div>}</div>;
+  return <div className={expandedView?"repository-tree expanded-tree":"repository-tree"} aria-label="Repository files">{root.children.map(node=>render(node,0))}{!paths.length && <div className="panel-empty">No repository files indexed.</div>}</div>;
 }

@@ -340,7 +340,16 @@
               "snapshot_and_graph": 5.827,
               "graph_build": 3.07,
               "cache": 205.066,
-              "database_trace_before_commit": 1.608
+              "database_trace_before_commit": 1.608,
+              "overhead_transport_ms": null,
+              "overhead_index_lookup_ms": 33.234,
+              "overhead_graph_ms": 3.933,
+              "overhead_git_ms": 0.064,
+              "overhead_scoring_ms": 0.992,
+              "overhead_packing_ms": 17.203,
+              "overhead_cache_ms": 205.066,
+              "overhead_trace_write_ms": 1.608,
+              "overhead_total_runtime_ms": 267.87
             }
           ],
           "client_transport_and_host_wait_ms": null,
@@ -501,7 +510,16 @@
               "snapshot_and_graph": 3.719,
               "graph_build": 1.901,
               "cache": 208.377,
-              "database_trace_before_commit": 1.121
+              "database_trace_before_commit": 1.121,
+              "overhead_transport_ms": null,
+              "overhead_index_lookup_ms": 24.375,
+              "overhead_graph_ms": 2.313,
+              "overhead_git_ms": 0.033,
+              "overhead_scoring_ms": 0.708,
+              "overhead_packing_ms": 12.966,
+              "overhead_cache_ms": 208.377,
+              "overhead_trace_write_ms": 1.121,
+              "overhead_total_runtime_ms": 252.361
             }
           ],
           "client_transport_and_host_wait_ms": null,
@@ -1442,7 +1460,16 @@
               "snapshot_and_graph": 4.059,
               "graph_build": 2.227,
               "cache": 212.66,
-              "database_trace_before_commit": 1.351
+              "database_trace_before_commit": 1.351,
+              "overhead_transport_ms": null,
+              "overhead_index_lookup_ms": 28.261,
+              "overhead_graph_ms": 2.623,
+              "overhead_git_ms": 0.065,
+              "overhead_scoring_ms": 0.675,
+              "overhead_packing_ms": 9.827,
+              "overhead_cache_ms": 212.66,
+              "overhead_trace_write_ms": 1.351,
+              "overhead_total_runtime_ms": 257.929
             }
           ],
           "client_transport_and_host_wait_ms": null,
@@ -2105,7 +2132,16 @@
               "snapshot_and_graph": 6.017,
               "graph_build": 3.196,
               "cache": 210.242,
-              "database_trace_before_commit": 1.401
+              "database_trace_before_commit": 1.401,
+              "overhead_transport_ms": null,
+              "overhead_index_lookup_ms": 30.688,
+              "overhead_graph_ms": 3.835,
+              "overhead_git_ms": 0.047,
+              "overhead_scoring_ms": 0.856,
+              "overhead_packing_ms": 12.229,
+              "overhead_cache_ms": 210.242,
+              "overhead_trace_write_ms": 1.401,
+              "overhead_total_runtime_ms": 261.709
             }
           ],
           "client_transport_and_host_wait_ms": null,
@@ -2300,7 +2336,16 @@
               "snapshot_and_graph": 6.865,
               "graph_build": 3.746,
               "cache": 210.877,
-              "database_trace_before_commit": 1.508
+              "database_trace_before_commit": 1.508,
+              "overhead_transport_ms": null,
+              "overhead_index_lookup_ms": 36.76,
+              "overhead_graph_ms": 4.299,
+              "overhead_git_ms": 0.076,
+              "overhead_scoring_ms": 0.514,
+              "overhead_packing_ms": 2.419,
+              "overhead_cache_ms": 210.877,
+              "overhead_trace_write_ms": 1.508,
+              "overhead_total_runtime_ms": 260.341
             }
           ],
           "client_transport_and_host_wait_ms": null,
@@ -2834,7 +2879,16 @@
               "snapshot_and_graph": 5.121,
               "graph_build": 3.175,
               "cache": 215.116,
-              "database_trace_before_commit": 1.662
+              "database_trace_before_commit": 1.662,
+              "overhead_transport_ms": null,
+              "overhead_index_lookup_ms": 31.941,
+              "overhead_graph_ms": 3.997,
+              "overhead_git_ms": 0.076,
+              "overhead_scoring_ms": 0.9789999999999999,
+              "overhead_packing_ms": 2.536,
+              "overhead_cache_ms": 215.116,
+              "overhead_trace_write_ms": 1.662,
+              "overhead_total_runtime_ms": 259.513
             }
           ],
           "client_transport_and_host_wait_ms": null,

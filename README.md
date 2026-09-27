@@ -37,7 +37,9 @@ alembic upgrade head
 conceptualize seed --name "My application" --email "developer@localhost"
 ```
 
-Seed prints a project ID and a random `cx_…` API key **once**. Copy the key into `CONCEPTUALIZE_API_KEY` in `.env`. The database stores only SHA-256 of a 256-bit random credential plus its recognizable prefix. Each key resolves to one project and its owning user. Re-running seed creates a new project/key; it does not reset existing data.
+The example config uses local-only development services. Set `DATABASE_URL`, `REDIS_URL`, `CONCEPTUALIZE_API_URL`, and the one-time project key for the services you run. `APP_ENV=production` disables interactive API documentation; `LOG_LEVEL` configures backend logs. Compose database/cache host ports are configurable with `POSTGRES_HOST_PORT` and `REDIS_HOST_PORT`; keep their connection URLs in sync. Repository content is stored in the configured database after the indexer's exclusions are applied.
+
+The database and dashboard start with no projects, repositories, traces, activity, or sample data. `seed` is an explicit one-time setup command that creates an empty project and prints a random `cx_…` API key **once**; it does not add a demo repository or traces. Copy the key into `CONCEPTUALIZE_API_KEY` in `.env`, then restart the dashboard. The database stores only SHA-256 of the credential plus its recognizable prefix. Re-running seed creates another empty project/key; it does not reset existing data.
 
 Index a repository:
 
@@ -63,6 +65,8 @@ npm run dev:web
 ```
 
 Open http://127.0.0.1:3000. Dashboard scripts load the root `.env`; restart the server after key changes. The API key stays server-side and is never placed in `NEXT_PUBLIC_*`. This MVP dashboard is a **local-only control plane**, bound to loopback; it has no browser login and must not be exposed remotely. API docs: http://127.0.0.1:8000/docs.
+
+On a new project, the dashboard shows an empty repository state. Enter the absolute path to your local repository and choose **Index repository**. The dashboard calls the same authenticated indexing service as the CLI and then displays actual file/symbol counts, graph structure, and any recorded traces. Indexing errors remain visible; no example statistics or fixture content are substituted.
 
 Start MCP directly, or let the coding client launch it:
 
@@ -169,6 +173,6 @@ Revoke a key locally with `conceptualize revoke-key --prefix cx_PREFIX`. Keep `.
 
 ## Real-agent evaluation
 
-See [evaluations/README.md](evaluations/README.md) for historical paired CONTROL/CONCEPTUALIZE runs, independent checks and JSON evidence. [evaluations/DEMO.md](evaluations/DEMO.md) records the actual demonstration, including failed setup attempts and limitations. The evaluator is an external-agent test harness; it adds no model calls to the context runtime.
+See [evaluations/README.md](evaluations/README.md) for the reproducible paired evaluation workflow and [evaluations/V04.md](evaluations/V04.md) for the V0.4 results and limits. Evaluation fixtures and historical runs are development evidence only; they are not loaded by normal startup or shown in the dashboard. The evaluator invokes an external agent and adds no model calls to the context runtime.
 
-V0.4 evidence is in [ADOPTION.md](ADOPTION.md), [ADOPTION-SUITE.json](ADOPTION-SUITE.json), [MCP-SURFACE.md](MCP-SURFACE.md), [MCP_SURFACE_PROFILE.json](MCP_SURFACE_PROFILE.json) and [BASELINE-OVERHEAD.md](BASELINE-OVERHEAD.md). The [runbook](evaluations/ADOPTION-RUNBOOK.md) reproduces six cross-file adoption tasks, three paired receipt repetitions, three paired local negative controls and a separate connected-but-unused baseline. Reports state incomplete cohorts and unavailable measurements explicitly; autonomous invocation is not proof of speed or exploration improvement.
+V0.4 evidence is in [evaluations/V04.md](evaluations/V04.md), [ADOPTION.md](ADOPTION.md), [ADOPTION-SUITE.json](ADOPTION-SUITE.json), [MCP-SURFACE.md](MCP-SURFACE.md), [MCP_SURFACE_PROFILE.json](MCP_SURFACE_PROFILE.json), and five machine-readable cohort/surface reports under `evaluations/results/v04-*.json`. The [runbook](evaluations/ADOPTION-RUNBOOK.md) reproduces six cross-file adoption tasks, three paired receipt repetitions, three paired local negative controls, and a separate connected-but-unused baseline. Reports preserve unavailable measurements explicitly; autonomous invocation is not proof of speed or exploration improvement.

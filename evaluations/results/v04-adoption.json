@@ -1,0 +1,1718 @@
+{
+  "expected_trials": 12,
+  "recorded_trials": 12,
+  "complete": true,
+  "pairs": [
+    {
+      "repetition": 0,
+      "task": "batch-contract",
+      "comparable": true
+    },
+    {
+      "repetition": 0,
+      "task": "delivery-contract",
+      "comparable": true
+    },
+    {
+      "repetition": 0,
+      "task": "record-schema",
+      "comparable": true
+    },
+    {
+      "repetition": 0,
+      "task": "retry-interface",
+      "comparable": true
+    },
+    {
+      "repetition": 0,
+      "task": "route-normalization",
+      "comparable": true
+    },
+    {
+      "repetition": 0,
+      "task": "unicode-identity",
+      "comparable": true
+    }
+  ],
+  "trials": [
+    {
+      "manifest": {
+        "task": "delivery-contract",
+        "mode": "control",
+        "repository": "C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\evaluations\\runs\\v04-adoption-isolated\\0-delivery-contract-control\\repository",
+        "baseline": "76f89a8a6ff107c47f9543e377b7aa1cc5b11caf",
+        "prompt_sha256": "fdd40b1ae6d2e4106d854d15e4b10235b79b8c72188c92cdebae8b312ba1bd0c",
+        "prompt": "Change Delivery to expose byte_count instead of size. Keep submitted billing dictionaries compatible, reject negative or non-integer byte counts, and update affected tests.\nImplement the change and run repository tests. Keep unrelated behavior unchanged. Python interpreter: C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\.venv\\Scripts\\python.exe"
+      },
+      "execution": {
+        "exit_code": 0,
+        "elapsed_seconds": 76.002,
+        "first_model_message_arrival_ms": 5585.637,
+        "model": "gpt-6-sol",
+        "command_executions": 4,
+        "command_evidence": [
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Location; rg --files -g AGENTS.md -g '*delivery*' -g '*test*' -g pyproject.toml -g README.md; rg -n 'class Delivery|byte_count|\\\\bsize\\\\b' .\"",
+            "exit_code": -1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"rg --files -g AGENTS.md -g '*test*' -g pyproject.toml -g README.md; rg -n 'class Delivery|byte_count|\\\\bsize\\\\b' .\"",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-ChildItem -Force; Get-Content relay/contracts.py,relay/accounting.py,relay/gateway.py,relay/publish.py,verification/test_baseline.py; rg --files --hidden -g '\"'!.git/**'\"'\"",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"& 'C:\\\\Users\\\\isobu\\\\OneDrive\\\\Desktop\\\\Projects\\\\Conceptualize\\\\.venv\\\\Scripts\\\\python.exe' -m pytest; git diff --check; git diff --stat\"",
+            "exit_code": 0
+          }
+        ],
+        "mcp_call_evidence": [],
+        "agent_usage": {
+          "input_tokens": 185545,
+          "cached_input_tokens": 166272,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1249,
+          "reasoning_output_tokens": 31
+        },
+        "agent_final_message": "Implemented `Delivery.byte_count` in place of `size`, preserving billing dictionaries and existing submission arguments. Negative values and non-integers, including booleans, are rejected.\n\nUpdated tests: **29 passed** with your specified interpreter. `git diff --check` passed.",
+        "files_inspected": null,
+        "unnecessary_repository_reads": null,
+        "corrective_iterations": null,
+        "startup_time_ms": null,
+        "mcp_initialization_time_ms": null,
+        "timing_scope": "CLI arrival timestamps; host does not expose separate initialization/model scheduling timing."
+      },
+      "tests_passed": true,
+      "exploration": {
+        "observed_file_reads": 5,
+        "observed_repeated_reads": 0,
+        "observed_files_inspected": [
+          "relay/accounting.py",
+          "relay/contracts.py",
+          "relay/gateway.py",
+          "relay/publish.py",
+          "verification/test_baseline.py"
+        ],
+        "first_observed_read": {
+          "relay/accounting.py": 8,
+          "relay/contracts.py": 8,
+          "relay/gateway.py": 8,
+          "relay/publish.py": 8,
+          "verification/test_baseline.py": 8
+        },
+        "read_evidence": [
+          {
+            "step": 8,
+            "path": "relay/accounting.py",
+            "evidence": "Get-Content relay/contracts.py,relay/accounting.py,relay/gateway.py,relay/publish.py,verification/test_baseline.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 8,
+            "path": "relay/contracts.py",
+            "evidence": "Get-Content relay/contracts.py,relay/accounting.py,relay/gateway.py,relay/publish.py,verification/test_baseline.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 8,
+            "path": "relay/gateway.py",
+            "evidence": "Get-Content relay/contracts.py,relay/accounting.py,relay/gateway.py,relay/publish.py,verification/test_baseline.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 8,
+            "path": "relay/publish.py",
+            "evidence": "Get-Content relay/contracts.py,relay/accounting.py,relay/gateway.py,relay/publish.py,verification/test_baseline.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 8,
+            "path": "verification/test_baseline.py",
+            "evidence": "Get-Content relay/contracts.py,relay/accounting.py,relay/gateway.py,relay/publish.py,verification/test_baseline.py",
+            "confidence": "explicit successful read command; lower bound"
+          }
+        ],
+        "searches": 1,
+        "grep_operations": 0,
+        "directory_listings": 3,
+        "unresolved_read_commands": [],
+        "observed_failed_test_commands": [],
+        "all_file_reads": null,
+        "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+      },
+      "adoption": {
+        "when_invoked_vs_observed_discovery": "unknown",
+        "relationship_discovery": {},
+        "tool_available": false,
+        "tool_invoked": false,
+        "first_operation": null,
+        "when_invoked": "unknown",
+        "useful_relationship_surfaced": null,
+        "relationship_used_in_final_change": null,
+        "required_relationship_paths_surfaced": [],
+        "limits": "Manual discovery uses supported read commands and source-bearing search output as lower bounds; causal use in final changes is not inferred from invocation or passing tests."
+      },
+      "context_tokens": 0,
+      "trace_ids": [],
+      "repetition": 0,
+      "order": [
+        "control",
+        "conceptualize"
+      ],
+      "kind": "adoption",
+      "agent_version": "codex-cli 0.158.0-alpha.2.1",
+      "sandbox_failures_observed": true,
+      "account_limit_observed": false,
+      "mcp_calls": 0,
+      "mcp_result_bytes": 0,
+      "full_trace_bytes": 0,
+      "api_operation_latency_ms": [],
+      "runtime_stage_timings": [],
+      "client_transport_and_host_wait_ms": null,
+      "observed_files_outside_task_oracle": [
+        "verification/test_baseline.py"
+      ],
+      "observed_unnecessary_files": null,
+      "unnecessary_scope": "Outside-oracle files are a descriptive list, not proven unnecessary reads; useful tests and alternative implementations may lie outside the oracle. Actual unnecessary reads remain unknown."
+    },
+    {
+      "manifest": {
+        "task": "delivery-contract",
+        "mode": "conceptualize",
+        "repository": "C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\evaluations\\runs\\v04-adoption-isolated\\0-delivery-contract-conceptualize\\repository",
+        "baseline": "76f89a8a6ff107c47f9543e377b7aa1cc5b11caf",
+        "prompt_sha256": "fdd40b1ae6d2e4106d854d15e4b10235b79b8c72188c92cdebae8b312ba1bd0c",
+        "prompt": "Change Delivery to expose byte_count instead of size. Keep submitted billing dictionaries compatible, reject negative or non-integer byte counts, and update affected tests.\nImplement the change and run repository tests. Keep unrelated behavior unchanged. Python interpreter: C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\.venv\\Scripts\\python.exe"
+      },
+      "execution": {
+        "exit_code": 0,
+        "elapsed_seconds": 102.527,
+        "first_model_message_arrival_ms": 8778.41,
+        "model": "gpt-6-sol",
+        "command_executions": 6,
+        "command_evidence": [
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Location; rg --files -g AGENTS.md -g '*delivery*' -g '*test*' -g pyproject.toml -g README*; Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/using-superpowers/SKILL.md\"",
+            "exit_code": -1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"rg --files -g AGENTS.md -g '*test*' -g pyproject.toml\"",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command 'Get-ChildItem -Force; Get-Content relay/contracts.py,relay/accounting.py,relay/publish.py,verification/test_baseline.py; Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/using-superpowers/SKILL.md; rg --files -g AGENTS.md ..'",
+            "exit_code": 1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command 'Get-Content relay/gateway.py; rg --files; git status --short; Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/test-driven-development/SKILL.md,C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/verification-before-completion/SKILL.md'",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"& 'C:\\\\Users\\\\isobu\\\\OneDrive\\\\Desktop\\\\Projects\\\\Conceptualize\\\\.venv\\\\Scripts\\\\python.exe' -m pytest -q\"",
+            "exit_code": 1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"& 'C:\\\\Users\\\\isobu\\\\OneDrive\\\\Desktop\\\\Projects\\\\Conceptualize\\\\.venv\\\\Scripts\\\\python.exe' -m pytest -q; git diff --check; git diff --stat; rg '\\\\.size|Delivery\\\\(' relay verification\"",
+            "exit_code": 0
+          }
+        ],
+        "mcp_call_evidence": [
+          {
+            "server": "conceptualize",
+            "tool": "conceptualize_inspect",
+            "status": "completed"
+          }
+        ],
+        "agent_usage": {
+          "input_tokens": 280858,
+          "cached_input_tokens": 248448,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1563,
+          "reasoning_output_tokens": 17
+        },
+        "agent_final_message": "Implemented `Delivery.byte_count` in place of `size`. Billing dictionaries retain `{\"id\": ..., \"bytes\": ...}`.\n\nNegative counts raise `ValueError`; non-integers, including booleans, raise `TypeError`. Updated tests cover validation and compatibility.\n\nAll 33 repository tests passed using your interpreter. `git diff --check` passed.",
+        "files_inspected": null,
+        "unnecessary_repository_reads": null,
+        "corrective_iterations": null,
+        "startup_time_ms": null,
+        "mcp_initialization_time_ms": null,
+        "timing_scope": "CLI arrival timestamps; host does not expose separate initialization/model scheduling timing."
+      },
+      "tests_passed": true,
+      "exploration": {
+        "observed_file_reads": 1,
+        "observed_repeated_reads": 0,
+        "observed_files_inspected": [
+          "relay/gateway.py"
+        ],
+        "first_observed_read": {
+          "relay/gateway.py": 13
+        },
+        "read_evidence": [
+          {
+            "step": 13,
+            "path": "relay/gateway.py",
+            "evidence": "Get-Content relay/gateway.py",
+            "confidence": "explicit successful read command; lower bound"
+          }
+        ],
+        "searches": 1,
+        "grep_operations": 0,
+        "directory_listings": 2,
+        "unresolved_read_commands": [
+          {
+            "step": 13,
+            "command": "Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/test-driven-development/SKILL.md,C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/verification-before-completion/SKILL.md'",
+            "reason": "unresolved literal/variable path"
+          }
+        ],
+        "observed_failed_test_commands": [
+          {
+            "step": 17,
+            "command": "\"C://Users//isobu//.cache//codex-runtimes//codex-primary-runtime//dependencies//native//powershell//pwsh.exe\" -Command \"& 'C://Users//isobu//OneDrive//Desktop//Projects//Conceptualize//.venv//Scripts//python.exe' -m pytest -q\"",
+            "exit_code": 1
+          }
+        ],
+        "all_file_reads": null,
+        "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+      },
+      "adoption": {
+        "when_invoked_vs_observed_discovery": "before observed relevant source evidence",
+        "relationship_discovery": {
+          "relay/accounting.py": {
+            "surfaced_step": 8,
+            "observed_read_step": null,
+            "observed_source_evidence_step": null,
+            "relative_to_source_discovery": "unknown",
+            "when": "unknown"
+          },
+          "relay/publish.py": {
+            "surfaced_step": 8,
+            "observed_read_step": null,
+            "observed_source_evidence_step": 21,
+            "relative_to_source_discovery": "before observed source evidence",
+            "when": "unknown"
+          }
+        },
+        "tool_available": true,
+        "tool_invoked": true,
+        "first_operation": "inspect",
+        "when_invoked": "before observed relevant manual read",
+        "useful_relationship_surfaced": true,
+        "relationship_used_in_final_change": null,
+        "required_relationship_paths_surfaced": [
+          "relay/accounting.py",
+          "relay/publish.py"
+        ],
+        "limits": "Manual discovery uses supported read commands and source-bearing search output as lower bounds; causal use in final changes is not inferred from invocation or passing tests."
+      },
+      "context_tokens": 275,
+      "trace_ids": [
+        "d006eb4c-5043-4789-9134-d15ce35c8d18"
+      ],
+      "repetition": 0,
+      "order": [
+        "control",
+        "conceptualize"
+      ],
+      "kind": "adoption",
+      "agent_version": "codex-cli 0.158.0-alpha.2.1",
+      "sandbox_failures_observed": true,
+      "account_limit_observed": false,
+      "mcp_calls": 1,
+      "mcp_result_bytes": 4238,
+      "full_trace_bytes": 14373,
+      "api_operation_latency_ms": [
+        266
+      ],
+      "runtime_stage_timings": [
+        {
+          "scoring": 0.992,
+          "context_compilation": 17.203,
+          "inspect_total": 19.058,
+          "graph_traversal": 0.863,
+          "snapshot_and_graph": 5.827,
+          "graph_build": 3.07,
+          "cache": 205.066,
+          "database_trace_before_commit": 1.608,
+          "overhead_transport_ms": null,
+          "overhead_index_lookup_ms": 33.234,
+          "overhead_graph_ms": 3.933,
+          "overhead_git_ms": 0.064,
+          "overhead_scoring_ms": 0.992,
+          "overhead_packing_ms": 17.203,
+          "overhead_cache_ms": 205.066,
+          "overhead_trace_write_ms": 1.608,
+          "overhead_total_runtime_ms": 267.87
+        }
+      ],
+      "client_transport_and_host_wait_ms": null,
+      "observed_files_outside_task_oracle": [],
+      "observed_unnecessary_files": null,
+      "unnecessary_scope": "Outside-oracle files are a descriptive list, not proven unnecessary reads; useful tests and alternative implementations may lie outside the oracle. Actual unnecessary reads remain unknown."
+    },
+    {
+      "manifest": {
+        "task": "unicode-identity",
+        "mode": "conceptualize",
+        "repository": "C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\evaluations\\runs\\v04-adoption-isolated\\0-unicode-identity-conceptualize\\repository",
+        "baseline": "76f89a8a6ff107c47f9543e377b7aa1cc5b11caf",
+        "prompt_sha256": "5d58bdbd18796d4c27dd6ecf2df8d978e4b2d7de1b28df2a3d398aec4006e9ed",
+        "prompt": "Account names must use whitespace-trimmed Unicode casefold identity rather than lowercase. Preserve account lookup and all derived account identifiers; add regression coverage.\nImplement the change and run repository tests. Keep unrelated behavior unchanged. Python interpreter: C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\.venv\\Scripts\\python.exe"
+      },
+      "execution": {
+        "exit_code": 0,
+        "elapsed_seconds": 103.967,
+        "first_model_message_arrival_ms": 9074.277,
+        "model": "gpt-6-sol",
+        "command_executions": 6,
+        "command_evidence": [
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Location; rg --files -g AGENTS.md -g '*account*' -g '*test*' -g pyproject.toml -g README.md; Get-Content C:\\\\Users\\\\isobu\\\\.codex\\\\plugins\\\\cache\\\\openai-curated-remote\\\\superpowers\\\\6.4.2\\\\skills\\\\using-superpowers\\\\SKILL.md\"",
+            "exit_code": -1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"rg --files -g AGENTS.md -g '*test*' -g pyproject.toml; rg -n 'lower\\\\(|account' .\"",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"rg --files; Get-Content relay\\\\*.py; Get-Content verification\\\\test_baseline.py; Get-Content C:\\\\Users\\\\isobu\\\\.codex\\\\plugins\\\\cache\\\\openai-curated-remote\\\\superpowers\\\\6.4.2\\\\skills\\\\using-superpowers\\\\SKILL.md; rg -n 'Conceptualize|unicode|casefold' C:\\\\Users\\\\isobu\\\\.codex\\\\memories\\\\MEMORY.md\"",
+            "exit_code": 1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content C:\\\\Users\\\\isobu\\\\.codex\\\\plugins\\\\cache\\\\openai-curated-remote\\\\superpowers\\\\6.4.2\\\\skills\\\\test-driven-development\\\\SKILL.md; Get-Content C:\\\\Users\\\\isobu\\\\.codex\\\\plugins\\\\cache\\\\openai-curated-remote\\\\superpowers\\\\6.4.2\\\\skills\\\\verification-before-completion\\\\SKILL.md; git status --short; Get-ChildItem -Force -Name\"",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"& 'C:\\\\Users\\\\isobu\\\\OneDrive\\\\Desktop\\\\Projects\\\\Conceptualize\\\\.venv\\\\Scripts\\\\python.exe' -m pytest verification/test_account_identity.py -q\"",
+            "exit_code": 1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"& 'C:\\\\Users\\\\isobu\\\\OneDrive\\\\Desktop\\\\Projects\\\\Conceptualize\\\\.venv\\\\Scripts\\\\python.exe' -m pytest -q; git diff --check; git diff; git status --short\"",
+            "exit_code": 0
+          }
+        ],
+        "mcp_call_evidence": [
+          {
+            "server": "conceptualize",
+            "tool": "conceptualize_inspect",
+            "status": "completed"
+          }
+        ],
+        "agent_usage": {
+          "input_tokens": 279558,
+          "cached_input_tokens": 247168,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1368,
+          "reasoning_output_tokens": 15
+        },
+        "agent_final_message": "Implemented `strip().casefold()` for account identity. Lookup and ledger keys use the shared canonical value; message routes remain unchanged.\n\nAdded regressions for Unicode casefolding, whitespace trimming, lookup, and ledger identifiers.\n\nAll 15 repository tests passed using the specified Python interpreter. `git diff --check` passed.",
+        "files_inspected": null,
+        "unnecessary_repository_reads": null,
+        "corrective_iterations": null,
+        "startup_time_ms": null,
+        "mcp_initialization_time_ms": null,
+        "timing_scope": "CLI arrival timestamps; host does not expose separate initialization/model scheduling timing."
+      },
+      "tests_passed": true,
+      "exploration": {
+        "observed_file_reads": 0,
+        "observed_repeated_reads": 0,
+        "observed_files_inspected": [],
+        "first_observed_read": {},
+        "read_evidence": [],
+        "searches": 1,
+        "grep_operations": 0,
+        "directory_listings": 2,
+        "unresolved_read_commands": [
+          {
+            "step": 13,
+            "command": "Get-Content C://Users//isobu//.codex//plugins//cache//openai-curated-remote//superpowers//6.4.2//skills//test-driven-development//SKILL.md",
+            "reason": "unresolved literal/variable path"
+          },
+          {
+            "step": 13,
+            "command": "Get-Content C://Users//isobu//.codex//plugins//cache//openai-curated-remote//superpowers//6.4.2//skills//verification-before-completion//SKILL.md",
+            "reason": "unresolved literal/variable path"
+          }
+        ],
+        "observed_failed_test_commands": [
+          {
+            "step": 17,
+            "command": "\"C://Users//isobu//.cache//codex-runtimes//codex-primary-runtime//dependencies//native//powershell//pwsh.exe\" -Command \"& 'C://Users//isobu//OneDrive//Desktop//Projects//Conceptualize//.venv//Scripts//python.exe' -m pytest verification/test_account_identity.py -q\"",
+            "exit_code": 1
+          }
+        ],
+        "all_file_reads": null,
+        "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+      },
+      "adoption": {
+        "when_invoked_vs_observed_discovery": "after observed relevant source evidence",
+        "relationship_discovery": {
+          "relay/directory.py": {
+            "surfaced_step": 12,
+            "observed_read_step": null,
+            "observed_source_evidence_step": null,
+            "relative_to_source_discovery": "unknown",
+            "when": "unknown"
+          },
+          "relay/ledger.py": {
+            "surfaced_step": 12,
+            "observed_read_step": null,
+            "observed_source_evidence_step": 6,
+            "relative_to_source_discovery": "after observed source evidence",
+            "when": "unknown"
+          }
+        },
+        "tool_available": true,
+        "tool_invoked": true,
+        "first_operation": "inspect",
+        "when_invoked": "unknown",
+        "useful_relationship_surfaced": true,
+        "relationship_used_in_final_change": null,
+        "required_relationship_paths_surfaced": [
+          "relay/directory.py",
+          "relay/ledger.py"
+        ],
+        "limits": "Manual discovery uses supported read commands and source-bearing search output as lower bounds; causal use in final changes is not inferred from invocation or passing tests."
+      },
+      "context_tokens": 261,
+      "trace_ids": [
+        "5352b297-b43e-4ca0-bc17-6432b78a85d1"
+      ],
+      "repetition": 0,
+      "order": [
+        "conceptualize",
+        "control"
+      ],
+      "kind": "adoption",
+      "agent_version": "codex-cli 0.158.0-alpha.2.1",
+      "sandbox_failures_observed": true,
+      "account_limit_observed": false,
+      "mcp_calls": 1,
+      "mcp_result_bytes": 4033,
+      "full_trace_bytes": 13705,
+      "api_operation_latency_ms": [
+        251
+      ],
+      "runtime_stage_timings": [
+        {
+          "scoring": 0.708,
+          "context_compilation": 12.966,
+          "inspect_total": 14.086,
+          "graph_traversal": 0.412,
+          "snapshot_and_graph": 3.719,
+          "graph_build": 1.901,
+          "cache": 208.377,
+          "database_trace_before_commit": 1.121,
+          "overhead_transport_ms": null,
+          "overhead_index_lookup_ms": 24.375,
+          "overhead_graph_ms": 2.313,
+          "overhead_git_ms": 0.033,
+          "overhead_scoring_ms": 0.708,
+          "overhead_packing_ms": 12.966,
+          "overhead_cache_ms": 208.377,
+          "overhead_trace_write_ms": 1.121,
+          "overhead_total_runtime_ms": 252.361
+        }
+      ],
+      "client_transport_and_host_wait_ms": null,
+      "observed_files_outside_task_oracle": [],
+      "observed_unnecessary_files": null,
+      "unnecessary_scope": "Outside-oracle files are a descriptive list, not proven unnecessary reads; useful tests and alternative implementations may lie outside the oracle. Actual unnecessary reads remain unknown."
+    },
+    {
+      "manifest": {
+        "task": "unicode-identity",
+        "mode": "control",
+        "repository": "C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\evaluations\\runs\\v04-adoption-isolated\\0-unicode-identity-control\\repository",
+        "baseline": "76f89a8a6ff107c47f9543e377b7aa1cc5b11caf",
+        "prompt_sha256": "5d58bdbd18796d4c27dd6ecf2df8d978e4b2d7de1b28df2a3d398aec4006e9ed",
+        "prompt": "Account names must use whitespace-trimmed Unicode casefold identity rather than lowercase. Preserve account lookup and all derived account identifiers; add regression coverage.\nImplement the change and run repository tests. Keep unrelated behavior unchanged. Python interpreter: C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\.venv\\Scripts\\python.exe"
+      },
+      "execution": {
+        "exit_code": 0,
+        "elapsed_seconds": 82.462,
+        "first_model_message_arrival_ms": 6518.0,
+        "model": "gpt-6-sol",
+        "command_executions": 5,
+        "command_evidence": [
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Location; rg --files -g AGENTS.md -g '*account*' -g '*test*' -g pyproject.toml -g README.md -g requirements* -g setup.cfg\"",
+            "exit_code": -1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"rg --files -g AGENTS.md -g '*.py' -g pyproject.toml -g README.md\"",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-ChildItem -Force; rg -n 'lower|strip|account|pytest|unittest' relay verification; Get-ChildItem -Path .. -Filter AGENTS.md\"",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content relay\\\\*.py; Get-Content verification\\\\test_baseline.py; git status --short\"",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"& 'C:\\\\Users\\\\isobu\\\\OneDrive\\\\Desktop\\\\Projects\\\\Conceptualize\\\\.venv\\\\Scripts\\\\python.exe' -m pytest; git diff --check; git diff --stat; git status --short\"",
+            "exit_code": 0
+          }
+        ],
+        "mcp_call_evidence": [],
+        "agent_usage": {
+          "input_tokens": 218923,
+          "cached_input_tokens": 198656,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1074,
+          "reasoning_output_tokens": 7
+        },
+        "agent_final_message": "Implemented `strip().casefold()` for account identity. Lookup and derived ledger keys use the same normalization.\n\nAdded Unicode regression coverage and verified unrelated route behavior remains unchanged.\n\nAll 15 repository tests passed using the specified Python interpreter. `git diff --check` passed.",
+        "files_inspected": null,
+        "unnecessary_repository_reads": null,
+        "corrective_iterations": null,
+        "startup_time_ms": null,
+        "mcp_initialization_time_ms": null,
+        "timing_scope": "CLI arrival timestamps; host does not expose separate initialization/model scheduling timing."
+      },
+      "tests_passed": true,
+      "exploration": {
+        "observed_file_reads": 0,
+        "observed_repeated_reads": 0,
+        "observed_files_inspected": [],
+        "first_observed_read": {},
+        "read_evidence": [],
+        "searches": 1,
+        "grep_operations": 0,
+        "directory_listings": 3,
+        "unresolved_read_commands": [
+          {
+            "step": 10,
+            "command": "Get-Content relay//*.py",
+            "reason": "unresolved literal/variable path"
+          },
+          {
+            "step": 10,
+            "command": "Get-Content verification//test_baseline.py",
+            "reason": "unresolved literal/variable path"
+          }
+        ],
+        "observed_failed_test_commands": [],
+        "all_file_reads": null,
+        "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+      },
+      "adoption": {
+        "when_invoked_vs_observed_discovery": "unknown",
+        "relationship_discovery": {},
+        "tool_available": false,
+        "tool_invoked": false,
+        "first_operation": null,
+        "when_invoked": "unknown",
+        "useful_relationship_surfaced": null,
+        "relationship_used_in_final_change": null,
+        "required_relationship_paths_surfaced": [],
+        "limits": "Manual discovery uses supported read commands and source-bearing search output as lower bounds; causal use in final changes is not inferred from invocation or passing tests."
+      },
+      "context_tokens": 0,
+      "trace_ids": [],
+      "repetition": 0,
+      "order": [
+        "conceptualize",
+        "control"
+      ],
+      "kind": "adoption",
+      "agent_version": "codex-cli 0.158.0-alpha.2.1",
+      "sandbox_failures_observed": true,
+      "account_limit_observed": false,
+      "mcp_calls": 0,
+      "mcp_result_bytes": 0,
+      "full_trace_bytes": 0,
+      "api_operation_latency_ms": [],
+      "runtime_stage_timings": [],
+      "client_transport_and_host_wait_ms": null,
+      "observed_files_outside_task_oracle": [],
+      "observed_unnecessary_files": null,
+      "unnecessary_scope": "Outside-oracle files are a descriptive list, not proven unnecessary reads; useful tests and alternative implementations may lie outside the oracle. Actual unnecessary reads remain unknown."
+    },
+    {
+      "manifest": {
+        "task": "batch-contract",
+        "mode": "control",
+        "repository": "C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\evaluations\\runs\\v04-adoption-isolated\\0-batch-contract-control\\repository",
+        "baseline": "76f89a8a6ff107c47f9543e377b7aa1cc5b11caf",
+        "prompt_sha256": "a3dc58424531b388ba75d18aabfae932c8290371c6c88d9c4830ba49b912fe3a",
+        "prompt": "Replace the scalar batch setting with a frozen BatchPolicy record exposing maximum=25. Startup options and batch admission must use that shared policy. Reject boolean, zero, negative and out-of-range counts; preserve valid integer admission.\nImplement the change and run repository tests. Keep unrelated behavior unchanged. Python interpreter: C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\.venv\\Scripts\\python.exe"
+      },
+      "execution": {
+        "exit_code": 0,
+        "elapsed_seconds": 87.603,
+        "first_model_message_arrival_ms": 5966.152,
+        "model": "gpt-6-sol",
+        "command_executions": 5,
+        "command_evidence": [
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Location; rg --files -g AGENTS.md -g '*batch*' -g '*test*' -g pyproject.toml -g README.md; rg -n \\\"batch|Batch\\\" . --glob '*.py'; rg -n \\\"Conceptualize|BatchPolicy\\\" C:\\\\Users\\\\isobu\\\\.codex\\\\memories\\\\MEMORY.md\"",
+            "exit_code": -1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"rg --files -g AGENTS.md -g '*test*' -g pyproject.toml; rg -n 'batch|Batch' . --glob '*.py'\"",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"rg --files --hidden -g '\"'!.git/**'\"'; Get-Content relay\\\\bootstrap.py; Get-Content verification\\\\test_baseline.py; rg -n 'BATCH_LIMIT|batch|admit' .; rg -n 'Conceptualize|BatchPolicy' C:\\\\Users\\\\isobu\\\\.codex\\\\memories\\\\MEMORY.md; git status --short\"",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content relay\\\\records.py; Get-Content relay\\\\contracts.py; Get-Content relay\\\\settings.py; Get-Content relay\\\\admission.py; Get-Content .gitignore; Get-ChildItem -Path .. -Filter AGENTS.md; Get-ChildItem -Path . -Filter AGENTS.md -Force\"",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"& 'C:\\\\Users\\\\isobu\\\\OneDrive\\\\Desktop\\\\Projects\\\\Conceptualize\\\\.venv\\\\Scripts\\\\python.exe' -m pytest; git diff --check; git diff --stat; git status --short\"",
+            "exit_code": 0
+          }
+        ],
+        "mcp_call_evidence": [],
+        "agent_usage": {
+          "input_tokens": 219306,
+          "cached_input_tokens": 199040,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1485,
+          "reasoning_output_tokens": 21
+        },
+        "agent_final_message": "Implemented frozen `BatchPolicy(maximum=25)` shared by startup options and batch admission. Admission accepts integers 1\u201325 and rejects booleans, zero, negatives, out-of-range counts, and non-integers.\n\nAll 42 repository tests passed using your specified Python interpreter. `git diff --check` passed.",
+        "files_inspected": null,
+        "unnecessary_repository_reads": null,
+        "corrective_iterations": null,
+        "startup_time_ms": null,
+        "mcp_initialization_time_ms": null,
+        "timing_scope": "CLI arrival timestamps; host does not expose separate initialization/model scheduling timing."
+      },
+      "tests_passed": true,
+      "exploration": {
+        "observed_file_reads": 0,
+        "observed_repeated_reads": 0,
+        "observed_files_inspected": [],
+        "first_observed_read": {},
+        "read_evidence": [],
+        "searches": 3,
+        "grep_operations": 0,
+        "directory_listings": 4,
+        "unresolved_read_commands": [
+          {
+            "step": 8,
+            "command": "Get-Content relay//bootstrap.py",
+            "reason": "unresolved literal/variable path"
+          },
+          {
+            "step": 8,
+            "command": "Get-Content verification//test_baseline.py",
+            "reason": "unresolved literal/variable path"
+          },
+          {
+            "step": 10,
+            "command": "Get-Content relay//records.py",
+            "reason": "unresolved literal/variable path"
+          },
+          {
+            "step": 10,
+            "command": "Get-Content relay//contracts.py",
+            "reason": "unresolved literal/variable path"
+          },
+          {
+            "step": 10,
+            "command": "Get-Content relay//settings.py",
+            "reason": "unresolved literal/variable path"
+          },
+          {
+            "step": 10,
+            "command": "Get-Content relay//admission.py",
+            "reason": "unresolved literal/variable path"
+          },
+          {
+            "step": 10,
+            "command": "Get-Content .gitignore",
+            "reason": "unresolved literal/variable path"
+          }
+        ],
+        "observed_failed_test_commands": [],
+        "all_file_reads": null,
+        "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+      },
+      "adoption": {
+        "when_invoked_vs_observed_discovery": "unknown",
+        "relationship_discovery": {},
+        "tool_available": false,
+        "tool_invoked": false,
+        "first_operation": null,
+        "when_invoked": "unknown",
+        "useful_relationship_surfaced": null,
+        "relationship_used_in_final_change": null,
+        "required_relationship_paths_surfaced": [],
+        "limits": "Manual discovery uses supported read commands and source-bearing search output as lower bounds; causal use in final changes is not inferred from invocation or passing tests."
+      },
+      "context_tokens": 0,
+      "trace_ids": [],
+      "repetition": 0,
+      "order": [
+        "control",
+        "conceptualize"
+      ],
+      "kind": "adoption",
+      "agent_version": "codex-cli 0.158.0-alpha.2.1",
+      "sandbox_failures_observed": true,
+      "account_limit_observed": false,
+      "mcp_calls": 0,
+      "mcp_result_bytes": 0,
+      "full_trace_bytes": 0,
+      "api_operation_latency_ms": [],
+      "runtime_stage_timings": [],
+      "client_transport_and_host_wait_ms": null,
+      "observed_files_outside_task_oracle": [],
+      "observed_unnecessary_files": null,
+      "unnecessary_scope": "Outside-oracle files are a descriptive list, not proven unnecessary reads; useful tests and alternative implementations may lie outside the oracle. Actual unnecessary reads remain unknown."
+    },
+    {
+      "manifest": {
+        "task": "batch-contract",
+        "mode": "conceptualize",
+        "repository": "C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\evaluations\\runs\\v04-adoption-isolated\\0-batch-contract-conceptualize\\repository",
+        "baseline": "76f89a8a6ff107c47f9543e377b7aa1cc5b11caf",
+        "prompt_sha256": "a3dc58424531b388ba75d18aabfae932c8290371c6c88d9c4830ba49b912fe3a",
+        "prompt": "Replace the scalar batch setting with a frozen BatchPolicy record exposing maximum=25. Startup options and batch admission must use that shared policy. Reject boolean, zero, negative and out-of-range counts; preserve valid integer admission.\nImplement the change and run repository tests. Keep unrelated behavior unchanged. Python interpreter: C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\.venv\\Scripts\\python.exe"
+      },
+      "execution": {
+        "exit_code": 0,
+        "elapsed_seconds": 119.55,
+        "first_model_message_arrival_ms": 9719.928,
+        "model": "gpt-6-sol",
+        "command_executions": 6,
+        "command_evidence": [
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Location; rg --files -g AGENTS.md -g '*batch*' -g '*config*' -g '*test*' -g pyproject.toml -g pytest.ini; Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/using-superpowers/SKILL.md\"",
+            "exit_code": -1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -NoProfile -Command \"rg --files -g AGENTS.md -g '*.py' -g pyproject.toml\"",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -NoProfile -Command \"Get-ChildItem -Force; rg -n 'batch|Batch' relay verification; Get-Content relay/settings.py,relay/records.py,relay/admission.py,relay/bootstrap.py,verification/test_baseline.py; Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/using-superpowers/SKILL.md\"",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -NoProfile -Command \"Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/test-driven-development/SKILL.md,C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/verification-before-completion/SKILL.md; git status --short; Get-Content relay/contracts.py,relay/__init__.py; rg -n 'BATCH_LIMIT|settings|dataclass' .\"",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -NoProfile -Command \"& 'C:\\\\Users\\\\isobu\\\\OneDrive\\\\Desktop\\\\Projects\\\\Conceptualize\\\\.venv\\\\Scripts\\\\python.exe' -m pytest -q\"",
+            "exit_code": 1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -NoProfile -Command \"& 'C:\\\\Users\\\\isobu\\\\OneDrive\\\\Desktop\\\\Projects\\\\Conceptualize\\\\.venv\\\\Scripts\\\\python.exe' -m pytest -q; git diff --check; git diff --stat; git diff\"",
+            "exit_code": 0
+          }
+        ],
+        "mcp_call_evidence": [],
+        "agent_usage": {
+          "input_tokens": 244387,
+          "cached_input_tokens": 217344,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1650,
+          "reasoning_output_tokens": 13
+        },
+        "agent_final_message": "Implemented frozen `BatchPolicy(maximum=25)`, shared by startup options and batch admission. Admission accepts integers 1\u201325 and rejects booleans, non-integers, zero, negative, and out-of-range counts.\n\nAll 42 repository tests passed with your specified interpreter. `git diff --check` passed. Unrelated behavior remains unchanged.",
+        "files_inspected": null,
+        "unnecessary_repository_reads": null,
+        "corrective_iterations": null,
+        "startup_time_ms": null,
+        "mcp_initialization_time_ms": null,
+        "timing_scope": "CLI arrival timestamps; host does not expose separate initialization/model scheduling timing."
+      },
+      "tests_passed": true,
+      "exploration": {
+        "observed_file_reads": 7,
+        "observed_repeated_reads": 0,
+        "observed_files_inspected": [
+          "relay/__init__.py",
+          "relay/admission.py",
+          "relay/bootstrap.py",
+          "relay/contracts.py",
+          "relay/records.py",
+          "relay/settings.py",
+          "verification/test_baseline.py"
+        ],
+        "first_observed_read": {
+          "relay/admission.py": 8,
+          "relay/bootstrap.py": 8,
+          "relay/records.py": 8,
+          "relay/settings.py": 8,
+          "verification/test_baseline.py": 8,
+          "relay/__init__.py": 11,
+          "relay/contracts.py": 11
+        },
+        "read_evidence": [
+          {
+            "step": 8,
+            "path": "relay/admission.py",
+            "evidence": "Get-Content relay/settings.py,relay/records.py,relay/admission.py,relay/bootstrap.py,verification/test_baseline.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 8,
+            "path": "relay/bootstrap.py",
+            "evidence": "Get-Content relay/settings.py,relay/records.py,relay/admission.py,relay/bootstrap.py,verification/test_baseline.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 8,
+            "path": "relay/records.py",
+            "evidence": "Get-Content relay/settings.py,relay/records.py,relay/admission.py,relay/bootstrap.py,verification/test_baseline.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 8,
+            "path": "relay/settings.py",
+            "evidence": "Get-Content relay/settings.py,relay/records.py,relay/admission.py,relay/bootstrap.py,verification/test_baseline.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 8,
+            "path": "verification/test_baseline.py",
+            "evidence": "Get-Content relay/settings.py,relay/records.py,relay/admission.py,relay/bootstrap.py,verification/test_baseline.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 11,
+            "path": "relay/__init__.py",
+            "evidence": "Get-Content relay/contracts.py,relay/__init__.py",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 11,
+            "path": "relay/contracts.py",
+            "evidence": "Get-Content relay/contracts.py,relay/__init__.py",
+            "confidence": "explicit successful read command; lower bound"
+          }
+        ],
+        "searches": 2,
+        "grep_operations": 0,
+        "directory_listings": 2,
+        "unresolved_read_commands": [
+          {
+            "step": 8,
+            "command": "Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/using-superpowers/SKILL.md\"",
+            "reason": "unresolved literal/variable path"
+          },
+          {
+            "step": 11,
+            "command": "Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/test-driven-development/SKILL.md,C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/verification-before-completion/SKILL.md",
+            "reason": "unresolved literal/variable path"
+          }
+        ],
+        "observed_failed_test_commands": [
+          {
+            "step": 4,
+            "command": "\"C://Users//isobu//.cache//codex-runtimes//codex-primary-runtime//dependencies//native//powershell//pwsh.exe\" -Command \"Get-Location; rg --files -g AGENTS.md -g '*batch*' -g '*config*' -g '*test*' -g pyproject.toml -g pytest.ini; Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/using-superpowers/SKILL.md\"",
+            "exit_code": -1
+          },
+          {
+            "step": 15,
+            "command": "\"C://Users//isobu//.cache//codex-runtimes//codex-primary-runtime//dependencies//native//powershell//pwsh.exe\" -NoProfile -Command \"& 'C://Users//isobu//OneDrive//Desktop//Projects//Conceptualize//.venv//Scripts//python.exe' -m pytest -q\"",
+            "exit_code": 1
+          }
+        ],
+        "all_file_reads": null,
+        "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+      },
+      "adoption": {
+        "when_invoked_vs_observed_discovery": "unknown",
+        "relationship_discovery": {},
+        "tool_available": true,
+        "tool_invoked": false,
+        "first_operation": null,
+        "when_invoked": "unknown",
+        "useful_relationship_surfaced": null,
+        "relationship_used_in_final_change": null,
+        "required_relationship_paths_surfaced": [],
+        "limits": "Manual discovery uses supported read commands and source-bearing search output as lower bounds; causal use in final changes is not inferred from invocation or passing tests."
+      },
+      "context_tokens": 0,
+      "trace_ids": [],
+      "repetition": 0,
+      "order": [
+        "control",
+        "conceptualize"
+      ],
+      "kind": "adoption",
+      "agent_version": "codex-cli 0.158.0-alpha.2.1",
+      "sandbox_failures_observed": true,
+      "account_limit_observed": false,
+      "mcp_calls": 0,
+      "mcp_result_bytes": 0,
+      "full_trace_bytes": 0,
+      "api_operation_latency_ms": [],
+      "runtime_stage_timings": [],
+      "client_transport_and_host_wait_ms": null,
+      "observed_files_outside_task_oracle": [
+        "relay/__init__.py",
+        "relay/contracts.py",
+        "relay/records.py",
+        "verification/test_baseline.py"
+      ],
+      "observed_unnecessary_files": null,
+      "unnecessary_scope": "Outside-oracle files are a descriptive list, not proven unnecessary reads; useful tests and alternative implementations may lie outside the oracle. Actual unnecessary reads remain unknown."
+    },
+    {
+      "manifest": {
+        "task": "retry-interface",
+        "mode": "conceptualize",
+        "repository": "C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\evaluations\\runs\\v04-adoption-isolated\\0-retry-interface-conceptualize\\repository",
+        "baseline": "76f89a8a6ff107c47f9543e377b7aa1cc5b11caf",
+        "prompt_sha256": "2b99e3dc04b44e01ec9c8747e1f3bf5650d72e2d95b25f239a802bf3f185cb49",
+        "prompt": "Notification delivery must attempt transient TimeoutError failures at most three times, return successful values unchanged, and propagate other exceptions immediately. Put retry policy in one shared place and add tests through the public notification entry point.\nImplement the change and run repository tests. Keep unrelated behavior unchanged. Python interpreter: C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\.venv\\Scripts\\python.exe"
+      },
+      "execution": {
+        "exit_code": 0,
+        "elapsed_seconds": 113.479,
+        "first_model_message_arrival_ms": 8934.925,
+        "model": "gpt-6-sol",
+        "command_executions": 6,
+        "command_evidence": [
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Location; rg --files -g AGENTS.md -g '*notif*' -g '*test*' -g pyproject.toml -g pytest.ini -g setup.cfg; Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/using-superpowers/SKILL.md\"",
+            "exit_code": -1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -NoProfile -Command 'rg --files'",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content relay/*.py; Get-Content verification/test_baseline.py; Get-ChildItem -Force; Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/using-superpowers/SKILL.md; rg -n 'Conceptualize|notification' C:/Users/isobu/.codex/memories/MEMORY.md\"",
+            "exit_code": 1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/test-driven-development/SKILL.md; Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/verification-before-completion/SKILL.md; git status --short; rg --files --hidden -g AGENTS.md -g '\"'! .git'\"'\"",
+            "exit_code": 1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"& 'C:\\\\Users\\\\isobu\\\\OneDrive\\\\Desktop\\\\Projects\\\\Conceptualize\\\\.venv\\\\Scripts\\\\python.exe' -m pytest -q\"",
+            "exit_code": 1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"& 'C:\\\\Users\\\\isobu\\\\OneDrive\\\\Desktop\\\\Projects\\\\Conceptualize\\\\.venv\\\\Scripts\\\\python.exe' -m pytest -q; git diff --check; git diff -- relay/retry.py; git status --short\"",
+            "exit_code": 0
+          }
+        ],
+        "mcp_call_evidence": [],
+        "agent_usage": {
+          "input_tokens": 277161,
+          "cached_input_tokens": 244992,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1410,
+          "reasoning_output_tokens": 9
+        },
+        "agent_final_message": "Implemented the three-attempt limit in the shared retry helper. Public notification tests cover unchanged successful values, timeout exhaustion, and immediate propagation of other exceptions. Unrelated behavior remains unchanged.\n\nAll 31 repository tests passed using the specified Python interpreter. `git diff --check` passed.",
+        "files_inspected": null,
+        "unnecessary_repository_reads": null,
+        "corrective_iterations": null,
+        "startup_time_ms": null,
+        "mcp_initialization_time_ms": null,
+        "timing_scope": "CLI arrival timestamps; host does not expose separate initialization/model scheduling timing."
+      },
+      "tests_passed": true,
+      "exploration": {
+        "observed_file_reads": 0,
+        "observed_repeated_reads": 0,
+        "observed_files_inspected": [],
+        "first_observed_read": {},
+        "read_evidence": [],
+        "searches": 0,
+        "grep_operations": 0,
+        "directory_listings": 1,
+        "unresolved_read_commands": [],
+        "observed_failed_test_commands": [
+          {
+            "step": 4,
+            "command": "\"C://Users//isobu//.cache//codex-runtimes//codex-primary-runtime//dependencies//native//powershell//pwsh.exe\" -Command \"Get-Location; rg --files -g AGENTS.md -g '*notif*' -g '*test*' -g pyproject.toml -g pytest.ini -g setup.cfg; Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/using-superpowers/SKILL.md\"",
+            "exit_code": -1
+          },
+          {
+            "step": 15,
+            "command": "\"C://Users//isobu//.cache//codex-runtimes//codex-primary-runtime//dependencies//native//powershell//pwsh.exe\" -Command \"& 'C://Users//isobu//OneDrive//Desktop//Projects//Conceptualize//.venv//Scripts//python.exe' -m pytest -q\"",
+            "exit_code": 1
+          }
+        ],
+        "all_file_reads": null,
+        "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+      },
+      "adoption": {
+        "when_invoked_vs_observed_discovery": "unknown",
+        "relationship_discovery": {},
+        "tool_available": true,
+        "tool_invoked": false,
+        "first_operation": null,
+        "when_invoked": "unknown",
+        "useful_relationship_surfaced": null,
+        "relationship_used_in_final_change": null,
+        "required_relationship_paths_surfaced": [],
+        "limits": "Manual discovery uses supported read commands and source-bearing search output as lower bounds; causal use in final changes is not inferred from invocation or passing tests."
+      },
+      "context_tokens": 0,
+      "trace_ids": [],
+      "repetition": 0,
+      "order": [
+        "conceptualize",
+        "control"
+      ],
+      "kind": "adoption",
+      "agent_version": "codex-cli 0.158.0-alpha.2.1",
+      "sandbox_failures_observed": true,
+      "account_limit_observed": false,
+      "mcp_calls": 0,
+      "mcp_result_bytes": 0,
+      "full_trace_bytes": 0,
+      "api_operation_latency_ms": [],
+      "runtime_stage_timings": [],
+      "client_transport_and_host_wait_ms": null,
+      "observed_files_outside_task_oracle": [],
+      "observed_unnecessary_files": null,
+      "unnecessary_scope": "Outside-oracle files are a descriptive list, not proven unnecessary reads; useful tests and alternative implementations may lie outside the oracle. Actual unnecessary reads remain unknown."
+    },
+    {
+      "manifest": {
+        "task": "retry-interface",
+        "mode": "control",
+        "repository": "C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\evaluations\\runs\\v04-adoption-isolated\\0-retry-interface-control\\repository",
+        "baseline": "76f89a8a6ff107c47f9543e377b7aa1cc5b11caf",
+        "prompt_sha256": "2b99e3dc04b44e01ec9c8747e1f3bf5650d72e2d95b25f239a802bf3f185cb49",
+        "prompt": "Notification delivery must attempt transient TimeoutError failures at most three times, return successful values unchanged, and propagate other exceptions immediately. Put retry policy in one shared place and add tests through the public notification entry point.\nImplement the change and run repository tests. Keep unrelated behavior unchanged. Python interpreter: C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\.venv\\Scripts\\python.exe"
+      },
+      "execution": {
+        "exit_code": 0,
+        "elapsed_seconds": 71.14,
+        "first_model_message_arrival_ms": 5686.401,
+        "model": "gpt-6-sol",
+        "command_executions": 4,
+        "command_evidence": [
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-ChildItem -Force; rg --files -g AGENTS.md -g '*.py' -g '*toml' -g '*ini' -g '*txt'\"",
+            "exit_code": -1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-ChildItem -Force; rg --files -g AGENTS.md -g '*.py' -g '*toml' -g '*ini' -g '*txt'\"",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content relay\\\\retry.py,relay\\\\dispatch.py,relay\\\\gateway.py,relay\\\\adapter.py,relay\\\\contracts.py,relay\\\\__init__.py,verification\\\\test_baseline.py; rg -n 'notif|retry|Timeout|deliver' relay; git status --short\"",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"& 'C:\\\\Users\\\\isobu\\\\OneDrive\\\\Desktop\\\\Projects\\\\Conceptualize\\\\.venv\\\\Scripts\\\\python.exe' -m pytest; git diff --check; git diff --stat\"",
+            "exit_code": 0
+          }
+        ],
+        "mcp_call_evidence": [],
+        "agent_usage": {
+          "input_tokens": 157655,
+          "cached_input_tokens": 138240,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1131,
+          "reasoning_output_tokens": 23
+        },
+        "agent_final_message": "Implemented the three-attempt limit in the shared retry helper. Added tests through `send_notification` covering timeout recovery, exhaustion, unchanged successful values, and immediate propagation of other exceptions.\n\nAll 28 repository tests passed with your specified Python interpreter. `git diff --check` passed.",
+        "files_inspected": null,
+        "unnecessary_repository_reads": null,
+        "corrective_iterations": null,
+        "startup_time_ms": null,
+        "mcp_initialization_time_ms": null,
+        "timing_scope": "CLI arrival timestamps; host does not expose separate initialization/model scheduling timing."
+      },
+      "tests_passed": true,
+      "exploration": {
+        "observed_file_reads": 0,
+        "observed_repeated_reads": 0,
+        "observed_files_inspected": [],
+        "first_observed_read": {},
+        "read_evidence": [],
+        "searches": 1,
+        "grep_operations": 0,
+        "directory_listings": 2,
+        "unresolved_read_commands": [
+          {
+            "step": 8,
+            "command": "Get-Content relay//retry.py,relay//dispatch.py,relay//gateway.py,relay//adapter.py,relay//contracts.py,relay//__init__.py,verification//test_baseline.py",
+            "reason": "unresolved literal/variable path"
+          }
+        ],
+        "observed_failed_test_commands": [],
+        "all_file_reads": null,
+        "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+      },
+      "adoption": {
+        "when_invoked_vs_observed_discovery": "unknown",
+        "relationship_discovery": {},
+        "tool_available": false,
+        "tool_invoked": false,
+        "first_operation": null,
+        "when_invoked": "unknown",
+        "useful_relationship_surfaced": null,
+        "relationship_used_in_final_change": null,
+        "required_relationship_paths_surfaced": [],
+        "limits": "Manual discovery uses supported read commands and source-bearing search output as lower bounds; causal use in final changes is not inferred from invocation or passing tests."
+      },
+      "context_tokens": 0,
+      "trace_ids": [],
+      "repetition": 0,
+      "order": [
+        "conceptualize",
+        "control"
+      ],
+      "kind": "adoption",
+      "agent_version": "codex-cli 0.158.0-alpha.2.1",
+      "sandbox_failures_observed": true,
+      "account_limit_observed": false,
+      "mcp_calls": 0,
+      "mcp_result_bytes": 0,
+      "full_trace_bytes": 0,
+      "api_operation_latency_ms": [],
+      "runtime_stage_timings": [],
+      "client_transport_and_host_wait_ms": null,
+      "observed_files_outside_task_oracle": [],
+      "observed_unnecessary_files": null,
+      "unnecessary_scope": "Outside-oracle files are a descriptive list, not proven unnecessary reads; useful tests and alternative implementations may lie outside the oracle. Actual unnecessary reads remain unknown."
+    },
+    {
+      "manifest": {
+        "task": "record-schema",
+        "mode": "control",
+        "repository": "C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\evaluations\\runs\\v04-adoption-isolated\\0-record-schema-control\\repository",
+        "baseline": "76f89a8a6ff107c47f9543e377b7aa1cc5b11caf",
+        "prompt_sha256": "953b6fa1b8bcb6944efd758bf11852f7ce69de6268592dddcd4d488d6da15b05",
+        "prompt": "New stored account records must use a version 2 schema with id, version=2 and state=\"enabled\" or \"disabled\", replacing active. Reading existing unversioned active records must remain compatible. Preserve public load tuples and reporting behavior; reject unsupported versions or states.\nImplement the change and run repository tests. Keep unrelated behavior unchanged. Python interpreter: C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\.venv\\Scripts\\python.exe"
+      },
+      "execution": {
+        "exit_code": 0,
+        "elapsed_seconds": 88.672,
+        "first_model_message_arrival_ms": 7800.173,
+        "model": "gpt-6-sol",
+        "command_executions": 4,
+        "command_evidence": [
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Location; rg --files -g AGENTS.md -g '*account*' -g '*test*' -g 'pyproject.toml'; rg -n 'Conceptualize|record.schema' C:\\\\Users\\\\isobu\\\\.codex\\\\memories\\\\MEMORY.md\"",
+            "exit_code": -1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"rg --files; rg -n 'Conceptualize|record.schema' C:\\\\Users\\\\isobu\\\\.codex\\\\memories\\\\MEMORY.md\"",
+            "exit_code": 1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-ChildItem -Force; Get-Content relay\\\\records.py,relay\\\\store.py,relay\\\\reporting.py,verification\\\\test_baseline.py; rg -n 'active|record|load' relay; Get-ChildItem -Path .. -Filter AGENTS.md; Get-ChildItem -Force .agents,.codex -ErrorAction SilentlyContinue\"",
+            "exit_code": 1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"& 'C:\\\\Users\\\\isobu\\\\OneDrive\\\\Desktop\\\\Projects\\\\Conceptualize\\\\.venv\\\\Scripts\\\\python.exe' -m pytest; git diff --check; git status --short\"",
+            "exit_code": 0
+          }
+        ],
+        "mcp_call_evidence": [],
+        "agent_usage": {
+          "input_tokens": 158045,
+          "cached_input_tokens": 138368,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1443,
+          "reasoning_output_tokens": 26
+        },
+        "agent_final_message": "Implemented version 2 records with `id`, `version=2`, and `state`, replacing `active` in new writes.\n\nLegacy unversioned records remain readable. Load tuples and reporting behavior are preserved; unsupported versions and states raise `ValueError`.\n\nAll 32 repository tests passed using your Python interpreter. `git diff --check` passed.",
+        "files_inspected": null,
+        "unnecessary_repository_reads": null,
+        "corrective_iterations": null,
+        "startup_time_ms": null,
+        "mcp_initialization_time_ms": null,
+        "timing_scope": "CLI arrival timestamps; host does not expose separate initialization/model scheduling timing."
+      },
+      "tests_passed": true,
+      "exploration": {
+        "observed_file_reads": 0,
+        "observed_repeated_reads": 0,
+        "observed_files_inspected": [],
+        "first_observed_read": {},
+        "read_evidence": [],
+        "searches": 0,
+        "grep_operations": 0,
+        "directory_listings": 0,
+        "unresolved_read_commands": [],
+        "observed_failed_test_commands": [],
+        "all_file_reads": null,
+        "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+      },
+      "adoption": {
+        "when_invoked_vs_observed_discovery": "unknown",
+        "relationship_discovery": {},
+        "tool_available": false,
+        "tool_invoked": false,
+        "first_operation": null,
+        "when_invoked": "unknown",
+        "useful_relationship_surfaced": null,
+        "relationship_used_in_final_change": null,
+        "required_relationship_paths_surfaced": [],
+        "limits": "Manual discovery uses supported read commands and source-bearing search output as lower bounds; causal use in final changes is not inferred from invocation or passing tests."
+      },
+      "context_tokens": 0,
+      "trace_ids": [],
+      "repetition": 0,
+      "order": [
+        "control",
+        "conceptualize"
+      ],
+      "kind": "adoption",
+      "agent_version": "codex-cli 0.158.0-alpha.2.1",
+      "sandbox_failures_observed": true,
+      "account_limit_observed": false,
+      "mcp_calls": 0,
+      "mcp_result_bytes": 0,
+      "full_trace_bytes": 0,
+      "api_operation_latency_ms": [],
+      "runtime_stage_timings": [],
+      "client_transport_and_host_wait_ms": null,
+      "observed_files_outside_task_oracle": [],
+      "observed_unnecessary_files": null,
+      "unnecessary_scope": "Outside-oracle files are a descriptive list, not proven unnecessary reads; useful tests and alternative implementations may lie outside the oracle. Actual unnecessary reads remain unknown."
+    },
+    {
+      "manifest": {
+        "task": "record-schema",
+        "mode": "conceptualize",
+        "repository": "C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\evaluations\\runs\\v04-adoption-isolated\\0-record-schema-conceptualize\\repository",
+        "baseline": "76f89a8a6ff107c47f9543e377b7aa1cc5b11caf",
+        "prompt_sha256": "953b6fa1b8bcb6944efd758bf11852f7ce69de6268592dddcd4d488d6da15b05",
+        "prompt": "New stored account records must use a version 2 schema with id, version=2 and state=\"enabled\" or \"disabled\", replacing active. Reading existing unversioned active records must remain compatible. Preserve public load tuples and reporting behavior; reject unsupported versions or states.\nImplement the change and run repository tests. Keep unrelated behavior unchanged. Python interpreter: C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\.venv\\Scripts\\python.exe"
+      },
+      "execution": {
+        "exit_code": 0,
+        "elapsed_seconds": 107.891,
+        "first_model_message_arrival_ms": 9363.044,
+        "model": "gpt-6-sol",
+        "command_executions": 6,
+        "command_evidence": [
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Location; rg --files -g AGENTS.md -g '*account*' -g '*test*' -g 'pyproject.toml' -g 'README*'; Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/using-superpowers/SKILL.md\"",
+            "exit_code": -1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command 'Get-Location; rg --files'",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/using-superpowers/SKILL.md; rg -n 'Conceptualize|record.schema' C:/Users/isobu/.codex/memories/MEMORY.md; Get-ChildItem -Force; Get-Content verification/test_baseline.py\"",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/test-driven-development/SKILL.md; Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/verification-before-completion/SKILL.md; git status --short; rg --files --hidden -g AGENTS.md -g '\"'! .git'\"'; Get-Content relay/records.py\"",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"& 'C:/Users/isobu/OneDrive/Desktop/Projects/Conceptualize/.venv/Scripts/python.exe' -m pytest -q\"",
+            "exit_code": 1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"& 'C:/Users/isobu/OneDrive/Desktop/Projects/Conceptualize/.venv/Scripts/python.exe' -m pytest -q; git diff --check; git diff --stat; git status --short\"",
+            "exit_code": 0
+          }
+        ],
+        "mcp_call_evidence": [
+          {
+            "server": "conceptualize",
+            "tool": "conceptualize_inspect",
+            "status": "completed"
+          }
+        ],
+        "agent_usage": {
+          "input_tokens": 282346,
+          "cached_input_tokens": 249088,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1578,
+          "reasoning_output_tokens": 16
+        },
+        "agent_final_message": "Implemented version 2 records with `id`, `version=2`, and `state`, replacing `active`.\n\nLegacy unversioned records remain readable. Load tuples and reporting behavior are preserved; unsupported versions and states raise `ValueError`.\n\nAll 29 repository tests passed using your Python interpreter. `git diff --check` passed.",
+        "files_inspected": null,
+        "unnecessary_repository_reads": null,
+        "corrective_iterations": null,
+        "startup_time_ms": null,
+        "mcp_initialization_time_ms": null,
+        "timing_scope": "CLI arrival timestamps; host does not expose separate initialization/model scheduling timing."
+      },
+      "tests_passed": true,
+      "exploration": {
+        "observed_file_reads": 2,
+        "observed_repeated_reads": 0,
+        "observed_files_inspected": [
+          "relay/records.py",
+          "verification/test_baseline.py"
+        ],
+        "first_observed_read": {
+          "verification/test_baseline.py": 10,
+          "relay/records.py": 13
+        },
+        "read_evidence": [
+          {
+            "step": 10,
+            "path": "verification/test_baseline.py",
+            "evidence": "Get-Content verification/test_baseline.py\"",
+            "confidence": "explicit successful read command; lower bound"
+          },
+          {
+            "step": 13,
+            "path": "relay/records.py",
+            "evidence": "Get-Content relay/records.py\"",
+            "confidence": "explicit successful read command; lower bound"
+          }
+        ],
+        "searches": 1,
+        "grep_operations": 0,
+        "directory_listings": 3,
+        "unresolved_read_commands": [
+          {
+            "step": 10,
+            "command": "Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/using-superpowers/SKILL.md",
+            "reason": "unresolved literal/variable path"
+          },
+          {
+            "step": 13,
+            "command": "Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/test-driven-development/SKILL.md",
+            "reason": "unresolved literal/variable path"
+          },
+          {
+            "step": 13,
+            "command": "Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/verification-before-completion/SKILL.md",
+            "reason": "unresolved literal/variable path"
+          }
+        ],
+        "observed_failed_test_commands": [
+          {
+            "step": 17,
+            "command": "\"C://Users//isobu//.cache//codex-runtimes//codex-primary-runtime//dependencies//native//powershell//pwsh.exe\" -Command \"& 'C:/Users/isobu/OneDrive/Desktop/Projects/Conceptualize/.venv/Scripts/python.exe' -m pytest -q\"",
+            "exit_code": 1
+          }
+        ],
+        "all_file_reads": null,
+        "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+      },
+      "adoption": {
+        "when_invoked_vs_observed_discovery": "before observed relevant source evidence",
+        "relationship_discovery": {
+          "relay/reporting.py": {
+            "surfaced_step": 8,
+            "observed_read_step": null,
+            "observed_source_evidence_step": null,
+            "relative_to_source_discovery": "unknown",
+            "when": "unknown"
+          },
+          "relay/store.py": {
+            "surfaced_step": 8,
+            "observed_read_step": null,
+            "observed_source_evidence_step": null,
+            "relative_to_source_discovery": "unknown",
+            "when": "unknown"
+          }
+        },
+        "tool_available": true,
+        "tool_invoked": true,
+        "first_operation": "inspect",
+        "when_invoked": "before observed relevant manual read",
+        "useful_relationship_surfaced": true,
+        "relationship_used_in_final_change": null,
+        "required_relationship_paths_surfaced": [
+          "relay/reporting.py",
+          "relay/store.py"
+        ],
+        "limits": "Manual discovery uses supported read commands and source-bearing search output as lower bounds; causal use in final changes is not inferred from invocation or passing tests."
+      },
+      "context_tokens": 348,
+      "trace_ids": [
+        "b90a8284-8702-4a95-8704-76ad0a7aed7b"
+      ],
+      "repetition": 0,
+      "order": [
+        "control",
+        "conceptualize"
+      ],
+      "kind": "adoption",
+      "agent_version": "codex-cli 0.158.0-alpha.2.1",
+      "sandbox_failures_observed": true,
+      "account_limit_observed": false,
+      "mcp_calls": 1,
+      "mcp_result_bytes": 4823,
+      "full_trace_bytes": 14565,
+      "api_operation_latency_ms": [
+        256
+      ],
+      "runtime_stage_timings": [
+        {
+          "scoring": 0.675,
+          "context_compilation": 9.827,
+          "inspect_total": 10.898,
+          "graph_traversal": 0.396,
+          "snapshot_and_graph": 4.059,
+          "graph_build": 2.227,
+          "cache": 212.66,
+          "database_trace_before_commit": 1.351,
+          "overhead_transport_ms": null,
+          "overhead_index_lookup_ms": 28.261,
+          "overhead_graph_ms": 2.623,
+          "overhead_git_ms": 0.065,
+          "overhead_scoring_ms": 0.675,
+          "overhead_packing_ms": 9.827,
+          "overhead_cache_ms": 212.66,
+          "overhead_trace_write_ms": 1.351,
+          "overhead_total_runtime_ms": 257.929
+        }
+      ],
+      "client_transport_and_host_wait_ms": null,
+      "observed_files_outside_task_oracle": [
+        "verification/test_baseline.py"
+      ],
+      "observed_unnecessary_files": null,
+      "unnecessary_scope": "Outside-oracle files are a descriptive list, not proven unnecessary reads; useful tests and alternative implementations may lie outside the oracle. Actual unnecessary reads remain unknown."
+    },
+    {
+      "manifest": {
+        "task": "route-normalization",
+        "mode": "conceptualize",
+        "repository": "C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\evaluations\\runs\\v04-adoption-isolated\\0-route-normalization-conceptualize\\repository",
+        "baseline": "76f89a8a6ff107c47f9543e377b7aa1cc5b11caf",
+        "prompt_sha256": "7b8f8a6d88c98040fa6e05261b5340376f18c83fc7afd38a3fecf19b71e5bd34",
+        "prompt": "Message route labels must contain only lowercase ASCII letters and digits separated by single dashes. Collapse repeated separators and remove leading/trailing separators; reject labels that become empty. Preserve ordinary routes and add regression tests.\nImplement the change and run repository tests. Keep unrelated behavior unchanged. Python interpreter: C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\.venv\\Scripts\\python.exe"
+      },
+      "execution": {
+        "exit_code": 0,
+        "elapsed_seconds": 107.484,
+        "first_model_message_arrival_ms": 9246.791,
+        "model": "gpt-6-sol",
+        "command_executions": 7,
+        "command_evidence": [
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Location; rg --files -g AGENTS.md -g '*route*' -g '*test*' -g pyproject.toml -g pytest.ini -g setup.cfg; Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/using-superpowers/SKILL.md\"",
+            "exit_code": -1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -NoProfile -Command pwd",
+            "exit_code": -1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Location; rg --files -g AGENTS.md -g '*route*' -g '*test*' -g pyproject.toml -g pytest.ini -g setup.cfg\"",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content relay/routes.py; Get-Content verification/test_baseline.py; rg --files; git status --short; Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/using-superpowers/SKILL.md; rg -n 'Conceptualize|route.normal' C:/Users/isobu/.codex/memories/MEMORY.md\"",
+            "exit_code": 1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Content relay/labels.py; rg -n 'label|route' relay verification; Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/test-driven-development/SKILL.md; Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/verification-before-completion/SKILL.md\"",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"& 'C:\\\\Users\\\\isobu\\\\OneDrive\\\\Desktop\\\\Projects\\\\Conceptualize\\\\.venv\\\\Scripts\\\\python.exe' -m pytest -q\"",
+            "exit_code": 1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"& 'C:\\\\Users\\\\isobu\\\\OneDrive\\\\Desktop\\\\Projects\\\\Conceptualize\\\\.venv\\\\Scripts\\\\python.exe' -m pytest -q; git diff --check; git diff -- relay/labels.py; git status --short\"",
+            "exit_code": 0
+          }
+        ],
+        "mcp_call_evidence": [],
+        "agent_usage": {
+          "input_tokens": 291489,
+          "cached_input_tokens": 261760,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1402,
+          "reasoning_output_tokens": 16
+        },
+        "agent_final_message": "Implemented route-label normalization: lowercase ASCII letters and digits, single dashes between segments, no leading/trailing dashes, and `ValueError` for empty results.\n\nAdded regression tests covering separators, punctuation, Unicode, empty labels, and ordinary routes.\n\nAll **19 repository tests passed** using the supplied Python interpreter. `git diff --check` passed.",
+        "files_inspected": null,
+        "unnecessary_repository_reads": null,
+        "corrective_iterations": null,
+        "startup_time_ms": null,
+        "mcp_initialization_time_ms": null,
+        "timing_scope": "CLI arrival timestamps; host does not expose separate initialization/model scheduling timing."
+      },
+      "tests_passed": true,
+      "exploration": {
+        "observed_file_reads": 1,
+        "observed_repeated_reads": 0,
+        "observed_files_inspected": [
+          "relay/labels.py"
+        ],
+        "first_observed_read": {
+          "relay/labels.py": 12
+        },
+        "read_evidence": [
+          {
+            "step": 12,
+            "path": "relay/labels.py",
+            "evidence": "Get-Content relay/labels.py",
+            "confidence": "explicit successful read command; lower bound"
+          }
+        ],
+        "searches": 1,
+        "grep_operations": 0,
+        "directory_listings": 1,
+        "unresolved_read_commands": [
+          {
+            "step": 12,
+            "command": "Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/test-driven-development/SKILL.md",
+            "reason": "unresolved literal/variable path"
+          },
+          {
+            "step": 12,
+            "command": "Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/verification-before-completion/SKILL.md\"",
+            "reason": "unresolved literal/variable path"
+          }
+        ],
+        "observed_failed_test_commands": [
+          {
+            "step": 4,
+            "command": "\"C://Users//isobu//.cache//codex-runtimes//codex-primary-runtime//dependencies//native//powershell//pwsh.exe\" -Command \"Get-Location; rg --files -g AGENTS.md -g '*route*' -g '*test*' -g pyproject.toml -g pytest.ini -g setup.cfg; Get-Content C:/Users/isobu/.codex/plugins/cache/openai-curated-remote/superpowers/6.4.2/skills/using-superpowers/SKILL.md\"",
+            "exit_code": -1
+          },
+          {
+            "step": 17,
+            "command": "\"C://Users//isobu//.cache//codex-runtimes//codex-primary-runtime//dependencies//native//powershell//pwsh.exe\" -Command \"& 'C://Users//isobu//OneDrive//Desktop//Projects//Conceptualize//.venv//Scripts//python.exe' -m pytest -q\"",
+            "exit_code": 1
+          }
+        ],
+        "all_file_reads": null,
+        "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+      },
+      "adoption": {
+        "when_invoked_vs_observed_discovery": "unknown",
+        "relationship_discovery": {},
+        "tool_available": true,
+        "tool_invoked": false,
+        "first_operation": null,
+        "when_invoked": "unknown",
+        "useful_relationship_surfaced": null,
+        "relationship_used_in_final_change": null,
+        "required_relationship_paths_surfaced": [],
+        "limits": "Manual discovery uses supported read commands and source-bearing search output as lower bounds; causal use in final changes is not inferred from invocation or passing tests."
+      },
+      "context_tokens": 0,
+      "trace_ids": [],
+      "repetition": 0,
+      "order": [
+        "conceptualize",
+        "control"
+      ],
+      "kind": "adoption",
+      "agent_version": "codex-cli 0.158.0-alpha.2.1",
+      "sandbox_failures_observed": true,
+      "account_limit_observed": false,
+      "mcp_calls": 0,
+      "mcp_result_bytes": 0,
+      "full_trace_bytes": 0,
+      "api_operation_latency_ms": [],
+      "runtime_stage_timings": [],
+      "client_transport_and_host_wait_ms": null,
+      "observed_files_outside_task_oracle": [],
+      "observed_unnecessary_files": null,
+      "unnecessary_scope": "Outside-oracle files are a descriptive list, not proven unnecessary reads; useful tests and alternative implementations may lie outside the oracle. Actual unnecessary reads remain unknown."
+    },
+    {
+      "manifest": {
+        "task": "route-normalization",
+        "mode": "control",
+        "repository": "C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\evaluations\\runs\\v04-adoption-isolated\\0-route-normalization-control\\repository",
+        "baseline": "76f89a8a6ff107c47f9543e377b7aa1cc5b11caf",
+        "prompt_sha256": "7b8f8a6d88c98040fa6e05261b5340376f18c83fc7afd38a3fecf19b71e5bd34",
+        "prompt": "Message route labels must contain only lowercase ASCII letters and digits separated by single dashes. Collapse repeated separators and remove leading/trailing separators; reject labels that become empty. Preserve ordinary routes and add regression tests.\nImplement the change and run repository tests. Keep unrelated behavior unchanged. Python interpreter: C:\\Users\\isobu\\OneDrive\\Desktop\\Projects\\Conceptualize\\.venv\\Scripts\\python.exe"
+      },
+      "execution": {
+        "exit_code": 0,
+        "elapsed_seconds": 74.625,
+        "first_model_message_arrival_ms": 5833.856,
+        "model": "gpt-6-sol",
+        "command_executions": 4,
+        "command_evidence": [
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-Location; rg --files -g AGENTS.md -g '*route*' -g '*test*' -g pyproject.toml -g README* -g setup.cfg; rg -n \\\"route|label\\\" . --glob '*.py'\"",
+            "exit_code": -1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command 'rg --files'",
+            "exit_code": 0
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"Get-ChildItem -Force; Get-Content relay\\\\routes.py,relay\\\\labels.py,relay\\\\names.py,verification\\\\test_baseline.py; rg -n \\\"route|label\\\" relay; rg -n \\\"Conceptualize|normalization\\\" C:\\\\Users\\\\isobu\\\\.codex\\\\memories\\\\MEMORY.md\"",
+            "exit_code": 1
+          },
+          {
+            "command": "\"C:\\\\Users\\\\isobu\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\native\\\\powershell\\\\pwsh.exe\" -Command \"& 'C:\\\\Users\\\\isobu\\\\OneDrive\\\\Desktop\\\\Projects\\\\Conceptualize\\\\.venv\\\\Scripts\\\\python.exe' -m pytest; git diff --check; git status --short; git diff\"",
+            "exit_code": 0
+          }
+        ],
+        "mcp_call_evidence": [],
+        "agent_usage": {
+          "input_tokens": 157672,
+          "cached_input_tokens": 138112,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1244,
+          "reasoning_output_tokens": 47
+        },
+        "agent_final_message": "Implemented route-label normalization to lowercase ASCII letters and digits with single dashes, trimmed edge separators, and `ValueError` for empty results.\n\nAdded regression tests for ordinary routes, repeated separators, punctuation, whitespace, Unicode, and empty labels.\n\nAll 20 repository tests passed using the supplied Python interpreter. `git diff --check` passed.",
+        "files_inspected": null,
+        "unnecessary_repository_reads": null,
+        "corrective_iterations": null,
+        "startup_time_ms": null,
+        "mcp_initialization_time_ms": null,
+        "timing_scope": "CLI arrival timestamps; host does not expose separate initialization/model scheduling timing."
+      },
+      "tests_passed": true,
+      "exploration": {
+        "observed_file_reads": 0,
+        "observed_repeated_reads": 0,
+        "observed_files_inspected": [],
+        "first_observed_read": {},
+        "read_evidence": [],
+        "searches": 0,
+        "grep_operations": 0,
+        "directory_listings": 1,
+        "unresolved_read_commands": [],
+        "observed_failed_test_commands": [],
+        "all_file_reads": null,
+        "coverage_scope": "Supported literal Get-Content/cat/type commands only. Variable reads, editor tools, pipelines, implicit imports and other commands are not fully observable."
+      },
+      "adoption": {
+        "when_invoked_vs_observed_discovery": "unknown",
+        "relationship_discovery": {},
+        "tool_available": false,
+        "tool_invoked": false,
+        "first_operation": null,
+        "when_invoked": "unknown",
+        "useful_relationship_surfaced": null,
+        "relationship_used_in_final_change": null,
+        "required_relationship_paths_surfaced": [],
+        "limits": "Manual discovery uses supported read commands and source-bearing search output as lower bounds; causal use in final changes is not inferred from invocation or passing tests."
+      },
+      "context_tokens": 0,
+      "trace_ids": [],
+      "repetition": 0,
+      "order": [
+        "conceptualize",
+        "control"
+      ],
+      "kind": "adoption",
+      "agent_version": "codex-cli 0.158.0-alpha.2.1",
+      "sandbox_failures_observed": true,
+      "account_limit_observed": false,
+      "mcp_calls": 0,
+      "mcp_result_bytes": 0,
+      "full_trace_bytes": 0,
+      "api_operation_latency_ms": [],
+      "runtime_stage_timings": [],
+      "client_transport_and_host_wait_ms": null,
+      "observed_files_outside_task_oracle": [],
+      "observed_unnecessary_files": null,
+      "unnecessary_scope": "Outside-oracle files are a descriptive list, not proven unnecessary reads; useful tests and alternative implementations may lie outside the oracle. Actual unnecessary reads remain unknown."
+    }
+  ]
+}

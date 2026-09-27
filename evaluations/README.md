@@ -1,6 +1,6 @@
 # Reproducible context evaluation
 
-V0.5 also includes a short runtime-only conversation check: `python -m conceptualize_evaluation.conversation_benchmark`. It compares full fixture histories with bounded Conceptualize retrieval using exact fact-coverage checks. It does not invoke a model; see [V05.md](V05.md) and [raw results](results/v05-conversations.json). The separate 18-cell autonomous agent matrix is recorded as unrun in [v05-model-matrix.json](results/v05-model-matrix.json) because the installed Codex CLI fails to start due to its missing Windows optional dependency.
+V0.5 includes two separate conversation evaluations. **DETERMINISTIC RUNTIME TEST**: `python -m conceptualize_evaluation.conversation_benchmark` compares four fixture histories using exact fact-coverage checks without invoking a model; its original result remains in [v05-conversations.json](results/v05-conversations.json). The single-problem real-model benchmark uses [v05-conversation-problem.json](v05-conversation-problem.json), [v05-model-matrix.json](results/v05-model-matrix.json), and `python -m conceptualize_evaluation.conversation_agent_benchmark --models gpt-6-sol gpt-5.6-sol`. It runs an external Codex agent and keeps raw events, answers, and traces in ignored local run directories. The README at the repository root gives the public summary and limitations.
 
 The instructions below describe the historical V0.4 coding-agent paired evaluation.
 

@@ -9,4 +9,6 @@ node_modules/
 *.tsbuildinfo
 artifacts/
 
-evaluations/runs/
+evaluations/runs/*
+!evaluations/runs/v05-single-problem/
+evaluations/runs/v05-single-problem/**

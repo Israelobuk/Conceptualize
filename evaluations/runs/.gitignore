@@ -1,0 +1,5 @@
+*
+!.gitignore
+!v05-single-problem/
+v05-single-problem/**
+!v05-single-problem/README.md

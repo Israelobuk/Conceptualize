@@ -1,46 +1,2287 @@
 {
-  "benchmark": "V0.5 short multi-model autonomous context comparison",
-  "status": "not_run",
-  "planned_primary_cells": 18,
-  "completed_primary_cells": 0,
-  "models": [
-    {"model": "gpt-6-astra", "availability_basis": "Codex task-creation tool contract advertises this host-supported model", "runs": []},
-    {"model": "gpt-6-sol", "availability_basis": "Codex task-creation tool contract advertises this host-supported model", "runs": []},
-    {"model": "gpt-6-luna", "availability_basis": "Codex task-creation tool contract advertises this host-supported model", "runs": []}
-  ],
-  "tasks": ["final-storage-decision", "runtime-constraints", "excluded-scope"],
-  "conditions": ["control_conceptualize_disabled", "autonomous_conceptualize_available"],
-  "cell_statuses": [
-    {"model": "gpt-6-astra", "task": "final-storage-decision", "condition": "control_conceptualize_disabled", "status": "not_run"},
-    {"model": "gpt-6-astra", "task": "final-storage-decision", "condition": "autonomous_conceptualize_available", "status": "not_run"},
-    {"model": "gpt-6-astra", "task": "runtime-constraints", "condition": "control_conceptualize_disabled", "status": "not_run"},
-    {"model": "gpt-6-astra", "task": "runtime-constraints", "condition": "autonomous_conceptualize_available", "status": "not_run"},
-    {"model": "gpt-6-astra", "task": "excluded-scope", "condition": "control_conceptualize_disabled", "status": "not_run"},
-    {"model": "gpt-6-astra", "task": "excluded-scope", "condition": "autonomous_conceptualize_available", "status": "not_run"},
-    {"model": "gpt-6-sol", "task": "final-storage-decision", "condition": "control_conceptualize_disabled", "status": "not_run"},
-    {"model": "gpt-6-sol", "task": "final-storage-decision", "condition": "autonomous_conceptualize_available", "status": "not_run"},
-    {"model": "gpt-6-sol", "task": "runtime-constraints", "condition": "control_conceptualize_disabled", "status": "not_run"},
-    {"model": "gpt-6-sol", "task": "runtime-constraints", "condition": "autonomous_conceptualize_available", "status": "not_run"},
-    {"model": "gpt-6-sol", "task": "excluded-scope", "condition": "control_conceptualize_disabled", "status": "not_run"},
-    {"model": "gpt-6-sol", "task": "excluded-scope", "condition": "autonomous_conceptualize_available", "status": "not_run"},
-    {"model": "gpt-6-luna", "task": "final-storage-decision", "condition": "control_conceptualize_disabled", "status": "not_run"},
-    {"model": "gpt-6-luna", "task": "final-storage-decision", "condition": "autonomous_conceptualize_available", "status": "not_run"},
-    {"model": "gpt-6-luna", "task": "runtime-constraints", "condition": "control_conceptualize_disabled", "status": "not_run"},
-    {"model": "gpt-6-luna", "task": "runtime-constraints", "condition": "autonomous_conceptualize_available", "status": "not_run"},
-    {"model": "gpt-6-luna", "task": "excluded-scope", "condition": "control_conceptualize_disabled", "status": "not_run"},
-    {"model": "gpt-6-luna", "task": "excluded-scope", "condition": "autonomous_conceptualize_available", "status": "not_run"}
-  ],
-  "forced_context_agent_runs": 0,
-  "codex_cli_probe": {
-    "command": "codex --version",
-    "status": "failed_before_version_report",
-    "error": "Missing optional dependency @openai/codex-win32-x64. Reinstall Codex: npm install -g @openai/codex@latest"
+  "benchmark": "V0.5 single context recovery",
+  "version": "v0.5-single-context-recovery-1",
+  "status": "completed_with_negative_or_inconclusive_evidence",
+  "problem": "Recover current architecture, constraints, superseded decisions and next step from a long Atlas offline-inspection project conversation.",
+  "question": "Based on everything we've decided so far, give me the current implementation plan. Include the final architecture, the constraints we must preserve, what earlier decisions have been superseded, and the next implementation step.",
+  "history_sha256": "57fc2ca0b8d24dffd531c39d8cf6ca5afc11f22fc4dc7cb419f37fc3f5ef5468",
+  "grading": "Frozen exact-term deterministic rubric; all-or-nothing pass also requires no stale proposal. Phrase variants may be false negatives. Rubric not changed after runs.",
+  "cli": {
+    "version": "codex-cli 0.157.1",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "runtime": "Node.js 24.13.1; Windows x64",
+    "model_selection": "codex exec --model <exact-id>; Codex JSON turn.completed usage",
+    "models_tested": [
+      "gpt-6-sol",
+      "gpt-5.6-sol"
+    ],
+    "availability_basis": "Both exact model identifiers completed authenticated smoke requests; no broader model inventory claimed.",
+    "repair": "Reinstalled official global @openai/codex CLI and Windows native package at 0.157.1; isolated benchmark-only CODEX_HOME to omit user MCP/skills."
   },
-  "blocker": "The existing paired evaluation runner requires the Codex CLI, but its installed wrapper fails before reporting a version because @openai/codex-win32-x64 is missing. No controlled host-agent invocation was available to isolate tool availability, provide the same source state, and collect response telemetry. Runtime-only fixture results are not substituted for agent runs.",
-  "provider_failures": [],
-  "model_input_tokens": null,
-  "cached_input_tokens": null,
-  "output_tokens": null,
-  "latency_ms": null,
-  "estimated_cost": null
+  "method": {
+    "conditions": [
+      "control_full_history",
+      "autonomous_conceptualize_available"
+    ],
+    "primary_repetitions_per_cell": 2,
+    "primary_runs": 8,
+    "forced_context_diagnostics": 2,
+    "reasoning_effort": "low",
+    "question_identical": true,
+    "grading_criteria_frozen_before_runs": true,
+    "isolated_codex_home": true
+  },
+  "primary_summary": [
+    {
+      "model": "gpt-6-sol",
+      "condition": "control_full_history",
+      "repetitions": 2,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "mean_fact_coverage_percent": 80.56,
+      "mean_model_input_tokens": 16232,
+      "mean_cached_input_tokens": 12416,
+      "mean_output_tokens": 341,
+      "mean_elapsed_ms": 16051.42,
+      "mean_context_string_tokens_delivered": null,
+      "mean_estimated_model_cost": null,
+      "conceptualize_adoption_count": null
+    },
+    {
+      "model": "gpt-6-sol",
+      "condition": "autonomous_conceptualize_available",
+      "repetitions": 2,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "mean_fact_coverage_percent": 69.44,
+      "mean_model_input_tokens": 154450.5,
+      "mean_cached_input_tokens": 123072,
+      "mean_output_tokens": 666.5,
+      "mean_elapsed_ms": 36097.76,
+      "mean_context_string_tokens_delivered": null,
+      "mean_estimated_model_cost": null,
+      "conceptualize_adoption_count": 2
+    },
+    {
+      "model": "gpt-5.6-sol",
+      "condition": "control_full_history",
+      "repetitions": 2,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "mean_fact_coverage_percent": 83.34,
+      "mean_model_input_tokens": 15375,
+      "mean_cached_input_tokens": 5760,
+      "mean_output_tokens": 356.5,
+      "mean_elapsed_ms": 12964.23,
+      "mean_context_string_tokens_delivered": null,
+      "mean_estimated_model_cost": null,
+      "conceptualize_adoption_count": null
+    },
+    {
+      "model": "gpt-5.6-sol",
+      "condition": "autonomous_conceptualize_available",
+      "repetitions": 2,
+      "pass_count": 0,
+      "pass_rate": 0.0,
+      "mean_fact_coverage_percent": 0.0,
+      "mean_model_input_tokens": 19312,
+      "mean_cached_input_tokens": 11520,
+      "mean_output_tokens": 128,
+      "mean_elapsed_ms": 10592.99,
+      "mean_context_string_tokens_delivered": null,
+      "mean_estimated_model_cost": null,
+      "conceptualize_adoption_count": 0
+    }
+  ],
+  "primary_runs": [
+    {
+      "benchmark": "v0.5-single-context-recovery-1",
+      "model": "gpt-5.6-sol",
+      "condition": "autonomous_conceptualize_available",
+      "repetition": 1,
+      "exit_code": 0,
+      "success": true,
+      "grade": {
+        "required_architecture_facts": {
+          "passed": 0,
+          "total": 10,
+          "checks": [
+            {
+              "id": "architecture_pwa_api",
+              "passed": false,
+              "terms": [
+                "pwa",
+                "https json api"
+              ]
+            },
+            {
+              "id": "records_indexeddb",
+              "passed": false,
+              "terms": [
+                "indexeddb",
+                "inspection records"
+              ]
+            },
+            {
+              "id": "attachment_prefer_filesystem",
+              "passed": false,
+              "terms": [
+                "filesystem",
+                "available"
+              ]
+            },
+            {
+              "id": "attachment_fallback_blob",
+              "passed": false,
+              "terms": [
+                "indexeddb",
+                "blob"
+              ]
+            },
+            {
+              "id": "replaceable_contract",
+              "passed": false,
+              "terms": [
+                "adapter",
+                "contract"
+              ]
+            },
+            {
+              "id": "sync_engine_resumable",
+              "passed": false,
+              "terms": [
+                "syncengine",
+                "resumable"
+              ]
+            },
+            {
+              "id": "idempotent_uuid",
+              "passed": false,
+              "terms": [
+                "uuid",
+                "idempotent"
+              ]
+            },
+            {
+              "id": "version_conflict",
+              "passed": false,
+              "terms": [
+                "version",
+                "conflict"
+              ]
+            },
+            {
+              "id": "retry_policy",
+              "passed": false,
+              "terms": [
+                "backoff",
+                "transient"
+              ]
+            },
+            {
+              "id": "next_attachment_adapter_tests",
+              "passed": false,
+              "terms": [
+                "attachment adapter",
+                "fallback tests"
+              ]
+            }
+          ]
+        },
+        "required_constraints": {
+          "passed": 0,
+          "total": 6,
+          "checks": [
+            {
+              "id": "keep_local_until_authenticated_upload",
+              "passed": false,
+              "terms": [
+                "local",
+                "authenticated upload"
+              ]
+            },
+            {
+              "id": "preserve_draft_conflict",
+              "passed": false,
+              "terms": [
+                "draft",
+                "conflict"
+              ]
+            },
+            {
+              "id": "no_websocket",
+              "passed": false,
+              "terms": [
+                "no websocket"
+              ]
+            },
+            {
+              "id": "accessible_status",
+              "passed": false,
+              "terms": [
+                "screen reader"
+              ]
+            },
+            {
+              "id": "plain_text_fields",
+              "passed": false,
+              "terms": [
+                "plain text"
+              ]
+            },
+            {
+              "id": "exclude_analytics_admin_push_background",
+              "passed": false,
+              "terms": [
+                "analytics",
+                "admin",
+                "push",
+                "background"
+              ]
+            }
+          ]
+        },
+        "superseded_decisions": {
+          "passed": 0,
+          "total": 1,
+          "checks": [
+            {
+              "id": "localstorage_superseded",
+              "passed": false,
+              "terms": [
+                "localstorage",
+                "superseded"
+              ]
+            }
+          ]
+        },
+        "stale_decisions_incorrectly_included": [],
+        "correct_next_step": false,
+        "coverage_percent": 0.0,
+        "passed_checks": 0,
+        "total_checks": 18,
+        "deterministic_pass": false,
+        "grading_version": "v05-single-context-recovery-1"
+      },
+      "elapsed_ms": 11694.43,
+      "model_reported_usage": {
+        "input_tokens": 19312,
+        "cached_input_tokens": 11520,
+        "output_tokens": 131,
+        "aggregate_tokens": null,
+        "reasoning_output_tokens": 53
+      },
+      "context_available_tokens": 1671,
+      "context_string_tokens_delivered_by_conceptualize": null,
+      "context_string_tokens_full_history": null,
+      "context_string_tokens_forced_diagnostic": null,
+      "conceptualize_available": true,
+      "conceptualize_invoked": false,
+      "adoption": "enabled_but_unused",
+      "first_operation": null,
+      "operations": [],
+      "duplicate_context_avoided_tokens": null,
+      "session_reuse": null,
+      "mcp_tool_elapsed_ms": null,
+      "estimated_model_cost": null,
+      "pricing_snapshot": null,
+      "pricing_note": "N/A: no explicit pricing snapshot supplied.",
+      "answer_file": "answer.md",
+      "raw_events_file": "agent-events.jsonl",
+      "stderr_file": "agent-stderr.txt",
+      "limitations": [
+        "Conceptualize selected context tokens require persisted API traces and remain N/A when no trace store is supplied.",
+        "Codex reports input, cached-input and output token totals in JSON turn.completed events; exact MCP tool latency and session reuse are not exposed here."
+      ],
+      "context_string_tokens_returned_by_conceptualize_trace": null,
+      "mcp_metrics": null,
+      "trace_ids": [],
+      "prompt_sha256": "8210ca391fc2403d419564adf87d8551946848d9b1741456b46f0960eaf718f3",
+      "raw_events_path": "evaluations/runs/v05-single-problem/gpt-5.6-sol/autonomous_conceptualize_available/rep-1/agent-events.jsonl (rerun template; original raw local under v05-isolated-matrix, gitignored)",
+      "selected_context_session_reuse": null
+    },
+    {
+      "benchmark": "v0.5-single-context-recovery-1",
+      "model": "gpt-5.6-sol",
+      "condition": "autonomous_conceptualize_available",
+      "repetition": 2,
+      "exit_code": 0,
+      "success": true,
+      "grade": {
+        "required_architecture_facts": {
+          "passed": 0,
+          "total": 10,
+          "checks": [
+            {
+              "id": "architecture_pwa_api",
+              "passed": false,
+              "terms": [
+                "pwa",
+                "https json api"
+              ]
+            },
+            {
+              "id": "records_indexeddb",
+              "passed": false,
+              "terms": [
+                "indexeddb",
+                "inspection records"
+              ]
+            },
+            {
+              "id": "attachment_prefer_filesystem",
+              "passed": false,
+              "terms": [
+                "filesystem",
+                "available"
+              ]
+            },
+            {
+              "id": "attachment_fallback_blob",
+              "passed": false,
+              "terms": [
+                "indexeddb",
+                "blob"
+              ]
+            },
+            {
+              "id": "replaceable_contract",
+              "passed": false,
+              "terms": [
+                "adapter",
+                "contract"
+              ]
+            },
+            {
+              "id": "sync_engine_resumable",
+              "passed": false,
+              "terms": [
+                "syncengine",
+                "resumable"
+              ]
+            },
+            {
+              "id": "idempotent_uuid",
+              "passed": false,
+              "terms": [
+                "uuid",
+                "idempotent"
+              ]
+            },
+            {
+              "id": "version_conflict",
+              "passed": false,
+              "terms": [
+                "version",
+                "conflict"
+              ]
+            },
+            {
+              "id": "retry_policy",
+              "passed": false,
+              "terms": [
+                "backoff",
+                "transient"
+              ]
+            },
+            {
+              "id": "next_attachment_adapter_tests",
+              "passed": false,
+              "terms": [
+                "attachment adapter",
+                "fallback tests"
+              ]
+            }
+          ]
+        },
+        "required_constraints": {
+          "passed": 0,
+          "total": 6,
+          "checks": [
+            {
+              "id": "keep_local_until_authenticated_upload",
+              "passed": false,
+              "terms": [
+                "local",
+                "authenticated upload"
+              ]
+            },
+            {
+              "id": "preserve_draft_conflict",
+              "passed": false,
+              "terms": [
+                "draft",
+                "conflict"
+              ]
+            },
+            {
+              "id": "no_websocket",
+              "passed": false,
+              "terms": [
+                "no websocket"
+              ]
+            },
+            {
+              "id": "accessible_status",
+              "passed": false,
+              "terms": [
+                "screen reader"
+              ]
+            },
+            {
+              "id": "plain_text_fields",
+              "passed": false,
+              "terms": [
+                "plain text"
+              ]
+            },
+            {
+              "id": "exclude_analytics_admin_push_background",
+              "passed": false,
+              "terms": [
+                "analytics",
+                "admin",
+                "push",
+                "background"
+              ]
+            }
+          ]
+        },
+        "superseded_decisions": {
+          "passed": 0,
+          "total": 1,
+          "checks": [
+            {
+              "id": "localstorage_superseded",
+              "passed": false,
+              "terms": [
+                "localstorage",
+                "superseded"
+              ]
+            }
+          ]
+        },
+        "stale_decisions_incorrectly_included": [],
+        "correct_next_step": false,
+        "coverage_percent": 0.0,
+        "passed_checks": 0,
+        "total_checks": 18,
+        "deterministic_pass": false,
+        "grading_version": "v05-single-context-recovery-1"
+      },
+      "elapsed_ms": 9491.56,
+      "model_reported_usage": {
+        "input_tokens": 19312,
+        "cached_input_tokens": 11520,
+        "output_tokens": 125,
+        "aggregate_tokens": null,
+        "reasoning_output_tokens": 42
+      },
+      "context_available_tokens": 1671,
+      "context_string_tokens_delivered_by_conceptualize": null,
+      "context_string_tokens_full_history": null,
+      "context_string_tokens_forced_diagnostic": null,
+      "conceptualize_available": true,
+      "conceptualize_invoked": false,
+      "adoption": "enabled_but_unused",
+      "first_operation": null,
+      "operations": [],
+      "duplicate_context_avoided_tokens": null,
+      "session_reuse": null,
+      "mcp_tool_elapsed_ms": null,
+      "estimated_model_cost": null,
+      "pricing_snapshot": null,
+      "pricing_note": "N/A: no explicit pricing snapshot supplied.",
+      "answer_file": "answer.md",
+      "raw_events_file": "agent-events.jsonl",
+      "stderr_file": "agent-stderr.txt",
+      "limitations": [
+        "Conceptualize selected context tokens require persisted API traces and remain N/A when no trace store is supplied.",
+        "Codex reports input, cached-input and output token totals in JSON turn.completed events; exact MCP tool latency and session reuse are not exposed here."
+      ],
+      "context_string_tokens_returned_by_conceptualize_trace": null,
+      "mcp_metrics": null,
+      "trace_ids": [],
+      "prompt_sha256": "8210ca391fc2403d419564adf87d8551946848d9b1741456b46f0960eaf718f3",
+      "raw_events_path": "evaluations/runs/v05-single-problem/gpt-5.6-sol/autonomous_conceptualize_available/rep-2/agent-events.jsonl (rerun template; original raw local under v05-isolated-matrix, gitignored)",
+      "selected_context_session_reuse": null
+    },
+    {
+      "benchmark": "v0.5-single-context-recovery-1",
+      "model": "gpt-5.6-sol",
+      "condition": "control_full_history",
+      "repetition": 1,
+      "exit_code": 0,
+      "success": true,
+      "grade": {
+        "required_architecture_facts": {
+          "passed": 9,
+          "total": 10,
+          "checks": [
+            {
+              "id": "architecture_pwa_api",
+              "passed": true,
+              "terms": [
+                "pwa",
+                "https json api"
+              ]
+            },
+            {
+              "id": "records_indexeddb",
+              "passed": true,
+              "terms": [
+                "indexeddb",
+                "inspection records"
+              ]
+            },
+            {
+              "id": "attachment_prefer_filesystem",
+              "passed": false,
+              "terms": [
+                "filesystem",
+                "available"
+              ]
+            },
+            {
+              "id": "attachment_fallback_blob",
+              "passed": true,
+              "terms": [
+                "indexeddb",
+                "blob"
+              ]
+            },
+            {
+              "id": "replaceable_contract",
+              "passed": true,
+              "terms": [
+                "adapter",
+                "contract"
+              ]
+            },
+            {
+              "id": "sync_engine_resumable",
+              "passed": true,
+              "terms": [
+                "syncengine",
+                "resumable"
+              ]
+            },
+            {
+              "id": "idempotent_uuid",
+              "passed": true,
+              "terms": [
+                "uuid",
+                "idempotent"
+              ]
+            },
+            {
+              "id": "version_conflict",
+              "passed": true,
+              "terms": [
+                "version",
+                "conflict"
+              ]
+            },
+            {
+              "id": "retry_policy",
+              "passed": true,
+              "terms": [
+                "backoff",
+                "transient"
+              ]
+            },
+            {
+              "id": "next_attachment_adapter_tests",
+              "passed": true,
+              "terms": [
+                "attachment adapter",
+                "fallback tests"
+              ]
+            }
+          ]
+        },
+        "required_constraints": {
+          "passed": 3,
+          "total": 6,
+          "checks": [
+            {
+              "id": "keep_local_until_authenticated_upload",
+              "passed": true,
+              "terms": [
+                "local",
+                "authenticated upload"
+              ]
+            },
+            {
+              "id": "preserve_draft_conflict",
+              "passed": true,
+              "terms": [
+                "draft",
+                "conflict"
+              ]
+            },
+            {
+              "id": "no_websocket",
+              "passed": false,
+              "terms": [
+                "no websocket"
+              ]
+            },
+            {
+              "id": "accessible_status",
+              "passed": false,
+              "terms": [
+                "screen reader"
+              ]
+            },
+            {
+              "id": "plain_text_fields",
+              "passed": false,
+              "terms": [
+                "plain text"
+              ]
+            },
+            {
+              "id": "exclude_analytics_admin_push_background",
+              "passed": true,
+              "terms": [
+                "analytics",
+                "admin",
+                "push",
+                "background"
+              ]
+            }
+          ]
+        },
+        "superseded_decisions": {
+          "passed": 1,
+          "total": 1,
+          "checks": [
+            {
+              "id": "localstorage_superseded",
+              "passed": true,
+              "terms": [
+                "localstorage",
+                "superseded"
+              ]
+            }
+          ]
+        },
+        "stale_decisions_incorrectly_included": [],
+        "correct_next_step": true,
+        "coverage_percent": 77.78,
+        "passed_checks": 14,
+        "total_checks": 18,
+        "deterministic_pass": false,
+        "grading_version": "v05-single-context-recovery-1"
+      },
+      "elapsed_ms": 15053.3,
+      "model_reported_usage": {
+        "input_tokens": 15375,
+        "cached_input_tokens": 11520,
+        "output_tokens": 356,
+        "aggregate_tokens": null,
+        "reasoning_output_tokens": 0
+      },
+      "context_available_tokens": 1671,
+      "context_string_tokens_delivered_by_conceptualize": null,
+      "context_string_tokens_full_history": 1671,
+      "context_string_tokens_forced_diagnostic": null,
+      "conceptualize_available": false,
+      "conceptualize_invoked": false,
+      "adoption": "not_applicable",
+      "first_operation": null,
+      "operations": [],
+      "duplicate_context_avoided_tokens": null,
+      "session_reuse": null,
+      "mcp_tool_elapsed_ms": null,
+      "estimated_model_cost": null,
+      "pricing_snapshot": null,
+      "pricing_note": "N/A: no explicit pricing snapshot supplied.",
+      "answer_file": "answer.md",
+      "raw_events_file": "agent-events.jsonl",
+      "stderr_file": "agent-stderr.txt",
+      "limitations": [
+        "Conceptualize selected context tokens require persisted API traces and remain N/A when no trace store is supplied.",
+        "Codex reports input, cached-input and output token totals in JSON turn.completed events; exact MCP tool latency and session reuse are not exposed here."
+      ],
+      "context_string_tokens_returned_by_conceptualize_trace": null,
+      "mcp_metrics": null,
+      "trace_ids": [],
+      "prompt_sha256": "0f58ce4f6ae90586298d500c832ef53845ccc8c4096c3d395ebc93681e4b87f5",
+      "raw_events_path": "evaluations/runs/v05-single-problem/gpt-5.6-sol/control_full_history/rep-1/agent-events.jsonl (rerun template; original raw local under v05-isolated-matrix, gitignored)",
+      "selected_context_session_reuse": null
+    },
+    {
+      "benchmark": "v0.5-single-context-recovery-1",
+      "model": "gpt-5.6-sol",
+      "condition": "control_full_history",
+      "repetition": 2,
+      "exit_code": 0,
+      "success": true,
+      "grade": {
+        "required_architecture_facts": {
+          "passed": 10,
+          "total": 10,
+          "checks": [
+            {
+              "id": "architecture_pwa_api",
+              "passed": true,
+              "terms": [
+                "pwa",
+                "https json api"
+              ]
+            },
+            {
+              "id": "records_indexeddb",
+              "passed": true,
+              "terms": [
+                "indexeddb",
+                "inspection records"
+              ]
+            },
+            {
+              "id": "attachment_prefer_filesystem",
+              "passed": true,
+              "terms": [
+                "filesystem",
+                "available"
+              ]
+            },
+            {
+              "id": "attachment_fallback_blob",
+              "passed": true,
+              "terms": [
+                "indexeddb",
+                "blob"
+              ]
+            },
+            {
+              "id": "replaceable_contract",
+              "passed": true,
+              "terms": [
+                "adapter",
+                "contract"
+              ]
+            },
+            {
+              "id": "sync_engine_resumable",
+              "passed": true,
+              "terms": [
+                "syncengine",
+                "resumable"
+              ]
+            },
+            {
+              "id": "idempotent_uuid",
+              "passed": true,
+              "terms": [
+                "uuid",
+                "idempotent"
+              ]
+            },
+            {
+              "id": "version_conflict",
+              "passed": true,
+              "terms": [
+                "version",
+                "conflict"
+              ]
+            },
+            {
+              "id": "retry_policy",
+              "passed": true,
+              "terms": [
+                "backoff",
+                "transient"
+              ]
+            },
+            {
+              "id": "next_attachment_adapter_tests",
+              "passed": true,
+              "terms": [
+                "attachment adapter",
+                "fallback tests"
+              ]
+            }
+          ]
+        },
+        "required_constraints": {
+          "passed": 4,
+          "total": 6,
+          "checks": [
+            {
+              "id": "keep_local_until_authenticated_upload",
+              "passed": true,
+              "terms": [
+                "local",
+                "authenticated upload"
+              ]
+            },
+            {
+              "id": "preserve_draft_conflict",
+              "passed": true,
+              "terms": [
+                "draft",
+                "conflict"
+              ]
+            },
+            {
+              "id": "no_websocket",
+              "passed": false,
+              "terms": [
+                "no websocket"
+              ]
+            },
+            {
+              "id": "accessible_status",
+              "passed": false,
+              "terms": [
+                "screen reader"
+              ]
+            },
+            {
+              "id": "plain_text_fields",
+              "passed": true,
+              "terms": [
+                "plain text"
+              ]
+            },
+            {
+              "id": "exclude_analytics_admin_push_background",
+              "passed": true,
+              "terms": [
+                "analytics",
+                "admin",
+                "push",
+                "background"
+              ]
+            }
+          ]
+        },
+        "superseded_decisions": {
+          "passed": 1,
+          "total": 1,
+          "checks": [
+            {
+              "id": "localstorage_superseded",
+              "passed": true,
+              "terms": [
+                "localstorage",
+                "superseded"
+              ]
+            }
+          ]
+        },
+        "stale_decisions_incorrectly_included": [],
+        "correct_next_step": true,
+        "coverage_percent": 88.89,
+        "passed_checks": 16,
+        "total_checks": 18,
+        "deterministic_pass": false,
+        "grading_version": "v05-single-context-recovery-1"
+      },
+      "elapsed_ms": 10875.16,
+      "model_reported_usage": {
+        "input_tokens": 15375,
+        "cached_input_tokens": 0,
+        "output_tokens": 357,
+        "aggregate_tokens": null,
+        "reasoning_output_tokens": 0
+      },
+      "context_available_tokens": 1671,
+      "context_string_tokens_delivered_by_conceptualize": null,
+      "context_string_tokens_full_history": 1671,
+      "context_string_tokens_forced_diagnostic": null,
+      "conceptualize_available": false,
+      "conceptualize_invoked": false,
+      "adoption": "not_applicable",
+      "first_operation": null,
+      "operations": [],
+      "duplicate_context_avoided_tokens": null,
+      "session_reuse": null,
+      "mcp_tool_elapsed_ms": null,
+      "estimated_model_cost": null,
+      "pricing_snapshot": null,
+      "pricing_note": "N/A: no explicit pricing snapshot supplied.",
+      "answer_file": "answer.md",
+      "raw_events_file": "agent-events.jsonl",
+      "stderr_file": "agent-stderr.txt",
+      "limitations": [
+        "Conceptualize selected context tokens require persisted API traces and remain N/A when no trace store is supplied.",
+        "Codex reports input, cached-input and output token totals in JSON turn.completed events; exact MCP tool latency and session reuse are not exposed here."
+      ],
+      "context_string_tokens_returned_by_conceptualize_trace": null,
+      "mcp_metrics": null,
+      "trace_ids": [],
+      "prompt_sha256": "0f58ce4f6ae90586298d500c832ef53845ccc8c4096c3d395ebc93681e4b87f5",
+      "raw_events_path": "evaluations/runs/v05-single-problem/gpt-5.6-sol/control_full_history/rep-2/agent-events.jsonl (rerun template; original raw local under v05-isolated-matrix, gitignored)",
+      "selected_context_session_reuse": null
+    },
+    {
+      "benchmark": "v0.5-single-context-recovery-1",
+      "model": "gpt-6-sol",
+      "condition": "autonomous_conceptualize_available",
+      "repetition": 1,
+      "exit_code": 0,
+      "success": true,
+      "grade": {
+        "required_architecture_facts": {
+          "passed": 8,
+          "total": 10,
+          "checks": [
+            {
+              "id": "architecture_pwa_api",
+              "passed": true,
+              "terms": [
+                "pwa",
+                "https json api"
+              ]
+            },
+            {
+              "id": "records_indexeddb",
+              "passed": true,
+              "terms": [
+                "indexeddb",
+                "inspection records"
+              ]
+            },
+            {
+              "id": "attachment_prefer_filesystem",
+              "passed": false,
+              "terms": [
+                "filesystem",
+                "available"
+              ]
+            },
+            {
+              "id": "attachment_fallback_blob",
+              "passed": true,
+              "terms": [
+                "indexeddb",
+                "blob"
+              ]
+            },
+            {
+              "id": "replaceable_contract",
+              "passed": true,
+              "terms": [
+                "adapter",
+                "contract"
+              ]
+            },
+            {
+              "id": "sync_engine_resumable",
+              "passed": true,
+              "terms": [
+                "syncengine",
+                "resumable"
+              ]
+            },
+            {
+              "id": "idempotent_uuid",
+              "passed": true,
+              "terms": [
+                "uuid",
+                "idempotent"
+              ]
+            },
+            {
+              "id": "version_conflict",
+              "passed": true,
+              "terms": [
+                "version",
+                "conflict"
+              ]
+            },
+            {
+              "id": "retry_policy",
+              "passed": true,
+              "terms": [
+                "backoff",
+                "transient"
+              ]
+            },
+            {
+              "id": "next_attachment_adapter_tests",
+              "passed": false,
+              "terms": [
+                "attachment adapter",
+                "fallback tests"
+              ]
+            }
+          ]
+        },
+        "required_constraints": {
+          "passed": 3,
+          "total": 6,
+          "checks": [
+            {
+              "id": "keep_local_until_authenticated_upload",
+              "passed": true,
+              "terms": [
+                "local",
+                "authenticated upload"
+              ]
+            },
+            {
+              "id": "preserve_draft_conflict",
+              "passed": true,
+              "terms": [
+                "draft",
+                "conflict"
+              ]
+            },
+            {
+              "id": "no_websocket",
+              "passed": false,
+              "terms": [
+                "no websocket"
+              ]
+            },
+            {
+              "id": "accessible_status",
+              "passed": false,
+              "terms": [
+                "screen reader"
+              ]
+            },
+            {
+              "id": "plain_text_fields",
+              "passed": false,
+              "terms": [
+                "plain text"
+              ]
+            },
+            {
+              "id": "exclude_analytics_admin_push_background",
+              "passed": true,
+              "terms": [
+                "analytics",
+                "admin",
+                "push",
+                "background"
+              ]
+            }
+          ]
+        },
+        "superseded_decisions": {
+          "passed": 1,
+          "total": 1,
+          "checks": [
+            {
+              "id": "localstorage_superseded",
+              "passed": true,
+              "terms": [
+                "localstorage",
+                "superseded"
+              ]
+            }
+          ]
+        },
+        "stale_decisions_incorrectly_included": [],
+        "correct_next_step": false,
+        "coverage_percent": 66.67,
+        "passed_checks": 12,
+        "total_checks": 18,
+        "deterministic_pass": false,
+        "grading_version": "v05-single-context-recovery-1"
+      },
+      "elapsed_ms": 37817.44,
+      "model_reported_usage": {
+        "input_tokens": 135621,
+        "cached_input_tokens": 111616,
+        "output_tokens": 651,
+        "aggregate_tokens": null,
+        "reasoning_output_tokens": 16
+      },
+      "context_available_tokens": 1671,
+      "context_string_tokens_delivered_by_conceptualize": null,
+      "context_string_tokens_full_history": null,
+      "context_string_tokens_forced_diagnostic": null,
+      "conceptualize_available": true,
+      "conceptualize_invoked": true,
+      "adoption": "invoked",
+      "first_operation": "conceptualize_pack",
+      "operations": [
+        "conceptualize_pack"
+      ],
+      "duplicate_context_avoided_tokens": null,
+      "session_reuse": null,
+      "mcp_tool_elapsed_ms": null,
+      "estimated_model_cost": null,
+      "pricing_snapshot": null,
+      "pricing_note": "N/A: no explicit pricing snapshot supplied.",
+      "answer_file": "answer.md",
+      "raw_events_file": "agent-events.jsonl",
+      "stderr_file": "agent-stderr.txt",
+      "limitations": [
+        "Conceptualize selected context tokens require persisted API traces and remain N/A when no trace store is supplied.",
+        "Codex reports input, cached-input and output token totals in JSON turn.completed events; exact MCP tool latency and session reuse are not exposed here."
+      ],
+      "context_string_tokens_returned_by_conceptualize_trace": null,
+      "mcp_metrics": null,
+      "trace_ids": [
+        "570a62a3-5618-4e5f-af84-d96501eacf13"
+      ],
+      "prompt_sha256": "8210ca391fc2403d419564adf87d8551946848d9b1741456b46f0960eaf718f3",
+      "raw_events_path": "evaluations/runs/v05-single-problem/gpt-6-sol/autonomous_conceptualize_available/rep-1/agent-events.jsonl (rerun template; original raw local under v05-isolated-matrix, gitignored)",
+      "selected_context_session_reuse": null
+    },
+    {
+      "benchmark": "v0.5-single-context-recovery-1",
+      "model": "gpt-6-sol",
+      "condition": "autonomous_conceptualize_available",
+      "repetition": 2,
+      "exit_code": 0,
+      "success": true,
+      "grade": {
+        "required_architecture_facts": {
+          "passed": 8,
+          "total": 10,
+          "checks": [
+            {
+              "id": "architecture_pwa_api",
+              "passed": true,
+              "terms": [
+                "pwa",
+                "https json api"
+              ]
+            },
+            {
+              "id": "records_indexeddb",
+              "passed": true,
+              "terms": [
+                "indexeddb",
+                "inspection records"
+              ]
+            },
+            {
+              "id": "attachment_prefer_filesystem",
+              "passed": false,
+              "terms": [
+                "filesystem",
+                "available"
+              ]
+            },
+            {
+              "id": "attachment_fallback_blob",
+              "passed": true,
+              "terms": [
+                "indexeddb",
+                "blob"
+              ]
+            },
+            {
+              "id": "replaceable_contract",
+              "passed": true,
+              "terms": [
+                "adapter",
+                "contract"
+              ]
+            },
+            {
+              "id": "sync_engine_resumable",
+              "passed": true,
+              "terms": [
+                "syncengine",
+                "resumable"
+              ]
+            },
+            {
+              "id": "idempotent_uuid",
+              "passed": true,
+              "terms": [
+                "uuid",
+                "idempotent"
+              ]
+            },
+            {
+              "id": "version_conflict",
+              "passed": true,
+              "terms": [
+                "version",
+                "conflict"
+              ]
+            },
+            {
+              "id": "retry_policy",
+              "passed": true,
+              "terms": [
+                "backoff",
+                "transient"
+              ]
+            },
+            {
+              "id": "next_attachment_adapter_tests",
+              "passed": false,
+              "terms": [
+                "attachment adapter",
+                "fallback tests"
+              ]
+            }
+          ]
+        },
+        "required_constraints": {
+          "passed": 4,
+          "total": 6,
+          "checks": [
+            {
+              "id": "keep_local_until_authenticated_upload",
+              "passed": true,
+              "terms": [
+                "local",
+                "authenticated upload"
+              ]
+            },
+            {
+              "id": "preserve_draft_conflict",
+              "passed": true,
+              "terms": [
+                "draft",
+                "conflict"
+              ]
+            },
+            {
+              "id": "no_websocket",
+              "passed": false,
+              "terms": [
+                "no websocket"
+              ]
+            },
+            {
+              "id": "accessible_status",
+              "passed": false,
+              "terms": [
+                "screen reader"
+              ]
+            },
+            {
+              "id": "plain_text_fields",
+              "passed": true,
+              "terms": [
+                "plain text"
+              ]
+            },
+            {
+              "id": "exclude_analytics_admin_push_background",
+              "passed": true,
+              "terms": [
+                "analytics",
+                "admin",
+                "push",
+                "background"
+              ]
+            }
+          ]
+        },
+        "superseded_decisions": {
+          "passed": 1,
+          "total": 1,
+          "checks": [
+            {
+              "id": "localstorage_superseded",
+              "passed": true,
+              "terms": [
+                "localstorage",
+                "superseded"
+              ]
+            }
+          ]
+        },
+        "stale_decisions_incorrectly_included": [],
+        "correct_next_step": false,
+        "coverage_percent": 72.22,
+        "passed_checks": 13,
+        "total_checks": 18,
+        "deterministic_pass": false,
+        "grading_version": "v05-single-context-recovery-1"
+      },
+      "elapsed_ms": 34378.08,
+      "model_reported_usage": {
+        "input_tokens": 173280,
+        "cached_input_tokens": 134528,
+        "output_tokens": 682,
+        "aggregate_tokens": null,
+        "reasoning_output_tokens": 18
+      },
+      "context_available_tokens": 1671,
+      "context_string_tokens_delivered_by_conceptualize": null,
+      "context_string_tokens_full_history": null,
+      "context_string_tokens_forced_diagnostic": null,
+      "conceptualize_available": true,
+      "conceptualize_invoked": true,
+      "adoption": "invoked",
+      "first_operation": "conceptualize_map",
+      "operations": [
+        "conceptualize_map",
+        "conceptualize_expand"
+      ],
+      "duplicate_context_avoided_tokens": null,
+      "session_reuse": null,
+      "mcp_tool_elapsed_ms": null,
+      "estimated_model_cost": null,
+      "pricing_snapshot": null,
+      "pricing_note": "N/A: no explicit pricing snapshot supplied.",
+      "answer_file": "answer.md",
+      "raw_events_file": "agent-events.jsonl",
+      "stderr_file": "agent-stderr.txt",
+      "limitations": [
+        "Conceptualize selected context tokens require persisted API traces and remain N/A when no trace store is supplied.",
+        "Codex reports input, cached-input and output token totals in JSON turn.completed events; exact MCP tool latency and session reuse are not exposed here."
+      ],
+      "context_string_tokens_returned_by_conceptualize_trace": null,
+      "mcp_metrics": null,
+      "trace_ids": [
+        "40dca8bb-5b59-44d2-904a-97e4bfa235c1",
+        "cef79ae8-cda1-4acc-a26e-9abe2cf11e59"
+      ],
+      "prompt_sha256": "8210ca391fc2403d419564adf87d8551946848d9b1741456b46f0960eaf718f3",
+      "raw_events_path": "evaluations/runs/v05-single-problem/gpt-6-sol/autonomous_conceptualize_available/rep-2/agent-events.jsonl (rerun template; original raw local under v05-isolated-matrix, gitignored)",
+      "selected_context_session_reuse": null
+    },
+    {
+      "benchmark": "v0.5-single-context-recovery-1",
+      "model": "gpt-6-sol",
+      "condition": "control_full_history",
+      "repetition": 1,
+      "exit_code": 0,
+      "success": true,
+      "grade": {
+        "required_architecture_facts": {
+          "passed": 9,
+          "total": 10,
+          "checks": [
+            {
+              "id": "architecture_pwa_api",
+              "passed": true,
+              "terms": [
+                "pwa",
+                "https json api"
+              ]
+            },
+            {
+              "id": "records_indexeddb",
+              "passed": true,
+              "terms": [
+                "indexeddb",
+                "inspection records"
+              ]
+            },
+            {
+              "id": "attachment_prefer_filesystem",
+              "passed": true,
+              "terms": [
+                "filesystem",
+                "available"
+              ]
+            },
+            {
+              "id": "attachment_fallback_blob",
+              "passed": true,
+              "terms": [
+                "indexeddb",
+                "blob"
+              ]
+            },
+            {
+              "id": "replaceable_contract",
+              "passed": true,
+              "terms": [
+                "adapter",
+                "contract"
+              ]
+            },
+            {
+              "id": "sync_engine_resumable",
+              "passed": true,
+              "terms": [
+                "syncengine",
+                "resumable"
+              ]
+            },
+            {
+              "id": "idempotent_uuid",
+              "passed": true,
+              "terms": [
+                "uuid",
+                "idempotent"
+              ]
+            },
+            {
+              "id": "version_conflict",
+              "passed": true,
+              "terms": [
+                "version",
+                "conflict"
+              ]
+            },
+            {
+              "id": "retry_policy",
+              "passed": true,
+              "terms": [
+                "backoff",
+                "transient"
+              ]
+            },
+            {
+              "id": "next_attachment_adapter_tests",
+              "passed": false,
+              "terms": [
+                "attachment adapter",
+                "fallback tests"
+              ]
+            }
+          ]
+        },
+        "required_constraints": {
+          "passed": 5,
+          "total": 6,
+          "checks": [
+            {
+              "id": "keep_local_until_authenticated_upload",
+              "passed": true,
+              "terms": [
+                "local",
+                "authenticated upload"
+              ]
+            },
+            {
+              "id": "preserve_draft_conflict",
+              "passed": true,
+              "terms": [
+                "draft",
+                "conflict"
+              ]
+            },
+            {
+              "id": "no_websocket",
+              "passed": false,
+              "terms": [
+                "no websocket"
+              ]
+            },
+            {
+              "id": "accessible_status",
+              "passed": true,
+              "terms": [
+                "screen reader"
+              ]
+            },
+            {
+              "id": "plain_text_fields",
+              "passed": true,
+              "terms": [
+                "plain text"
+              ]
+            },
+            {
+              "id": "exclude_analytics_admin_push_background",
+              "passed": true,
+              "terms": [
+                "analytics",
+                "admin",
+                "push",
+                "background"
+              ]
+            }
+          ]
+        },
+        "superseded_decisions": {
+          "passed": 1,
+          "total": 1,
+          "checks": [
+            {
+              "id": "localstorage_superseded",
+              "passed": true,
+              "terms": [
+                "localstorage",
+                "superseded"
+              ]
+            }
+          ]
+        },
+        "stale_decisions_incorrectly_included": [],
+        "correct_next_step": false,
+        "coverage_percent": 83.33,
+        "passed_checks": 15,
+        "total_checks": 18,
+        "deterministic_pass": false,
+        "grading_version": "v05-single-context-recovery-1"
+      },
+      "elapsed_ms": 16031.51,
+      "model_reported_usage": {
+        "input_tokens": 16232,
+        "cached_input_tokens": 12416,
+        "output_tokens": 340,
+        "aggregate_tokens": null,
+        "reasoning_output_tokens": 0
+      },
+      "context_available_tokens": 1671,
+      "context_string_tokens_delivered_by_conceptualize": null,
+      "context_string_tokens_full_history": 1671,
+      "context_string_tokens_forced_diagnostic": null,
+      "conceptualize_available": false,
+      "conceptualize_invoked": false,
+      "adoption": "not_applicable",
+      "first_operation": null,
+      "operations": [],
+      "duplicate_context_avoided_tokens": null,
+      "session_reuse": null,
+      "mcp_tool_elapsed_ms": null,
+      "estimated_model_cost": null,
+      "pricing_snapshot": null,
+      "pricing_note": "N/A: no explicit pricing snapshot supplied.",
+      "answer_file": "answer.md",
+      "raw_events_file": "agent-events.jsonl",
+      "stderr_file": "agent-stderr.txt",
+      "limitations": [
+        "Conceptualize selected context tokens require persisted API traces and remain N/A when no trace store is supplied.",
+        "Codex reports input, cached-input and output token totals in JSON turn.completed events; exact MCP tool latency and session reuse are not exposed here."
+      ],
+      "context_string_tokens_returned_by_conceptualize_trace": null,
+      "mcp_metrics": null,
+      "trace_ids": [],
+      "prompt_sha256": "0f58ce4f6ae90586298d500c832ef53845ccc8c4096c3d395ebc93681e4b87f5",
+      "raw_events_path": "evaluations/runs/v05-single-problem/gpt-6-sol/control_full_history/rep-1/agent-events.jsonl (rerun template; original raw local under v05-isolated-matrix, gitignored)",
+      "selected_context_session_reuse": null
+    },
+    {
+      "benchmark": "v0.5-single-context-recovery-1",
+      "model": "gpt-6-sol",
+      "condition": "control_full_history",
+      "repetition": 2,
+      "exit_code": 0,
+      "success": true,
+      "grade": {
+        "required_architecture_facts": {
+          "passed": 8,
+          "total": 10,
+          "checks": [
+            {
+              "id": "architecture_pwa_api",
+              "passed": true,
+              "terms": [
+                "pwa",
+                "https json api"
+              ]
+            },
+            {
+              "id": "records_indexeddb",
+              "passed": true,
+              "terms": [
+                "indexeddb",
+                "inspection records"
+              ]
+            },
+            {
+              "id": "attachment_prefer_filesystem",
+              "passed": false,
+              "terms": [
+                "filesystem",
+                "available"
+              ]
+            },
+            {
+              "id": "attachment_fallback_blob",
+              "passed": true,
+              "terms": [
+                "indexeddb",
+                "blob"
+              ]
+            },
+            {
+              "id": "replaceable_contract",
+              "passed": true,
+              "terms": [
+                "adapter",
+                "contract"
+              ]
+            },
+            {
+              "id": "sync_engine_resumable",
+              "passed": true,
+              "terms": [
+                "syncengine",
+                "resumable"
+              ]
+            },
+            {
+              "id": "idempotent_uuid",
+              "passed": true,
+              "terms": [
+                "uuid",
+                "idempotent"
+              ]
+            },
+            {
+              "id": "version_conflict",
+              "passed": true,
+              "terms": [
+                "version",
+                "conflict"
+              ]
+            },
+            {
+              "id": "retry_policy",
+              "passed": true,
+              "terms": [
+                "backoff",
+                "transient"
+              ]
+            },
+            {
+              "id": "next_attachment_adapter_tests",
+              "passed": false,
+              "terms": [
+                "attachment adapter",
+                "fallback tests"
+              ]
+            }
+          ]
+        },
+        "required_constraints": {
+          "passed": 5,
+          "total": 6,
+          "checks": [
+            {
+              "id": "keep_local_until_authenticated_upload",
+              "passed": true,
+              "terms": [
+                "local",
+                "authenticated upload"
+              ]
+            },
+            {
+              "id": "preserve_draft_conflict",
+              "passed": true,
+              "terms": [
+                "draft",
+                "conflict"
+              ]
+            },
+            {
+              "id": "no_websocket",
+              "passed": false,
+              "terms": [
+                "no websocket"
+              ]
+            },
+            {
+              "id": "accessible_status",
+              "passed": true,
+              "terms": [
+                "screen reader"
+              ]
+            },
+            {
+              "id": "plain_text_fields",
+              "passed": true,
+              "terms": [
+                "plain text"
+              ]
+            },
+            {
+              "id": "exclude_analytics_admin_push_background",
+              "passed": true,
+              "terms": [
+                "analytics",
+                "admin",
+                "push",
+                "background"
+              ]
+            }
+          ]
+        },
+        "superseded_decisions": {
+          "passed": 1,
+          "total": 1,
+          "checks": [
+            {
+              "id": "localstorage_superseded",
+              "passed": true,
+              "terms": [
+                "localstorage",
+                "superseded"
+              ]
+            }
+          ]
+        },
+        "stale_decisions_incorrectly_included": [],
+        "correct_next_step": false,
+        "coverage_percent": 77.78,
+        "passed_checks": 14,
+        "total_checks": 18,
+        "deterministic_pass": false,
+        "grading_version": "v05-single-context-recovery-1"
+      },
+      "elapsed_ms": 16071.34,
+      "model_reported_usage": {
+        "input_tokens": 16232,
+        "cached_input_tokens": 12416,
+        "output_tokens": 342,
+        "aggregate_tokens": null,
+        "reasoning_output_tokens": 0
+      },
+      "context_available_tokens": 1671,
+      "context_string_tokens_delivered_by_conceptualize": null,
+      "context_string_tokens_full_history": 1671,
+      "context_string_tokens_forced_diagnostic": null,
+      "conceptualize_available": false,
+      "conceptualize_invoked": false,
+      "adoption": "not_applicable",
+      "first_operation": null,
+      "operations": [],
+      "duplicate_context_avoided_tokens": null,
+      "session_reuse": null,
+      "mcp_tool_elapsed_ms": null,
+      "estimated_model_cost": null,
+      "pricing_snapshot": null,
+      "pricing_note": "N/A: no explicit pricing snapshot supplied.",
+      "answer_file": "answer.md",
+      "raw_events_file": "agent-events.jsonl",
+      "stderr_file": "agent-stderr.txt",
+      "limitations": [
+        "Conceptualize selected context tokens require persisted API traces and remain N/A when no trace store is supplied.",
+        "Codex reports input, cached-input and output token totals in JSON turn.completed events; exact MCP tool latency and session reuse are not exposed here."
+      ],
+      "context_string_tokens_returned_by_conceptualize_trace": null,
+      "mcp_metrics": null,
+      "trace_ids": [],
+      "prompt_sha256": "0f58ce4f6ae90586298d500c832ef53845ccc8c4096c3d395ebc93681e4b87f5",
+      "raw_events_path": "evaluations/runs/v05-single-problem/gpt-6-sol/control_full_history/rep-2/agent-events.jsonl (rerun template; original raw local under v05-isolated-matrix, gitignored)",
+      "selected_context_session_reuse": null
+    }
+  ],
+  "forced_context_diagnostic": [
+    {
+      "model": "gpt-5.6-sol",
+      "condition": "forced_context_diagnostic",
+      "repetition": 1,
+      "exit_code": 0,
+      "success": true,
+      "elapsed_ms": 11765.44,
+      "model_reported_usage": {
+        "input_tokens": 14786,
+        "cached_input_tokens": 11520,
+        "output_tokens": 317,
+        "aggregate_tokens": null,
+        "reasoning_output_tokens": 0
+      },
+      "grade": {
+        "required_architecture_facts": {
+          "passed": 8,
+          "total": 10,
+          "checks": [
+            {
+              "id": "architecture_pwa_api",
+              "passed": true,
+              "terms": [
+                "pwa",
+                "https json api"
+              ]
+            },
+            {
+              "id": "records_indexeddb",
+              "passed": true,
+              "terms": [
+                "indexeddb",
+                "inspection records"
+              ]
+            },
+            {
+              "id": "attachment_prefer_filesystem",
+              "passed": false,
+              "terms": [
+                "filesystem",
+                "available"
+              ]
+            },
+            {
+              "id": "attachment_fallback_blob",
+              "passed": true,
+              "terms": [
+                "indexeddb",
+                "blob"
+              ]
+            },
+            {
+              "id": "replaceable_contract",
+              "passed": true,
+              "terms": [
+                "adapter",
+                "contract"
+              ]
+            },
+            {
+              "id": "sync_engine_resumable",
+              "passed": true,
+              "terms": [
+                "syncengine",
+                "resumable"
+              ]
+            },
+            {
+              "id": "idempotent_uuid",
+              "passed": true,
+              "terms": [
+                "uuid",
+                "idempotent"
+              ]
+            },
+            {
+              "id": "version_conflict",
+              "passed": true,
+              "terms": [
+                "version",
+                "conflict"
+              ]
+            },
+            {
+              "id": "retry_policy",
+              "passed": true,
+              "terms": [
+                "backoff",
+                "transient"
+              ]
+            },
+            {
+              "id": "next_attachment_adapter_tests",
+              "passed": false,
+              "terms": [
+                "attachment adapter",
+                "fallback tests"
+              ]
+            }
+          ]
+        },
+        "required_constraints": {
+          "passed": 2,
+          "total": 6,
+          "checks": [
+            {
+              "id": "keep_local_until_authenticated_upload",
+              "passed": true,
+              "terms": [
+                "local",
+                "authenticated upload"
+              ]
+            },
+            {
+              "id": "preserve_draft_conflict",
+              "passed": true,
+              "terms": [
+                "draft",
+                "conflict"
+              ]
+            },
+            {
+              "id": "no_websocket",
+              "passed": false,
+              "terms": [
+                "no websocket"
+              ]
+            },
+            {
+              "id": "accessible_status",
+              "passed": false,
+              "terms": [
+                "screen reader"
+              ]
+            },
+            {
+              "id": "plain_text_fields",
+              "passed": false,
+              "terms": [
+                "plain text"
+              ]
+            },
+            {
+              "id": "exclude_analytics_admin_push_background",
+              "passed": false,
+              "terms": [
+                "analytics",
+                "admin",
+                "push",
+                "background"
+              ]
+            }
+          ]
+        },
+        "superseded_decisions": {
+          "passed": 1,
+          "total": 1,
+          "checks": [
+            {
+              "id": "localstorage_superseded",
+              "passed": true,
+              "terms": [
+                "localstorage",
+                "superseded"
+              ]
+            }
+          ]
+        },
+        "stale_decisions_incorrectly_included": [],
+        "correct_next_step": false,
+        "coverage_percent": 61.11,
+        "passed_checks": 11,
+        "total_checks": 18,
+        "deterministic_pass": false,
+        "grading_version": "v05-single-context-recovery-1"
+      },
+      "context_available_tokens": 1671,
+      "context_string_tokens_full_history": null,
+      "context_string_tokens_forced_diagnostic": 1045,
+      "conceptualize_available": false,
+      "conceptualize_invoked": false,
+      "adoption": "not_applicable",
+      "first_operation": null,
+      "operations": [],
+      "context_string_tokens_delivered_by_conceptualize": null,
+      "estimated_model_cost": null,
+      "pricing_snapshot": null,
+      "trace_id": null,
+      "operations_trace_ids": null,
+      "raw_events_file": "agent-events.jsonl",
+      "answer_file": "answer.md",
+      "prompt_sha256": null,
+      "limitations": [
+        "Conceptualize selected context tokens require persisted API traces and remain N/A when no trace store is supplied.",
+        "Codex reports input, cached-input and output token totals in JSON turn.completed events; exact MCP tool latency and session reuse are not exposed here."
+      ],
+      "context_string_tokens_selected": 1045
+    },
+    {
+      "model": "gpt-6-sol",
+      "condition": "forced_context_diagnostic",
+      "repetition": 1,
+      "exit_code": 0,
+      "success": true,
+      "elapsed_ms": 14800.2,
+      "model_reported_usage": {
+        "input_tokens": 15643,
+        "cached_input_tokens": 12416,
+        "output_tokens": 311,
+        "aggregate_tokens": null,
+        "reasoning_output_tokens": 0
+      },
+      "grade": {
+        "required_architecture_facts": {
+          "passed": 8,
+          "total": 10,
+          "checks": [
+            {
+              "id": "architecture_pwa_api",
+              "passed": true,
+              "terms": [
+                "pwa",
+                "https json api"
+              ]
+            },
+            {
+              "id": "records_indexeddb",
+              "passed": true,
+              "terms": [
+                "indexeddb",
+                "inspection records"
+              ]
+            },
+            {
+              "id": "attachment_prefer_filesystem",
+              "passed": false,
+              "terms": [
+                "filesystem",
+                "available"
+              ]
+            },
+            {
+              "id": "attachment_fallback_blob",
+              "passed": true,
+              "terms": [
+                "indexeddb",
+                "blob"
+              ]
+            },
+            {
+              "id": "replaceable_contract",
+              "passed": true,
+              "terms": [
+                "adapter",
+                "contract"
+              ]
+            },
+            {
+              "id": "sync_engine_resumable",
+              "passed": true,
+              "terms": [
+                "syncengine",
+                "resumable"
+              ]
+            },
+            {
+              "id": "idempotent_uuid",
+              "passed": true,
+              "terms": [
+                "uuid",
+                "idempotent"
+              ]
+            },
+            {
+              "id": "version_conflict",
+              "passed": true,
+              "terms": [
+                "version",
+                "conflict"
+              ]
+            },
+            {
+              "id": "retry_policy",
+              "passed": true,
+              "terms": [
+                "backoff",
+                "transient"
+              ]
+            },
+            {
+              "id": "next_attachment_adapter_tests",
+              "passed": false,
+              "terms": [
+                "attachment adapter",
+                "fallback tests"
+              ]
+            }
+          ]
+        },
+        "required_constraints": {
+          "passed": 3,
+          "total": 6,
+          "checks": [
+            {
+              "id": "keep_local_until_authenticated_upload",
+              "passed": true,
+              "terms": [
+                "local",
+                "authenticated upload"
+              ]
+            },
+            {
+              "id": "preserve_draft_conflict",
+              "passed": true,
+              "terms": [
+                "draft",
+                "conflict"
+              ]
+            },
+            {
+              "id": "no_websocket",
+              "passed": false,
+              "terms": [
+                "no websocket"
+              ]
+            },
+            {
+              "id": "accessible_status",
+              "passed": false,
+              "terms": [
+                "screen reader"
+              ]
+            },
+            {
+              "id": "plain_text_fields",
+              "passed": false,
+              "terms": [
+                "plain text"
+              ]
+            },
+            {
+              "id": "exclude_analytics_admin_push_background",
+              "passed": true,
+              "terms": [
+                "analytics",
+                "admin",
+                "push",
+                "background"
+              ]
+            }
+          ]
+        },
+        "superseded_decisions": {
+          "passed": 1,
+          "total": 1,
+          "checks": [
+            {
+              "id": "localstorage_superseded",
+              "passed": true,
+              "terms": [
+                "localstorage",
+                "superseded"
+              ]
+            }
+          ]
+        },
+        "stale_decisions_incorrectly_included": [],
+        "correct_next_step": false,
+        "coverage_percent": 66.67,
+        "passed_checks": 12,
+        "total_checks": 18,
+        "deterministic_pass": false,
+        "grading_version": "v05-single-context-recovery-1"
+      },
+      "context_available_tokens": 1671,
+      "context_string_tokens_full_history": null,
+      "context_string_tokens_forced_diagnostic": 1045,
+      "conceptualize_available": false,
+      "conceptualize_invoked": false,
+      "adoption": "not_applicable",
+      "first_operation": null,
+      "operations": [],
+      "context_string_tokens_delivered_by_conceptualize": null,
+      "estimated_model_cost": null,
+      "pricing_snapshot": null,
+      "trace_id": null,
+      "operations_trace_ids": null,
+      "raw_events_file": "agent-events.jsonl",
+      "answer_file": "answer.md",
+      "prompt_sha256": null,
+      "limitations": [
+        "Conceptualize selected context tokens require persisted API traces and remain N/A when no trace store is supplied.",
+        "Codex reports input, cached-input and output token totals in JSON turn.completed events; exact MCP tool latency and session reuse are not exposed here."
+      ],
+      "context_string_tokens_selected": 1045
+    }
+  ],
+  "trace_metrics": [
+    {
+      "id": null,
+      "operation": "expand",
+      "returned_context_tokens": null,
+      "latency_ms": null,
+      "runtime_overhead": null,
+      "metrics": null,
+      "inputs": null
+    },
+    {
+      "id": null,
+      "operation": "pack",
+      "returned_context_tokens": null,
+      "latency_ms": null,
+      "runtime_overhead": null,
+      "metrics": null,
+      "inputs": null
+    },
+    {
+      "id": null,
+      "operation": "map",
+      "returned_context_tokens": null,
+      "latency_ms": null,
+      "runtime_overhead": null,
+      "metrics": null,
+      "inputs": null
+    },
+    {
+      "id": null,
+      "operation": "map",
+      "returned_context_tokens": null,
+      "latency_ms": null,
+      "runtime_overhead": null,
+      "metrics": null,
+      "inputs": null
+    },
+    {
+      "id": null,
+      "operation": "pack",
+      "returned_context_tokens": null,
+      "latency_ms": null,
+      "runtime_overhead": null,
+      "metrics": null,
+      "inputs": null
+    },
+    {
+      "id": null,
+      "operation": "map",
+      "returned_context_tokens": null,
+      "latency_ms": null,
+      "runtime_overhead": null,
+      "metrics": null,
+      "inputs": null
+    },
+    {
+      "id": null,
+      "operation": "pack",
+      "returned_context_tokens": null,
+      "latency_ms": null,
+      "runtime_overhead": null,
+      "metrics": null,
+      "inputs": null
+    },
+    {
+      "id": null,
+      "operation": "expand",
+      "returned_context_tokens": null,
+      "latency_ms": null,
+      "runtime_overhead": null,
+      "metrics": null,
+      "inputs": null
+    },
+    {
+      "id": null,
+      "operation": "expand",
+      "returned_context_tokens": null,
+      "latency_ms": null,
+      "runtime_overhead": null,
+      "metrics": null,
+      "inputs": null
+    }
+  ],
+  "pricing": {
+    "snapshot": null,
+    "estimated_model_cost": null,
+    "reason": "No explicit/versioned pricing snapshot supplied; costs intentionally N/A."
+  },
+  "aggregate": {
+    "primary_runs": 8,
+    "control_passes": 0,
+    "autonomous_passes": 0,
+    "autonomous_adoptions": 2,
+    "autonomous_attempts": 4,
+    "mean_control_input_tokens": 15803.5,
+    "mean_autonomous_input_tokens": 86881.25,
+    "mean_control_output_tokens": 348.75,
+    "mean_autonomous_output_tokens": 397.25,
+    "mean_control_latency_ms": 14507.83,
+    "mean_autonomous_latency_ms": 23345.38,
+    "full_history_context_string_tokens": 1671,
+    "agent_selected_context_tokens": null,
+    "forced_pack_context_string_tokens": 1045,
+    "model_cost": null
+  },
+  "conclusion": "This benchmark does not demonstrate that Conceptualize preserved correctness while reducing model input or cost. The current runtime pack exposed most history rather than a small delta; one model adopted it and had higher input/lower rubric coverage, while the other did not adopt. The deterministic exact-phrase rubric has wording-sensitive false negatives. No savings claim is supported.",
+  "limits": [
+    "Only two available model IDs and two repetitions per primary condition; exploratory benchmark, not a general estimate.",
+    "Every answer failed the frozen strict all-checks rubric; coverage percentages are exact-term checks, not semantic judgments.",
+    "The full-history runtime estimate excludes prompt instructions and Codex system/tool framing.",
+    "Model-reported input includes Codex orchestration, tool schemas/calls and cached context; not equivalent to raw conversation token size.",
+    "Agent-selected context tokens and duplicate savings are N/A because autonomous tool calls returned variable context and the evaluation did not normalize their trace token values to the agent event.",
+    "No explicit pricing snapshot was supplied; estimated cost N/A.",
+    "MCP latency from persisted traces may not capture stdio/startup overhead; Codex elapsed measures the entire invocation.",
+    "Control MCP was disabled by per-run Codex setting; autonomous had only Conceptualize MCP configured."
+  ],
+  "evidence_paths": {
+    "fixture": "evaluations/v05-conversation-problem.json",
+    "local_raw_runs": "evaluations/runs/v05-isolated-matrix/",
+    "forced_context_runs": "evaluations/runs/v05-forced-context-final/",
+    "trace_snapshots": "evaluations/runs/v05-trace-*.json",
+    "benchmark_runner": "packages/conceptualize_evaluation/conversation_agent_benchmark.py",
+    "old_deterministic_result": "evaluations/results/v05-conversations.json"
+  },
+  "raw_evidence": {
+    "checked_in": "evaluations/runs/v05-single-problem/README.md",
+    "local_raw_directories": [
+      "evaluations/runs/v05-isolated-matrix/",
+      "evaluations/runs/v05-forced-context-final/",
+      "evaluations/runs/v05-benchmark-codex-home/"
+    ],
+    "note": "Full raw event streams and answers are retained on the evaluation machine but excluded from Git because tool outputs reproduce the long conversation. Per-run metric extracts and API trace details are retained in this JSON."
+  }
 }

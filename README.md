@@ -19,6 +19,33 @@ Next.js dashboard → local server proxy → FastAPI
 
 `packages/conceptualize_runtime` contains the source-agnostic `ContextUnit`, deterministic retrieval and pack compiler. `RepositoryAdapter` maps existing indexed files and symbols into that boundary while retaining repository-only dependency analysis. `ConversationAdapter` preserves conversation membership, message order, roles, timestamps, explicit references, attachments, and parent/child links. The API stores each project's units; the MCP server exposes the existing six operations over an explicitly selected source set. Full selection provenance remains in API traces.
 
+## Benchmark
+
+Conceptualize was tested on one identical context-recovery problem across two model configurations, with the full conversation supplied in Control and Conceptualize MCP available in the autonomous condition. The 39-message synthetic history asks for the current architecture of an offline inspection app, its constraints, superseded decisions, and next implementation step.
+
+| Model | Condition | Pass Rate | Avg Input Tokens | Avg Output Tokens | Avg Context Delivered | Avg Latency | Est. Cost | Conceptualize Adoption |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| `gpt-6-sol` | Control — full history | 0/2 | 16,232 | 341 | 1,671* | 16.1 s | N/A | N/A |
+| `gpt-6-sol` | Conceptualize available | 0/2 | 154,450.5 | 666.5 | N/A** | 36.1 s | N/A | 2/2 |
+| `gpt-5.6-sol` | Control — full history | 0/2 | 15,375 | 356.5 | 1,671* | 13.0 s | N/A | N/A |
+| `gpt-5.6-sol` | Conceptualize available | 0/2 | 19,312 | 128 | N/A** | 10.6 s | N/A | 0/2 |
+
+Every response failed the frozen all-checks rubric. Mean deterministic fact coverage was 80.56% vs 69.44% for `gpt-6-sol`, and 83.33% vs 0% for `gpt-5.6-sol` (control vs enabled). These exact-term checks are wording-sensitive; the reported coverage is a reproducible string match, not a semantic judgment. The autonomous input-token result is worse for both model cohorts; no cost estimate is available.
+
+### What the benchmark tests
+
+Whether an agent can recover a current implementation state from a long project conversation while avoiding unnecessary historical context. The history includes a superseded storage choice, constraints introduced at different times, repeated decisions, and unrelated discussion.
+
+### Methodology
+
+Both conditions use the same frozen 39-message history, final question, model settings, and deterministic rubric. Control receives the complete history. In the autonomous condition, the model receives the question and can independently invoke Conceptualize; no tool use is requested in the prompt. We ran two repetitions for each condition on each exact model ID, plus a separate forced-context diagnostic per model. Models were selected with the repaired Codex CLI `0.157.1` using `codex exec --model`; the exact IDs are `gpt-6-sol` and `gpt-5.6-sol`. Pricing snapshot: none supplied, so estimated model cost is N/A. Model input/output counts come from Codex JSON turn telemetry and include agent orchestration; they are not equivalent to Conceptualize context-string counts.
+
+### Current conclusion
+
+This benchmark does not show that Conceptualize preserved correctness while reducing model input or cost. `gpt-6-sol` invoked Conceptualize in both enabled runs but had lower exact-term coverage, higher input, and longer latency than its full-history controls. `gpt-5.6-sol` did not invoke it and returned answers that failed every exact-term check. The MCP pack returned nearly all available history in its direct test (1,173 context-string tokens out of 1,256 candidate tokens); the separate forced pack returned 1,045 tokens under a 1,200-token budget and both forced-context model answers also failed the strict rubric. Two repetitions per model are exploratory evidence only.
+
+`*` Full conversation history alone, tokenized with `cl100k_base`; excludes Codex prompt/system/tool framing. `**` Agent-selected context tokens are N/A because tool traces were not tied to each model response in the measurement pipeline. Per-run results, grading details, Codex events, trace snapshots, limitations, and the benchmark fixture are in [`evaluations/results/v05-model-matrix.json`](evaluations/results/v05-model-matrix.json), [`evaluations/V05.md`](evaluations/V05.md), and ignored local raw-run directories. The previous 4-task fixture result remains separate and is labeled **DETERMINISTIC RUNTIME TEST**.
+
 Context retrieval is deterministic and lexical; lexical matching is not semantic understanding. There are no embeddings, vector database, reranker, summarizer, hidden model calls, or model credentials in Conceptualize. Context savings are not treated as success unless required task information remains available.
 
 ## Local setup (PowerShell)
@@ -195,6 +222,6 @@ Revoke a key locally with `conceptualize revoke-key --prefix cx_PREFIX`. Keep `.
 
 ## Evaluation
 
-See [evaluations/V05.md](evaluations/V05.md) for the generic-context architecture, conversation retrieval diagnostic and the limits on model-level evidence. Run the short deterministic context-selection benchmark with `python -m conceptualize_evaluation.conversation_benchmark`; it writes raw paired results to `evaluations/results/v05-conversations.json`. This diagnostic checks selected-text fact coverage and does not invoke or stand in for an AI agent. Fixtures and historical runs are development evidence only; they are not loaded by normal startup or shown in the dashboard.
+See [evaluations/V05.md](evaluations/V05.md) for the generic-context architecture and benchmark limits. The **DETERMINISTIC RUNTIME TEST** is `python -m conceptualize_evaluation.conversation_benchmark`; it writes to `evaluations/results/v05-conversations.json` without invoking an AI model. The separate real-model harness is `python -m conceptualize_evaluation.conversation_agent_benchmark --models gpt-6-sol gpt-5.6-sol`; it requires a benchmark Codex home, local API containing the frozen conversation, and API key. Fixtures and historical runs are not loaded by normal startup or shown in the dashboard.
 
 V0.4 evidence is in [evaluations/V04.md](evaluations/V04.md), [ADOPTION.md](ADOPTION.md), [ADOPTION-SUITE.json](ADOPTION-SUITE.json), [MCP-SURFACE.md](MCP-SURFACE.md), [MCP_SURFACE_PROFILE.json](MCP_SURFACE_PROFILE.json), and five machine-readable cohort/surface reports under `evaluations/results/v04-*.json`. The [runbook](evaluations/ADOPTION-RUNBOOK.md) reproduces six cross-file adoption tasks, three paired receipt repetitions, three paired local negative controls, and a separate connected-but-unused baseline. Reports preserve unavailable measurements explicitly; autonomous invocation is not proof of speed or exploration improvement.

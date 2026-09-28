@@ -21,7 +21,13 @@ V0.6 separates context-engine quality from integration cost using three modes: f
 
 Reports and frozen fixtures: [V0.6 evaluation](evaluations/V06.md), [three-mode model results](evaluations/results/v06-three-mode.json), [context-engine results](evaluations/results/v06-context-engine.json), and [MCP surface profile](evaluations/results/v06-mcp-surface.json). Raw model events and responses are retained in ignored local `evaluations/runs/v06-three-mode*` directories. Historical negative/inconclusive V0.5 and V0.4 results remain linked from the evaluation docs. No model runs inside Conceptualize.
 
-The `0.6.0` Python package version tracks the product milestone; benchmark-fixture revisions have their own `fixture_version` fields and are not package versions.
+## V0.7 benchmark status
+
+The frozen V0.7 task used the same 8,223-token conversation for full-context and precompiled-context runs. Full context passed 2/3; Conceptualize precompiled context passed 0/3. Provider-reported input averaged 22,803 versus 18,140 tokens, a 20.4% reduction—below the predeclared 25% threshold, and without preserved task correctness. V0.7 therefore does **not** demonstrate that Conceptualize preserves model capability while materially reducing model input. The context package was 3,477 local cl100k tokens. The budget sweep was skipped because precompiled correctness was not established; autonomous MCP did not return context because Codex required approval under the benchmark's `never` policy. The inert-MCP host control used 28,404 provider input tokens in one run versus the full-context average of 22,803; Codex telemetry cannot attribute the difference to an internal component.
+
+See the [detailed V0.7 evaluation](evaluations/V07.md), [full-context results](evaluations/results/v07-mode-a-na.json), [precompiled-context results](evaluations/results/v07-mode-b-4000.json), [context-engine diagnostics](evaluations/results/v07-context-engine.json), [session delta](evaluations/results/v07-session-continuation.json), and [MCP integration diagnostics](evaluations/results/v07-mcp-integration.json). Earlier rubric-calibration runs are preserved in `evaluations/v07/attempts/` and are excluded from the final A/B counts. No model runs inside Conceptualize.
+
+The `0.7.0` Python package and API versions track the product milestone; benchmark-fixture revisions have their own `fixture_version` fields and are not package versions.
 ## Local setup (PowerShell)
 
 Prerequisites: Python 3.11+, Node.js 22+, Docker Desktop with its Linux engine running, and Git. Run commands from this repository root. `uv` is optional but convenient when the system Python is unavailable.

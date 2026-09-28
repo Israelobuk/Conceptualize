@@ -1,0 +1,46 @@
+{
+  "benchmark": "v0.7-context-economics-atlas-1",
+  "run_role": "preflight grading diagnosis; not part of the final three-run baseline",
+  "fixture_sha256": "aa4d6898a04b9779ce770ebf2ad5b68815592bed116a936d217ba0909da79b74",
+  "ground_truth_sha256": "6a786d861a372c0d55264142ecb5e4cd72bf5939c26fbd254522d03b26038e69",
+  "history_tokens_cl100k": 8223,
+  "model": "gpt-6-sol",
+  "reasoning_effort": "low",
+  "complete_responses": 1,
+  "provider_usage": {
+    "input_tokens": 22805,
+    "cached_input_tokens": 0,
+    "output_tokens": 741
+  },
+  "elapsed_ms": null,
+  "old_rubric_result": {
+    "pass": false,
+    "fact_coverage_percent": 47.83,
+    "critical_facts_missing_by_lexical_match": [
+      "attachment_idb_blob_fallback",
+      "client_uuid_idempotency",
+      "version_conflict_check",
+      "plain_text_accessibility",
+      "foreground_sync_scope",
+      "localstorage_replaced",
+      "native_client_replaced",
+      "record_store_done",
+      "metadata_sync_done",
+      "attachment_adapter_contract_tests"
+    ]
+  },
+  "diagnosis": {
+    "classification": "grading false negatives; benchmark content and answer were coherent",
+    "examples": [
+      "The answer said IndexedDB blobs are used otherwise; the matcher required the literal word fallback.",
+      "The answer said client UUIDs provide create idempotency; the matcher required uuid plus idempotent.",
+      "The answer described optimistic version checks in the architecture section; the matcher also required the word conflict there.",
+      "The answer used plain UTF-8 and screen-reader announcements; the matcher did not allow UTF-8 as a plain-text representation.",
+      "The answer listed app launch, pull to refresh, and online local edits; the matcher unnecessarily required websocket to pass that current-trigger fact."
+    ],
+    "decision": "Do not run Mode B. Keep the same propositions, criticality, and 90% pass threshold; revise only acceptable synonymous representations and freeze methodology v2 before the final A runs."
+  },
+  "raw_run": "evaluations/runs/v07-economics-corrected/gpt-6-sol/mode_a_budget_4000/rep-1",
+  "raw_exit_code": null,
+  "raw_exit_code_limitation": "The first runner did not persist the subprocess return code or elapsed time because relative output paths failed during post-run record serialization; the complete Codex turn and answer were retained in raw events/files."
+}

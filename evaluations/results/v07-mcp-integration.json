@@ -1,0 +1,64 @@
+{
+  "benchmark": "v0.7-context-economics-atlas-9",
+  "fixture_sha256": "2e3c86cc1c0f9ad5105ce752e6355da56d423f3f1836f228b3f0a4fe0ce71e9f",
+  "model": "gpt-6-sol",
+  "reasoning_effort": "low",
+  "local_schema_measurement_scope": "Local cl100k serialization estimate; not provider input tokens.",
+  "mcp_surfaces": {
+    "v05_multi_tool_tokens_local_estimate": 1466,
+    "v06_default_tokens_local_estimate": 277,
+    "v07_actual_product_list_tools_schema_bytes": 764,
+    "v07_actual_product_list_tools_schema_tokens_local_estimate": 161,
+    "v07_fixture_context_tool_schema_bytes": 629,
+    "v07_fixture_context_tool_schema_tokens_local_estimate": 135,
+    "v07_inert_host_tool_schema_bytes": 275,
+    "v07_inert_host_tool_schema_tokens_local_estimate": 59
+  },
+  "product_mcp_stdio_smoke": {
+    "initialized": true,
+    "default_tools": [
+      "conceptualize_context"
+    ],
+    "tool_count": 1,
+    "initialize_and_list_tools_elapsed_ms": 2146.69,
+    "context_tool_invoked": false
+  },
+  "host_overhead_control": {
+    "description": "Full history supplied; one explicitly inert, read-only MCP host_overhead_probe tool enabled and never called.",
+    "input_tokens": 28404.0,
+    "cached_input_tokens": 19072.0,
+    "output_tokens": 790.0,
+    "elapsed_ms": 34755.27,
+    "mcp_tool_calls": 0,
+    "frozen_grade_pass": 1,
+    "full_context_mode_a_average_input_tokens": 22803.0,
+    "input_increment_vs_mode_a_tokens": 5601.0,
+    "input_increment_vs_mode_a_percent": 24.56,
+    "interpretation": "A one-run diagnostic indicates substantial MCP-enabled Codex host/config overhead even with an inert tool and no invocation. Provider telemetry cannot attribute the extra tokens to a particular internal host component."
+  },
+  "autonomous_mode_c": {
+    "status": "attempted_but_blocked_before_context_delivery",
+    "attempted_tool": "conceptualize_context",
+    "distinct_tool_calls": 1,
+    "successful_tool_calls": 0,
+    "error": "MCP tool call requires approval, but approval policy is never",
+    "input_tokens": 40718,
+    "cached_input_tokens": 32512,
+    "output_tokens": 288,
+    "elapsed_ms": 21388.93,
+    "context_delivered": false,
+    "correctness_pass": false,
+    "result_limit": "This is not a valid successful Mode C task run and cannot establish autonomous Conceptualize quality or cost."
+  },
+  "historical_v06_integration_evidence": {
+    "autonomous_mode_c_input_tokens": 94943,
+    "mode_a_input_tokens": 15781,
+    "autonomous_input_increment_tokens": 79162,
+    "no_adoption_control_input_tokens": 45976,
+    "no_adoption_increment_tokens": 30195,
+    "note": "Preserved historical evidence; different fixture/task, so it is not pooled with V0.7 results."
+  },
+  "estimated_cost": null,
+  "cost_limitation": "No verified pricing snapshot/version was available.",
+  "provider_host_attribution_limit": "Codex/provider reports turn-level token totals but no internal prompt-component breakdown. The measured increment is an MCP-enabled Codex host/config effect; the exact host component is unknown."
+}

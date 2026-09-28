@@ -1,0 +1,501 @@
+{
+  "benchmark": "v0.7-context-economics-atlas-9",
+  "mode": "A",
+  "model": "gpt-6-sol",
+  "reasoning_effort": "low",
+  "repetitions": 3,
+  "fixture_sha256": "2e3c86cc1c0f9ad5105ce752e6355da56d423f3f1836f228b3f0a4fe0ce71e9f",
+  "ground_truth_sha256": "6ad07d7609cb249b4f5178cda69fa6471c8d1c8db9097572c36a460d726621be",
+  "history_tokens_cl100k": 8223,
+  "budget": null,
+  "runs": [
+    {
+      "benchmark": "v0.7-context-economics-atlas-9",
+      "mode": "A",
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "repetition": 1,
+      "fixture_sha256": "2e3c86cc1c0f9ad5105ce752e6355da56d423f3f1836f228b3f0a4fe0ce71e9f",
+      "ground_truth_sha256": "6ad07d7609cb249b4f5178cda69fa6471c8d1c8db9097572c36a460d726621be",
+      "history_messages": 119,
+      "full_history_tokens_cl100k": 8223,
+      "context_budget": null,
+      "conceptualize": null,
+      "provider_usage": {
+        "input_tokens": 22803,
+        "cached_input_tokens": 12416,
+        "output_tokens": 784,
+        "total_tokens": null
+      },
+      "elapsed_ms": 28800.34,
+      "model_exit_code": 0,
+      "non_message_tool_events": [],
+      "answer": "## CURRENT ARCHITECTURE\n\n- One browser PWA for desktop and mobile, using the existing HTTPS JSON API with its name and endpoints preserved.\n- Separate, replaceable **LocalStore** and **SyncEngine** boundaries; screens access persistence through LocalStore.\n- LocalStore uses IndexedDB for inspection records. Its attachment adapter prefers filesystem storage when supported and authorized, otherwise uses IndexedDB blobs through one read/write/delete contract.\n- PostgreSQL stores inspection identity and version state. A stable client UUID provides create idempotency; the server ID and last acknowledged version are retained locally. Update version checks independently reject stale edits.\n- SyncEngine is resumable and starts on app launch, pull to refresh, or an online local edit.\n\n## CURRENT CONSTRAINTS\n\n- Retain drafts and photos until authenticated upload completion is acknowledged **for that item**. Timeouts, expired sessions, validation failures, lost responses, and successful uploads of unrelated items never authorize cleanup.\n- Persist acknowledged transfer progress per attachment; partial chunk success is not full completion. Resume after interruption, or safely restart an unsupported resumable transfer using its stable attachment identifier.\n- Retry transient network/service failures with capped exponential backoff and jitter. Validation requires correction; conflicts require explicit review without automatic narrative merging; expired authentication waits for reauthentication.\n- Preserve record-before-attachment ordering while allowing independent valid queue items to continue.\n- Adapter writes return persisted references only after storage succeeds; reads return original bytes and metadata; deletes affect only the specified reference. SyncEngine owns upload acknowledgement and cleanup decisions.\n- Permission denial uses blob fallback. Quota or transaction failures must produce actionable errors, retain working form state in memory, and never claim durability before commit. Partial writes must not report success with missing bytes; the specific error-versus-fallback policy is not settled in the supplied conversation.\n- Use plain UTF-8 text with required-field and maximum-length validation. Provide readable, screen-reader-accessible status and meaningful state announcements, without announcing every retry.\n- Exclude admin dashboards, analytics/reporting, push notifications, background periodic sync, and rich text. Visual backlog, localization notes, and unconfirmed pilot scheduling do not change this engineering scope.\n\n## SUPERSEDED DECISIONS\n\n- Native desktop client and desktop-wrapper fallback → one browser PWA.\n- localStorage production persistence → IndexedDB records.\n- Filesystem-only attachments → capability- and permission-aware filesystem preference with IndexedDB blob fallback.\n- WebSocket push, including the later optional proposal → the three agreed foreground sync triggers.\n- Proposed API rename → preserve the established service name and endpoints.\n\n## CURRENT STATE\n\nThe PWA shell and record form are implemented. IndexedDB record persistence and offline reload recovery are integrated with metadata synchronization, UUID replay handling, acknowledged-version storage, and validation/conflict pauses. Existing checks cover create replay, stale-update rejection, server-row preservation, draft recovery, and conflict display without clearing local content.\n\nAttachments remain unfinished: photos use a temporary test-harness path, the shared interface is drafted, and neither production backend has passed the common contract suite. End-to-end attachment transfer and cleanup are incomplete.\n\n## NEXT STEP\n\nComplete LocalStore attachment backend selection and both read/write/delete implementations. Run shared tests for byte/metadata fidelity, identifier association, reload persistence, permission fallback, storage failures, and acknowledgement-gated cleanup. Verify capability and permission behavior on representative browsers.\n\nAfter those tests pass, connect the adapter to SyncEngine and validate interrupted transfers, expired authentication, lost responses, and cleanup limited to the acknowledged attachment. Keep this work scoped to the existing API and attachment path.",
+      "grade": {
+        "passed": true,
+        "fact_coverage_percent": 95.65,
+        "facts_present": 22,
+        "facts_total": 23,
+        "critical_facts_missing": [],
+        "stale_claims_in_current_sections": [],
+        "next_step_correct": true,
+        "required_headings_parsed": true,
+        "checks": {
+          "current_architecture": [
+            {
+              "id": "pwa_https_api",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "localstore_indexeddb_records",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "attachment_filesystem_preferred",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "attachment_idb_blob_fallback",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "shared_attachment_adapter",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "syncengine_resumable",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "client_uuid_idempotency",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "version_conflict_check",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "postgres_api",
+              "critical": false,
+              "present": true
+            }
+          ],
+          "current_constraints": [
+            {
+              "id": "retain_until_ack",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "retry_transient_only",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "plain_text_accessibility",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "foreground_sync_scope",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "no_background_or_manager_features",
+              "critical": false,
+              "present": false
+            },
+            {
+              "id": "conflicts_require_review",
+              "critical": true,
+              "present": true
+            }
+          ],
+          "superseded_decisions": [
+            {
+              "id": "localstorage_replaced",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "native_client_replaced",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "filesystem_only_updated",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "websocket_proposal_rejected",
+              "critical": false,
+              "present": true
+            }
+          ],
+          "current_state": [
+            {
+              "id": "record_store_done",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "metadata_sync_done",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "attachments_incomplete",
+              "critical": true,
+              "present": true
+            }
+          ]
+        },
+        "next_step": {
+          "id": "attachment_adapter_contract_tests",
+          "present": true
+        }
+      },
+      "protocol_valid": true,
+      "raw_directory": "evaluations\\runs\\v07-economics-v9\\gpt-6-sol\\mode_a_budget_4000\\rep-1"
+    },
+    {
+      "benchmark": "v0.7-context-economics-atlas-9",
+      "mode": "A",
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "repetition": 2,
+      "fixture_sha256": "2e3c86cc1c0f9ad5105ce752e6355da56d423f3f1836f228b3f0a4fe0ce71e9f",
+      "ground_truth_sha256": "6ad07d7609cb249b4f5178cda69fa6471c8d1c8db9097572c36a460d726621be",
+      "history_messages": 119,
+      "full_history_tokens_cl100k": 8223,
+      "context_budget": null,
+      "conceptualize": null,
+      "provider_usage": {
+        "input_tokens": 22803,
+        "cached_input_tokens": 12416,
+        "output_tokens": 791,
+        "total_tokens": null
+      },
+      "elapsed_ms": 29471.33,
+      "model_exit_code": 0,
+      "non_message_tool_events": [],
+      "answer": "## CURRENT ARCHITECTURE\n\n- One browser PWA for desktop and mobile, using the existing HTTPS JSON API without renaming it.\n- Separate, replaceable client boundaries: **LocalStore** for persistence and **SyncEngine** for transfer orchestration. Screens access storage through LocalStore.\n- LocalStore uses IndexedDB for inspection records. The attachment adapter prefers filesystem storage when available and authorized, otherwise IndexedDB blobs, behind one read/write/delete contract.\n- PostgreSQL stores inspection identity and version state. A stable client UUID, enforced uniquely server-side, makes create replay idempotent. Local records retain the server ID and last acknowledged version; updates independently require authentication and version checks.\n- Sync runs on app launch, pull to refresh, and an online local edit. The intended attachment flow resumes from durable, server-acknowledged progress.\n\n## CURRENT CONSTRAINTS\n\n- Preserve drafts and photos until authenticated success is acknowledged **for that item**. Timeouts, lost responses, expired sessions, validation failures, and conflicts do not authorize cleanup. An acknowledged chunk does not complete an entire photo.\n- Adapter writes return persisted references only after storage succeeds; reads return original bytes and metadata; deletes affect only the specified reference. SyncEngine owns upload acknowledgement and requests cleanup through LocalStore.\n- Unavailable or denied filesystem access uses blob fallback. Failed or partial writes must not report success. IndexedDB quota or transaction failures require actionable errors and retained in-memory form state; durability begins only after commit.\n- Transient network/service failures use capped exponential backoff with jitter. Validation waits for correction, authentication expiry for reauthentication, and conflicts for human review. No automatic narrative merge.\n- Preserve record-before-attachment ordering while allowing independent valid queue items to continue safely.\n- Text remains plain UTF-8 with explicit length and required-field validation. Status must be readable and accessible, announcing meaningful state changes rather than every retry.\n- Admin dashboards, analytics, push notifications, periodic background sync, and rich text remain outside scope. Visual backlog, future localization, and unconfirmed pilot scheduling do not change this engineering plan.\n\n## SUPERSEDED DECISIONS\n\n- Native desktop client and desktop-wrapper fallback: replaced by the single PWA.\n- localStorage as the production draft store: replaced by IndexedDB.\n- Filesystem-only attachments: replaced by runtime capability/permission selection with IndexedDB blob fallback.\n- WebSocket-driven sync, including an optional WebSocket optimization: rejected for this release.\n- Renaming the server API: rejected; existing name and endpoints remain.\n\n## CURRENT STATE\n\nThe PWA shell and record form are in place. IndexedDB record persistence and restoration are integrated with metadata synchronization, UUID replay, acknowledged version storage, and pauses for validation or conflict resolution. Existing checks cover replay, stale-version rejection, offline draft recovery, and conflict display without clearing local content.\n\nPhotos still use a temporary test-harness path. The attachment interface is drafted; production backend implementations and shared contract coverage remain unfinished. Neither backend has passed the common suite, and attachment transfer is not complete end to end.\n\n## NEXT STEP\n\nComplete the LocalStore attachment adapter’s runtime selection and both backends. Run identical contract cases covering read/write/delete, inspection UUID association, reload persistence, denied permissions, failed/partial writes, and acknowledgement-gated cleanup; manually verify permissions on representative browsers.\n\nAfter those pass, connect the adapter to SyncEngine. Verify interrupted/chunked transfer recovery, expired authentication, lost responses with safe replay, failed-upload retention, and cleanup limited to the acknowledged attachment. Keep this work separate from analytics and new server endpoints.",
+      "grade": {
+        "passed": false,
+        "fact_coverage_percent": 91.3,
+        "facts_present": 21,
+        "facts_total": 23,
+        "critical_facts_missing": [
+          "retain_until_ack"
+        ],
+        "stale_claims_in_current_sections": [],
+        "next_step_correct": true,
+        "required_headings_parsed": true,
+        "checks": {
+          "current_architecture": [
+            {
+              "id": "pwa_https_api",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "localstore_indexeddb_records",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "attachment_filesystem_preferred",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "attachment_idb_blob_fallback",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "shared_attachment_adapter",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "syncengine_resumable",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "client_uuid_idempotency",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "version_conflict_check",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "postgres_api",
+              "critical": false,
+              "present": true
+            }
+          ],
+          "current_constraints": [
+            {
+              "id": "retain_until_ack",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "retry_transient_only",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "plain_text_accessibility",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "foreground_sync_scope",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "no_background_or_manager_features",
+              "critical": false,
+              "present": false
+            },
+            {
+              "id": "conflicts_require_review",
+              "critical": true,
+              "present": true
+            }
+          ],
+          "superseded_decisions": [
+            {
+              "id": "localstorage_replaced",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "native_client_replaced",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "filesystem_only_updated",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "websocket_proposal_rejected",
+              "critical": false,
+              "present": true
+            }
+          ],
+          "current_state": [
+            {
+              "id": "record_store_done",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "metadata_sync_done",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "attachments_incomplete",
+              "critical": true,
+              "present": true
+            }
+          ]
+        },
+        "next_step": {
+          "id": "attachment_adapter_contract_tests",
+          "present": true
+        }
+      },
+      "protocol_valid": true,
+      "raw_directory": "evaluations\\runs\\v07-economics-v9\\gpt-6-sol\\mode_a_budget_4000\\rep-2"
+    },
+    {
+      "benchmark": "v0.7-context-economics-atlas-9",
+      "mode": "A",
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "repetition": 3,
+      "fixture_sha256": "2e3c86cc1c0f9ad5105ce752e6355da56d423f3f1836f228b3f0a4fe0ce71e9f",
+      "ground_truth_sha256": "6ad07d7609cb249b4f5178cda69fa6471c8d1c8db9097572c36a460d726621be",
+      "history_messages": 119,
+      "full_history_tokens_cl100k": 8223,
+      "context_budget": null,
+      "conceptualize": null,
+      "provider_usage": {
+        "input_tokens": 22803,
+        "cached_input_tokens": 12416,
+        "output_tokens": 633,
+        "total_tokens": null
+      },
+      "elapsed_ms": 24055.05,
+      "model_exit_code": 0,
+      "non_message_tool_events": [],
+      "answer": "## CURRENT ARCHITECTURE\n\n- One browser PWA for desktop and mobile, using the existing HTTPS JSON API with its name and endpoints unchanged; PostgreSQL stores inspection rows and version state.\n- Separate, replaceable client boundaries: **LocalStore** for persistence and **SyncEngine** for transfers.\n- LocalStore uses IndexedDB for records. Its attachment adapter prefers filesystem storage when available and authorized, otherwise IndexedDB blobs, through one read/write/delete contract.\n- SyncEngine uses stable client UUIDs for create idempotency and last acknowledged versions for update checks. Local records retain the server ID, version, and durable sync state.\n- Foreground sync starts on app launch, pull to refresh, and an online local edit.\n\n## CURRENT CONSTRAINTS\n\n- Retain drafts and photos until authenticated upload completion is acknowledged for that specific item. Timeouts, expired authentication, lost responses, validation failures, and partial chunk acknowledgements never authorize cleanup.\n- Resume from durable acknowledged progress after interruption. Preserve record-before-attachment ordering while allowing independent queue items to continue safely.\n- Retry transient network/service failures with capped exponential backoff and jitter. Validation waits for correction; authentication failure waits for reauthentication; conflicts require review without automatic narrative merging.\n- Adapter writes return persisted references only after storage commits; reads return original bytes and metadata; deletes affect only the specified reference. Persistence failures must surface actionable errors, retain working form state, and never claim durability.\n- Use plain UTF-8 text with required-field and maximum-length validation. Show meaningful, accessible sync states and field errors; announce useful transitions rather than every retry.\n- Keep admin dashboards, analytics, push notifications, periodic background sync, and WebSockets outside this release.\n\n## SUPERSEDED DECISIONS\n\n- Native desktop client and desktop-wrapper fallback → one browser PWA.\n- localStorage for drafts → IndexedDB.\n- Filesystem-only attachments → runtime capability/permission selection with IndexedDB blob fallback.\n- WebSocket sync, including an optional optimization → the three agreed foreground triggers.\n- Renaming the server API → retain its established name and endpoints.\n\n## CURRENT STATE\n\n- The PWA shell and record form are implemented. IndexedDB record persistence and offline reload recovery work.\n- Metadata sync handles UUID replay, acknowledged versions, validation correction, and conflicts. Replay, stale-version rejection, draft recovery, and conflict-display checks pass.\n- Photos still use a temporary test-harness path. The attachment interface is drafted; production backends, shared contract coverage, and end-to-end attachment integration remain unfinished.\n- Visual backlog and unconfirmed North-region pilot scheduling do not change the engineering plan.\n\n## NEXT STEP\n\nComplete LocalStore attachment selection and both backends, then run identical contract tests for read/write/delete, UUID association, reload persistence, permission denial, failed/partial writes, and acknowledgement-scoped cleanup. Verify representative browser permissions separately.\n\nAfter those checks pass, wire the adapter into SyncEngine and test interruption/resume, expired sessions, lost responses, and preservation of unrelated attachments. Partial-write fallback policy remains unspecified; do not invent it or report missing bytes as a successful write.",
+      "grade": {
+        "passed": true,
+        "fact_coverage_percent": 95.65,
+        "facts_present": 22,
+        "facts_total": 23,
+        "critical_facts_missing": [],
+        "stale_claims_in_current_sections": [],
+        "next_step_correct": true,
+        "required_headings_parsed": true,
+        "checks": {
+          "current_architecture": [
+            {
+              "id": "pwa_https_api",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "localstore_indexeddb_records",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "attachment_filesystem_preferred",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "attachment_idb_blob_fallback",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "shared_attachment_adapter",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "syncengine_resumable",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "client_uuid_idempotency",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "version_conflict_check",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "postgres_api",
+              "critical": false,
+              "present": true
+            }
+          ],
+          "current_constraints": [
+            {
+              "id": "retain_until_ack",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "retry_transient_only",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "plain_text_accessibility",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "foreground_sync_scope",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "no_background_or_manager_features",
+              "critical": false,
+              "present": false
+            },
+            {
+              "id": "conflicts_require_review",
+              "critical": true,
+              "present": true
+            }
+          ],
+          "superseded_decisions": [
+            {
+              "id": "localstorage_replaced",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "native_client_replaced",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "filesystem_only_updated",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "websocket_proposal_rejected",
+              "critical": false,
+              "present": true
+            }
+          ],
+          "current_state": [
+            {
+              "id": "record_store_done",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "metadata_sync_done",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "attachments_incomplete",
+              "critical": true,
+              "present": true
+            }
+          ]
+        },
+        "next_step": {
+          "id": "attachment_adapter_contract_tests",
+          "present": true
+        }
+      },
+      "protocol_valid": true,
+      "raw_directory": "evaluations\\runs\\v07-economics-v9\\gpt-6-sol\\mode_a_budget_4000\\rep-3"
+    }
+  ],
+  "pass_count": 2,
+  "protocol_valid_runs": 3,
+  "average_input_tokens": 22803.0,
+  "average_cached_input_tokens": 12416.0,
+  "average_output_tokens": 736.0,
+  "average_elapsed_ms": 27442.24,
+  "pricing": null,
+  "estimated_cost": null,
+  "cost_limitation": "No verified versioned pricing snapshot was supplied."
+}

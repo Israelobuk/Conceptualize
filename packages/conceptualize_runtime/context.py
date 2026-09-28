@@ -192,19 +192,37 @@ class ContextUnitRuntime:
         prior_by_id = {}
         for row in history:
             prior_by_id.setdefault(row.get("unit_id"), []).append(row)
-        matches = self.search(query, source_types=source_types, limit=limit, weights=configured)
         query_terms = set(re.findall(r"[\w]+", query.lower()))
         planning_terms = {
             "architecture", "plan", "decision", "decisions", "constraint",
             "constraints", "implementation", "current", "overall", "everything",
         }
-        if query_terms & planning_terms:
+        planning_query = bool(query_terms & planning_terms)
+        search_limit = limit
+        if planning_query and (source_types is None or "message" in source_types):
+            # Broad handoff questions need a candidate pool large enough to include
+            # lower-ranked explicit decisions; the pack budget, not a search top-k,
+            # should bound what is ultimately delivered.
+            message_count = sum(
+                1 for unit in self.units
+                if unit.source_type == "message"
+                and (source_types is None or unit.source_type in source_types)
+            )
+            search_limit = max(limit, message_count)
+        matches = self.search(query, source_types=source_types, limit=search_limit, weights=configured)
+        if planning_query:
             by_match_id = {row["unit"].id: row for row in matches}
             decision_pattern = re.compile(
                 r"\b(?:must|must not|do not|don't|not adding|exclude\w*|out of scope|"
                 r"supersed\w*|final (?:architecture|review|decision)|constraint|"
                 r"first release|v1|keep .{0,140} (?:until|out|local)|we are not|"
                 r"no\s+web\s?socket|not semantic understanding)\b",
+                re.IGNORECASE,
+            )
+            implementation_state_pattern = re.compile(
+                r"\b(?:(?:is|are|has been|have been)\s+(?:implemented|integrated|shipped|"
+                r"in place|complete|done)|(?:remains?|still)\s+(?:unfinished|incomplete|"
+                r"open|drafted|not complete))\b",
                 re.IGNORECASE,
             )
             final_pattern = re.compile(
@@ -216,10 +234,11 @@ class ContextUnitRuntime:
                 if unit.source_type != "message":
                     continue
                 decision_match = decision_pattern.search(unit.content)
+                state_match = implementation_state_pattern.search(unit.content)
                 role = unit.metadata.get("role")
                 # User statements can define decisions freely. Only admit an
                 # assistant message when it states a compact explicit rule.
-                if not decision_match or (role != "user" and not re.search(
+                if not (decision_match or state_match) or (role != "user" and not re.search(
                     r"\b(?:no\s+web\s?socket|must state that lexical relevance is not semantic understanding)\b",
                     unit.content,
                     re.IGNORECASE,
@@ -240,13 +259,13 @@ class ContextUnitRuntime:
                 row["reasons"].append(
                     {"signal": "decision_context", "weight": configured["decision_context"]}
                 )
-                if final_pattern.search(unit.content):
+                if final_pattern.search(unit.content) or state_match:
                     row["score"] += configured["final_state"]
                     row["reasons"].append(
                         {"signal": "final_state", "weight": configured["final_state"]}
                     )
             matches.sort(key=lambda row: (-row["score"], row["unit"].id))
-            matches = matches[:limit]
+            matches = matches[:search_limit]
         if level == "map" and not query.strip():
             matches = [
                 {

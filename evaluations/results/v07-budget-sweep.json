@@ -1,0 +1,11 @@
+{
+  "benchmark": "v0.7-context-economics-atlas-9",
+  "status": "not_run",
+  "budgets": [
+    500,
+    1000,
+    2000,
+    4000
+  ],
+  "reason": "Mode B scored 0/3 under the frozen rubric. User's protocol requires establishing correctness before the budget sweep; changing the budget before diagnosing failures would be invalid."
+}

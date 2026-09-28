@@ -1,0 +1,47 @@
+{
+  "benchmark": "v0.7-context-economics-atlas-9",
+  "fixture_sha256": "2e3c86cc1c0f9ad5105ce752e6355da56d423f3f1836f228b3f0a4fe0ce71e9f",
+  "ground_truth_sha256": "6ad07d7609cb249b4f5178cda69fa6471c8d1c8db9097572c36a460d726621be",
+  "session_mode": "deterministic_runtime_only; no model inference",
+  "full_history_tokens_cl100k": 8223,
+  "request_1": {
+    "query": "Based on everything we've decided so far, summarize the current implementation plan. Include the current architecture, the constraints we must preserve, which earlier decisions are no longer current, and the next implementation step.",
+    "context_tokens_delivered": 3477,
+    "selected_units": 48,
+    "ledger_units": 48,
+    "elapsed_ms": 197.463
+  },
+  "request_2": {
+    "query": "Does the client-provided version establish that an upload is authenticated?",
+    "context_tokens_delivered": 197,
+    "previously_supplied_tokens_referenced": 1189,
+    "unchanged_tokens_avoided": 1189,
+    "new_context_tokens": 197,
+    "new_unit_ids": [
+      "conversation:atlas-v07-economics/message:v07-107",
+      "conversation:atlas-v07-economics/message:v07-106",
+      "conversation:atlas-v07-economics/message:v07-049"
+    ],
+    "referenced_unit_ids": [
+      "conversation:atlas-v07-economics/message:v07-102",
+      "conversation:atlas-v07-economics/message:v07-048",
+      "conversation:atlas-v07-economics/message:h05",
+      "conversation:atlas-v07-economics/message:h34",
+      "conversation:atlas-v07-economics/message:v07-104",
+      "conversation:atlas-v07-economics/message:v07-062",
+      "conversation:atlas-v07-economics/message:h33",
+      "conversation:atlas-v07-economics/message:v07-086",
+      "conversation:atlas-v07-economics/message:v07-040",
+      "conversation:atlas-v07-economics/message:v07-092",
+      "conversation:atlas-v07-economics/message:v07-082",
+      "conversation:atlas-v07-economics/message:v07-096",
+      "conversation:atlas-v07-economics/message:v07-116",
+      "conversation:atlas-v07-economics/message:v07-112"
+    ],
+    "duplicate_tokens_suppressed": 0,
+    "elapsed_ms": 37.249,
+    "provider_input_tokens": null,
+    "provider_input_limitation": "No model invocation was run for this isolated ledger test."
+  },
+  "interpretation": "The second request referenced unchanged first-call context and delivered only the additional authentication/version context selected for the follow-up."
+}

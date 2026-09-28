@@ -1,0 +1,218 @@
+{
+  "benchmark": "v0.7-context-economics-atlas-9",
+  "mode": "C",
+  "model": "gpt-6-sol",
+  "reasoning_effort": "low",
+  "repetitions": 1,
+  "fixture_sha256": "2e3c86cc1c0f9ad5105ce752e6355da56d423f3f1836f228b3f0a4fe0ce71e9f",
+  "ground_truth_sha256": "6ad07d7609cb249b4f5178cda69fa6471c8d1c8db9097572c36a460d726621be",
+  "history_tokens_cl100k": 8223,
+  "budget": null,
+  "runs": [
+    {
+      "benchmark": "v0.7-context-economics-atlas-9",
+      "mode": "C",
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "repetition": 1,
+      "fixture_sha256": "2e3c86cc1c0f9ad5105ce752e6355da56d423f3f1836f228b3f0a4fe0ce71e9f",
+      "ground_truth_sha256": "6ad07d7609cb249b4f5178cda69fa6471c8d1c8db9097572c36a460d726621be",
+      "history_messages": 119,
+      "full_history_tokens_cl100k": 8223,
+      "context_budget": null,
+      "conceptualize": null,
+      "provider_usage": {
+        "input_tokens": 40718,
+        "cached_input_tokens": 32512,
+        "output_tokens": 288,
+        "total_tokens": null
+      },
+      "elapsed_ms": 21388.93,
+      "model_exit_code": 0,
+      "non_message_tool_events": [
+        "mcp_tool_call"
+      ],
+      "mcp_tool_events": [
+        {
+          "type": "mcp_tool_call",
+          "name": null,
+          "tool": "conceptualize_context",
+          "server": "conceptualize"
+        },
+        {
+          "type": "mcp_tool_call",
+          "name": null,
+          "tool": "conceptualize_context",
+          "server": "conceptualize"
+        }
+      ],
+      "answer": "### CURRENT ARCHITECTURE\nCannot determine from the available context.\n\n### CURRENT CONSTRAINTS\nUse only the supplied project conversation; distinguish current decisions from old proposals and unrelated release discussion; do not infer missing decisions.\n\n### SUPERSEDED DECISIONS\nCannot identify without the project conversation.\n\n### CURRENT STATE\nThe single context-tool call was blocked: it requires approval, but the environment’s approval policy is set to “never.” No project context was returned.\n\n### NEXT STEP\nMake the read-only `conceptualize_context` tool accessible, or supply the project conversation directly, so the implementation plan can be summarized accurately.",
+      "grade": {
+        "passed": false,
+        "fact_coverage_percent": 0.0,
+        "facts_present": 0,
+        "facts_total": 23,
+        "critical_facts_missing": [
+          "pwa_https_api",
+          "localstore_indexeddb_records",
+          "attachment_filesystem_preferred",
+          "attachment_idb_blob_fallback",
+          "shared_attachment_adapter",
+          "syncengine_resumable",
+          "client_uuid_idempotency",
+          "version_conflict_check",
+          "retain_until_ack",
+          "retry_transient_only",
+          "plain_text_accessibility",
+          "foreground_sync_scope",
+          "conflicts_require_review",
+          "localstorage_replaced",
+          "native_client_replaced",
+          "filesystem_only_updated",
+          "record_store_done",
+          "metadata_sync_done",
+          "attachments_incomplete",
+          "attachment_adapter_contract_tests"
+        ],
+        "stale_claims_in_current_sections": [],
+        "next_step_correct": false,
+        "required_headings_parsed": true,
+        "checks": {
+          "current_architecture": [
+            {
+              "id": "pwa_https_api",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "localstore_indexeddb_records",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "attachment_filesystem_preferred",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "attachment_idb_blob_fallback",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "shared_attachment_adapter",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "syncengine_resumable",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "client_uuid_idempotency",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "version_conflict_check",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "postgres_api",
+              "critical": false,
+              "present": false
+            }
+          ],
+          "current_constraints": [
+            {
+              "id": "retain_until_ack",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "retry_transient_only",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "plain_text_accessibility",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "foreground_sync_scope",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "no_background_or_manager_features",
+              "critical": false,
+              "present": false
+            },
+            {
+              "id": "conflicts_require_review",
+              "critical": true,
+              "present": false
+            }
+          ],
+          "superseded_decisions": [
+            {
+              "id": "localstorage_replaced",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "native_client_replaced",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "filesystem_only_updated",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "websocket_proposal_rejected",
+              "critical": false,
+              "present": false
+            }
+          ],
+          "current_state": [
+            {
+              "id": "record_store_done",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "metadata_sync_done",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "attachments_incomplete",
+              "critical": true,
+              "present": false
+            }
+          ]
+        },
+        "next_step": {
+          "id": "attachment_adapter_contract_tests",
+          "present": false
+        }
+      },
+      "protocol_valid": true,
+      "raw_directory": "evaluations\\runs\\v07-economics-v9-diagnostics\\gpt-6-sol\\mode_c_budget_4000\\rep-1"
+    }
+  ],
+  "pass_count": 0,
+  "protocol_valid_runs": 1,
+  "average_input_tokens": 40718.0,
+  "average_cached_input_tokens": 32512.0,
+  "average_output_tokens": 288.0,
+  "average_elapsed_ms": 21388.93,
+  "pricing": null,
+  "estimated_cost": null,
+  "cost_limitation": "No verified versioned pricing snapshot was supplied."
+}

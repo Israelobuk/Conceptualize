@@ -1,0 +1,436 @@
+{
+  "version": "v0.7-context-economics-atlas-1",
+  "created_before_model_runs": true,
+  "pass_rule": {
+    "all_critical_facts_required": true,
+    "minimum_overall_coverage_percent": 90,
+    "stale_current_claims_allowed": 0,
+    "next_step_must_be_correct": true
+  },
+  "current_architecture": [
+    {
+      "id": "pwa_https_api",
+      "critical": true,
+      "alternatives": [
+        [
+          "pwa",
+          "https"
+        ],
+        [
+          "browser-based",
+          "https api"
+        ]
+      ]
+    },
+    {
+      "id": "localstore_indexeddb_records",
+      "critical": true,
+      "alternatives": [
+        [
+          "localstore",
+          "indexeddb"
+        ],
+        [
+          "inspection records",
+          "indexeddb"
+        ]
+      ]
+    },
+    {
+      "id": "attachment_filesystem_preferred",
+      "critical": true,
+      "alternatives": [
+        [
+          "filesystem",
+          "available"
+        ],
+        [
+          "filesystem",
+          "supported"
+        ],
+        [
+          "file system",
+          "supported"
+        ]
+      ]
+    },
+    {
+      "id": "attachment_idb_blob_fallback",
+      "critical": true,
+      "alternatives": [
+        [
+          "indexeddb",
+          "blob",
+          "fallback"
+        ],
+        [
+          "idb",
+          "blob",
+          "fallback"
+        ],
+        [
+          "indexeddb",
+          "blobs",
+          "falls back"
+        ]
+      ]
+    },
+    {
+      "id": "shared_attachment_adapter",
+      "critical": true,
+      "alternatives": [
+        [
+          "adapter",
+          "read",
+          "write",
+          "delete"
+        ],
+        [
+          "adapter contract",
+          "both backends"
+        ]
+      ]
+    },
+    {
+      "id": "syncengine_resumable",
+      "critical": true,
+      "alternatives": [
+        [
+          "syncengine",
+          "resume"
+        ],
+        [
+          "sync",
+          "resumable"
+        ]
+      ]
+    },
+    {
+      "id": "client_uuid_idempotency",
+      "critical": true,
+      "alternatives": [
+        [
+          "uuid",
+          "idempotent"
+        ],
+        [
+          "client-generated id",
+          "duplicate"
+        ]
+      ]
+    },
+    {
+      "id": "version_conflict_check",
+      "critical": true,
+      "alternatives": [
+        [
+          "version",
+          "conflict"
+        ],
+        [
+          "stale",
+          "reject"
+        ]
+      ]
+    },
+    {
+      "id": "postgres_api",
+      "critical": false,
+      "alternatives": [
+        [
+          "postgresql",
+          "api"
+        ],
+        [
+          "postgres",
+          "server"
+        ]
+      ]
+    }
+  ],
+  "current_constraints": [
+    {
+      "id": "retain_until_ack",
+      "critical": true,
+      "alternatives": [
+        [
+          "local",
+          "authenticated upload",
+          "acknowledg"
+        ],
+        [
+          "device",
+          "server confirms",
+          "draft"
+        ]
+      ]
+    },
+    {
+      "id": "retry_transient_only",
+      "critical": true,
+      "alternatives": [
+        [
+          "exponential backoff",
+          "jitter",
+          "transient"
+        ],
+        [
+          "backoff",
+          "transient",
+          "validation"
+        ]
+      ]
+    },
+    {
+      "id": "plain_text_accessibility",
+      "critical": true,
+      "alternatives": [
+        [
+          "plain text",
+          "screen reader"
+        ],
+        [
+          "plain-text",
+          "accessible"
+        ]
+      ]
+    },
+    {
+      "id": "foreground_sync_scope",
+      "critical": true,
+      "alternatives": [
+        [
+          "app launch",
+          "pull to refresh",
+          "websocket"
+        ],
+        [
+          "client-triggered",
+          "no websocket"
+        ]
+      ]
+    },
+    {
+      "id": "no_background_or_manager_features",
+      "critical": false,
+      "alternatives": [
+        [
+          "background",
+          "analytics",
+          "push",
+          "out of scope"
+        ],
+        [
+          "no periodic",
+          "no analytics"
+        ]
+      ]
+    },
+    {
+      "id": "conflicts_require_review",
+      "critical": true,
+      "alternatives": [
+        [
+          "conflict",
+          "local draft",
+          "review"
+        ],
+        [
+          "conflict",
+          "draft",
+          "review"
+        ],
+        [
+          "stale",
+          "preserve",
+          "user"
+        ]
+      ]
+    }
+  ],
+  "superseded_decisions": [
+    {
+      "id": "localstorage_replaced",
+      "critical": true,
+      "alternatives": [
+        [
+          "localstorage",
+          "superseded"
+        ],
+        [
+          "localstorage",
+          "replaced",
+          "indexeddb"
+        ]
+      ]
+    },
+    {
+      "id": "native_client_replaced",
+      "critical": true,
+      "alternatives": [
+        [
+          "native desktop",
+          "replaced",
+          "pwa"
+        ],
+        [
+          "desktop app",
+          "superseded",
+          "browser"
+        ]
+      ]
+    },
+    {
+      "id": "filesystem_only_updated",
+      "critical": true,
+      "alternatives": [
+        [
+          "filesystem-only",
+          "fallback"
+        ],
+        [
+          "filesystem only",
+          "indexeddb",
+          "fallback"
+        ]
+      ]
+    },
+    {
+      "id": "websocket_proposal_rejected",
+      "critical": false,
+      "alternatives": [
+        [
+          "websocket",
+          "not",
+          "current"
+        ],
+        [
+          "websocket",
+          "superseded"
+        ],
+        [
+          "no websocket"
+        ]
+      ]
+    }
+  ],
+  "current_state": [
+    {
+      "id": "record_store_done",
+      "critical": true,
+      "alternatives": [
+        [
+          "record",
+          "indexeddb",
+          "implemented"
+        ],
+        [
+          "localstore",
+          "persist",
+          "restore"
+        ]
+      ]
+    },
+    {
+      "id": "metadata_sync_done",
+      "critical": true,
+      "alternatives": [
+        [
+          "syncengine",
+          "metadata",
+          "implemented"
+        ],
+        [
+          "sync",
+          "uuid",
+          "version",
+          "implemented"
+        ]
+      ]
+    },
+    {
+      "id": "attachments_incomplete",
+      "critical": true,
+      "alternatives": [
+        [
+          "attachment",
+          "not complete"
+        ],
+        [
+          "attachment",
+          "unfinished"
+        ],
+        [
+          "adapter",
+          "still open"
+        ]
+      ]
+    }
+  ],
+  "next_step": {
+    "id": "attachment_adapter_contract_tests",
+    "critical": true,
+    "alternatives": [
+      [
+        "attachment adapter",
+        "contract",
+        "filesystem",
+        "indexeddb",
+        "test"
+      ],
+      [
+        "adapter",
+        "both backends",
+        "fallback",
+        "tests"
+      ]
+    ]
+  },
+  "stale_claims": [
+    {
+      "id": "localstorage_is_current",
+      "scope": "current_architecture",
+      "reject_if_current_contains": [
+        "(?:use|store|save|write|keep)\\s+(?:drafts?\\s+in\\s+)?localstorage",
+        "localstorage\\s+(?:is\\s+)?(?:the\\s+)?(?:current|production|record)\\s+store"
+      ]
+    },
+    {
+      "id": "native_desktop_is_current",
+      "scope": "current_architecture",
+      "reject_if_current_contains": [
+        "(?:ship|build|target|use)\\s+(?:a\\s+)?native desktop",
+        "native desktop (?:client|app)\\s+(?:is\\s+)?(?:current|supported)"
+      ]
+    },
+    {
+      "id": "filesystem_only_is_current",
+      "scope": "current_architecture",
+      "reject_if_current_contains": [
+        "filesystem-only",
+        "file system only",
+        "only filesystem storage"
+      ]
+    },
+    {
+      "id": "websocket_push_is_current",
+      "scope": "current_constraints",
+      "reject_if_current_contains": [
+        "(?:use|enable|add|require|depend on)\\s+(?:a\\s+)?websocket",
+        "websocket push\\s+(?:is\\s+)?(?:current|required|supported)"
+      ]
+    },
+    {
+      "id": "delete_before_ack",
+      "scope": "current_constraints",
+      "reject_if_current_contains": [
+        "(?:delete|remove|clear)\\b.{0,35}\\b(?:before|prior to)\\b.{0,20}\\b(?:acknowledg|confirm|success)"
+      ]
+    }
+  ],
+  "excluded_unrelated_topics": [
+    "green icon",
+    "North region pilot date",
+    "analytics dashboard"
+  ]
+}

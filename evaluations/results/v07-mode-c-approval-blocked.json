@@ -1,0 +1,15 @@
+{
+  "benchmark": "v0.7-context-economics-atlas-9",
+  "status": "approval_blocked",
+  "attempted_tool_calls": 1,
+  "tool": "conceptualize_context",
+  "tool_result": null,
+  "context_tokens_delivered": 0,
+  "provider_input_tokens": 40718,
+  "cached_input_tokens": 32512,
+  "output_tokens": 288,
+  "elapsed_ms": 21388.93,
+  "answer": "The agent stated it could not determine the plan because the context call required approval under approval_policy=never.",
+  "raw_events": "evaluations/runs/v07-economics-v9-diagnostics/gpt-6-sol/mode_c_budget_4000/rep-1/agent-events.jsonl",
+  "limitation": "Autonomous MCP correctness is not measured because the tool never executed and returned no context."
+}

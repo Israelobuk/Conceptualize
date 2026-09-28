@@ -1,0 +1,15 @@
+{
+  "fixture_version": "v0.7-context-economics-atlas-3",
+  "fixture_sha256": "4265c3c590dc79edc43b8b953553aeb04026e759b05102bedfded8b0e177532d",
+  "ground_truth_sha256": "d977c46d2bb51e46d58fd40a72c81379aa0f6c99e0fcc814e988275827e01332",
+  "question": "Based on everything we've decided so far, summarize the current implementation plan. Include the current architecture, the constraints we must preserve, which earlier decisions are no longer current, and the next implementation step.",
+  "messages": 119,
+  "history_tokens_cl100k": 8223,
+  "model_runs_started": false,
+  "pass_rule": {
+    "all_critical_facts_required": true,
+    "minimum_overall_coverage_percent": 90,
+    "stale_current_claims_allowed": 0,
+    "next_step_must_be_correct": true
+  }
+}

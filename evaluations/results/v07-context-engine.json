@@ -1,0 +1,153 @@
+{
+  "benchmark": "v0.7-context-economics-atlas-9",
+  "fixture_sha256": "2e3c86cc1c0f9ad5105ce752e6355da56d423f3f1836f228b3f0a4fe0ce71e9f",
+  "ground_truth_sha256": "6ad07d7609cb249b4f5178cda69fa6471c8d1c8db9097572c36a460d726621be",
+  "source_history_tokens_cl100k": 8223,
+  "message_count": 119,
+  "token_budget": 4000,
+  "candidate_tokens": 5784,
+  "selected_context_string_tokens": 3477,
+  "selected_history_percent": 42.28,
+  "candidate_units": 91,
+  "selected_units": 48,
+  "omitted_units": 43,
+  "duplicate_tokens_suppressed": 0,
+  "low_relevance_tokens_suppressed": 2247,
+  "superseded_units_suppressed": 3,
+  "superseded_tokens_suppressed": 107,
+  "unchanged_tokens_avoided": 0,
+  "relationships_followed": [
+    1,
+    1,
+    1
+  ],
+  "budget_utilization": 0.8692,
+  "pack_elapsed_ms_observed": 191.368,
+  "timings_ms": {
+    "scoring": 60.777,
+    "context_compilation": 130.591
+  },
+  "frozen_checker_selected_context_coverage": {
+    "facts_present": 22,
+    "facts_total": 23,
+    "coverage_percent": 95.65,
+    "checker_missing": [
+      "metadata_sync_done"
+    ],
+    "interpretation_limit": "Post-run audit found metadata_sync_done is present in selected unit v07-118 as 'record persistence and metadata sync are integrated'; the frozen accepted alternatives did not recognize that paraphrase. The frozen score is preserved and not adjusted."
+  },
+  "retrieval_diagnosis": {
+    "initial_failure": "Broad planning retrieval capped candidates at 30 before pack scoring; only 33 candidate units were available, with relevant later decisions excluded.",
+    "candidate_limit_regression": "Added a planning-query candidate pool sized to the conversation message count, while the token budget still bounds delivered context.",
+    "state_retrieval_regression": "Added deterministic scoring for explicit implemented/integrated/shipped/unfinished status statements after evidence showed these were absent from the candidate set.",
+    "remaining_result": "After both fixes, three Mode B answers still scored 0/3, with current-state omissions in two or three runs. No further benchmark-specific retrieval rule was added."
+  },
+  "preserved_pre_fix_runs": [
+    {
+      "phase": "initial_top_k",
+      "context_tokens": 1824,
+      "candidate_tokens": 1902,
+      "candidate_units": 33,
+      "selected_units": 30,
+      "provider_input_avg": 16464,
+      "passes": 0,
+      "runs": 3
+    },
+    {
+      "phase": "expanded_planning_candidates",
+      "context_tokens": 3090,
+      "candidate_tokens": 5693,
+      "candidate_units": 90,
+      "selected_units": 44,
+      "provider_input_avg": 19619.67,
+      "passes": 0,
+      "runs": 3
+    }
+  ],
+  "final_mode_a": {
+    "pass_count": 2,
+    "runs": [
+      {
+        "repetition": 1,
+        "passed": true,
+        "fact_coverage_percent": 95.65,
+        "critical_facts_missing": [],
+        "provider_input_tokens": 22803,
+        "cached_input_tokens": 12416,
+        "output_tokens": 784,
+        "elapsed_ms": 28800.34
+      },
+      {
+        "repetition": 2,
+        "passed": false,
+        "fact_coverage_percent": 91.3,
+        "critical_facts_missing": [
+          "retain_until_ack"
+        ],
+        "provider_input_tokens": 22803,
+        "cached_input_tokens": 12416,
+        "output_tokens": 791,
+        "elapsed_ms": 29471.33
+      },
+      {
+        "repetition": 3,
+        "passed": true,
+        "fact_coverage_percent": 95.65,
+        "critical_facts_missing": [],
+        "provider_input_tokens": 22803,
+        "cached_input_tokens": 12416,
+        "output_tokens": 633,
+        "elapsed_ms": 24055.05
+      }
+    ]
+  },
+  "final_mode_b": {
+    "pass_count": 0,
+    "runs": [
+      {
+        "repetition": 1,
+        "passed": false,
+        "fact_coverage_percent": 91.3,
+        "critical_facts_missing": [
+          "metadata_sync_done"
+        ],
+        "provider_input_tokens": 18140,
+        "cached_input_tokens": 12416,
+        "output_tokens": 474,
+        "elapsed_ms": 20043.12
+      },
+      {
+        "repetition": 2,
+        "passed": false,
+        "fact_coverage_percent": 86.96,
+        "critical_facts_missing": [
+          "metadata_sync_done",
+          "attachments_incomplete"
+        ],
+        "provider_input_tokens": 18140,
+        "cached_input_tokens": 12416,
+        "output_tokens": 593,
+        "elapsed_ms": 24179.32
+      },
+      {
+        "repetition": 3,
+        "passed": false,
+        "fact_coverage_percent": 82.61,
+        "critical_facts_missing": [
+          "client_uuid_idempotency",
+          "metadata_sync_done",
+          "attachments_incomplete"
+        ],
+        "provider_input_tokens": 18140,
+        "cached_input_tokens": 0,
+        "output_tokens": 597,
+        "elapsed_ms": 23637.54
+      }
+    ]
+  },
+  "provider_input_reduction_percent": 20.45,
+  "predeclared_material_reduction_threshold_percent": 25,
+  "threshold_met": false,
+  "sweep_status": "not_run",
+  "sweep_reason": "Mode B did not preserve frozen task correctness; the requested budget sweep is conditional on successful Mode B correctness."
+}

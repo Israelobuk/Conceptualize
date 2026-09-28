@@ -142,6 +142,65 @@ def test_conversation_pack_omits_low_relevance_lexical_noise_but_keeps_decisions
     assert result["metrics"]["low_relevance_tokens_suppressed"] > 0
 
 
+def test_broad_planning_pack_does_not_drop_decisions_at_search_candidate_limit():
+    messages = [
+        {
+            "id": f"routine-{index:02d}",
+            "role": "user",
+            "content": f"Current implementation architecture discussion item {index}.",
+        }
+        for index in range(40)
+    ]
+    messages.append({
+        "id": "late-constraint",
+        "role": "user",
+        "content": "A critical constraint: must preserve local drafts until authenticated upload acknowledgement.",
+    })
+    units = ConversationAdapter().ingest(
+        {"conversations": [{"id": "long-plan", "messages": messages}]}
+    )
+
+    result = ContextUnitRuntime(units).pack(
+        "Summarize the current implementation architecture, constraints, and decisions.",
+        10000,
+        source_types={"message"},
+        limit=5,
+    )
+
+    selected_ids = {item["unit_id"] for item in result["selection"] if item["status"] == "selected"}
+    assert "conversation:long-plan/message:late-constraint" in selected_ids
+
+
+def test_broad_planning_pack_recovers_explicit_implementation_state():
+    messages = [
+        {
+            "id": f"discussion-{index:02d}",
+            "role": "user",
+            "content": f"Current implementation architecture discussion item {index}.",
+        }
+        for index in range(35)
+    ]
+    messages.append({
+        "id": "status",
+        "role": "user",
+        "content": "Record persistence and metadata synchronization are integrated; attachment transfer remains unfinished.",
+    })
+    units = ConversationAdapter().ingest(
+        {"conversations": [{"id": "implementation-state", "messages": messages}]}
+    )
+
+    result = ContextUnitRuntime(units).pack(
+        "Summarize the current implementation architecture and next plan.",
+        10000,
+        source_types={"message"},
+        limit=5,
+    )
+
+    status = next(row for row in result["selection"] if row["source_id"] == "status")
+    assert status["status"] == "selected"
+    assert any(reason["signal"] == "final_state" for reason in status["reasons"])
+
+
 def test_repeated_and_quoted_conversation_messages_are_suppressed_with_provenance():
     statement = "Use SQLite for the offline cache and keep local drafts until the server confirms upload."
     units = ConversationAdapter().ingest(

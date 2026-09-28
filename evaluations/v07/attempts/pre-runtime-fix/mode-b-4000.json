@@ -1,0 +1,3184 @@
+{
+  "benchmark": "v0.7-context-economics-atlas-9",
+  "mode": "B",
+  "model": "gpt-6-sol",
+  "reasoning_effort": "low",
+  "repetitions": 3,
+  "fixture_sha256": "2e3c86cc1c0f9ad5105ce752e6355da56d423f3f1836f228b3f0a4fe0ce71e9f",
+  "ground_truth_sha256": "6ad07d7609cb249b4f5178cda69fa6471c8d1c8db9097572c36a460d726621be",
+  "history_tokens_cl100k": 8223,
+  "budget": 4000,
+  "runs": [
+    {
+      "benchmark": "v0.7-context-economics-atlas-9",
+      "mode": "B",
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "repetition": 1,
+      "fixture_sha256": "2e3c86cc1c0f9ad5105ce752e6355da56d423f3f1836f228b3f0a4fe0ce71e9f",
+      "ground_truth_sha256": "6ad07d7609cb249b4f5178cda69fa6471c8d1c8db9097572c36a460d726621be",
+      "history_messages": 119,
+      "full_history_tokens_cl100k": 8223,
+      "context_budget": 4000,
+      "conceptualize": {
+        "candidate_tokens": 1902,
+        "selected_context_tokens": 1824,
+        "duplicate_tokens_suppressed": 0,
+        "superseded_units_suppressed": 3,
+        "unchanged_context_tokens_avoided": 0,
+        "selected_units": 30,
+        "candidate_units": 33,
+        "compile_elapsed_ms": 110.998,
+        "selected_unit_ids": [
+          "conversation:atlas-v07-economics/message:h33",
+          "conversation:atlas-v07-economics/message:v07-078",
+          "conversation:atlas-v07-economics/message:v07-096",
+          "conversation:atlas-v07-economics/message:v07-084",
+          "conversation:atlas-v07-economics/message:v07-042",
+          "conversation:atlas-v07-economics/message:v07-064",
+          "conversation:atlas-v07-economics/message:v07-112",
+          "conversation:atlas-v07-economics/message:v07-100",
+          "conversation:atlas-v07-economics/message:v07-074",
+          "conversation:atlas-v07-economics/message:h03",
+          "conversation:atlas-v07-economics/message:v07-102",
+          "conversation:atlas-v07-economics/message:v07-052",
+          "conversation:atlas-v07-economics/message:h05",
+          "conversation:atlas-v07-economics/message:v07-085",
+          "conversation:atlas-v07-economics/message:v07-088",
+          "conversation:atlas-v07-economics/message:v07-043",
+          "conversation:atlas-v07-economics/message:v07-101",
+          "conversation:atlas-v07-economics/message:h34",
+          "conversation:atlas-v07-economics/message:h11",
+          "conversation:atlas-v07-economics/message:h15",
+          "conversation:atlas-v07-economics/message:h17",
+          "conversation:atlas-v07-economics/message:h19",
+          "conversation:atlas-v07-economics/message:h21",
+          "conversation:atlas-v07-economics/message:h23",
+          "conversation:atlas-v07-economics/message:h24",
+          "conversation:atlas-v07-economics/message:h25",
+          "conversation:atlas-v07-economics/message:h27",
+          "conversation:atlas-v07-economics/message:h29",
+          "conversation:atlas-v07-economics/message:h31",
+          "conversation:atlas-v07-economics/message:h35"
+        ],
+        "selection": [
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h33",
+            "source_type": "message",
+            "source_id": "h33",
+            "score": 108.181,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "architecture",
+                "weight": 8.153
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "next",
+                "weight": 7.028
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "step",
+                "weight": 10.0
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              },
+              {
+                "signal": "final_state",
+                "weight": 55
+              }
+            ],
+            "token_cost": 98,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-078",
+            "source_type": "message",
+            "source_id": "v07-078",
+            "score": 102.465,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "so",
+                "weight": 5.485
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "current",
+                "weight": 3.98
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "plan",
+                "weight": 10.0
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              },
+              {
+                "signal": "final_state",
+                "weight": 55
+              }
+            ],
+            "token_cost": 91,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-096",
+            "source_type": "message",
+            "source_id": "v07-096",
+            "score": 83,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              },
+              {
+                "signal": "final_state",
+                "weight": 55
+              }
+            ],
+            "token_cost": 87,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-084",
+            "source_type": "message",
+            "source_id": "v07-084",
+            "score": 71.031,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "so",
+                "weight": 5.544
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "current",
+                "weight": 4.022
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "implementation",
+                "weight": 5.26
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "plan",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "architecture",
+                "weight": 8.205
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "decisions",
+                "weight": 10.0
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 80,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-042",
+            "source_type": "message",
+            "source_id": "v07-042",
+            "score": 68.425,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "based",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "so",
+                "weight": 5.35
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "implementation",
+                "weight": 5.075
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "preserve",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "step",
+                "weight": 10.0
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 102,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-064",
+            "source_type": "message",
+            "source_id": "v07-064",
+            "score": 61.407,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "everything",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "implementation",
+                "weight": 5.237
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "architecture",
+                "weight": 8.17
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "preserve",
+                "weight": 10.0
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 86,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h01",
+            "source_type": "message",
+            "source_id": "h01",
+            "score": 55,
+            "reasons": [
+              {
+                "signal": "final_state",
+                "weight": 55,
+                "evidence": {
+                  "kind": "supersedes",
+                  "target": "conversation:atlas-v07-economics/message:h01",
+                  "source": "conversation:atlas-v07-economics/message:h03",
+                  "origin": "explicit_metadata",
+                  "heuristic": false
+                }
+              }
+            ],
+            "token_cost": 44,
+            "already_known": false,
+            "invalidated": false,
+            "status": "omitted",
+            "superseded_by": "conversation:atlas-v07-economics/message:h03",
+            "omission_reason": "superseded by explicit newer context"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h07",
+            "source_type": "message",
+            "source_id": "h07",
+            "score": 55,
+            "reasons": [
+              {
+                "signal": "final_state",
+                "weight": 55,
+                "evidence": {
+                  "kind": "supersedes",
+                  "target": "conversation:atlas-v07-economics/message:h07",
+                  "source": "conversation:atlas-v07-economics/message:h09",
+                  "origin": "explicit_metadata",
+                  "heuristic": false
+                }
+              }
+            ],
+            "token_cost": 18,
+            "already_known": false,
+            "invalidated": false,
+            "status": "omitted",
+            "superseded_by": "conversation:atlas-v07-economics/message:h09",
+            "omission_reason": "superseded by explicit newer context"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-112",
+            "source_type": "message",
+            "source_id": "v07-112",
+            "score": 49.120999999999995,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "implementation",
+                "weight": 5.26
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "must",
+                "weight": 5.861
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "preserve",
+                "weight": 10.0
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 82,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-100",
+            "source_type": "message",
+            "source_id": "v07-100",
+            "score": 49.120000000000005,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "current",
+                "weight": 4.031
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "earlier",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "next",
+                "weight": 7.089
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 80,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-074",
+            "source_type": "message",
+            "source_id": "v07-074",
+            "score": 47.61,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "so",
+                "weight": 5.544
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "architecture",
+                "weight": 8.205
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "must",
+                "weight": 5.861
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 83,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h03",
+            "source_type": "message",
+            "source_id": "h03",
+            "score": 44.034,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "based",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "so",
+                "weight": 6.034
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 40,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-102",
+            "source_type": "message",
+            "source_id": "v07-102",
+            "score": 43.861000000000004,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "include",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "must",
+                "weight": 5.861
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 85,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-052",
+            "source_type": "message",
+            "source_id": "v07-052",
+            "score": 43.35,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "so",
+                "weight": 5.35
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "must",
+                "weight": 10.0
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 104,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h05",
+            "source_type": "message",
+            "source_id": "h05",
+            "score": 43.238,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "architecture",
+                "weight": 8.889
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "must",
+                "weight": 6.349
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 40,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-085",
+            "source_type": "message",
+            "source_id": "v07-085",
+            "score": 42.353,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "implementation",
+                "weight": 5.725
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "plan",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "architecture",
+                "weight": 8.93
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "next",
+                "weight": 7.698
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "step",
+                "weight": 10.0
+              }
+            ],
+            "token_cost": 40,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-088",
+            "source_type": "message",
+            "source_id": "v07-088",
+            "score": 39.3,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "current",
+                "weight": 4.022
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "implementation",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "architecture",
+                "weight": 8.205
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "next",
+                "weight": 7.073
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "step",
+                "weight": 10.0
+              }
+            ],
+            "token_cost": 87,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-043",
+            "source_type": "message",
+            "source_id": "v07-043",
+            "score": 34.119,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "current",
+                "weight": 4.119
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "earlier",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "no",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "longer",
+                "weight": 10.0
+              }
+            ],
+            "token_cost": 75,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-101",
+            "source_type": "message",
+            "source_id": "v07-101",
+            "score": 31.923,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "current",
+                "weight": 8.654
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "implementation",
+                "weight": 5.659
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "no",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "next",
+                "weight": 7.61
+              }
+            ],
+            "token_cost": 45,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h34",
+            "source_type": "message",
+            "source_id": "h34",
+            "score": 30.032,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "current",
+                "weight": 4.347
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "implementation",
+                "weight": 5.685
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "plan",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "preserve",
+                "weight": 10.0
+              }
+            ],
+            "token_cost": 45,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h09",
+            "source_type": "message",
+            "source_id": "h09",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 45,
+            "already_known": false,
+            "invalidated": false,
+            "status": "omitted",
+            "superseded_by": "conversation:atlas-v07-economics/message:h19",
+            "omission_reason": "superseded by explicit newer context"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h11",
+            "source_type": "message",
+            "source_id": "h11",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 37,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h15",
+            "source_type": "message",
+            "source_id": "h15",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 37,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h17",
+            "source_type": "message",
+            "source_id": "h17",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 34,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h19",
+            "source_type": "message",
+            "source_id": "h19",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28,
+                "evidence": {
+                  "kind": "updates",
+                  "target": "conversation:atlas-v07-economics/message:h09",
+                  "source": "conversation:atlas-v07-economics/message:h19",
+                  "origin": "explicit_metadata",
+                  "heuristic": false
+                }
+              }
+            ],
+            "token_cost": 51,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h21",
+            "source_type": "message",
+            "source_id": "h21",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 29,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h23",
+            "source_type": "message",
+            "source_id": "h23",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 48,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h24",
+            "source_type": "message",
+            "source_id": "h24",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 23,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h25",
+            "source_type": "message",
+            "source_id": "h25",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 49,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h27",
+            "source_type": "message",
+            "source_id": "h27",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 28,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h29",
+            "source_type": "message",
+            "source_id": "h29",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 38,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h31",
+            "source_type": "message",
+            "source_id": "h31",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 31,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h35",
+            "source_type": "message",
+            "source_id": "h35",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 40,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          }
+        ],
+        "context": "[message:h33]\nFinal architecture review: keep the PWA over the HTTPS JSON API; LocalStore has IndexedDB for inspection records and an attachment adapter that prefers filesystem storage and falls back to IndexedDB blobs; SyncEngine is resumable, client-triggered, idempotent by client UUID, version-checks updates, and backs off only on transient failures. The next step is to implement the LocalStore attachment adapter with the shared backend contract and fallback tests before wiring SyncEngine.\n\n---\n\n[message:v07-078]\nI pasted the original kickoff note below so the review can see why the plan changed: ‘Let's ship a native desktop client and save every draft in localStorage. We can use filesystem-only attachments and a websocket to push sync updates.’ That paragraph is historical context only. The later reviews explicitly changed the client, record store, attachment fallback, and synchronization triggers. Please do not copy the quoted proposal into the current plan.\n\n---\n\n[message:v07-096]\nThe API team asked whether the client UUID belongs in the route or body. Keep it explicit in the request contract so logs and retries can carry it consistently, and store it with the server row under a unique constraint. A replay should return the existing inspection identity and current state. The version field remains a separate precondition on updates; a matching idempotency key should not bypass a stale-version conflict.\n\n---\n\n[message:v07-084]\nA release coordinator asked if we can promise a North-region pilot date in the same update. Training owns that schedule and has not confirmed device availability. Keep the date out of the technical plan and do not infer a launch commitment from the implementation work. The project conversation contains release and design notes alongside architecture decisions, so the summary should stay focused on the current engineering plan.\n\n---\n\n[message:v07-042]\nWe reviewed the native-client proposal with the field team. They need the same inspection workflow on managed laptops and personal phones, and installing a signed desktop build on every device would add an avoidable deployment step. Keep the browser-based PWA as the client and preserve the existing HTTPS API. Local persistence and synchronization still need replaceable boundaries so we can change either implementation without rewriting the screens. This is a direction change from the first kickoff note, not a second supported client target.\n\n---\n\n[message:v07-064]\nI found an old planning note that says to store everything in localStorage because it is easy to inspect. Please do not revive it in the implementation summary. Structured drafts need IndexedDB, and attachments use the adapter with filesystem support where available and an IndexedDB blob fallback. We should preserve the history of how the choice changed, but the active architecture should say only what we currently intend to build.\n\n---\n\n[message:v07-112]\nWhen the offline queue has several inspections, a failure on one item should not prevent an unrelated valid item from syncing if the scheduler can safely continue. Keep ordering where a record must exist before its attachment, but isolate transient errors per item and preserve each draft. This is implementation detail for the retry tests; it does not introduce background work or change the client-triggered sync schedule.\n\n---\n\n[message:v07-100]\nA design note proposes using the phone's notification service to tell field crews that uploads finished. That could be useful for a later release, but the current flow shows completion when the app is open or next resumes. Please do not add notification permission prompts or push delivery to this milestone. It is the same out-of-scope push request discussed during the earlier manager review.\n\n---\n\n[message:v07-074]\nThe mobile browser can suspend a tab while offline work is queued, so the retry loop must not assume a continuously running page. When the app returns, it reads the durable sync state and resumes from the last acknowledged record or attachment. The initial architecture still avoids background periodic work; resuming on app launch is sufficient. We should test process interruption as well as an ordinary request timeout.\n\n---\n\n[message:h03]\nNew direction: ship a browser-based PWA for desktop and mobile. Keep the cloud API, but package local persistence and synchronization as separate layers so we can replace either independently.\n\n---\n\n[message:v07-102]\nThe acceptance test for authenticated upload should include a valid session, a session that expires before transfer, and a response lost after the server has committed. The expired session must leave the local bytes intact and wait for reauthentication. The lost response should be safe to retry with the same idempotency identifiers. We should also verify that an unrelated attachment is not cleaned up when one upload succeeds.\n\n---\n\n[message:v07-052]\nFor the fallback, please cover more than initial creation. A blob written to IndexedDB must be readable after a reload, must remain linked to its inspection UUID, and must be removed only after the upload acknowledgement. If the preferred filesystem write fails partway through, the adapter should return a clear error or use the fallback according to the agreed policy; it must not report success with a missing attachment. The contract tests should run against both backends with the same cases so behavior stays aligned.\n\n---\n\n[message:h05]\nImportant security decision for the first architecture review: inspection photos and drafts remain on the device until an authenticated upload succeeds. A failed or deferred upload must never discard the local copy.\n\n---\n\n[message:v07-085]\nThe pilot date is not part of the technical implementation plan and remains unconfirmed by its owner. I will keep release scheduling separate from the architecture and next engineering step.\n\n---\n\n[message:v07-088]\nThis should be a useful handoff summary, not a transcript search exercise. The current architecture is distributed across the initial client decision, storage review, API contract, retry discussion, and later implementation update. A few older proposals are quoted or repeated because teams refer back to them. Please recover the settled choices, distinguish the shipped record path from the unfinished attachment path, and identify the immediate next implementation step.\n\n---\n\n[message:v07-043]\nThe current client is the browser PWA on desktop and mobile, using the existing HTTPS JSON API. LocalStore and SyncEngine remain separate replaceable boundaries. The earlier native desktop idea is no longer a release direction. I will keep references to that initial proposal in the history only as a superseded decision, not as an active deployment option.\n\n---\n\n[message:v07-101]\nPush notifications remain outside the release scope. The client displays the current sync state when open and restores it on the next launch. No notification permission or delivery service is required for the current implementation.\n\n---\n\n[message:h34]\nI will use that review as the current implementation plan. The early localStorage proposal is superseded. Keep local data until authenticated upload succeeds, preserve drafts on conflicts, and announce offline/error state accessibly.\n\n---\n\n[message:h11]\nEvery inspection needs a stable client-generated UUID before sync. The API must treat repeated submissions of that UUID as the same inspection so reconnect retries do not create duplicates.\n\n---\n\n[message:h15]\nSync must be resumable and use exponential backoff with jitter for transient network errors. Validation errors should be surfaced to the user and not retried forever.\n\n---\n\n[message:h17]\nFor the first release, keep inspection text fields plain text. Rich text is not needed. That makes the local-to-server payload easier to version.\n\n---\n\n[message:h19]\nWe tested browser support. The File System Access API is not universal. Use it as the preferred attachment backend when available, but fall back to IndexedDB blobs; the adapter should expose the same read/write/delete contract in both cases.\n\n---\n\n[message:h21]\nA quick repeat of the retry discussion: transient failures back off, while validation failures do not retry. This remains true.\n\n---\n\n[message:h23]\nAfter reviewing operations, we are not adding websocket push in this release. Sync starts on app launch, when the user pulls to refresh, and after a local edit when online. The server remains an HTTPS JSON API.\n\n---\n\n[message:h24]\nNo websocket dependency for V1. Sync is client-triggered over the existing HTTPS API.\n\n---\n\n[message:h25]\nThe API team is using PostgreSQL. An inspection row stores its stable client UUID, server ID, version, and sync state. The server must reject a stale update with a conflict response rather than silently overwrite a newer inspection.\n\n---\n\n[message:h27]\nAccessibility constraint: offline status and sync errors must be available to screen readers, not conveyed only by color or icons.\n\n---\n\n[message:h29]\nFor now keep admin dashboards, analytics, push notifications, and background periodic sync out of this implementation. The priority is durable offline inspection and explicit user-visible recovery.\n\n---\n\n[message:h31]\nSmall naming note: call the browser persistence boundary LocalStore and the transfer boundary SyncEngine. Please don't rename the server API.\n\n---\n\n[message:h35]\nRepeat for the issue tracker: LocalStore records are in IndexedDB; attachments use filesystem storage where available and IndexedDB blob fallback. Don't let upload failure erase local content."
+      },
+      "provider_usage": {
+        "input_tokens": 16464,
+        "cached_input_tokens": 12416,
+        "output_tokens": 502,
+        "total_tokens": null
+      },
+      "elapsed_ms": 20125.54,
+      "model_exit_code": 0,
+      "non_message_tool_events": [],
+      "answer": "## CURRENT ARCHITECTURE\n\n- Desktop and mobile browser PWA over the existing HTTPS JSON API.\n- Separate, replaceable LocalStore and SyncEngine boundaries.\n- LocalStore uses IndexedDB for inspection records. Attachments will prefer filesystem storage where available, with IndexedDB blobs as fallback through a shared read/write/delete contract.\n- SyncEngine is client-triggered on launch, pull-to-refresh, and local edits while online. It resumes from durable acknowledgement state.\n- PostgreSQL inspection rows hold client UUID, server ID, version, and sync state. UUIDs are explicit in requests and uniquely constrained; replay returns the existing identity and current state. Update version checks remain independent.\n\n## CURRENT CONSTRAINTS\n\n- Keep drafts and attachment bytes until authenticated upload succeeds; preserve drafts on conflicts and wait for reauthentication after session expiry.\n- Retry transient failures with exponential backoff and jitter; surface validation errors without indefinite retries.\n- Preserve record-before-attachment ordering while allowing unrelated valid items to continue safely.\n- Support interruption and reload recovery. Delete only the acknowledged attachment.\n- Keep text fields plain text and expose offline status and sync errors to screen readers.\n- Exclude dashboards, analytics, push notifications, and background periodic sync. Pilot scheduling remains separate and unconfirmed.\n\n## SUPERSEDED DECISIONS\n\n- Native desktop client → desktop/mobile PWA.\n- localStorage drafts → IndexedDB records.\n- Filesystem-only attachments → filesystem preference with IndexedDB blob fallback.\n- Websocket push → client-triggered HTTPS synchronization.\n\n## CURRENT STATE\n\nThe record persistence path uses IndexedDB. The attachment adapter remains unfinished and is the immediate implementation priority; SyncEngine wiring follows it. Completion status is displayed while the app is open or restored when it resumes.\n\n## NEXT STEP\n\nImplement the LocalStore attachment adapter against the shared backend contract before wiring SyncEngine. Run identical contract tests against both backends, covering reload persistence, inspection UUID linkage, partial filesystem-write failure without false success, and deletion only after acknowledgement.\n\nSubsequent sync tests must cover interruption, timeouts, expired sessions, lost responses after server commit, safe idempotent retries, per-item failure isolation, and preservation of unrelated attachments.",
+      "grade": {
+        "passed": false,
+        "fact_coverage_percent": 82.61,
+        "facts_present": 19,
+        "facts_total": 23,
+        "critical_facts_missing": [
+          "foreground_sync_scope",
+          "conflicts_require_review",
+          "metadata_sync_done"
+        ],
+        "stale_claims_in_current_sections": [],
+        "next_step_correct": true,
+        "required_headings_parsed": true,
+        "checks": {
+          "current_architecture": [
+            {
+              "id": "pwa_https_api",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "localstore_indexeddb_records",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "attachment_filesystem_preferred",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "attachment_idb_blob_fallback",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "shared_attachment_adapter",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "syncengine_resumable",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "client_uuid_idempotency",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "version_conflict_check",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "postgres_api",
+              "critical": false,
+              "present": true
+            }
+          ],
+          "current_constraints": [
+            {
+              "id": "retain_until_ack",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "retry_transient_only",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "plain_text_accessibility",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "foreground_sync_scope",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "no_background_or_manager_features",
+              "critical": false,
+              "present": false
+            },
+            {
+              "id": "conflicts_require_review",
+              "critical": true,
+              "present": false
+            }
+          ],
+          "superseded_decisions": [
+            {
+              "id": "localstorage_replaced",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "native_client_replaced",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "filesystem_only_updated",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "websocket_proposal_rejected",
+              "critical": false,
+              "present": true
+            }
+          ],
+          "current_state": [
+            {
+              "id": "record_store_done",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "metadata_sync_done",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "attachments_incomplete",
+              "critical": true,
+              "present": true
+            }
+          ]
+        },
+        "next_step": {
+          "id": "attachment_adapter_contract_tests",
+          "present": true
+        }
+      },
+      "protocol_valid": true,
+      "raw_directory": "evaluations\\runs\\v07-economics-v9\\gpt-6-sol\\mode_b_budget_4000\\rep-1"
+    },
+    {
+      "benchmark": "v0.7-context-economics-atlas-9",
+      "mode": "B",
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "repetition": 2,
+      "fixture_sha256": "2e3c86cc1c0f9ad5105ce752e6355da56d423f3f1836f228b3f0a4fe0ce71e9f",
+      "ground_truth_sha256": "6ad07d7609cb249b4f5178cda69fa6471c8d1c8db9097572c36a460d726621be",
+      "history_messages": 119,
+      "full_history_tokens_cl100k": 8223,
+      "context_budget": 4000,
+      "conceptualize": {
+        "candidate_tokens": 1902,
+        "selected_context_tokens": 1824,
+        "duplicate_tokens_suppressed": 0,
+        "superseded_units_suppressed": 3,
+        "unchanged_context_tokens_avoided": 0,
+        "selected_units": 30,
+        "candidate_units": 33,
+        "compile_elapsed_ms": 110.998,
+        "selected_unit_ids": [
+          "conversation:atlas-v07-economics/message:h33",
+          "conversation:atlas-v07-economics/message:v07-078",
+          "conversation:atlas-v07-economics/message:v07-096",
+          "conversation:atlas-v07-economics/message:v07-084",
+          "conversation:atlas-v07-economics/message:v07-042",
+          "conversation:atlas-v07-economics/message:v07-064",
+          "conversation:atlas-v07-economics/message:v07-112",
+          "conversation:atlas-v07-economics/message:v07-100",
+          "conversation:atlas-v07-economics/message:v07-074",
+          "conversation:atlas-v07-economics/message:h03",
+          "conversation:atlas-v07-economics/message:v07-102",
+          "conversation:atlas-v07-economics/message:v07-052",
+          "conversation:atlas-v07-economics/message:h05",
+          "conversation:atlas-v07-economics/message:v07-085",
+          "conversation:atlas-v07-economics/message:v07-088",
+          "conversation:atlas-v07-economics/message:v07-043",
+          "conversation:atlas-v07-economics/message:v07-101",
+          "conversation:atlas-v07-economics/message:h34",
+          "conversation:atlas-v07-economics/message:h11",
+          "conversation:atlas-v07-economics/message:h15",
+          "conversation:atlas-v07-economics/message:h17",
+          "conversation:atlas-v07-economics/message:h19",
+          "conversation:atlas-v07-economics/message:h21",
+          "conversation:atlas-v07-economics/message:h23",
+          "conversation:atlas-v07-economics/message:h24",
+          "conversation:atlas-v07-economics/message:h25",
+          "conversation:atlas-v07-economics/message:h27",
+          "conversation:atlas-v07-economics/message:h29",
+          "conversation:atlas-v07-economics/message:h31",
+          "conversation:atlas-v07-economics/message:h35"
+        ],
+        "selection": [
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h33",
+            "source_type": "message",
+            "source_id": "h33",
+            "score": 108.181,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "architecture",
+                "weight": 8.153
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "next",
+                "weight": 7.028
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "step",
+                "weight": 10.0
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              },
+              {
+                "signal": "final_state",
+                "weight": 55
+              }
+            ],
+            "token_cost": 98,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-078",
+            "source_type": "message",
+            "source_id": "v07-078",
+            "score": 102.465,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "so",
+                "weight": 5.485
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "current",
+                "weight": 3.98
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "plan",
+                "weight": 10.0
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              },
+              {
+                "signal": "final_state",
+                "weight": 55
+              }
+            ],
+            "token_cost": 91,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-096",
+            "source_type": "message",
+            "source_id": "v07-096",
+            "score": 83,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              },
+              {
+                "signal": "final_state",
+                "weight": 55
+              }
+            ],
+            "token_cost": 87,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-084",
+            "source_type": "message",
+            "source_id": "v07-084",
+            "score": 71.031,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "so",
+                "weight": 5.544
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "current",
+                "weight": 4.022
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "implementation",
+                "weight": 5.26
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "plan",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "architecture",
+                "weight": 8.205
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "decisions",
+                "weight": 10.0
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 80,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-042",
+            "source_type": "message",
+            "source_id": "v07-042",
+            "score": 68.425,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "based",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "so",
+                "weight": 5.35
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "implementation",
+                "weight": 5.075
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "preserve",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "step",
+                "weight": 10.0
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 102,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-064",
+            "source_type": "message",
+            "source_id": "v07-064",
+            "score": 61.407,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "everything",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "implementation",
+                "weight": 5.237
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "architecture",
+                "weight": 8.17
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "preserve",
+                "weight": 10.0
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 86,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h01",
+            "source_type": "message",
+            "source_id": "h01",
+            "score": 55,
+            "reasons": [
+              {
+                "signal": "final_state",
+                "weight": 55,
+                "evidence": {
+                  "kind": "supersedes",
+                  "target": "conversation:atlas-v07-economics/message:h01",
+                  "source": "conversation:atlas-v07-economics/message:h03",
+                  "origin": "explicit_metadata",
+                  "heuristic": false
+                }
+              }
+            ],
+            "token_cost": 44,
+            "already_known": false,
+            "invalidated": false,
+            "status": "omitted",
+            "superseded_by": "conversation:atlas-v07-economics/message:h03",
+            "omission_reason": "superseded by explicit newer context"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h07",
+            "source_type": "message",
+            "source_id": "h07",
+            "score": 55,
+            "reasons": [
+              {
+                "signal": "final_state",
+                "weight": 55,
+                "evidence": {
+                  "kind": "supersedes",
+                  "target": "conversation:atlas-v07-economics/message:h07",
+                  "source": "conversation:atlas-v07-economics/message:h09",
+                  "origin": "explicit_metadata",
+                  "heuristic": false
+                }
+              }
+            ],
+            "token_cost": 18,
+            "already_known": false,
+            "invalidated": false,
+            "status": "omitted",
+            "superseded_by": "conversation:atlas-v07-economics/message:h09",
+            "omission_reason": "superseded by explicit newer context"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-112",
+            "source_type": "message",
+            "source_id": "v07-112",
+            "score": 49.120999999999995,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "implementation",
+                "weight": 5.26
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "must",
+                "weight": 5.861
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "preserve",
+                "weight": 10.0
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 82,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-100",
+            "source_type": "message",
+            "source_id": "v07-100",
+            "score": 49.120000000000005,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "current",
+                "weight": 4.031
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "earlier",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "next",
+                "weight": 7.089
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 80,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-074",
+            "source_type": "message",
+            "source_id": "v07-074",
+            "score": 47.61,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "so",
+                "weight": 5.544
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "architecture",
+                "weight": 8.205
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "must",
+                "weight": 5.861
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 83,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h03",
+            "source_type": "message",
+            "source_id": "h03",
+            "score": 44.034,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "based",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "so",
+                "weight": 6.034
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 40,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-102",
+            "source_type": "message",
+            "source_id": "v07-102",
+            "score": 43.861000000000004,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "include",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "must",
+                "weight": 5.861
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 85,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-052",
+            "source_type": "message",
+            "source_id": "v07-052",
+            "score": 43.35,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "so",
+                "weight": 5.35
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "must",
+                "weight": 10.0
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 104,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h05",
+            "source_type": "message",
+            "source_id": "h05",
+            "score": 43.238,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "architecture",
+                "weight": 8.889
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "must",
+                "weight": 6.349
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 40,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-085",
+            "source_type": "message",
+            "source_id": "v07-085",
+            "score": 42.353,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "implementation",
+                "weight": 5.725
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "plan",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "architecture",
+                "weight": 8.93
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "next",
+                "weight": 7.698
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "step",
+                "weight": 10.0
+              }
+            ],
+            "token_cost": 40,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-088",
+            "source_type": "message",
+            "source_id": "v07-088",
+            "score": 39.3,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "current",
+                "weight": 4.022
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "implementation",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "architecture",
+                "weight": 8.205
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "next",
+                "weight": 7.073
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "step",
+                "weight": 10.0
+              }
+            ],
+            "token_cost": 87,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-043",
+            "source_type": "message",
+            "source_id": "v07-043",
+            "score": 34.119,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "current",
+                "weight": 4.119
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "earlier",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "no",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "longer",
+                "weight": 10.0
+              }
+            ],
+            "token_cost": 75,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-101",
+            "source_type": "message",
+            "source_id": "v07-101",
+            "score": 31.923,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "current",
+                "weight": 8.654
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "implementation",
+                "weight": 5.659
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "no",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "next",
+                "weight": 7.61
+              }
+            ],
+            "token_cost": 45,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h34",
+            "source_type": "message",
+            "source_id": "h34",
+            "score": 30.032,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "current",
+                "weight": 4.347
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "implementation",
+                "weight": 5.685
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "plan",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "preserve",
+                "weight": 10.0
+              }
+            ],
+            "token_cost": 45,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h09",
+            "source_type": "message",
+            "source_id": "h09",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 45,
+            "already_known": false,
+            "invalidated": false,
+            "status": "omitted",
+            "superseded_by": "conversation:atlas-v07-economics/message:h19",
+            "omission_reason": "superseded by explicit newer context"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h11",
+            "source_type": "message",
+            "source_id": "h11",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 37,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h15",
+            "source_type": "message",
+            "source_id": "h15",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 37,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h17",
+            "source_type": "message",
+            "source_id": "h17",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 34,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h19",
+            "source_type": "message",
+            "source_id": "h19",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28,
+                "evidence": {
+                  "kind": "updates",
+                  "target": "conversation:atlas-v07-economics/message:h09",
+                  "source": "conversation:atlas-v07-economics/message:h19",
+                  "origin": "explicit_metadata",
+                  "heuristic": false
+                }
+              }
+            ],
+            "token_cost": 51,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h21",
+            "source_type": "message",
+            "source_id": "h21",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 29,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h23",
+            "source_type": "message",
+            "source_id": "h23",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 48,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h24",
+            "source_type": "message",
+            "source_id": "h24",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 23,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h25",
+            "source_type": "message",
+            "source_id": "h25",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 49,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h27",
+            "source_type": "message",
+            "source_id": "h27",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 28,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h29",
+            "source_type": "message",
+            "source_id": "h29",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 38,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h31",
+            "source_type": "message",
+            "source_id": "h31",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 31,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h35",
+            "source_type": "message",
+            "source_id": "h35",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 40,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          }
+        ],
+        "context": "[message:h33]\nFinal architecture review: keep the PWA over the HTTPS JSON API; LocalStore has IndexedDB for inspection records and an attachment adapter that prefers filesystem storage and falls back to IndexedDB blobs; SyncEngine is resumable, client-triggered, idempotent by client UUID, version-checks updates, and backs off only on transient failures. The next step is to implement the LocalStore attachment adapter with the shared backend contract and fallback tests before wiring SyncEngine.\n\n---\n\n[message:v07-078]\nI pasted the original kickoff note below so the review can see why the plan changed: ‘Let's ship a native desktop client and save every draft in localStorage. We can use filesystem-only attachments and a websocket to push sync updates.’ That paragraph is historical context only. The later reviews explicitly changed the client, record store, attachment fallback, and synchronization triggers. Please do not copy the quoted proposal into the current plan.\n\n---\n\n[message:v07-096]\nThe API team asked whether the client UUID belongs in the route or body. Keep it explicit in the request contract so logs and retries can carry it consistently, and store it with the server row under a unique constraint. A replay should return the existing inspection identity and current state. The version field remains a separate precondition on updates; a matching idempotency key should not bypass a stale-version conflict.\n\n---\n\n[message:v07-084]\nA release coordinator asked if we can promise a North-region pilot date in the same update. Training owns that schedule and has not confirmed device availability. Keep the date out of the technical plan and do not infer a launch commitment from the implementation work. The project conversation contains release and design notes alongside architecture decisions, so the summary should stay focused on the current engineering plan.\n\n---\n\n[message:v07-042]\nWe reviewed the native-client proposal with the field team. They need the same inspection workflow on managed laptops and personal phones, and installing a signed desktop build on every device would add an avoidable deployment step. Keep the browser-based PWA as the client and preserve the existing HTTPS API. Local persistence and synchronization still need replaceable boundaries so we can change either implementation without rewriting the screens. This is a direction change from the first kickoff note, not a second supported client target.\n\n---\n\n[message:v07-064]\nI found an old planning note that says to store everything in localStorage because it is easy to inspect. Please do not revive it in the implementation summary. Structured drafts need IndexedDB, and attachments use the adapter with filesystem support where available and an IndexedDB blob fallback. We should preserve the history of how the choice changed, but the active architecture should say only what we currently intend to build.\n\n---\n\n[message:v07-112]\nWhen the offline queue has several inspections, a failure on one item should not prevent an unrelated valid item from syncing if the scheduler can safely continue. Keep ordering where a record must exist before its attachment, but isolate transient errors per item and preserve each draft. This is implementation detail for the retry tests; it does not introduce background work or change the client-triggered sync schedule.\n\n---\n\n[message:v07-100]\nA design note proposes using the phone's notification service to tell field crews that uploads finished. That could be useful for a later release, but the current flow shows completion when the app is open or next resumes. Please do not add notification permission prompts or push delivery to this milestone. It is the same out-of-scope push request discussed during the earlier manager review.\n\n---\n\n[message:v07-074]\nThe mobile browser can suspend a tab while offline work is queued, so the retry loop must not assume a continuously running page. When the app returns, it reads the durable sync state and resumes from the last acknowledged record or attachment. The initial architecture still avoids background periodic work; resuming on app launch is sufficient. We should test process interruption as well as an ordinary request timeout.\n\n---\n\n[message:h03]\nNew direction: ship a browser-based PWA for desktop and mobile. Keep the cloud API, but package local persistence and synchronization as separate layers so we can replace either independently.\n\n---\n\n[message:v07-102]\nThe acceptance test for authenticated upload should include a valid session, a session that expires before transfer, and a response lost after the server has committed. The expired session must leave the local bytes intact and wait for reauthentication. The lost response should be safe to retry with the same idempotency identifiers. We should also verify that an unrelated attachment is not cleaned up when one upload succeeds.\n\n---\n\n[message:v07-052]\nFor the fallback, please cover more than initial creation. A blob written to IndexedDB must be readable after a reload, must remain linked to its inspection UUID, and must be removed only after the upload acknowledgement. If the preferred filesystem write fails partway through, the adapter should return a clear error or use the fallback according to the agreed policy; it must not report success with a missing attachment. The contract tests should run against both backends with the same cases so behavior stays aligned.\n\n---\n\n[message:h05]\nImportant security decision for the first architecture review: inspection photos and drafts remain on the device until an authenticated upload succeeds. A failed or deferred upload must never discard the local copy.\n\n---\n\n[message:v07-085]\nThe pilot date is not part of the technical implementation plan and remains unconfirmed by its owner. I will keep release scheduling separate from the architecture and next engineering step.\n\n---\n\n[message:v07-088]\nThis should be a useful handoff summary, not a transcript search exercise. The current architecture is distributed across the initial client decision, storage review, API contract, retry discussion, and later implementation update. A few older proposals are quoted or repeated because teams refer back to them. Please recover the settled choices, distinguish the shipped record path from the unfinished attachment path, and identify the immediate next implementation step.\n\n---\n\n[message:v07-043]\nThe current client is the browser PWA on desktop and mobile, using the existing HTTPS JSON API. LocalStore and SyncEngine remain separate replaceable boundaries. The earlier native desktop idea is no longer a release direction. I will keep references to that initial proposal in the history only as a superseded decision, not as an active deployment option.\n\n---\n\n[message:v07-101]\nPush notifications remain outside the release scope. The client displays the current sync state when open and restores it on the next launch. No notification permission or delivery service is required for the current implementation.\n\n---\n\n[message:h34]\nI will use that review as the current implementation plan. The early localStorage proposal is superseded. Keep local data until authenticated upload succeeds, preserve drafts on conflicts, and announce offline/error state accessibly.\n\n---\n\n[message:h11]\nEvery inspection needs a stable client-generated UUID before sync. The API must treat repeated submissions of that UUID as the same inspection so reconnect retries do not create duplicates.\n\n---\n\n[message:h15]\nSync must be resumable and use exponential backoff with jitter for transient network errors. Validation errors should be surfaced to the user and not retried forever.\n\n---\n\n[message:h17]\nFor the first release, keep inspection text fields plain text. Rich text is not needed. That makes the local-to-server payload easier to version.\n\n---\n\n[message:h19]\nWe tested browser support. The File System Access API is not universal. Use it as the preferred attachment backend when available, but fall back to IndexedDB blobs; the adapter should expose the same read/write/delete contract in both cases.\n\n---\n\n[message:h21]\nA quick repeat of the retry discussion: transient failures back off, while validation failures do not retry. This remains true.\n\n---\n\n[message:h23]\nAfter reviewing operations, we are not adding websocket push in this release. Sync starts on app launch, when the user pulls to refresh, and after a local edit when online. The server remains an HTTPS JSON API.\n\n---\n\n[message:h24]\nNo websocket dependency for V1. Sync is client-triggered over the existing HTTPS API.\n\n---\n\n[message:h25]\nThe API team is using PostgreSQL. An inspection row stores its stable client UUID, server ID, version, and sync state. The server must reject a stale update with a conflict response rather than silently overwrite a newer inspection.\n\n---\n\n[message:h27]\nAccessibility constraint: offline status and sync errors must be available to screen readers, not conveyed only by color or icons.\n\n---\n\n[message:h29]\nFor now keep admin dashboards, analytics, push notifications, and background periodic sync out of this implementation. The priority is durable offline inspection and explicit user-visible recovery.\n\n---\n\n[message:h31]\nSmall naming note: call the browser persistence boundary LocalStore and the transfer boundary SyncEngine. Please don't rename the server API.\n\n---\n\n[message:h35]\nRepeat for the issue tracker: LocalStore records are in IndexedDB; attachments use filesystem storage where available and IndexedDB blob fallback. Don't let upload failure erase local content."
+      },
+      "provider_usage": {
+        "input_tokens": 16464,
+        "cached_input_tokens": 0,
+        "output_tokens": 500,
+        "total_tokens": null
+      },
+      "elapsed_ms": 22932.98,
+      "model_exit_code": 0,
+      "non_message_tool_events": [],
+      "answer": "## CURRENT ARCHITECTURE\n\n- Desktop/mobile browser PWA over the existing HTTPS JSON API.\n- Separate, replaceable boundaries: **LocalStore** for persistence and **SyncEngine** for transfer.\n- LocalStore records use IndexedDB. Attachments use a shared read/write/delete adapter, preferring filesystem storage with IndexedDB blob fallback.\n- SyncEngine is resumable and client-triggered: app launch, pull to refresh, and local edits while online.\n- PostgreSQL inspection rows store a unique stable client UUID, server ID, version, and sync state. UUID replays return the existing inspection identity and current state; updates independently enforce version checks.\n\n## CURRENT CONSTRAINTS\n\n- Retain drafts and attachment bytes until authenticated upload succeeds; preserve drafts on conflicts and session expiry.\n- Resume from durable state after interruption. Retry transient failures with exponential backoff and jitter; surface validation errors without indefinite retries.\n- Isolate item failures where safe, while preserving record-before-attachment ordering. Clean up only acknowledged attachments.\n- Keep text fields plain text and expose offline status and sync errors to screen readers.\n- Exclude websockets, push notifications, background periodic sync, admin dashboards, and analytics. Show sync state while open or on resume.\n- Keep the unconfirmed pilot date outside the technical plan.\n\n## SUPERSEDED DECISIONS\n\n- Native desktop client → desktop/mobile PWA.\n- localStorage drafts → IndexedDB records.\n- Filesystem-only attachments → filesystem preference with IndexedDB blob fallback.\n- Websocket push sync → client-triggered HTTPS synchronization.\n\n## CURRENT STATE\n\nThe record persistence path is implemented in IndexedDB. The attachment adapter remains unfinished, and SyncEngine wiring follows it. The architecture is settled; the UUID’s placement in the route versus body and the partial filesystem-write fallback policy are not specified in the supplied conversation.\n\n## NEXT STEP\n\nImplement the LocalStore attachment adapter and run shared contract tests against both backends before wiring SyncEngine. Cover reload durability, inspection UUID linkage, partial-write handling, authenticated acknowledgement before deletion, session expiry, lost responses, interruption/resumption, and preservation of unrelated attachments.",
+      "grade": {
+        "passed": false,
+        "fact_coverage_percent": 82.61,
+        "facts_present": 19,
+        "facts_total": 23,
+        "critical_facts_missing": [
+          "attachment_filesystem_preferred",
+          "client_uuid_idempotency",
+          "conflicts_require_review"
+        ],
+        "stale_claims_in_current_sections": [],
+        "next_step_correct": true,
+        "required_headings_parsed": true,
+        "checks": {
+          "current_architecture": [
+            {
+              "id": "pwa_https_api",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "localstore_indexeddb_records",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "attachment_filesystem_preferred",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "attachment_idb_blob_fallback",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "shared_attachment_adapter",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "syncengine_resumable",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "client_uuid_idempotency",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "version_conflict_check",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "postgres_api",
+              "critical": false,
+              "present": true
+            }
+          ],
+          "current_constraints": [
+            {
+              "id": "retain_until_ack",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "retry_transient_only",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "plain_text_accessibility",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "foreground_sync_scope",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "no_background_or_manager_features",
+              "critical": false,
+              "present": false
+            },
+            {
+              "id": "conflicts_require_review",
+              "critical": true,
+              "present": false
+            }
+          ],
+          "superseded_decisions": [
+            {
+              "id": "localstorage_replaced",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "native_client_replaced",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "filesystem_only_updated",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "websocket_proposal_rejected",
+              "critical": false,
+              "present": true
+            }
+          ],
+          "current_state": [
+            {
+              "id": "record_store_done",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "metadata_sync_done",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "attachments_incomplete",
+              "critical": true,
+              "present": true
+            }
+          ]
+        },
+        "next_step": {
+          "id": "attachment_adapter_contract_tests",
+          "present": true
+        }
+      },
+      "protocol_valid": true,
+      "raw_directory": "evaluations\\runs\\v07-economics-v9\\gpt-6-sol\\mode_b_budget_4000\\rep-2"
+    },
+    {
+      "benchmark": "v0.7-context-economics-atlas-9",
+      "mode": "B",
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "repetition": 3,
+      "fixture_sha256": "2e3c86cc1c0f9ad5105ce752e6355da56d423f3f1836f228b3f0a4fe0ce71e9f",
+      "ground_truth_sha256": "6ad07d7609cb249b4f5178cda69fa6471c8d1c8db9097572c36a460d726621be",
+      "history_messages": 119,
+      "full_history_tokens_cl100k": 8223,
+      "context_budget": 4000,
+      "conceptualize": {
+        "candidate_tokens": 1902,
+        "selected_context_tokens": 1824,
+        "duplicate_tokens_suppressed": 0,
+        "superseded_units_suppressed": 3,
+        "unchanged_context_tokens_avoided": 0,
+        "selected_units": 30,
+        "candidate_units": 33,
+        "compile_elapsed_ms": 110.998,
+        "selected_unit_ids": [
+          "conversation:atlas-v07-economics/message:h33",
+          "conversation:atlas-v07-economics/message:v07-078",
+          "conversation:atlas-v07-economics/message:v07-096",
+          "conversation:atlas-v07-economics/message:v07-084",
+          "conversation:atlas-v07-economics/message:v07-042",
+          "conversation:atlas-v07-economics/message:v07-064",
+          "conversation:atlas-v07-economics/message:v07-112",
+          "conversation:atlas-v07-economics/message:v07-100",
+          "conversation:atlas-v07-economics/message:v07-074",
+          "conversation:atlas-v07-economics/message:h03",
+          "conversation:atlas-v07-economics/message:v07-102",
+          "conversation:atlas-v07-economics/message:v07-052",
+          "conversation:atlas-v07-economics/message:h05",
+          "conversation:atlas-v07-economics/message:v07-085",
+          "conversation:atlas-v07-economics/message:v07-088",
+          "conversation:atlas-v07-economics/message:v07-043",
+          "conversation:atlas-v07-economics/message:v07-101",
+          "conversation:atlas-v07-economics/message:h34",
+          "conversation:atlas-v07-economics/message:h11",
+          "conversation:atlas-v07-economics/message:h15",
+          "conversation:atlas-v07-economics/message:h17",
+          "conversation:atlas-v07-economics/message:h19",
+          "conversation:atlas-v07-economics/message:h21",
+          "conversation:atlas-v07-economics/message:h23",
+          "conversation:atlas-v07-economics/message:h24",
+          "conversation:atlas-v07-economics/message:h25",
+          "conversation:atlas-v07-economics/message:h27",
+          "conversation:atlas-v07-economics/message:h29",
+          "conversation:atlas-v07-economics/message:h31",
+          "conversation:atlas-v07-economics/message:h35"
+        ],
+        "selection": [
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h33",
+            "source_type": "message",
+            "source_id": "h33",
+            "score": 108.181,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "architecture",
+                "weight": 8.153
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "next",
+                "weight": 7.028
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "step",
+                "weight": 10.0
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              },
+              {
+                "signal": "final_state",
+                "weight": 55
+              }
+            ],
+            "token_cost": 98,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-078",
+            "source_type": "message",
+            "source_id": "v07-078",
+            "score": 102.465,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "so",
+                "weight": 5.485
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "current",
+                "weight": 3.98
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "plan",
+                "weight": 10.0
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              },
+              {
+                "signal": "final_state",
+                "weight": 55
+              }
+            ],
+            "token_cost": 91,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-096",
+            "source_type": "message",
+            "source_id": "v07-096",
+            "score": 83,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              },
+              {
+                "signal": "final_state",
+                "weight": 55
+              }
+            ],
+            "token_cost": 87,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-084",
+            "source_type": "message",
+            "source_id": "v07-084",
+            "score": 71.031,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "so",
+                "weight": 5.544
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "current",
+                "weight": 4.022
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "implementation",
+                "weight": 5.26
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "plan",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "architecture",
+                "weight": 8.205
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "decisions",
+                "weight": 10.0
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 80,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-042",
+            "source_type": "message",
+            "source_id": "v07-042",
+            "score": 68.425,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "based",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "so",
+                "weight": 5.35
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "implementation",
+                "weight": 5.075
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "preserve",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "step",
+                "weight": 10.0
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 102,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-064",
+            "source_type": "message",
+            "source_id": "v07-064",
+            "score": 61.407,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "everything",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "implementation",
+                "weight": 5.237
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "architecture",
+                "weight": 8.17
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "preserve",
+                "weight": 10.0
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 86,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h01",
+            "source_type": "message",
+            "source_id": "h01",
+            "score": 55,
+            "reasons": [
+              {
+                "signal": "final_state",
+                "weight": 55,
+                "evidence": {
+                  "kind": "supersedes",
+                  "target": "conversation:atlas-v07-economics/message:h01",
+                  "source": "conversation:atlas-v07-economics/message:h03",
+                  "origin": "explicit_metadata",
+                  "heuristic": false
+                }
+              }
+            ],
+            "token_cost": 44,
+            "already_known": false,
+            "invalidated": false,
+            "status": "omitted",
+            "superseded_by": "conversation:atlas-v07-economics/message:h03",
+            "omission_reason": "superseded by explicit newer context"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h07",
+            "source_type": "message",
+            "source_id": "h07",
+            "score": 55,
+            "reasons": [
+              {
+                "signal": "final_state",
+                "weight": 55,
+                "evidence": {
+                  "kind": "supersedes",
+                  "target": "conversation:atlas-v07-economics/message:h07",
+                  "source": "conversation:atlas-v07-economics/message:h09",
+                  "origin": "explicit_metadata",
+                  "heuristic": false
+                }
+              }
+            ],
+            "token_cost": 18,
+            "already_known": false,
+            "invalidated": false,
+            "status": "omitted",
+            "superseded_by": "conversation:atlas-v07-economics/message:h09",
+            "omission_reason": "superseded by explicit newer context"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-112",
+            "source_type": "message",
+            "source_id": "v07-112",
+            "score": 49.120999999999995,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "implementation",
+                "weight": 5.26
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "must",
+                "weight": 5.861
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "preserve",
+                "weight": 10.0
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 82,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-100",
+            "source_type": "message",
+            "source_id": "v07-100",
+            "score": 49.120000000000005,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "current",
+                "weight": 4.031
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "earlier",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "next",
+                "weight": 7.089
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 80,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-074",
+            "source_type": "message",
+            "source_id": "v07-074",
+            "score": 47.61,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "so",
+                "weight": 5.544
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "architecture",
+                "weight": 8.205
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "must",
+                "weight": 5.861
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 83,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h03",
+            "source_type": "message",
+            "source_id": "h03",
+            "score": 44.034,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "based",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "so",
+                "weight": 6.034
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 40,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-102",
+            "source_type": "message",
+            "source_id": "v07-102",
+            "score": 43.861000000000004,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "include",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "must",
+                "weight": 5.861
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 85,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-052",
+            "source_type": "message",
+            "source_id": "v07-052",
+            "score": 43.35,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "so",
+                "weight": 5.35
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "must",
+                "weight": 10.0
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 104,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h05",
+            "source_type": "message",
+            "source_id": "h05",
+            "score": 43.238,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "architecture",
+                "weight": 8.889
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "must",
+                "weight": 6.349
+              },
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 40,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-085",
+            "source_type": "message",
+            "source_id": "v07-085",
+            "score": 42.353,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "implementation",
+                "weight": 5.725
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "plan",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "architecture",
+                "weight": 8.93
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "next",
+                "weight": 7.698
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "step",
+                "weight": 10.0
+              }
+            ],
+            "token_cost": 40,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-088",
+            "source_type": "message",
+            "source_id": "v07-088",
+            "score": 39.3,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "current",
+                "weight": 4.022
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "implementation",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "architecture",
+                "weight": 8.205
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "next",
+                "weight": 7.073
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "step",
+                "weight": 10.0
+              }
+            ],
+            "token_cost": 87,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-043",
+            "source_type": "message",
+            "source_id": "v07-043",
+            "score": 34.119,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "current",
+                "weight": 4.119
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "earlier",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "no",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "longer",
+                "weight": 10.0
+              }
+            ],
+            "token_cost": 75,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:v07-101",
+            "source_type": "message",
+            "source_id": "v07-101",
+            "score": 31.923,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "current",
+                "weight": 8.654
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "implementation",
+                "weight": 5.659
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "no",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "next",
+                "weight": 7.61
+              }
+            ],
+            "token_cost": 45,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h34",
+            "source_type": "message",
+            "source_id": "h34",
+            "score": 30.032,
+            "reasons": [
+              {
+                "signal": "lexical_overlap",
+                "term": "current",
+                "weight": 4.347
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "implementation",
+                "weight": 5.685
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "plan",
+                "weight": 10.0
+              },
+              {
+                "signal": "lexical_overlap",
+                "term": "preserve",
+                "weight": 10.0
+              }
+            ],
+            "token_cost": 45,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h09",
+            "source_type": "message",
+            "source_id": "h09",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 45,
+            "already_known": false,
+            "invalidated": false,
+            "status": "omitted",
+            "superseded_by": "conversation:atlas-v07-economics/message:h19",
+            "omission_reason": "superseded by explicit newer context"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h11",
+            "source_type": "message",
+            "source_id": "h11",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 37,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h15",
+            "source_type": "message",
+            "source_id": "h15",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 37,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h17",
+            "source_type": "message",
+            "source_id": "h17",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 34,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h19",
+            "source_type": "message",
+            "source_id": "h19",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28,
+                "evidence": {
+                  "kind": "updates",
+                  "target": "conversation:atlas-v07-economics/message:h09",
+                  "source": "conversation:atlas-v07-economics/message:h19",
+                  "origin": "explicit_metadata",
+                  "heuristic": false
+                }
+              }
+            ],
+            "token_cost": 51,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h21",
+            "source_type": "message",
+            "source_id": "h21",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 29,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h23",
+            "source_type": "message",
+            "source_id": "h23",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 48,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h24",
+            "source_type": "message",
+            "source_id": "h24",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 23,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h25",
+            "source_type": "message",
+            "source_id": "h25",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 49,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h27",
+            "source_type": "message",
+            "source_id": "h27",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 28,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h29",
+            "source_type": "message",
+            "source_id": "h29",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 38,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h31",
+            "source_type": "message",
+            "source_id": "h31",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 31,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          },
+          {
+            "unit_id": "conversation:atlas-v07-economics/message:h35",
+            "source_type": "message",
+            "source_id": "h35",
+            "score": 28,
+            "reasons": [
+              {
+                "signal": "decision_context",
+                "weight": 28
+              }
+            ],
+            "token_cost": 40,
+            "already_known": false,
+            "invalidated": false,
+            "status": "selected"
+          }
+        ],
+        "context": "[message:h33]\nFinal architecture review: keep the PWA over the HTTPS JSON API; LocalStore has IndexedDB for inspection records and an attachment adapter that prefers filesystem storage and falls back to IndexedDB blobs; SyncEngine is resumable, client-triggered, idempotent by client UUID, version-checks updates, and backs off only on transient failures. The next step is to implement the LocalStore attachment adapter with the shared backend contract and fallback tests before wiring SyncEngine.\n\n---\n\n[message:v07-078]\nI pasted the original kickoff note below so the review can see why the plan changed: ‘Let's ship a native desktop client and save every draft in localStorage. We can use filesystem-only attachments and a websocket to push sync updates.’ That paragraph is historical context only. The later reviews explicitly changed the client, record store, attachment fallback, and synchronization triggers. Please do not copy the quoted proposal into the current plan.\n\n---\n\n[message:v07-096]\nThe API team asked whether the client UUID belongs in the route or body. Keep it explicit in the request contract so logs and retries can carry it consistently, and store it with the server row under a unique constraint. A replay should return the existing inspection identity and current state. The version field remains a separate precondition on updates; a matching idempotency key should not bypass a stale-version conflict.\n\n---\n\n[message:v07-084]\nA release coordinator asked if we can promise a North-region pilot date in the same update. Training owns that schedule and has not confirmed device availability. Keep the date out of the technical plan and do not infer a launch commitment from the implementation work. The project conversation contains release and design notes alongside architecture decisions, so the summary should stay focused on the current engineering plan.\n\n---\n\n[message:v07-042]\nWe reviewed the native-client proposal with the field team. They need the same inspection workflow on managed laptops and personal phones, and installing a signed desktop build on every device would add an avoidable deployment step. Keep the browser-based PWA as the client and preserve the existing HTTPS API. Local persistence and synchronization still need replaceable boundaries so we can change either implementation without rewriting the screens. This is a direction change from the first kickoff note, not a second supported client target.\n\n---\n\n[message:v07-064]\nI found an old planning note that says to store everything in localStorage because it is easy to inspect. Please do not revive it in the implementation summary. Structured drafts need IndexedDB, and attachments use the adapter with filesystem support where available and an IndexedDB blob fallback. We should preserve the history of how the choice changed, but the active architecture should say only what we currently intend to build.\n\n---\n\n[message:v07-112]\nWhen the offline queue has several inspections, a failure on one item should not prevent an unrelated valid item from syncing if the scheduler can safely continue. Keep ordering where a record must exist before its attachment, but isolate transient errors per item and preserve each draft. This is implementation detail for the retry tests; it does not introduce background work or change the client-triggered sync schedule.\n\n---\n\n[message:v07-100]\nA design note proposes using the phone's notification service to tell field crews that uploads finished. That could be useful for a later release, but the current flow shows completion when the app is open or next resumes. Please do not add notification permission prompts or push delivery to this milestone. It is the same out-of-scope push request discussed during the earlier manager review.\n\n---\n\n[message:v07-074]\nThe mobile browser can suspend a tab while offline work is queued, so the retry loop must not assume a continuously running page. When the app returns, it reads the durable sync state and resumes from the last acknowledged record or attachment. The initial architecture still avoids background periodic work; resuming on app launch is sufficient. We should test process interruption as well as an ordinary request timeout.\n\n---\n\n[message:h03]\nNew direction: ship a browser-based PWA for desktop and mobile. Keep the cloud API, but package local persistence and synchronization as separate layers so we can replace either independently.\n\n---\n\n[message:v07-102]\nThe acceptance test for authenticated upload should include a valid session, a session that expires before transfer, and a response lost after the server has committed. The expired session must leave the local bytes intact and wait for reauthentication. The lost response should be safe to retry with the same idempotency identifiers. We should also verify that an unrelated attachment is not cleaned up when one upload succeeds.\n\n---\n\n[message:v07-052]\nFor the fallback, please cover more than initial creation. A blob written to IndexedDB must be readable after a reload, must remain linked to its inspection UUID, and must be removed only after the upload acknowledgement. If the preferred filesystem write fails partway through, the adapter should return a clear error or use the fallback according to the agreed policy; it must not report success with a missing attachment. The contract tests should run against both backends with the same cases so behavior stays aligned.\n\n---\n\n[message:h05]\nImportant security decision for the first architecture review: inspection photos and drafts remain on the device until an authenticated upload succeeds. A failed or deferred upload must never discard the local copy.\n\n---\n\n[message:v07-085]\nThe pilot date is not part of the technical implementation plan and remains unconfirmed by its owner. I will keep release scheduling separate from the architecture and next engineering step.\n\n---\n\n[message:v07-088]\nThis should be a useful handoff summary, not a transcript search exercise. The current architecture is distributed across the initial client decision, storage review, API contract, retry discussion, and later implementation update. A few older proposals are quoted or repeated because teams refer back to them. Please recover the settled choices, distinguish the shipped record path from the unfinished attachment path, and identify the immediate next implementation step.\n\n---\n\n[message:v07-043]\nThe current client is the browser PWA on desktop and mobile, using the existing HTTPS JSON API. LocalStore and SyncEngine remain separate replaceable boundaries. The earlier native desktop idea is no longer a release direction. I will keep references to that initial proposal in the history only as a superseded decision, not as an active deployment option.\n\n---\n\n[message:v07-101]\nPush notifications remain outside the release scope. The client displays the current sync state when open and restores it on the next launch. No notification permission or delivery service is required for the current implementation.\n\n---\n\n[message:h34]\nI will use that review as the current implementation plan. The early localStorage proposal is superseded. Keep local data until authenticated upload succeeds, preserve drafts on conflicts, and announce offline/error state accessibly.\n\n---\n\n[message:h11]\nEvery inspection needs a stable client-generated UUID before sync. The API must treat repeated submissions of that UUID as the same inspection so reconnect retries do not create duplicates.\n\n---\n\n[message:h15]\nSync must be resumable and use exponential backoff with jitter for transient network errors. Validation errors should be surfaced to the user and not retried forever.\n\n---\n\n[message:h17]\nFor the first release, keep inspection text fields plain text. Rich text is not needed. That makes the local-to-server payload easier to version.\n\n---\n\n[message:h19]\nWe tested browser support. The File System Access API is not universal. Use it as the preferred attachment backend when available, but fall back to IndexedDB blobs; the adapter should expose the same read/write/delete contract in both cases.\n\n---\n\n[message:h21]\nA quick repeat of the retry discussion: transient failures back off, while validation failures do not retry. This remains true.\n\n---\n\n[message:h23]\nAfter reviewing operations, we are not adding websocket push in this release. Sync starts on app launch, when the user pulls to refresh, and after a local edit when online. The server remains an HTTPS JSON API.\n\n---\n\n[message:h24]\nNo websocket dependency for V1. Sync is client-triggered over the existing HTTPS API.\n\n---\n\n[message:h25]\nThe API team is using PostgreSQL. An inspection row stores its stable client UUID, server ID, version, and sync state. The server must reject a stale update with a conflict response rather than silently overwrite a newer inspection.\n\n---\n\n[message:h27]\nAccessibility constraint: offline status and sync errors must be available to screen readers, not conveyed only by color or icons.\n\n---\n\n[message:h29]\nFor now keep admin dashboards, analytics, push notifications, and background periodic sync out of this implementation. The priority is durable offline inspection and explicit user-visible recovery.\n\n---\n\n[message:h31]\nSmall naming note: call the browser persistence boundary LocalStore and the transfer boundary SyncEngine. Please don't rename the server API.\n\n---\n\n[message:h35]\nRepeat for the issue tracker: LocalStore records are in IndexedDB; attachments use filesystem storage where available and IndexedDB blob fallback. Don't let upload failure erase local content."
+      },
+      "provider_usage": {
+        "input_tokens": 16464,
+        "cached_input_tokens": 12416,
+        "output_tokens": 409,
+        "total_tokens": null
+      },
+      "elapsed_ms": 17224.63,
+      "model_exit_code": 0,
+      "non_message_tool_events": [],
+      "answer": "## CURRENT ARCHITECTURE\n\n- Desktop and mobile PWA over the existing HTTPS JSON API, with separate, replaceable LocalStore and SyncEngine boundaries.\n- LocalStore records use IndexedDB. Attachments use a shared read/write/delete adapter, preferring filesystem storage with IndexedDB blob fallback.\n- SyncEngine is resumable and client-triggered: app launch, pull to refresh, and local edits while online.\n- PostgreSQL stores client UUID, server ID, version, and sync state. The client UUID is explicit in the request contract and uniquely constrained server-side; replay returns the existing identity and current state. Updates separately enforce version checks.\n\n## CURRENT CONSTRAINTS\n\n- Preserve local drafts and attachment bytes until authenticated upload succeeds; retain drafts on conflicts and wait for reauthentication when sessions expire.\n- Persist sync progress across suspension or interruption. Retry transient failures with exponential backoff and jitter; surface validation failures without endless retries.\n- Isolate item failures where safe, preserve record-before-attachment ordering, and clean up only the acknowledged attachment.\n- Keep text fields plain text and announce offline status and sync errors accessibly.\n- Exclude websockets, push notifications, background periodic sync, admin dashboards, and analytics. Pilot scheduling remains separate and unconfirmed.\n\n## SUPERSEDED DECISIONS\n\n- Native desktop client → desktop/mobile PWA.\n- localStorage drafts → IndexedDB records.\n- Filesystem-only attachments → filesystem preference with IndexedDB blob fallback.\n- Websocket-driven synchronization → client-triggered HTTPS synchronization.\n\n## CURRENT STATE\n\nThe IndexedDB record path is implemented. The attachment adapter remains unfinished; SyncEngine wiring follows it. The final architecture review is the accepted implementation plan.\n\n## NEXT STEP\n\nImplement the LocalStore attachment adapter and run the same contract tests against both backends before wiring SyncEngine. Cover reload durability, inspection UUID linkage, acknowledgement-only deletion, and partial filesystem-write failures that must never report success with missing bytes. The partial-failure fallback policy is not specified in the supplied conversation.",
+      "grade": {
+        "passed": false,
+        "fact_coverage_percent": 82.61,
+        "facts_present": 19,
+        "facts_total": 23,
+        "critical_facts_missing": [
+          "attachment_filesystem_preferred",
+          "client_uuid_idempotency",
+          "plain_text_accessibility"
+        ],
+        "stale_claims_in_current_sections": [],
+        "next_step_correct": true,
+        "required_headings_parsed": true,
+        "checks": {
+          "current_architecture": [
+            {
+              "id": "pwa_https_api",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "localstore_indexeddb_records",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "attachment_filesystem_preferred",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "attachment_idb_blob_fallback",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "shared_attachment_adapter",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "syncengine_resumable",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "client_uuid_idempotency",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "version_conflict_check",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "postgres_api",
+              "critical": false,
+              "present": true
+            }
+          ],
+          "current_constraints": [
+            {
+              "id": "retain_until_ack",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "retry_transient_only",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "plain_text_accessibility",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "foreground_sync_scope",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "no_background_or_manager_features",
+              "critical": false,
+              "present": false
+            },
+            {
+              "id": "conflicts_require_review",
+              "critical": true,
+              "present": true
+            }
+          ],
+          "superseded_decisions": [
+            {
+              "id": "localstorage_replaced",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "native_client_replaced",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "filesystem_only_updated",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "websocket_proposal_rejected",
+              "critical": false,
+              "present": true
+            }
+          ],
+          "current_state": [
+            {
+              "id": "record_store_done",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "metadata_sync_done",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "attachments_incomplete",
+              "critical": true,
+              "present": true
+            }
+          ]
+        },
+        "next_step": {
+          "id": "attachment_adapter_contract_tests",
+          "present": true
+        }
+      },
+      "protocol_valid": true,
+      "raw_directory": "evaluations\\runs\\v07-economics-v9\\gpt-6-sol\\mode_b_budget_4000\\rep-3"
+    }
+  ],
+  "pass_count": 0,
+  "protocol_valid_runs": 3,
+  "average_input_tokens": 16464.0,
+  "average_cached_input_tokens": 8277.33,
+  "average_output_tokens": 470.33,
+  "average_elapsed_ms": 20094.38,
+  "pricing": null,
+  "estimated_cost": null,
+  "cost_limitation": "No verified versioned pricing snapshot was supplied."
+}

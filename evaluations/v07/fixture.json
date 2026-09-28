@@ -1,0 +1,745 @@
+{
+  "version": "v0.7-context-economics-atlas-9",
+  "title": "Atlas offline inspection implementation handoff",
+  "history_id": "atlas-v07-economics",
+  "history": [
+    {
+      "id": "h01",
+      "role": "user",
+      "timestamp": "2026-04-02T09:00:00Z",
+      "content": "We are planning Atlas, an offline-capable field-inspection app. Initial proposal: a native desktop client backed by a single cloud API. The field crews need to keep working when connectivity drops."
+    },
+    {
+      "id": "h02",
+      "role": "assistant",
+      "timestamp": "2026-04-02T09:03:00Z",
+      "content": "I will capture the offline requirement and compare deployment options."
+    },
+    {
+      "id": "h03",
+      "role": "user",
+      "timestamp": "2026-04-03T10:10:00Z",
+      "content": "New direction: ship a browser-based PWA for desktop and mobile. Keep the cloud API, but package local persistence and synchronization as separate layers so we can replace either independently.",
+      "metadata": {
+        "supersedes": [
+          "h01"
+        ]
+      }
+    },
+    {
+      "id": "h04",
+      "role": "assistant",
+      "timestamp": "2026-04-03T10:12:00Z",
+      "content": "Current direction recorded: PWA client, cloud API, independently replaceable local persistence and sync layers."
+    },
+    {
+      "id": "h05",
+      "role": "user",
+      "timestamp": "2026-04-04T08:30:00Z",
+      "content": "Important security decision for the first architecture review: inspection photos and drafts remain on the device until an authenticated upload succeeds. A failed or deferred upload must never discard the local copy."
+    },
+    {
+      "id": "h06",
+      "role": "assistant",
+      "timestamp": "2026-04-04T08:34:00Z",
+      "content": "Understood. Local drafts and photos remain durable until the server confirms upload."
+    },
+    {
+      "id": "h07",
+      "role": "user",
+      "timestamp": "2026-04-06T13:00:00Z",
+      "content": "For local storage I first suggested browser localStorage because it is simple."
+    },
+    {
+      "id": "h08",
+      "role": "assistant",
+      "timestamp": "2026-04-06T13:02:00Z",
+      "content": "That is easy to prototype but has small quotas and is not suitable for binary attachments or robust offline writes."
+    },
+    {
+      "id": "h09",
+      "role": "user",
+      "timestamp": "2026-04-07T09:45:00Z",
+      "content": "Supersede my localStorage proposal. Use IndexedDB for structured drafts and a separate filesystem-backed attachment store where the browser supports it. Keep a small adapter boundary around both so the storage implementation can change.",
+      "metadata": {
+        "supersedes": [
+          "h07"
+        ]
+      }
+    },
+    {
+      "id": "h10",
+      "role": "assistant",
+      "timestamp": "2026-04-07T09:48:00Z",
+      "content": "Revised local architecture: IndexedDB for records, filesystem-backed attachment storage behind an adapter, with localStorage rejected as the production store."
+    },
+    {
+      "id": "h11",
+      "role": "user",
+      "timestamp": "2026-04-08T15:05:00Z",
+      "content": "Every inspection needs a stable client-generated UUID before sync. The API must treat repeated submissions of that UUID as the same inspection so reconnect retries do not create duplicates."
+    },
+    {
+      "id": "h12",
+      "role": "assistant",
+      "timestamp": "2026-04-08T15:09:00Z",
+      "content": "Add client UUID and idempotent create-or-update handling to the synchronization contract."
+    },
+    {
+      "id": "h13",
+      "role": "user",
+      "timestamp": "2026-04-10T11:20:00Z",
+      "content": "Unrelated: design asked for a refreshed green icon and a new onboarding illustration. Keep those in the visual backlog."
+    },
+    {
+      "id": "h14",
+      "role": "assistant",
+      "timestamp": "2026-04-10T11:22:00Z",
+      "content": "Noted for the visual backlog."
+    },
+    {
+      "id": "h15",
+      "role": "user",
+      "timestamp": "2026-04-11T14:00:00Z",
+      "content": "Sync must be resumable and use exponential backoff with jitter for transient network errors. Validation errors should be surfaced to the user and not retried forever."
+    },
+    {
+      "id": "h16",
+      "role": "assistant",
+      "timestamp": "2026-04-11T14:04:00Z",
+      "content": "I will distinguish retryable transport failures from permanent validation responses."
+    },
+    {
+      "id": "h17",
+      "role": "user",
+      "timestamp": "2026-04-12T10:00:00Z",
+      "content": "For the first release, keep inspection text fields plain text. Rich text is not needed. That makes the local-to-server payload easier to version."
+    },
+    {
+      "id": "h18",
+      "role": "assistant",
+      "timestamp": "2026-04-12T10:05:00Z",
+      "content": "The first sync payload will contain plain text fields."
+    },
+    {
+      "id": "h19",
+      "role": "user",
+      "timestamp": "2026-04-15T09:20:00Z",
+      "content": "We tested browser support. The File System Access API is not universal. Use it as the preferred attachment backend when available, but fall back to IndexedDB blobs; the adapter should expose the same read/write/delete contract in both cases.",
+      "metadata": {
+        "relationships": [
+          {
+            "kind": "updates",
+            "target": "h09"
+          }
+        ]
+      }
+    },
+    {
+      "id": "h20",
+      "role": "assistant",
+      "timestamp": "2026-04-15T09:25:00Z",
+      "content": "This pairs with the earlier IndexedDB record store: keep records in IndexedDB, use a filesystem adapter for attachments when supported, and otherwise store attachment blobs in IndexedDB."
+    },
+    {
+      "id": "h21",
+      "role": "user",
+      "timestamp": "2026-04-17T16:40:00Z",
+      "content": "A quick repeat of the retry discussion: transient failures back off, while validation failures do not retry. This remains true."
+    },
+    {
+      "id": "h22",
+      "role": "assistant",
+      "timestamp": "2026-04-17T16:42:00Z",
+      "content": "Confirmed."
+    },
+    {
+      "id": "h23",
+      "role": "user",
+      "timestamp": "2026-04-21T08:10:00Z",
+      "content": "After reviewing operations, we are not adding websocket push in this release. Sync starts on app launch, when the user pulls to refresh, and after a local edit when online. The server remains an HTTPS JSON API."
+    },
+    {
+      "id": "h24",
+      "role": "assistant",
+      "timestamp": "2026-04-21T08:15:00Z",
+      "content": "No websocket dependency for V1. Sync is client-triggered over the existing HTTPS API."
+    },
+    {
+      "id": "h25",
+      "role": "user",
+      "timestamp": "2026-04-23T12:30:00Z",
+      "content": "The API team is using PostgreSQL. An inspection row stores its stable client UUID, server ID, version, and sync state. The server must reject a stale update with a conflict response rather than silently overwrite a newer inspection."
+    },
+    {
+      "id": "h26",
+      "role": "assistant",
+      "timestamp": "2026-04-23T12:35:00Z",
+      "content": "Add optimistic version checks to the idempotent UUID-based API contract. Preserve the local draft when a conflict occurs so the crew can resolve it."
+    },
+    {
+      "id": "h27",
+      "role": "user",
+      "timestamp": "2026-04-25T10:10:00Z",
+      "content": "Accessibility constraint: offline status and sync errors must be available to screen readers, not conveyed only by color or icons."
+    },
+    {
+      "id": "h28",
+      "role": "assistant",
+      "timestamp": "2026-04-25T10:13:00Z",
+      "content": "Include text status and accessible announcements for sync state changes."
+    },
+    {
+      "id": "h29",
+      "role": "user",
+      "timestamp": "2026-04-28T15:50:00Z",
+      "content": "For now keep admin dashboards, analytics, push notifications, and background periodic sync out of this implementation. The priority is durable offline inspection and explicit user-visible recovery."
+    },
+    {
+      "id": "h30",
+      "role": "assistant",
+      "timestamp": "2026-04-28T15:54:00Z",
+      "content": "Scope exclusions recorded; focus remains on the offline client and reliable foreground synchronization."
+    },
+    {
+      "id": "h31",
+      "role": "user",
+      "timestamp": "2026-05-01T11:00:00Z",
+      "content": "Small naming note: call the browser persistence boundary LocalStore and the transfer boundary SyncEngine. Please don't rename the server API."
+    },
+    {
+      "id": "h32",
+      "role": "assistant",
+      "timestamp": "2026-05-01T11:03:00Z",
+      "content": "Use LocalStore and SyncEngine for the client interfaces."
+    },
+    {
+      "id": "h33",
+      "role": "user",
+      "timestamp": "2026-05-05T09:10:00Z",
+      "content": "Final architecture review: keep the PWA over the HTTPS JSON API; LocalStore has IndexedDB for inspection records and an attachment adapter that prefers filesystem storage and falls back to IndexedDB blobs; SyncEngine is resumable, client-triggered, idempotent by client UUID, version-checks updates, and backs off only on transient failures. The next step is to implement the LocalStore attachment adapter with the shared backend contract and fallback tests before wiring SyncEngine."
+    },
+    {
+      "id": "h34",
+      "role": "assistant",
+      "timestamp": "2026-05-05T09:15:00Z",
+      "content": "I will use that review as the current implementation plan. The early localStorage proposal is superseded. Keep local data until authenticated upload succeeds, preserve drafts on conflicts, and announce offline/error state accessibly."
+    },
+    {
+      "id": "h35",
+      "role": "user",
+      "timestamp": "2026-05-06T10:00:00Z",
+      "content": "Repeat for the issue tracker: LocalStore records are in IndexedDB; attachments use filesystem storage where available and IndexedDB blob fallback. Don't let upload failure erase local content."
+    },
+    {
+      "id": "h36",
+      "role": "assistant",
+      "timestamp": "2026-05-06T10:02:00Z",
+      "content": "Confirmed. The attachment backend contract should be tested across both implementations."
+    },
+    {
+      "id": "h37",
+      "role": "user",
+      "timestamp": "2026-05-08T14:00:00Z",
+      "content": "Unrelated release planning: we might do a small pilot in the North region after field training. Marketing owns the date; it should not change the implementation scope."
+    },
+    {
+      "id": "h38",
+      "role": "assistant",
+      "timestamp": "2026-05-08T14:04:00Z",
+      "content": "I will keep the pilot schedule separate from the technical plan."
+    },
+    {
+      "id": "v07-040",
+      "role": "user",
+      "timestamp": "2026-05-14T09:00:00Z",
+      "content": "The first LocalStore prototype is now running in the browser shell. It writes an inspection record with a client-generated identifier and a small sync state, then restores that draft after a reload while offline. Keep that work behind the LocalStore boundary so the page components never reach into IndexedDB directly. We still need to settle attachments separately because binary data has different browser capabilities and failure modes than the text fields. Please treat the prototype as progress on the record path, not as evidence that the attachment path is complete."
+    },
+    {
+      "id": "v07-041",
+      "role": "assistant",
+      "timestamp": "2026-05-14T09:14:00Z",
+      "content": "I will keep the record store and attachment store behind the same client boundary while leaving their implementations distinct. The current prototype covers structured inspection records in IndexedDB and survives reloads without a network connection. It does not yet provide the attachment behavior. I will keep the next implementation plan focused on completing that adapter contract and its fallback tests before wiring those calls into synchronization."
+    },
+    {
+      "id": "v07-042",
+      "role": "user",
+      "timestamp": "2026-05-15T09:00:00Z",
+      "content": "We reviewed the native-client proposal with the field team. They need the same inspection workflow on managed laptops and personal phones, and installing a signed desktop build on every device would add an avoidable deployment step. Keep the browser-based PWA as the client and preserve the existing HTTPS API. Local persistence and synchronization still need replaceable boundaries so we can change either implementation without rewriting the screens. This is a direction change from the first kickoff note, not a second supported client target."
+    },
+    {
+      "id": "v07-043",
+      "role": "assistant",
+      "timestamp": "2026-05-15T09:14:00Z",
+      "content": "The current client is the browser PWA on desktop and mobile, using the existing HTTPS JSON API. LocalStore and SyncEngine remain separate replaceable boundaries. The earlier native desktop idea is no longer a release direction. I will keep references to that initial proposal in the history only as a superseded decision, not as an active deployment option."
+    },
+    {
+      "id": "v07-044",
+      "role": "user",
+      "timestamp": "2026-05-16T09:00:00Z",
+      "content": "The record schema review confirmed that an inspection has a stable client UUID before its first upload. The API uses that key to treat retries of the same create request as one inspection, including after a connection drops before the response reaches the browser. The server assigns its own identifier as well, and the local record keeps both values with the last acknowledged version. We should not use timestamps as identity because two offline devices can create records at similar times."
+    },
+    {
+      "id": "v07-045",
+      "role": "assistant",
+      "timestamp": "2026-05-16T09:14:00Z",
+      "content": "The client UUID is the idempotency key and exists before upload. The server ID and acknowledged version are stored alongside it after a response. A retry with the same client UUID must not create a second inspection. Timestamps remain descriptive metadata rather than identity. I will carry this contract into the API integration tests and keep the browser retry path safe when the response is lost."
+    },
+    {
+      "id": "v07-046",
+      "role": "user",
+      "timestamp": "2026-05-17T09:00:00Z",
+      "content": "One of the conflict tests exposed an important recovery case. A crew member can edit an inspection on a tablet while a supervisor updates the server copy from a second device. The server should compare the version the client last read and return a conflict when it is stale; it must not silently replace the supervisor's newer data. The tablet's draft and photos remain on the device so the person can review and resolve the conflict. A conflict is a user-visible state, not a transient network failure to retry repeatedly."
+    },
+    {
+      "id": "v07-047",
+      "role": "assistant",
+      "timestamp": "2026-05-17T09:14:00Z",
+      "content": "The version supplied with an update is checked against the server version. A stale update receives a conflict response and keeps the local draft available for a person to resolve. It is not automatically retried as though connectivity were down. The client UUID still provides idempotency for safe repeats of a request, while version checks prevent an old edit from overwriting newer server data."
+    },
+    {
+      "id": "v07-048",
+      "role": "user",
+      "timestamp": "2026-05-18T09:00:00Z",
+      "content": "Please keep the offline guarantee explicit in both the data flow and the acceptance tests. Photos and draft fields stay local until an authenticated upload is confirmed by the API. A timeout, browser close, expired session, or validation response does not count as confirmation. If a request fails after the server may have received bytes, the same client identifiers make a retry safe, but the browser still retains its source copy until it receives a valid success response. We need to test interruption at the boundary before deleting or marking any local attachment as uploaded."
+    },
+    {
+      "id": "v07-049",
+      "role": "assistant",
+      "timestamp": "2026-05-18T09:14:00Z",
+      "content": "The local source remains until the server returns a successful authenticated-upload response. Network uncertainty and validation failures leave the record and attachments available. Only acknowledged success advances the sync state. The stable client UUID protects a retry from duplicating an inspection, but it does not justify removing the local source before acknowledgement."
+    },
+    {
+      "id": "v07-050",
+      "role": "user",
+      "timestamp": "2026-05-19T09:00:00Z",
+      "content": "We compared browser attachment APIs on the devices in the pilot. The File System Access API is convenient on supported desktop browsers, but it is not available everywhere and permission can be denied even where the API exists. Use filesystem-backed storage as the preferred option when available and authorized; fall back to an IndexedDB blob for the same attachment when it is not. The calling code should depend on one read, write, and delete contract, not branch on browser detection throughout the sync flow."
+    },
+    {
+      "id": "v07-051",
+      "role": "assistant",
+      "timestamp": "2026-05-19T09:14:00Z",
+      "content": "The filesystem path is an optional preferred backend, not a universal requirement. The adapter selects it only when the capability and permission checks succeed, and otherwise uses an IndexedDB blob. Both implementations expose the same read, write, and delete behavior to LocalStore. This updates the earlier filesystem-only wording while keeping the attachment storage behind a small replaceable contract."
+    },
+    {
+      "id": "v07-052",
+      "role": "user",
+      "timestamp": "2026-05-20T09:00:00Z",
+      "content": "For the fallback, please cover more than initial creation. A blob written to IndexedDB must be readable after a reload, must remain linked to its inspection UUID, and must be removed only after the upload acknowledgement. If the preferred filesystem write fails partway through, the adapter should return a clear error or use the fallback according to the agreed policy; it must not report success with a missing attachment. The contract tests should run against both backends with the same cases so behavior stays aligned."
+    },
+    {
+      "id": "v07-053",
+      "role": "assistant",
+      "timestamp": "2026-05-20T09:14:00Z",
+      "content": "The contract suite will exercise write/read/delete and association with the stable inspection ID for both implementations. It will include reload persistence and a failed preferred-backend path. A missing or partial attachment cannot be reported as a successful write. Local cleanup remains tied to confirmed upload acknowledgement rather than the start of a request."
+    },
+    {
+      "id": "v07-054",
+      "role": "user",
+      "timestamp": "2026-05-21T09:00:00Z",
+      "content": "The sync worker will run when the app opens, after the user pulls to refresh, and after an edit while the device is online. It should resume an interrupted transfer from the last acknowledged state. We do not need a background timer for the first release, and we should not depend on browser push or websocket delivery to discover work. These triggers are easier for field staff to understand and easier to validate while offline."
+    },
+    {
+      "id": "v07-055",
+      "role": "assistant",
+      "timestamp": "2026-05-21T09:14:00Z",
+      "content": "The first release uses explicit client-triggered sync on app launch, pull to refresh, and an online local edit. It resumes interrupted work and does not require WebSocket push or periodic background sync. Those excluded mechanisms should remain out of the implementation plan unless the scope is deliberately revisited later."
+    },
+    {
+      "id": "v07-056",
+      "role": "user",
+      "timestamp": "2026-05-22T09:00:00Z",
+      "content": "Retry behavior should distinguish transport trouble from a response that requires human correction. Temporary connection loss and server-unavailable responses use exponential backoff with jitter, with a ceiling so a device does not retry forever at a high rate. A validation error is shown with enough detail to correct the inspection and is not retried automatically. A version conflict also pauses for user resolution. Please avoid a single retry flag that treats all non-success responses alike."
+    },
+    {
+      "id": "v07-057",
+      "role": "assistant",
+      "timestamp": "2026-05-22T09:14:00Z",
+      "content": "The retry policy is limited to transient network and service failures, with exponential backoff and jitter. Validation errors require correction and version conflicts require resolution, so neither loops through automatic retries. The sync state should retain which class of failure occurred so the UI can show an actionable message."
+    },
+    {
+      "id": "v07-058",
+      "role": "user",
+      "timestamp": "2026-05-23T09:00:00Z",
+      "content": "We are keeping inspection text fields plain text for this release. Rich text, embedded markup, and an editor toolbar would make offline validation and API versioning harder without helping the field workflow. The server can still validate lengths and required fields. Error messages should point to the affected field and remain readable when the user is offline, rather than relying only on an icon or a colored badge."
+    },
+    {
+      "id": "v07-059",
+      "role": "assistant",
+      "timestamp": "2026-05-23T09:14:00Z",
+      "content": "V1 text fields are plain text with length and required-field validation. There is no rich-text editor in scope. Offline and sync-error status must have readable text and screen-reader announcements; color or icon alone is not enough."
+    },
+    {
+      "id": "v07-060",
+      "role": "user",
+      "timestamp": "2026-05-24T09:00:00Z",
+      "content": "The accessibility pass found that the sync spinner announces every retry, which becomes noisy in a poor-coverage area. Announce the transition into a useful state, such as waiting to reconnect or requiring a correction, and announce completion after the server acknowledges it. The retry counter is implementation telemetry, not user-facing content. This does not change the durable offline behavior or the requirement that drafts remain accessible to assistive technology."
+    },
+    {
+      "id": "v07-061",
+      "role": "assistant",
+      "timestamp": "2026-05-24T09:14:00Z",
+      "content": "I will announce meaningful sync-state changes instead of each timer tick. The accessible status will distinguish queued offline work, a correctable validation failure, a conflict needing review, and acknowledged completion. The local draft remains available throughout each state."
+    },
+    {
+      "id": "v07-062",
+      "role": "user",
+      "timestamp": "2026-05-25T09:00:00Z",
+      "content": "The backend has settled on PostgreSQL for inspection rows and their version state. We do not need a second storage engine in this milestone. The request body carries the client UUID and the version the device last saw; the response includes the server ID and current version. Idempotency handles replay of the same logical create, while optimistic version checking handles a genuinely stale edit. Those are related but separate guarantees."
+    },
+    {
+      "id": "v07-063",
+      "role": "assistant",
+      "timestamp": "2026-05-25T09:14:00Z",
+      "content": "PostgreSQL remains the API's inspection store. The client UUID provides idempotency for replay, and the version check rejects stale updates with a conflict. The response records the server ID and acknowledged version locally. Keeping those guarantees distinct makes the failure cases and tests clearer."
+    },
+    {
+      "id": "v07-064",
+      "role": "user",
+      "timestamp": "2026-05-26T09:00:00Z",
+      "content": "I found an old planning note that says to store everything in localStorage because it is easy to inspect. Please do not revive it in the implementation summary. Structured drafts need IndexedDB, and attachments use the adapter with filesystem support where available and an IndexedDB blob fallback. We should preserve the history of how the choice changed, but the active architecture should say only what we currently intend to build."
+    },
+    {
+      "id": "v07-065",
+      "role": "assistant",
+      "timestamp": "2026-05-26T09:14:00Z",
+      "content": "Understood. The localStorage proposal is explicitly superseded. The current structured record store is IndexedDB, and attachment files use the capability-aware adapter with an IndexedDB blob fallback. The earlier note stays in the project history so the decision remains auditable, but it is not current guidance."
+    },
+    {
+      "id": "v07-066",
+      "role": "user",
+      "timestamp": "2026-05-27T09:00:00Z",
+      "content": "The API contract tests now cover create replay with one UUID, reject a stale version, and preserve the existing server row. The client tests cover reopening a draft after reload and displaying a conflict without clearing the local copy. The missing area is attachment contract coverage across the two backends, especially fallback after permission denial and cleanup only after an acknowledged upload. Please keep that gap visible in the status report."
+    },
+    {
+      "id": "v07-067",
+      "role": "assistant",
+      "timestamp": "2026-05-27T09:14:00Z",
+      "content": "The UUID replay, stale-version conflict, draft recovery, and conflict display checks are passing in the current branch. Attachment backend parity and acknowledgement-gated cleanup remain unfinished. I will not describe the attachment path as complete until its fallback and persistence tests pass."
+    },
+    {
+      "id": "v07-068",
+      "role": "user",
+      "timestamp": "2026-05-28T09:00:00Z",
+      "content": "The UI review asked for an analytics dashboard and a push-notification panel so managers can watch uploads. That is useful later, but it is not necessary for a reliable offline inspection workflow and would add new permissions and services. Keep manager analytics, push notifications, and background periodic sync outside this release. We should finish durable local capture and explicit recovery before revisiting operational reporting."
+    },
+    {
+      "id": "v07-069",
+      "role": "assistant",
+      "timestamp": "2026-05-28T09:14:00Z",
+      "content": "Those manager-facing additions are outside the current release scope: no analytics dashboard, push notification service, or periodic background sync. The implementation remains focused on local inspection, foreground synchronization, and user-visible recovery."
+    },
+    {
+      "id": "v07-070",
+      "role": "user",
+      "timestamp": "2026-05-29T09:00:00Z",
+      "content": "Please retain the server API name and the LocalStore and SyncEngine boundary names. A branch proposal suggested renaming the API to match the new PWA package, but that would create churn for the existing deployment and clients. The browser client can change independently while continuing to use the established HTTPS JSON endpoints. Names in the code should distinguish the local data boundary from the transfer process."
+    },
+    {
+      "id": "v07-071",
+      "role": "assistant",
+      "timestamp": "2026-05-29T09:14:00Z",
+      "content": "The established HTTPS API name and endpoints remain unchanged. LocalStore denotes client-side persistence, and SyncEngine denotes transfer and retry orchestration. The PWA implementation can evolve behind those boundaries without renaming the deployed service."
+    },
+    {
+      "id": "v07-072",
+      "role": "user",
+      "timestamp": "2026-05-30T09:00:00Z",
+      "content": "For database conflict resolution, do not automatically merge two free-text inspection narratives. If the server version has moved, preserve the device's draft and show the server version for comparison. We can revisit field-level merge rules if the product defines them, but this release should not guess which note is authoritative. Stable identifiers let us associate both versions without silently replacing either one."
+    },
+    {
+      "id": "v07-073",
+      "role": "assistant",
+      "timestamp": "2026-05-30T09:14:00Z",
+      "content": "A conflict pauses automatic upload and retains the local draft for explicit review. The server's newer record is not overwritten, and the client does not invent a merge for free-text fields. No automatic conflict merge is part of the current contract."
+    },
+    {
+      "id": "v07-074",
+      "role": "user",
+      "timestamp": "2026-05-31T09:00:00Z",
+      "content": "The mobile browser can suspend a tab while offline work is queued, so the retry loop must not assume a continuously running page. When the app returns, it reads the durable sync state and resumes from the last acknowledged record or attachment. The initial architecture still avoids background periodic work; resuming on app launch is sufficient. We should test process interruption as well as an ordinary request timeout."
+    },
+    {
+      "id": "v07-075",
+      "role": "assistant",
+      "timestamp": "2026-05-31T09:14:00Z",
+      "content": "Queued work and its acknowledged progress must survive page suspension and reload. The app resumes when opened and uses the stored sync state. This is foreground recovery, not a request for a background timer or push mechanism."
+    },
+    {
+      "id": "v07-076",
+      "role": "user",
+      "timestamp": "2026-06-01T09:00:00Z",
+      "content": "The field labels should be translatable later, but translation support itself is not a storage or sync dependency for V1. Keep values in plain text and keep validation rules on the shared API contract. We can localize labels without changing what is persisted. This is a minor interface note and should not distract from the unresolved attachment adapter work."
+    },
+    {
+      "id": "v07-077",
+      "role": "assistant",
+      "timestamp": "2026-06-01T09:14:00Z",
+      "content": "Localization of labels can be handled at the UI layer later. Persisted inspection text remains plain text, and this does not alter the current synchronization or adapter plan."
+    },
+    {
+      "id": "v07-078",
+      "role": "user",
+      "timestamp": "2026-06-02T09:00:00Z",
+      "content": "I pasted the original kickoff note below so the review can see why the plan changed: ‘Let's ship a native desktop client and save every draft in localStorage. We can use filesystem-only attachments and a websocket to push sync updates.’ That paragraph is historical context only. The later reviews explicitly changed the client, record store, attachment fallback, and synchronization triggers. Please do not copy the quoted proposal into the current plan."
+    },
+    {
+      "id": "v07-079",
+      "role": "assistant",
+      "timestamp": "2026-06-02T09:14:00Z",
+      "content": "The quotation is the original proposal, not an active requirement. The browser PWA, IndexedDB records, capability-aware attachment fallback, and client-triggered HTTPS synchronization are the current direction. I will list the older options only under superseded decisions."
+    },
+    {
+      "id": "v07-080",
+      "role": "user",
+      "timestamp": "2026-06-03T09:00:00Z",
+      "content": "Current delivery status as of this week's integration review: the PWA shell and record form are in place. LocalStore can persist and restore the structured record in IndexedDB. SyncEngine submits record metadata with the client UUID, handles idempotent replay, stores the server version, and pauses on conflict or validation correction. Attachment bytes are not yet connected end to end; the adapter interface has been drafted, but the filesystem/IndexedDB implementations and shared contract tests are still open."
+    },
+    {
+      "id": "v07-081",
+      "role": "assistant",
+      "timestamp": "2026-06-03T09:14:00Z",
+      "content": "That is the current implementation state: record persistence and metadata synchronization are implemented, including replay and conflict behavior. Attachment integration is not complete. The next work should finish both adapter backends and prove the shared contract before the sync path begins deleting an acknowledged local source."
+    },
+    {
+      "id": "v07-082",
+      "role": "user",
+      "timestamp": "2026-06-04T09:00:00Z",
+      "content": "The next pull request should have a narrow acceptance boundary. First, implement adapter selection and the common read/write/delete methods. Second, run the same contract cases against the filesystem backend when supported and the IndexedDB blob backend otherwise. Third, verify that a denied permission or a failed upload leaves the source available. Only after that should SyncEngine call the adapter for attachment transfer. Please do not combine this with manager analytics or a new server endpoint."
+    },
+    {
+      "id": "v07-083",
+      "role": "assistant",
+      "timestamp": "2026-06-04T09:14:00Z",
+      "content": "Agreed. The next step is the LocalStore attachment adapter contract and its filesystem/IndexedDB fallback tests, including persistence and acknowledgement-gated cleanup. Wiring the adapter into SyncEngine follows after those tests pass. No analytics, new endpoint, or other product work is needed for that step."
+    },
+    {
+      "id": "v07-084",
+      "role": "user",
+      "timestamp": "2026-06-05T09:00:00Z",
+      "content": "A release coordinator asked if we can promise a North-region pilot date in the same update. Training owns that schedule and has not confirmed device availability. Keep the date out of the technical plan and do not infer a launch commitment from the implementation work. The project conversation contains release and design notes alongside architecture decisions, so the summary should stay focused on the current engineering plan."
+    },
+    {
+      "id": "v07-085",
+      "role": "assistant",
+      "timestamp": "2026-06-05T09:14:00Z",
+      "content": "The pilot date is not part of the technical implementation plan and remains unconfirmed by its owner. I will keep release scheduling separate from the architecture and next engineering step."
+    },
+    {
+      "id": "v07-086",
+      "role": "user",
+      "timestamp": "2026-06-06T09:00:00Z",
+      "content": "One last review of the local retention rule: even when the API returns a validation error, authentication expires, or the network drops after the request is sent, the attachment remains stored. We only mark that particular upload complete after the API has acknowledged it. An unrelated successful record request must not cause all queued photos to be deleted. The user can retry a correctable failure after updating the record, while a version conflict waits for review."
+    },
+    {
+      "id": "v07-087",
+      "role": "assistant",
+      "timestamp": "2026-06-06T09:14:00Z",
+      "content": "Retention and acknowledgement are tracked per uploaded item. A successful response for one record does not authorize cleanup of unrelated attachments. Validation and authentication failures preserve local data, and a conflict remains paused for human resolution."
+    },
+    {
+      "id": "v07-088",
+      "role": "user",
+      "timestamp": "2026-06-07T09:00:00Z",
+      "content": "This should be a useful handoff summary, not a transcript search exercise. The current architecture is distributed across the initial client decision, storage review, API contract, retry discussion, and later implementation update. A few older proposals are quoted or repeated because teams refer back to them. Please recover the settled choices, distinguish the shipped record path from the unfinished attachment path, and identify the immediate next implementation step."
+    },
+    {
+      "id": "v07-089",
+      "role": "assistant",
+      "timestamp": "2026-06-07T09:14:00Z",
+      "content": "I will distinguish adopted architecture from historical alternatives and current progress from the remaining attachment work. The upcoming summary should state the active storage and sync boundaries, durable offline constraints, explicit exclusions, superseded choices, and the adapter tests that unblock integration."
+    },
+    {
+      "id": "v07-090",
+      "role": "user",
+      "timestamp": "2026-06-08T09:00:00Z",
+      "content": "The storage review also covered quota and permission failures. The adapter should treat browser capability detection as a runtime choice because managed devices do not all expose the same APIs. If filesystem permission is not granted, the user should still be able to complete an inspection using the blob fallback without an unexplained data loss. If IndexedDB itself reports a quota or transaction failure, surface an actionable error and keep the form state in memory until it can be saved; do not claim the draft is durable until the transaction commits."
+    },
+    {
+      "id": "v07-091",
+      "role": "assistant",
+      "timestamp": "2026-06-08T09:14:00Z",
+      "content": "Capability selection belongs inside the attachment adapter. A denied or unavailable filesystem path uses the IndexedDB blob backend. A failed IndexedDB transaction is a failed persistence operation, not success; the UI must retain its working form state and communicate that it has not been safely saved."
+    },
+    {
+      "id": "v07-092",
+      "role": "user",
+      "timestamp": "2026-06-09T09:00:00Z",
+      "content": "We should make the adapter contract describe ownership clearly. A write takes the inspection UUID and attachment identifier and returns a persisted reference only after the backend confirms the bytes are stored. A read returns the original bytes and metadata, and delete removes only that reference. The adapter should not decide whether a server upload is complete; SyncEngine owns acknowledgement and asks LocalStore to remove a local attachment only after the successful response for that attachment."
+    },
+    {
+      "id": "v07-093",
+      "role": "assistant",
+      "timestamp": "2026-06-09T09:14:00Z",
+      "content": "The adapter handles durable local bytes and references. SyncEngine tracks transfer state and server acknowledgement. Delete is a local storage primitive, while the decision to invoke it is gated by a confirmed upload response. Keeping that distinction prevents a storage implementation from guessing about network state."
+    },
+    {
+      "id": "v07-094",
+      "role": "user",
+      "timestamp": "2026-06-10T09:00:00Z",
+      "content": "For large photos, the upload can be interrupted after several chunks. Store the last server-acknowledged offset or equivalent transfer marker with the local sync state, then resume without starting over when the app returns. Do not mark the complete image as uploaded because an earlier chunk succeeded. If the server cannot resume a particular object, restart that object safely using its stable attachment identifier while retaining its local source."
+    },
+    {
+      "id": "v07-095",
+      "role": "assistant",
+      "timestamp": "2026-06-10T09:14:00Z",
+      "content": "Progress is recorded per attachment and advances only as chunks are acknowledged. App launch resumes from the durable marker. A retry that restarts an object must still be idempotent, and local bytes remain until the full attachment receives a successful completion acknowledgement."
+    },
+    {
+      "id": "v07-096",
+      "role": "user",
+      "timestamp": "2026-06-11T09:00:00Z",
+      "content": "The API team asked whether the client UUID belongs in the route or body. Keep it explicit in the request contract so logs and retries can carry it consistently, and store it with the server row under a unique constraint. A replay should return the existing inspection identity and current state. The version field remains a separate precondition on updates; a matching idempotency key should not bypass a stale-version conflict."
+    },
+    {
+      "id": "v07-097",
+      "role": "assistant",
+      "timestamp": "2026-06-11T09:14:00Z",
+      "content": "The client-generated UUID is an explicit request field backed by a unique server constraint. Replaying a create resolves to the same inspection. On update, the server still checks the submitted version and returns a conflict when stale. Idempotency does not authorize overwriting a newer row."
+    },
+    {
+      "id": "v07-098",
+      "role": "user",
+      "timestamp": "2026-06-12T09:00:00Z",
+      "content": "I want the UI to distinguish queued, sending, waiting for connectivity, needs correction, conflict review, and complete. These states help the crew understand why a draft is still local. The retry scheduler can record a next-attempt time, but the user should not have to understand the backoff calculation. A validation response should identify the field, and a conflict should offer compare or retry-after-resolution actions rather than an automatic loop."
+    },
+    {
+      "id": "v07-099",
+      "role": "assistant",
+      "timestamp": "2026-06-12T09:14:00Z",
+      "content": "The sync state model will expose plain-language status while keeping retry timing internal. Transient transport failures schedule backoff with jitter. Validation waits for a field correction, and a version conflict waits for a person to resolve it. Completion is shown only after acknowledgement."
+    },
+    {
+      "id": "v07-100",
+      "role": "user",
+      "timestamp": "2026-06-13T09:00:00Z",
+      "content": "A design note proposes using the phone's notification service to tell field crews that uploads finished. That could be useful for a later release, but the current flow shows completion when the app is open or next resumes. Please do not add notification permission prompts or push delivery to this milestone. It is the same out-of-scope push request discussed during the earlier manager review."
+    },
+    {
+      "id": "v07-101",
+      "role": "assistant",
+      "timestamp": "2026-06-13T09:14:00Z",
+      "content": "Push notifications remain outside the release scope. The client displays the current sync state when open and restores it on the next launch. No notification permission or delivery service is required for the current implementation."
+    },
+    {
+      "id": "v07-102",
+      "role": "user",
+      "timestamp": "2026-06-14T09:00:00Z",
+      "content": "The acceptance test for authenticated upload should include a valid session, a session that expires before transfer, and a response lost after the server has committed. The expired session must leave the local bytes intact and wait for reauthentication. The lost response should be safe to retry with the same idempotency identifiers. We should also verify that an unrelated attachment is not cleaned up when one upload succeeds."
+    },
+    {
+      "id": "v07-103",
+      "role": "assistant",
+      "timestamp": "2026-06-14T09:14:00Z",
+      "content": "Those cases cover the important acknowledgement boundary: expired authentication preserves data; an ambiguous response retries safely with stable identifiers; and cleanup is scoped to the item whose completion was acknowledged. I will keep them with the attachment integration acceptance checks."
+    },
+    {
+      "id": "v07-104",
+      "role": "user",
+      "timestamp": "2026-06-15T09:00:00Z",
+      "content": "The PWA can be installed from the browser, but that does not turn it into a separate native desktop client. We still ship one browser application to desktop and mobile devices and use the existing API. An old architecture sketch labels a desktop wrapper as a fallback if offline persistence is difficult. That sketch predates the IndexedDB and attachment adapter decision, so do not present it as an active contingency."
+    },
+    {
+      "id": "v07-105",
+      "role": "assistant",
+      "timestamp": "2026-06-15T09:14:00Z",
+      "content": "Installability does not change the client architecture. The supported client remains the browser PWA on desktop and mobile. The native wrapper sketch is historical and is not a fallback plan."
+    },
+    {
+      "id": "v07-106",
+      "role": "user",
+      "timestamp": "2026-06-16T09:00:00Z",
+      "content": "The backend contract review confirmed that the API reports the current version on successful read and write. LocalStore saves the last acknowledged value with the draft, and SyncEngine submits it during a later update. If it no longer matches, conflict review starts and local content stays available. The server does not accept a client-provided version as proof of ownership; authentication remains required independently."
+    },
+    {
+      "id": "v07-107",
+      "role": "assistant",
+      "timestamp": "2026-06-16T09:14:00Z",
+      "content": "The version value detects stale state but does not replace authentication. Every upload still requires an authenticated request. A mismatch pauses the update and preserves the draft; a successful response becomes the next acknowledged version stored locally."
+    },
+    {
+      "id": "v07-108",
+      "role": "user",
+      "timestamp": "2026-06-17T09:00:00Z",
+      "content": "The QA matrix should separate browser support from server behavior. We can unit-test backend selection and the read/write/delete contract in a deterministic environment, then manually verify capability permission on representative browsers. The API tests cover UUID replay, auth, version conflict, and validation. A failure in browser support should not be papered over by changing the server contract or by deleting the local file."
+    },
+    {
+      "id": "v07-109",
+      "role": "assistant",
+      "timestamp": "2026-06-17T09:14:00Z",
+      "content": "Local adapter tests and API contract tests remain separate layers. Browser permission checks get focused compatibility coverage. None of those failures should remove local content or change idempotency and version semantics."
+    },
+    {
+      "id": "v07-110",
+      "role": "user",
+      "timestamp": "2026-06-18T09:00:00Z",
+      "content": "A proposal to add an analytics dashboard has resurfaced in the sprint board because the manager asked for upload counts. Keep it parked. This delivery is still about reliable field capture, local persistence, and explicit foreground synchronization. We should avoid taking on reporting, notification, or background scheduling work before the attachment path is complete and the core recovery cases pass."
+    },
+    {
+      "id": "v07-111",
+      "role": "assistant",
+      "timestamp": "2026-06-18T09:14:00Z",
+      "content": "Manager reporting remains out of scope for this delivery. The next engineering work is still the attachment adapter and its parity/fallback tests, followed by SyncEngine integration and acknowledgement-gated cleanup."
+    },
+    {
+      "id": "v07-112",
+      "role": "user",
+      "timestamp": "2026-06-19T09:00:00Z",
+      "content": "When the offline queue has several inspections, a failure on one item should not prevent an unrelated valid item from syncing if the scheduler can safely continue. Keep ordering where a record must exist before its attachment, but isolate transient errors per item and preserve each draft. This is implementation detail for the retry tests; it does not introduce background work or change the client-triggered sync schedule."
+    },
+    {
+      "id": "v07-113",
+      "role": "assistant",
+      "timestamp": "2026-06-19T09:14:00Z",
+      "content": "The foreground worker can continue independent queue items when dependencies permit, while preserving each failed item and respecting record-before-attachment order. This is per-item error isolation within the existing sync trigger model, not a new scheduler feature."
+    },
+    {
+      "id": "v07-114",
+      "role": "user",
+      "timestamp": "2026-06-20T09:00:00Z",
+      "content": "We reviewed the plain-text rule with the API team. Text fields are UTF-8 strings with explicit maximum lengths; we should not persist HTML generated by a rich-text editor. The offline form can still support line breaks and normal text entry. If richer formatting becomes necessary later, it should be a new versioned contract rather than an implicit format change in the current payload."
+    },
+    {
+      "id": "v07-115",
+      "role": "assistant",
+      "timestamp": "2026-06-20T09:14:00Z",
+      "content": "The current API payload carries plain UTF-8 text with length validation. Rich-text markup is not part of V1, and adding it later would require an explicit contract revision."
+    },
+    {
+      "id": "v07-116",
+      "role": "user",
+      "timestamp": "2026-06-21T09:00:00Z",
+      "content": "The sync review asked for WebSocket as an optional optimization even if the client also polls. We should reject that suggestion for this release: app launch, pull to refresh, and an online local edit are the supported triggers. An optional websocket still adds deployment and reconnect behavior that we do not need to finish reliable foreground recovery. The old proposal should remain under superseded decisions."
+    },
+    {
+      "id": "v07-117",
+      "role": "assistant",
+      "timestamp": "2026-06-21T09:14:00Z",
+      "content": "WebSocket is not an optional dependency for the current release. Sync remains client-triggered over the HTTPS API using the three agreed foreground triggers. Reconnect and retry behavior belong to the existing resumable SyncEngine."
+    },
+    {
+      "id": "v07-118",
+      "role": "user",
+      "timestamp": "2026-06-22T09:00:00Z",
+      "content": "The prototype status can be stated without overstating completion: record persistence and metadata sync are integrated, but photos still follow a temporary path in the test harness. The shared attachment interface is drafted, and neither production backend has passed the common suite. Next we should complete backend selection, blob fallback, persistence across reload, and cleanup after acknowledgement, then wire the adapter into transfer."
+    },
+    {
+      "id": "v07-119",
+      "role": "assistant",
+      "timestamp": "2026-06-22T09:14:00Z",
+      "content": "I will describe attachments as unfinished until both backends pass the shared tests. The immediate task remains completing the adapter implementations and fallback contract, then connecting them to SyncEngine. The metadata path being complete does not imply the photo path is complete."
+    },
+    {
+      "id": "v07-question",
+      "role": "user",
+      "timestamp": "2026-07-01T09:30:00Z",
+      "content": "Based on everything we've decided so far, summarize the current implementation plan. Include the current architecture, the constraints we must preserve, which earlier decisions are no longer current, and the next implementation step."
+    }
+  ],
+  "question": "Based on everything we've decided so far, summarize the current implementation plan. Include the current architecture, the constraints we must preserve, which earlier decisions are no longer current, and the next implementation step.",
+  "output_requirements": [
+    "Return concise bullet points under these headings: CURRENT ARCHITECTURE, CURRENT CONSTRAINTS, SUPERSEDED DECISIONS, CURRENT STATE, NEXT STEP.",
+    "Use only this supplied conversation. Include the implemented versus unfinished state; do not present old proposals or unrelated release notes as current."
+  ],
+  "model_runs_started": false
+}

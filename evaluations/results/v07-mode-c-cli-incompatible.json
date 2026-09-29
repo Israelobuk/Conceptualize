@@ -1,0 +1,70 @@
+{
+  "benchmark": "v0.7-context-economics-atlas-9",
+  "status": "cli_rejected_before_model_invocation",
+  "model": "gpt-6-sol",
+  "reasoning_effort": "low",
+  "fixture_sha256": "2e3c86cc1c0f9ad5105ce752e6355da56d423f3f1836f228b3f0a4fe0ce71e9f",
+  "ground_truth_sha256": "6ad07d7609cb249b4f5178cda69fa6471c8d1c8db9097572c36a460d726621be",
+  "history_messages": 119,
+  "history_tokens_cl100k": 8223,
+  "budget": 4000,
+  "approval_requested_with_flag": "--approve-for-me",
+  "cli_error": "error: the argument '--approve-for-me' cannot be used with '--sandbox <SANDBOX_MODE>'",
+  "repetitions_attempted": 3,
+  "model_runs_started": 0,
+  "pass_rate": null,
+  "provider_usage": null,
+  "conceptualize_calls": 0,
+  "context_tokens_returned": 0,
+  "runs": [
+    {
+      "repetition": 1,
+      "process_exit_status": 2,
+      "elapsed_ms": 253.66,
+      "model_invoked": false,
+      "conceptualize_invoked": false,
+      "provider_usage": {
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null
+      },
+      "tool_events": [],
+      "stderr": "error: the argument '--approve-for-me' cannot be used with '--sandbox <SANDBOX_MODE>'\n\nUsage: codex exec [OPTIONS] [PROMPT]\n       codex exec [OPTIONS] <COMMAND> [ARGS]\n\nFor more information, try '--help'.",
+      "raw_directory": "evaluations\\runs\\v07-mode-c-approved\\gpt-6-sol\\mode_c_budget_4000\\rep-1"
+    },
+    {
+      "repetition": 2,
+      "process_exit_status": 2,
+      "elapsed_ms": 207.12,
+      "model_invoked": false,
+      "conceptualize_invoked": false,
+      "provider_usage": {
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null
+      },
+      "tool_events": [],
+      "stderr": "error: the argument '--approve-for-me' cannot be used with '--sandbox <SANDBOX_MODE>'\n\nUsage: codex exec [OPTIONS] [PROMPT]\n       codex exec [OPTIONS] <COMMAND> [ARGS]\n\nFor more information, try '--help'.",
+      "raw_directory": "evaluations\\runs\\v07-mode-c-approved\\gpt-6-sol\\mode_c_budget_4000\\rep-2"
+    },
+    {
+      "repetition": 3,
+      "process_exit_status": 2,
+      "elapsed_ms": 217.87,
+      "model_invoked": false,
+      "conceptualize_invoked": false,
+      "provider_usage": {
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null
+      },
+      "tool_events": [],
+      "stderr": "error: the argument '--approve-for-me' cannot be used with '--sandbox <SANDBOX_MODE>'\n\nUsage: codex exec [OPTIONS] [PROMPT]\n       codex exec [OPTIONS] <COMMAND> [ARGS]\n\nFor more information, try '--help'.",
+      "raw_directory": "evaluations\\runs\\v07-mode-c-approved\\gpt-6-sol\\mode_c_budget_4000\\rep-3"
+    }
+  ],
+  "interpretation": "These are CLI argument parsing failures, not model or MCP outcomes. No provider telemetry or correctness measurement was produced. A successful retry was not attempted after automatic review rejected removal of the explicit read-only sandbox flag."
+}

@@ -1,0 +1,23 @@
+You are a blinded semantic evaluator. Judge only whether each frozen proposition is represented with the correct meaning and temporal status in the supplied artifact. Do not use exact-wording, heading, or sentence-position requirements. A harmless paraphrase counts. Mere mention is not endorsement. Do not infer facts beyond the supplied ground truth.
+
+Benchmark task:
+{{TASK}}
+
+Frozen ground-truth propositions and pass criteria:
+{{GROUND_TRUTH}}
+
+Status rules:
+- present: the proposition is clearly asserted with the required status. For a superseded proposition, it must be identified as old/replaced and not current.
+- absent: the proposition is omitted, too vague, or mentioned only as a possibility/future proposal when current status is required.
+- contradicted: the artifact clearly asserts the opposite of a current proposition or denies an explicitly frozen state.
+- stale_as_current: an explicitly superseded proposition is presented as current, preferred, or implemented. Mentioning it as historical/superseded is not an error.
+Use the entire artifact. Headings do not determine credit. Future work is not current implementation. If wording is genuinely ambiguous, choose absent and explain briefly. Evidence must be a short exact quotation from the artifact; use an empty string only when no evidence exists.
+
+Return exactly one JSON object, without markdown, matching this schema:
+{"answer_id":"string","propositions":[{"id":"string","status":"present|absent|contradicted|stale_as_current","evidence":"short exact quote or empty string","reason":"brief semantic rationale"}],"critical_proposition_coverage_percent":0,"total_proposition_coverage_percent":0,"stale_current_errors":0,"contradiction_count":0,"pass":false}
+
+Coverage is the fraction of propositions with status present. Critical coverage counts critical propositions only. Pass only when every critical proposition is present, total coverage meets the frozen minimum, and stale-current and contradiction counts are within the frozen limits. Include every proposition exactly once, in frozen order. The answer ID is only a neutral identifier; do not infer its experimental condition.
+
+Evaluate this artifact:
+answer_id: {{ANSWER_ID}}
+{{ARTIFACT}}

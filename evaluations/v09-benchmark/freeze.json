@@ -1,0 +1,25 @@
+{
+  "benchmark": "v0.9-capability-semantic-v1",
+  "fixture_sha256": "de91afc78218b084a6e569ba1e611d952490861dea9864fe720f55bb18c42370",
+  "ground_truth_sha256": "0b6289ce82cd6971aed9f258d363020b7a39d2a620c6f7bcdfbdf2ab5d9d3f7c",
+  "evaluator_prompt_sha256": "080d5dd01dc138bdb5907de8ff144ea566fb1df39fbcf9f9a4cb15048d157522",
+  "fixture_source": "v0.8-benchmark-v4/fixture.json",
+  "source_fixture_sha256": "dd9f03cd9cecc2865ed521db5d78a9d057d23ec9c2050d748bfb9a3c90cee560",
+  "history_messages": 119,
+  "history_tokens_cl100k": 8292,
+  "task": "Continue the attachment-storage work from the project history. Describe the current architecture and decisions, the constraints that still apply, which earlier choice is no longer current, what is implemented versus unfinished, and the next step.",
+  "generation_model": "gpt-6-sol",
+  "generation_reasoning": "low",
+  "evaluator_model": "gpt-6-astra",
+  "evaluator_reasoning": "low",
+  "evaluator_temperature": "not exposed by Codex CLI",
+  "pass_rule": {
+    "all_critical_propositions_present": true,
+    "minimum_total_coverage_percent": 85,
+    "maximum_stale_as_current": 0,
+    "maximum_contradictions": 0
+  },
+  "model_runs_started": false,
+  "context_units": 120,
+  "freeze_created_before_answers": true
+}

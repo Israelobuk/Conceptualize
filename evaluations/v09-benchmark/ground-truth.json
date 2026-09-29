@@ -1,0 +1,68 @@
+{
+  "version": "v0.9-capability-semantic-v1",
+  "facts": [
+    {
+      "id": "ARCH_01",
+      "critical": true,
+      "status": "current",
+      "proposition": "The current client is a browser PWA for desktop and mobile, using the existing HTTPS JSON API.",
+      "opposite": "The current client is a native desktop application or does not use the HTTPS API."
+    },
+    {
+      "id": "ARCH_02",
+      "critical": true,
+      "status": "current",
+      "proposition": "Local persistence and synchronization are separate layers that can be replaced independently."
+    },
+    {
+      "id": "DEC_01",
+      "critical": true,
+      "status": "current",
+      "proposition": "Inspection records use IndexedDB; attachments prefer File System Access when available and fall back to IndexedDB blobs."
+    },
+    {
+      "id": "DEC_02",
+      "critical": true,
+      "status": "current_design",
+      "proposition": "Both attachment storage backends share the same read, write, and delete interface."
+    },
+    {
+      "id": "CON_01",
+      "critical": true,
+      "status": "current_constraint",
+      "proposition": "Keep each local attachment until its own authenticated upload is acknowledged by the server."
+    },
+    {
+      "id": "OLD_01",
+      "critical": true,
+      "status": "superseded",
+      "proposition": "The localStorage-only production storage decision is superseded and is not current."
+    },
+    {
+      "id": "STATE_01",
+      "critical": true,
+      "status": "current_state",
+      "proposition": "Record persistence and metadata synchronization are integrated, but production attachment backends, shared contract tests, and end-to-end attachment transfer remain unfinished."
+    },
+    {
+      "id": "NEXT_01",
+      "critical": true,
+      "status": "next_step",
+      "proposition": "Implement backend selection and shared adapter behavior, test reload persistence, permission fallback, and acknowledgement-safe cleanup, then integrate the adapter with SyncEngine."
+    }
+  ],
+  "pass_rule": {
+    "all_critical_propositions_present": true,
+    "minimum_total_coverage_percent": 85,
+    "maximum_stale_as_current": 0,
+    "maximum_contradictions": 0
+  },
+  "status_definitions": {
+    "current": "Asserted as true in the current project state.",
+    "current_design": "An adopted design, even if its implementation is unfinished.",
+    "current_constraint": "A requirement that remains binding.",
+    "superseded": "An old decision that must not be treated as current.",
+    "current_state": "Implemented versus unfinished state.",
+    "next_step": "The next planned action and required sequencing."
+  }
+}

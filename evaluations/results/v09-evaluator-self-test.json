@@ -1,0 +1,675 @@
+{
+  "benchmark": "v0.9-capability-semantic-v1",
+  "evaluator_model": "gpt-6-astra",
+  "prompt_sha256": "080d5dd01dc138bdb5907de8ff144ea566fb1df39fbcf9f9a4cb15048d157522",
+  "self_test_count": 8,
+  "passed": 8,
+  "records": [
+    {
+      "evaluation_id": "synthetic_01",
+      "grade": {
+        "answer_id": "synthetic_01",
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "status": "present",
+            "evidence": "Atlas is a browser PWA for desktop and mobile over the HTTPS JSON API.",
+            "reason": "Asserts the current browser client, supported device classes, and API architecture."
+          },
+          {
+            "id": "ARCH_02",
+            "status": "present",
+            "evidence": "Persistence and sync are independently replaceable.",
+            "reason": "Clearly describes independently replaceable persistence and synchronization layers."
+          },
+          {
+            "id": "DEC_01",
+            "status": "present",
+            "evidence": "Inspection records live in IndexedDB; attachments use filesystem access where supported and IndexedDB blobs otherwise.",
+            "reason": "States the adopted record storage and attachment backend preference and fallback."
+          },
+          {
+            "id": "DEC_02",
+            "status": "present",
+            "evidence": "Both attachment stores implement the same read/write/delete methods.",
+            "reason": "Represents the shared interface; the subsequent unfinished-state statement clarifies production implementation remains pending."
+          },
+          {
+            "id": "CON_01",
+            "status": "present",
+            "evidence": "Keep each device copy until its authenticated upload is acknowledged by the server.",
+            "reason": "Requires retaining each attachment until acknowledgement of its own authenticated upload."
+          },
+          {
+            "id": "OLD_01",
+            "status": "present",
+            "evidence": "The localStorage-only production plan has been replaced.",
+            "reason": "Explicitly identifies the earlier decision as superseded."
+          },
+          {
+            "id": "STATE_01",
+            "status": "present",
+            "evidence": "Record storage and metadata sync work; production attachment stores, common tests, and end-to-end transfer are still unfinished.",
+            "reason": "Distinguishes working record persistence and metadata synchronization from all specified unfinished attachment work."
+          },
+          {
+            "id": "NEXT_01",
+            "status": "present",
+            "evidence": "Next, implement the shared adapter and backend choice, test reload persistence, permission fallback and acknowledgement-safe cleanup, then wire it to SyncEngine.",
+            "reason": "Includes backend selection, shared behavior, required tests, and subsequent SyncEngine integration."
+          }
+        ],
+        "critical_proposition_coverage_percent": 100,
+        "total_proposition_coverage_percent": 100,
+        "stale_current_errors": 0,
+        "contradiction_count": 0,
+        "pass": true
+      },
+      "provider_usage": {
+        "input_tokens": 15528,
+        "cached_input_tokens": 12416,
+        "output_tokens": 420,
+        "total_tokens": null
+      },
+      "elapsed_ms": 18608.35,
+      "exit_code": 0,
+      "case": "COMPLETE",
+      "expected_statuses": {
+        "ARCH_01": "present",
+        "ARCH_02": "present",
+        "DEC_01": "present",
+        "DEC_02": "present",
+        "CON_01": "present",
+        "OLD_01": "present",
+        "STATE_01": "present",
+        "NEXT_01": "present"
+      },
+      "checks": {
+        "ARCH_01": true,
+        "ARCH_02": true,
+        "DEC_01": true,
+        "DEC_02": true,
+        "CON_01": true,
+        "OLD_01": true,
+        "STATE_01": true,
+        "NEXT_01": true,
+        "pass_rule": true
+      },
+      "passed": true
+    },
+    {
+      "evaluation_id": "synthetic_02",
+      "grade": {
+        "answer_id": "synthetic_02",
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "status": "present",
+            "evidence": "Today crews use the web app on phones and desktops against the HTTPS service.",
+            "reason": "Represents the browser client on mobile and desktop using the existing HTTPS service through a harmless paraphrase."
+          },
+          {
+            "id": "ARCH_02",
+            "status": "present",
+            "evidence": "Offline record persistence is separate from transfer logic.",
+            "reason": "Represents persistence and synchronization as separate layers."
+          },
+          {
+            "id": "DEC_01",
+            "status": "present",
+            "evidence": "Records are in the browser database; photo files use the user's file-system permission when possible and browser-database blobs if not.",
+            "reason": "Paraphrases IndexedDB record storage and preferred file-system attachment storage with database-blob fallback."
+          },
+          {
+            "id": "DEC_02",
+            "status": "present",
+            "evidence": "Either photo implementation exposes the same operations for saving, loading, and removing data.",
+            "reason": "Asserts the shared write, read, and delete interface."
+          },
+          {
+            "id": "CON_01",
+            "status": "present",
+            "evidence": "A device must retain a photo until that specific signed-in upload receives server confirmation.",
+            "reason": "Requires attachment-specific retention until authenticated upload acknowledgement."
+          },
+          {
+            "id": "OLD_01",
+            "status": "present",
+            "evidence": "The old localStorage-only plan was abandoned.",
+            "reason": "Explicitly identifies the earlier decision as superseded."
+          },
+          {
+            "id": "STATE_01",
+            "status": "present",
+            "evidence": "Record saving and metadata transfer are working, while real photo storage, shared behavior tests, and full upload flow are not done.",
+            "reason": "Correctly distinguishes working record persistence and metadata synchronization from unfinished attachment backends, contract tests, and end-to-end transfer."
+          },
+          {
+            "id": "NEXT_01",
+            "status": "present",
+            "evidence": "Finish the adapter/backend choice, verify persistence after reload, denied-permission fallback and safe post-ack cleanup, and only then connect it to the sync engine.",
+            "reason": "Represents adapter and backend completion, required verification, and subsequent SyncEngine integration in the prescribed sequence."
+          }
+        ],
+        "critical_proposition_coverage_percent": 100,
+        "total_proposition_coverage_percent": 100,
+        "stale_current_errors": 0,
+        "contradiction_count": 0,
+        "pass": true
+      },
+      "provider_usage": {
+        "input_tokens": 15552,
+        "cached_input_tokens": 12416,
+        "output_tokens": 452,
+        "total_tokens": null
+      },
+      "elapsed_ms": 21213.67,
+      "exit_code": 0,
+      "case": "PARAPHRASED_COMPLETE",
+      "expected_statuses": {
+        "ARCH_01": "present",
+        "ARCH_02": "present",
+        "DEC_01": "present",
+        "DEC_02": "present",
+        "CON_01": "present",
+        "OLD_01": "present",
+        "STATE_01": "present",
+        "NEXT_01": "present"
+      },
+      "checks": {
+        "ARCH_01": true,
+        "ARCH_02": true,
+        "DEC_01": true,
+        "DEC_02": true,
+        "CON_01": true,
+        "OLD_01": true,
+        "STATE_01": true,
+        "NEXT_01": true,
+        "pass_rule": true
+      },
+      "passed": true
+    },
+    {
+      "evaluation_id": "synthetic_03",
+      "grade": {
+        "answer_id": "synthetic_03",
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "status": "present",
+            "evidence": "Atlas is a browser PWA for desktop and mobile over the HTTPS JSON API.",
+            "reason": "Asserts the current client platforms and API architecture."
+          },
+          {
+            "id": "ARCH_02",
+            "status": "present",
+            "evidence": "Persistence and sync are independently replaceable.",
+            "reason": "Clearly asserts independently replaceable persistence and synchronization layers."
+          },
+          {
+            "id": "DEC_01",
+            "status": "present",
+            "evidence": "Inspection records live in IndexedDB; attachments use filesystem access where supported and IndexedDB blobs otherwise.",
+            "reason": "States the adopted record storage and attachment backend preference and fallback."
+          },
+          {
+            "id": "DEC_02",
+            "status": "present",
+            "evidence": "Both attachment stores implement the same read/write/delete methods.",
+            "reason": "Represents the shared interface; the later unfinished-state statement clarifies implementation status."
+          },
+          {
+            "id": "CON_01",
+            "status": "absent",
+            "evidence": "test reload persistence, permission fallback and acknowledgement-safe cleanup",
+            "reason": "Acknowledgement-safe cleanup does not clearly state the binding requirement to retain each attachment until its own authenticated upload receives server acknowledgement."
+          },
+          {
+            "id": "OLD_01",
+            "status": "present",
+            "evidence": "The localStorage-only production plan has been replaced.",
+            "reason": "Explicitly identifies the earlier decision as superseded."
+          },
+          {
+            "id": "STATE_01",
+            "status": "present",
+            "evidence": "Record storage and metadata sync work; production attachment stores, common tests, and end-to-end transfer are still unfinished.",
+            "reason": "Correctly distinguishes working record persistence and metadata synchronization from unfinished attachment implementation and testing."
+          },
+          {
+            "id": "NEXT_01",
+            "status": "present",
+            "evidence": "Next, implement the shared adapter and backend choice, test reload persistence, permission fallback and acknowledgement-safe cleanup, then wire it to SyncEngine.",
+            "reason": "States the required implementation, tests, and subsequent SyncEngine integration in order."
+          }
+        ],
+        "critical_proposition_coverage_percent": 87.5,
+        "total_proposition_coverage_percent": 87.5,
+        "stale_current_errors": 0,
+        "contradiction_count": 0,
+        "pass": false
+      },
+      "provider_usage": {
+        "input_tokens": 15514,
+        "cached_input_tokens": 12416,
+        "output_tokens": 426,
+        "total_tokens": null
+      },
+      "elapsed_ms": 23194.9,
+      "exit_code": 0,
+      "case": "OMISSION",
+      "expected_statuses": {
+        "CON_01": "absent"
+      },
+      "checks": {
+        "CON_01": true,
+        "pass_rule": true
+      },
+      "passed": true
+    },
+    {
+      "evaluation_id": "synthetic_04",
+      "grade": {
+        "answer_id": "synthetic_04",
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "status": "present",
+            "evidence": "Atlas is a browser PWA for desktop and mobile over the HTTPS JSON API.",
+            "reason": "Asserts the current browser client, supported devices, and API."
+          },
+          {
+            "id": "ARCH_02",
+            "status": "present",
+            "evidence": "Persistence and sync are independently replaceable.",
+            "reason": "Asserts independently replaceable persistence and synchronization layers."
+          },
+          {
+            "id": "DEC_01",
+            "status": "contradicted",
+            "evidence": "attachments use IndexedDB only; filesystem access is rejected.",
+            "reason": "Rejects the adopted preference for File System Access with IndexedDB blob fallback."
+          },
+          {
+            "id": "DEC_02",
+            "status": "present",
+            "evidence": "Both attachment stores implement the same read/write/delete methods.",
+            "reason": "Affirms the shared interface for both storage backends."
+          },
+          {
+            "id": "CON_01",
+            "status": "present",
+            "evidence": "Keep each device copy until its authenticated upload is acknowledged by the server.",
+            "reason": "Preserves per-attachment retention until authenticated upload acknowledgement."
+          },
+          {
+            "id": "OLD_01",
+            "status": "present",
+            "evidence": "The localStorage-only production plan has been replaced.",
+            "reason": "Explicitly identifies the earlier decision as superseded."
+          },
+          {
+            "id": "STATE_01",
+            "status": "present",
+            "evidence": "Record storage and metadata sync work; production attachment stores, common tests, and end-to-end transfer are still unfinished.",
+            "reason": "Represents the implemented record and metadata work and unfinished attachment work."
+          },
+          {
+            "id": "NEXT_01",
+            "status": "present",
+            "evidence": "Next, implement the shared adapter and backend choice, test reload persistence, permission fallback and acknowledgement-safe cleanup, then wire it to SyncEngine.",
+            "reason": "Specifies backend and adapter implementation, required tests, and subsequent SyncEngine integration."
+          }
+        ],
+        "critical_proposition_coverage_percent": 87.5,
+        "total_proposition_coverage_percent": 87.5,
+        "stale_current_errors": 0,
+        "contradiction_count": 1,
+        "pass": false
+      },
+      "provider_usage": {
+        "input_tokens": 15531,
+        "cached_input_tokens": 12416,
+        "output_tokens": 408,
+        "total_tokens": null
+      },
+      "elapsed_ms": 20372.07,
+      "exit_code": 0,
+      "case": "CONTRADICTION",
+      "expected_statuses": {
+        "DEC_01": "contradicted"
+      },
+      "checks": {
+        "DEC_01": true,
+        "pass_rule": true
+      },
+      "passed": true
+    },
+    {
+      "evaluation_id": "synthetic_05",
+      "grade": {
+        "answer_id": "synthetic_05",
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "status": "present",
+            "evidence": "Atlas is a browser PWA for desktop and mobile over the HTTPS JSON API.",
+            "reason": "Asserts the current browser client, supported devices, and API architecture."
+          },
+          {
+            "id": "ARCH_02",
+            "status": "present",
+            "evidence": "Persistence and sync are independently replaceable.",
+            "reason": "Clearly states independent replacement of the two layers."
+          },
+          {
+            "id": "DEC_01",
+            "status": "present",
+            "evidence": "Inspection records live in IndexedDB; attachments use filesystem access where supported and IndexedDB blobs otherwise.",
+            "reason": "States the adopted record storage and attachment preference with fallback."
+          },
+          {
+            "id": "DEC_02",
+            "status": "present",
+            "evidence": "Both attachment stores implement the same read/write/delete methods.",
+            "reason": "States the shared interface for both attachment backends."
+          },
+          {
+            "id": "CON_01",
+            "status": "present",
+            "evidence": "Keep each device copy until its authenticated upload is acknowledged by the server.",
+            "reason": "Preserves the per-attachment authenticated acknowledgement requirement."
+          },
+          {
+            "id": "OLD_01",
+            "status": "stale_as_current",
+            "evidence": "The localStorage-only store is the current production choice.",
+            "reason": "Explicitly presents the superseded production decision as current."
+          },
+          {
+            "id": "STATE_01",
+            "status": "present",
+            "evidence": "Record storage and metadata sync work; production attachment stores, common tests, and end-to-end transfer are still unfinished.",
+            "reason": "Distinguishes working record and metadata functionality from unfinished attachment implementation and tests."
+          },
+          {
+            "id": "NEXT_01",
+            "status": "present",
+            "evidence": "Next, implement the shared adapter and backend choice, test reload persistence, permission fallback and acknowledgement-safe cleanup, then wire it to SyncEngine.",
+            "reason": "Includes the required implementation, tests, and subsequent SyncEngine integration."
+          }
+        ],
+        "critical_proposition_coverage_percent": 87.5,
+        "total_proposition_coverage_percent": 87.5,
+        "stale_current_errors": 1,
+        "contradiction_count": 0,
+        "pass": false
+      },
+      "provider_usage": {
+        "input_tokens": 15533,
+        "cached_input_tokens": 12416,
+        "output_tokens": 412,
+        "total_tokens": null
+      },
+      "elapsed_ms": 18714.98,
+      "exit_code": 0,
+      "case": "STALE_AS_CURRENT",
+      "expected_statuses": {
+        "OLD_01": "stale_as_current"
+      },
+      "checks": {
+        "OLD_01": true,
+        "pass_rule": true
+      },
+      "passed": true
+    },
+    {
+      "evaluation_id": "synthetic_06",
+      "grade": {
+        "answer_id": "synthetic_06",
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "status": "present",
+            "evidence": "Atlas is a browser PWA for desktop and mobile over the HTTPS JSON API.",
+            "reason": "Clearly asserts the current client and API architecture."
+          },
+          {
+            "id": "ARCH_02",
+            "status": "present",
+            "evidence": "Persistence and sync are independently replaceable.",
+            "reason": "Asserts independent replacement of the two layers."
+          },
+          {
+            "id": "DEC_01",
+            "status": "present",
+            "evidence": "Inspection records live in IndexedDB; attachments use filesystem access where supported and IndexedDB blobs otherwise.",
+            "reason": "Represents the adopted record storage and attachment preference with fallback."
+          },
+          {
+            "id": "DEC_02",
+            "status": "present",
+            "evidence": "Both attachment stores implement the same read/write/delete methods.",
+            "reason": "States the shared interface; the later unfinished-state statement clarifies production implementation remains pending."
+          },
+          {
+            "id": "CON_01",
+            "status": "present",
+            "evidence": "Keep each device copy until its authenticated upload is acknowledged by the server.",
+            "reason": "Preserves the per-attachment authenticated acknowledgement requirement."
+          },
+          {
+            "id": "OLD_01",
+            "status": "present",
+            "evidence": "The localStorage-only production plan has been replaced.",
+            "reason": "Explicitly identifies the earlier decision as superseded."
+          },
+          {
+            "id": "STATE_01",
+            "status": "present",
+            "evidence": "Record storage and metadata sync work; production attachment stores, common tests, and end-to-end transfer are still unfinished.",
+            "reason": "Represents the implemented record and metadata functionality and all unfinished attachment work."
+          },
+          {
+            "id": "NEXT_01",
+            "status": "present",
+            "evidence": "Next, implement the shared adapter and backend choice, test reload persistence, permission fallback and acknowledgement-safe cleanup, then wire it to SyncEngine.",
+            "reason": "Includes backend selection, shared behavior, required tests, and subsequent SyncEngine integration."
+          }
+        ],
+        "critical_proposition_coverage_percent": 100,
+        "total_proposition_coverage_percent": 100,
+        "stale_current_errors": 0,
+        "contradiction_count": 0,
+        "pass": true
+      },
+      "provider_usage": {
+        "input_tokens": 15540,
+        "cached_input_tokens": 12416,
+        "output_tokens": 408,
+        "total_tokens": null
+      },
+      "elapsed_ms": 18493.68,
+      "exit_code": 0,
+      "case": "STALE_CORRECTLY_LABELED",
+      "expected_statuses": {
+        "OLD_01": "present"
+      },
+      "checks": {
+        "OLD_01": true,
+        "pass_rule": true
+      },
+      "passed": true
+    },
+    {
+      "evaluation_id": "synthetic_07",
+      "grade": {
+        "answer_id": "synthetic_07",
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "status": "present",
+            "evidence": "Atlas is a browser PWA for desktop and mobile over the HTTPS JSON API.",
+            "reason": "Asserts the current client platform and API."
+          },
+          {
+            "id": "ARCH_02",
+            "status": "present",
+            "evidence": "Persistence and sync are independently replaceable.",
+            "reason": "Clearly asserts independently replaceable layers."
+          },
+          {
+            "id": "DEC_01",
+            "status": "absent",
+            "evidence": "Inspection records live in IndexedDB. The team might consider filesystem access for attachments someday.",
+            "reason": "Record storage is current, but filesystem attachment storage is only a future possibility; the adopted preference and IndexedDB blob fallback are missing."
+          },
+          {
+            "id": "DEC_02",
+            "status": "present",
+            "evidence": "Both attachment stores implement the same read/write/delete methods.",
+            "reason": "Represents the shared interface as adopted; the later unfinished-state statement clarifies implementation status."
+          },
+          {
+            "id": "CON_01",
+            "status": "present",
+            "evidence": "Keep each device copy until its authenticated upload is acknowledged by the server.",
+            "reason": "Preserves per-attachment retention until authenticated upload acknowledgement."
+          },
+          {
+            "id": "OLD_01",
+            "status": "present",
+            "evidence": "The localStorage-only production plan has been replaced.",
+            "reason": "Explicitly identifies the old decision as superseded."
+          },
+          {
+            "id": "STATE_01",
+            "status": "present",
+            "evidence": "Record storage and metadata sync work; production attachment stores, common tests, and end-to-end transfer are still unfinished.",
+            "reason": "Correctly distinguishes working record and metadata functionality from unfinished attachment work."
+          },
+          {
+            "id": "NEXT_01",
+            "status": "present",
+            "evidence": "Next, implement the shared adapter and backend choice, test reload persistence, permission fallback and acknowledgement-safe cleanup, then wire it to SyncEngine.",
+            "reason": "Includes backend selection, shared behavior, required tests, and subsequent SyncEngine integration."
+          }
+        ],
+        "critical_proposition_coverage_percent": 87.5,
+        "total_proposition_coverage_percent": 87.5,
+        "stale_current_errors": 0,
+        "contradiction_count": 0,
+        "pass": false
+      },
+      "provider_usage": {
+        "input_tokens": 15534,
+        "cached_input_tokens": 12416,
+        "output_tokens": 424,
+        "total_tokens": null
+      },
+      "elapsed_ms": 22367.43,
+      "exit_code": 0,
+      "case": "FUTURE_VS_CURRENT",
+      "expected_statuses": {
+        "DEC_01": "absent"
+      },
+      "checks": {
+        "DEC_01": true,
+        "pass_rule": true
+      },
+      "passed": true
+    },
+    {
+      "evaluation_id": "synthetic_08",
+      "grade": {
+        "answer_id": "synthetic_08",
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "status": "present",
+            "evidence": "Atlas is a browser PWA for desktop and mobile over the HTTPS JSON API.",
+            "reason": "Affirms the current browser client, supported devices, and API."
+          },
+          {
+            "id": "ARCH_02",
+            "status": "present",
+            "evidence": "Persistence and sync are independently replaceable.",
+            "reason": "Affirms independently replaceable persistence and synchronization layers."
+          },
+          {
+            "id": "DEC_01",
+            "status": "present",
+            "evidence": "Inspection records live in IndexedDB; attachments use filesystem access where supported and IndexedDB blobs otherwise.",
+            "reason": "States the adopted record storage and attachment preference with fallback."
+          },
+          {
+            "id": "DEC_02",
+            "status": "present",
+            "evidence": "Both attachment stores implement the same read/write/delete methods.",
+            "reason": "Affirms the shared interface; the later unfinished-state statement clarifies production implementation remains incomplete."
+          },
+          {
+            "id": "CON_01",
+            "status": "present",
+            "evidence": "Keep each device copy until its authenticated upload is acknowledged by the server.",
+            "reason": "Preserves the binding per-attachment authenticated acknowledgement requirement."
+          },
+          {
+            "id": "OLD_01",
+            "status": "present",
+            "evidence": "The localStorage-only production plan has been replaced.",
+            "reason": "Explicitly identifies the earlier plan as superseded."
+          },
+          {
+            "id": "STATE_01",
+            "status": "present",
+            "evidence": "Record storage and metadata sync work; production attachment stores, common tests, and end-to-end transfer are still unfinished.",
+            "reason": "Correctly distinguishes working record and metadata functionality from unfinished attachment implementation and testing."
+          },
+          {
+            "id": "NEXT_01",
+            "status": "present",
+            "evidence": "Next, implement the shared adapter and backend choice, test reload persistence, permission fallback and acknowledgement-safe cleanup, then wire it to SyncEngine.",
+            "reason": "States the required implementation, validation, and subsequent integration sequence."
+          }
+        ],
+        "critical_proposition_coverage_percent": 100,
+        "total_proposition_coverage_percent": 100,
+        "stale_current_errors": 0,
+        "contradiction_count": 0,
+        "pass": true
+      },
+      "provider_usage": {
+        "input_tokens": 15538,
+        "cached_input_tokens": 12416,
+        "output_tokens": 411,
+        "total_tokens": null
+      },
+      "elapsed_ms": 21363.29,
+      "exit_code": 0,
+      "case": "HEADING_INDEPENDENT",
+      "expected_statuses": {
+        "ARCH_01": "present",
+        "ARCH_02": "present",
+        "DEC_01": "present",
+        "DEC_02": "present",
+        "CON_01": "present",
+        "OLD_01": "present",
+        "STATE_01": "present",
+        "NEXT_01": "present"
+      },
+      "checks": {
+        "ARCH_01": true,
+        "ARCH_02": true,
+        "DEC_01": true,
+        "DEC_02": true,
+        "CON_01": true,
+        "OLD_01": true,
+        "STATE_01": true,
+        "NEXT_01": true,
+        "pass_rule": true
+      },
+      "passed": true
+    }
+  ]
+}

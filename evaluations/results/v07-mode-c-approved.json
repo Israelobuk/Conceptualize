@@ -1,0 +1,585 @@
+{
+  "benchmark": "v0.7-context-economics-atlas-9",
+  "mode": "C",
+  "model": "gpt-6-sol",
+  "reasoning_effort": "low",
+  "repetitions": 3,
+  "fixture_sha256": "2e3c86cc1c0f9ad5105ce752e6355da56d423f3f1836f228b3f0a4fe0ce71e9f",
+  "ground_truth_sha256": "6ad07d7609cb249b4f5178cda69fa6471c8d1c8db9097572c36a460d726621be",
+  "history_tokens_cl100k": 8223,
+  "budget": 4000,
+  "runs": [
+    {
+      "benchmark": "v0.7-context-economics-atlas-9",
+      "mode": "C",
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "repetition": 1,
+      "fixture_sha256": "2e3c86cc1c0f9ad5105ce752e6355da56d423f3f1836f228b3f0a4fe0ce71e9f",
+      "ground_truth_sha256": "6ad07d7609cb249b4f5178cda69fa6471c8d1c8db9097572c36a460d726621be",
+      "history_messages": 119,
+      "full_history_tokens_cl100k": 8223,
+      "context_budget": 4000,
+      "conceptualize": null,
+      "provider_usage": {
+        "input_tokens": 20341,
+        "cached_input_tokens": 8192,
+        "output_tokens": 138,
+        "total_tokens": null
+      },
+      "elapsed_ms": 11204.63,
+      "model_exit_code": 0,
+      "non_message_tool_events": [],
+      "mcp_tool_events": [],
+      "answer": "## CURRENT ARCHITECTURE\n\nNo architecture is established in the supplied conversation.\n\n## CURRENT CONSTRAINTS\n\nUse only the supplied project conversation. Do not infer missing decisions or treat old proposals or unrelated release discussion as current implementation decisions.\n\n## SUPERSEDED DECISIONS\n\nNone can be identified from the supplied conversation.\n\n## CURRENT STATE\n\nThe current request is present, but the project discussion containing implementation decisions was not supplied.\n\n## NEXT STEP\n\nProvide the project conversation so the current implementation plan and superseded decisions can be summarized accurately.",
+      "grade": {
+        "passed": false,
+        "fact_coverage_percent": 0.0,
+        "facts_present": 0,
+        "facts_total": 23,
+        "critical_facts_missing": [
+          "pwa_https_api",
+          "localstore_indexeddb_records",
+          "attachment_filesystem_preferred",
+          "attachment_idb_blob_fallback",
+          "shared_attachment_adapter",
+          "syncengine_resumable",
+          "client_uuid_idempotency",
+          "version_conflict_check",
+          "retain_until_ack",
+          "retry_transient_only",
+          "plain_text_accessibility",
+          "foreground_sync_scope",
+          "conflicts_require_review",
+          "localstorage_replaced",
+          "native_client_replaced",
+          "filesystem_only_updated",
+          "record_store_done",
+          "metadata_sync_done",
+          "attachments_incomplete",
+          "attachment_adapter_contract_tests"
+        ],
+        "stale_claims_in_current_sections": [],
+        "next_step_correct": false,
+        "required_headings_parsed": true,
+        "checks": {
+          "current_architecture": [
+            {
+              "id": "pwa_https_api",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "localstore_indexeddb_records",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "attachment_filesystem_preferred",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "attachment_idb_blob_fallback",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "shared_attachment_adapter",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "syncengine_resumable",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "client_uuid_idempotency",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "version_conflict_check",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "postgres_api",
+              "critical": false,
+              "present": false
+            }
+          ],
+          "current_constraints": [
+            {
+              "id": "retain_until_ack",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "retry_transient_only",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "plain_text_accessibility",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "foreground_sync_scope",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "no_background_or_manager_features",
+              "critical": false,
+              "present": false
+            },
+            {
+              "id": "conflicts_require_review",
+              "critical": true,
+              "present": false
+            }
+          ],
+          "superseded_decisions": [
+            {
+              "id": "localstorage_replaced",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "native_client_replaced",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "filesystem_only_updated",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "websocket_proposal_rejected",
+              "critical": false,
+              "present": false
+            }
+          ],
+          "current_state": [
+            {
+              "id": "record_store_done",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "metadata_sync_done",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "attachments_incomplete",
+              "critical": true,
+              "present": false
+            }
+          ]
+        },
+        "next_step": {
+          "id": "attachment_adapter_contract_tests",
+          "present": false
+        }
+      },
+      "protocol_valid": true,
+      "raw_directory": "evaluations\\runs\\v07-mode-c-autonomous-final\\gpt-6-sol\\mode_c_budget_4000\\rep-1",
+      "conceptualize_adoption": "enabled_but_unused",
+      "conceptualize_call_count": 0,
+      "conceptualize_successful_call_count": 0,
+      "context_string_tokens_returned": 0,
+      "previous_context_tokens_referenced": 0
+    },
+    {
+      "benchmark": "v0.7-context-economics-atlas-9",
+      "mode": "C",
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "repetition": 2,
+      "fixture_sha256": "2e3c86cc1c0f9ad5105ce752e6355da56d423f3f1836f228b3f0a4fe0ce71e9f",
+      "ground_truth_sha256": "6ad07d7609cb249b4f5178cda69fa6471c8d1c8db9097572c36a460d726621be",
+      "history_messages": 119,
+      "full_history_tokens_cl100k": 8223,
+      "context_budget": 4000,
+      "conceptualize": null,
+      "provider_usage": {
+        "input_tokens": 20341,
+        "cached_input_tokens": 19200,
+        "output_tokens": 143,
+        "total_tokens": null
+      },
+      "elapsed_ms": 12487.05,
+      "model_exit_code": 0,
+      "non_message_tool_events": [],
+      "mcp_tool_events": [],
+      "answer": "## CURRENT ARCHITECTURE\n\nNo architecture decisions are included in the supplied conversation.\n\n## CURRENT CONSTRAINTS\n\nUse only the supplied project conversation; distinguish current implementation from earlier proposals and unrelated release discussion; do not infer missing decisions.\n\n## SUPERSEDED DECISIONS\n\nNo earlier decisions or replacements are supplied, so none can be identified as superseded.\n\n## CURRENT STATE\n\nThe supplied conversation contains the summary request but no project implementation history or status.\n\n## NEXT STEP\n\nProvide the project conversation so the current implementation plan and agreed next step can be summarized accurately.",
+      "grade": {
+        "passed": false,
+        "fact_coverage_percent": 0.0,
+        "facts_present": 0,
+        "facts_total": 23,
+        "critical_facts_missing": [
+          "pwa_https_api",
+          "localstore_indexeddb_records",
+          "attachment_filesystem_preferred",
+          "attachment_idb_blob_fallback",
+          "shared_attachment_adapter",
+          "syncengine_resumable",
+          "client_uuid_idempotency",
+          "version_conflict_check",
+          "retain_until_ack",
+          "retry_transient_only",
+          "plain_text_accessibility",
+          "foreground_sync_scope",
+          "conflicts_require_review",
+          "localstorage_replaced",
+          "native_client_replaced",
+          "filesystem_only_updated",
+          "record_store_done",
+          "metadata_sync_done",
+          "attachments_incomplete",
+          "attachment_adapter_contract_tests"
+        ],
+        "stale_claims_in_current_sections": [],
+        "next_step_correct": false,
+        "required_headings_parsed": true,
+        "checks": {
+          "current_architecture": [
+            {
+              "id": "pwa_https_api",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "localstore_indexeddb_records",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "attachment_filesystem_preferred",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "attachment_idb_blob_fallback",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "shared_attachment_adapter",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "syncengine_resumable",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "client_uuid_idempotency",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "version_conflict_check",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "postgres_api",
+              "critical": false,
+              "present": false
+            }
+          ],
+          "current_constraints": [
+            {
+              "id": "retain_until_ack",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "retry_transient_only",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "plain_text_accessibility",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "foreground_sync_scope",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "no_background_or_manager_features",
+              "critical": false,
+              "present": false
+            },
+            {
+              "id": "conflicts_require_review",
+              "critical": true,
+              "present": false
+            }
+          ],
+          "superseded_decisions": [
+            {
+              "id": "localstorage_replaced",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "native_client_replaced",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "filesystem_only_updated",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "websocket_proposal_rejected",
+              "critical": false,
+              "present": false
+            }
+          ],
+          "current_state": [
+            {
+              "id": "record_store_done",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "metadata_sync_done",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "attachments_incomplete",
+              "critical": true,
+              "present": false
+            }
+          ]
+        },
+        "next_step": {
+          "id": "attachment_adapter_contract_tests",
+          "present": false
+        }
+      },
+      "protocol_valid": true,
+      "raw_directory": "evaluations\\runs\\v07-mode-c-autonomous-final\\gpt-6-sol\\mode_c_budget_4000\\rep-2",
+      "conceptualize_adoption": "enabled_but_unused",
+      "conceptualize_call_count": 0,
+      "conceptualize_successful_call_count": 0,
+      "context_string_tokens_returned": 0,
+      "previous_context_tokens_referenced": 0
+    },
+    {
+      "benchmark": "v0.7-context-economics-atlas-9",
+      "mode": "C",
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "repetition": 3,
+      "fixture_sha256": "2e3c86cc1c0f9ad5105ce752e6355da56d423f3f1836f228b3f0a4fe0ce71e9f",
+      "ground_truth_sha256": "6ad07d7609cb249b4f5178cda69fa6471c8d1c8db9097572c36a460d726621be",
+      "history_messages": 119,
+      "full_history_tokens_cl100k": 8223,
+      "context_budget": 4000,
+      "conceptualize": null,
+      "provider_usage": {
+        "input_tokens": 20341,
+        "cached_input_tokens": 19200,
+        "output_tokens": 161,
+        "total_tokens": null
+      },
+      "elapsed_ms": 12606.06,
+      "model_exit_code": 0,
+      "non_message_tool_events": [],
+      "mcp_tool_events": [],
+      "answer": "## CURRENT ARCHITECTURE\n\nNo architecture is documented in the supplied conversation.\n\n## CURRENT CONSTRAINTS\n\nUse only the supplied project conversation, distinguish current implementation from older proposals and unrelated release discussion, and do not infer missing decisions. No technical constraints were supplied.\n\n## SUPERSEDED DECISIONS\n\nNo earlier decisions or proposals were supplied, so none can be identified as superseded.\n\n## CURRENT STATE\n\nThe request asks for a summary of prior decisions, but the supplied conversation contains no project history or implementation details.\n\n## NEXT STEP\n\nProvide the project conversation so the current implementation plan and next implementation step can be identified.",
+      "grade": {
+        "passed": false,
+        "fact_coverage_percent": 0.0,
+        "facts_present": 0,
+        "facts_total": 23,
+        "critical_facts_missing": [
+          "pwa_https_api",
+          "localstore_indexeddb_records",
+          "attachment_filesystem_preferred",
+          "attachment_idb_blob_fallback",
+          "shared_attachment_adapter",
+          "syncengine_resumable",
+          "client_uuid_idempotency",
+          "version_conflict_check",
+          "retain_until_ack",
+          "retry_transient_only",
+          "plain_text_accessibility",
+          "foreground_sync_scope",
+          "conflicts_require_review",
+          "localstorage_replaced",
+          "native_client_replaced",
+          "filesystem_only_updated",
+          "record_store_done",
+          "metadata_sync_done",
+          "attachments_incomplete",
+          "attachment_adapter_contract_tests"
+        ],
+        "stale_claims_in_current_sections": [],
+        "next_step_correct": false,
+        "required_headings_parsed": true,
+        "checks": {
+          "current_architecture": [
+            {
+              "id": "pwa_https_api",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "localstore_indexeddb_records",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "attachment_filesystem_preferred",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "attachment_idb_blob_fallback",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "shared_attachment_adapter",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "syncengine_resumable",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "client_uuid_idempotency",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "version_conflict_check",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "postgres_api",
+              "critical": false,
+              "present": false
+            }
+          ],
+          "current_constraints": [
+            {
+              "id": "retain_until_ack",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "retry_transient_only",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "plain_text_accessibility",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "foreground_sync_scope",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "no_background_or_manager_features",
+              "critical": false,
+              "present": false
+            },
+            {
+              "id": "conflicts_require_review",
+              "critical": true,
+              "present": false
+            }
+          ],
+          "superseded_decisions": [
+            {
+              "id": "localstorage_replaced",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "native_client_replaced",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "filesystem_only_updated",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "websocket_proposal_rejected",
+              "critical": false,
+              "present": false
+            }
+          ],
+          "current_state": [
+            {
+              "id": "record_store_done",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "metadata_sync_done",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "attachments_incomplete",
+              "critical": true,
+              "present": false
+            }
+          ]
+        },
+        "next_step": {
+          "id": "attachment_adapter_contract_tests",
+          "present": false
+        }
+      },
+      "protocol_valid": true,
+      "raw_directory": "evaluations\\runs\\v07-mode-c-autonomous-final\\gpt-6-sol\\mode_c_budget_4000\\rep-3",
+      "conceptualize_adoption": "enabled_but_unused",
+      "conceptualize_call_count": 0,
+      "conceptualize_successful_call_count": 0,
+      "context_string_tokens_returned": 0,
+      "previous_context_tokens_referenced": 0
+    }
+  ],
+  "pass_count": 0,
+  "protocol_valid_runs": 3,
+  "average_input_tokens": 20341.0,
+  "average_cached_input_tokens": 15530.67,
+  "average_output_tokens": 147.33,
+  "average_elapsed_ms": 12099.25,
+  "pricing": null,
+  "estimated_cost": null,
+  "cost_limitation": "No verified versioned pricing snapshot was supplied.",
+  "conceptualize_adoption_count": 0,
+  "enabled_but_unused_runs": 3,
+  "average_conceptualize_calls": 0.0,
+  "average_context_string_tokens_returned": 0.0,
+  "mode_c_interpretation": "All three model runs completed with the default context tool available, but none invoked it. All are classified enabled_but_unused and have zero context delivery; correctness was not achieved. This is integration/adoption evidence, not a context-selection evaluation."
+}

@@ -1,4 +1,11 @@
-from conceptualize_evaluation.v07_economics import _verify_freeze, grade
+from conceptualize_evaluation.v07_economics import (
+    QUESTION,
+    _autonomous_prompt,
+    _guided_prompt,
+    _mcp_adoption_status,
+    _verify_freeze,
+    grade,
+)
 
 GOOD_ANSWER = """
 ## CURRENT ARCHITECTURE
@@ -35,6 +42,25 @@ def test_v07_frozen_truth_and_fixture_are_hashed_before_runs():
     assert truth["created_before_model_runs"] is True
     assert freeze["history_tokens_cl100k"] >= 8000
     assert freeze["model_runs_started"] is False
+
+
+def test_mode_c_prompt_keeps_the_frozen_question_without_directing_tool_adoption():
+    prompt = _autonomous_prompt()
+    assert prompt.endswith("CURRENT REQUEST:\n" + QUESTION)
+    assert "conceptualize_context" not in prompt
+    assert "call it once" not in prompt.casefold()
+
+
+def test_mode_c_distinguishes_enabled_but_unused_from_tool_failure():
+    assert _mcp_adoption_status([]) == "enabled_but_unused"
+    assert _mcp_adoption_status([{"status": "failed"}]) == "invoked"
+
+
+def test_guided_integration_prompt_uses_the_frozen_query_without_changing_task():
+    prompt = _guided_prompt()
+    assert prompt.endswith("CURRENT REQUEST:\n" + QUESTION)
+    assert "conceptualize_context" in prompt
+    assert "query argument" in prompt
 
 
 def test_proposition_grader_accepts_paraphrase_and_structured_sections():

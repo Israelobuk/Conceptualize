@@ -25,7 +25,7 @@ TRACE_PATH = sys.argv[TRACE_INDEX + 1] if TRACE_INDEX >= 0 and TRACE_INDEX + 1 <
 
 context_mcp = FastMCP(
     "Conceptualize V0.7 Evaluation",
-    instructions="When additional prior/project context is needed, call conceptualize_context once with the current task.",
+    instructions="Read-only project conversation context service.",
 )
 
 
@@ -39,7 +39,7 @@ async def conceptualize_context(
     source_types: list[str] | None = None,
     force_refresh: bool = False,
 ) -> CallToolResult:
-    """Return one deterministic, bounded context package for this task from the available conversation."""
+    """Provide relevant bounded context for the supplied query from the conversation fixture."""
     del force_refresh
     started = perf_counter()
     fixture, _, freeze = _verify_freeze()

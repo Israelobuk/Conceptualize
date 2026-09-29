@@ -201,9 +201,14 @@ def _run_model(
     cwd = output / "empty-workspace"
     cwd.mkdir()
     (output / "prompt.txt").write_text(prompt, encoding="utf-8")
+    approval_args = (
+        ["--approve-for-me", "-c", 'approval_policy="on-request"']
+        if mcp_mode == "context"
+        else ["-c", 'approval_policy="never"', "-s", "read-only"]
+    )
     command = [
         codex, "exec", "--ephemeral", "--skip-git-repo-check", "--json", "--model", model,
-        "-c", "model_reasoning_effort=low", "-c", 'approval_policy="never"', "-s", "read-only",
+        "-c", "model_reasoning_effort=low", *approval_args,
         "-c", "mcp_servers.conceptualize.command=" + json.dumps(sys.executable),
         "-c", "mcp_servers.conceptualize.args=[]",
         "-c", "mcp_servers.conceptualize.enabled=false", "-",
@@ -283,11 +288,22 @@ def _prompt(fixture: dict, context: str | None, history: str | None) -> str:
 def _autonomous_prompt() -> str:
     return "\n\n".join((
         COMMON_INSTRUCTIONS,
-        "The project conversation is available through the read-only conceptualize_context MCP tool. "
-        "Call it once with this task and a 4000-token budget, then answer using its returned context. "
-        "Do not use any other tools.",
         "CURRENT REQUEST:\n" + QUESTION,
     ))
+
+
+def _guided_prompt() -> str:
+    return "\n\n".join((
+        COMMON_INSTRUCTIONS,
+        "Use the read-only conceptualize_context tool once to retrieve relevant prior context. "
+        "Set its query argument to the current request verbatim and token_budget to 4000. "
+        "Then answer using the returned context.",
+        "CURRENT REQUEST:\n" + QUESTION,
+    ))
+
+
+def _mcp_adoption_status(tool_calls: list[dict]) -> str:
+    return "invoked" if tool_calls else "enabled_but_unused"
 
 
 def run_repetitions(
@@ -318,11 +334,12 @@ def run_repetitions(
     records = []
     for rep in range(1, repetitions + 1):
         context = precompiled["context"] if precompiled is not None else None
-        prompt = (
-            _autonomous_prompt()
-            if mode == "C"
-            else _prompt(fixture, context, history if mode in {"A", "host"} else None)
-        )
+        if mode == "C":
+            prompt = _autonomous_prompt()
+        elif mode == "C-guided":
+            prompt = _guided_prompt()
+        else:
+            prompt = _prompt(fixture, context, history if mode in {"A", "host"} else None)
         destination = output_root / model / f"mode_{mode.lower()}_budget_{budget}" / f"rep-{rep}"
         raw = _run_model(
             prompt,
@@ -331,7 +348,7 @@ def run_repetitions(
             codex_home=codex_home,
             output=destination,
             timeout=timeout,
-            mcp_mode={"C": "context", "host": "inert"}.get(mode),
+            mcp_mode={"C": "context", "C-guided": "context", "host": "inert"}.get(mode),
         )
         mcp_trace_path = destination / "mcp-trace.json"
         mcp_trace = json.loads(mcp_trace_path.read_text(encoding="utf-8")) if mcp_trace_path.exists() else None
@@ -359,7 +376,7 @@ def run_repetitions(
             "ground_truth_sha256": freeze["ground_truth_sha256"],
             "history_messages": freeze["messages"],
             "full_history_tokens_cl100k": history_tokens,
-            "context_budget": budget if mode in {"B", "sweep", "C"} else None,
+            "context_budget": budget if mode in {"B", "sweep", "C", "C-guided"} else None,
             "conceptualize": ({
                 "candidate_tokens": precompiled["metrics"].get("candidate_tokens"),
                 "selected_context_tokens": token_count(precompiled["context"]),
@@ -381,12 +398,27 @@ def run_repetitions(
             "model_exit_code": raw["exit_code"],
             "non_message_tool_events": raw["tool_events"],
             "mcp_tool_events": mcp_calls,
+            "conceptualize_adoption": (
+                _mcp_adoption_status(mcp_calls) if mode in {"C", "C-guided"} else "not_applicable"
+            ),
+            "conceptualize_call_count": len(mcp_calls),
+            "conceptualize_successful_call_count": sum(
+                not call.get("error") and call.get("status") != "failed"
+                for call in mcp_calls
+            ),
+            "context_string_tokens_returned": (
+                mcp_trace.get("selected_context_tokens", 0) if mcp_trace else 0
+            ),
+            "previous_context_tokens_referenced": (
+                mcp_trace.get("metrics", {}).get("unchanged_context_tokens", 0)
+                if mcp_trace else 0
+            ),
             "answer": raw["answer"],
             "grade": grade(raw["answer"], truth),
             "protocol_valid": raw["exit_code"] == 0 and (
                 not raw["tool_events"] if mode in {"A", "B", "sweep"}
-                else any(not call.get("error") and call.get("status") != "failed" for call in mcp_calls)
-                if mode == "C"
+                else all(not call.get("error") and call.get("status") != "failed" for call in mcp_calls)
+                if mode in {"C", "C-guided"}
                 else not mcp_calls
             ),
             "raw_directory": str(destination.relative_to(ROOT)),
@@ -402,10 +434,22 @@ def run_repetitions(
         "fixture_sha256": freeze["fixture_sha256"],
         "ground_truth_sha256": freeze["ground_truth_sha256"],
         "history_tokens_cl100k": history_tokens,
-        "budget": budget if mode in {"B", "sweep", "C"} else None,
+        "budget": budget if mode in {"B", "sweep", "C", "C-guided"} else None,
         "runs": records,
         "pass_count": sum(record["grade"]["passed"] for record in records),
         "protocol_valid_runs": sum(record["protocol_valid"] for record in records),
+        "conceptualize_adoption_count": sum(
+            record.get("conceptualize_adoption") == "invoked" for record in records
+        ),
+        "enabled_but_unused_runs": sum(
+            record.get("conceptualize_adoption") == "enabled_but_unused" for record in records
+        ),
+        "average_conceptualize_calls": round(
+            sum(record.get("conceptualize_call_count", 0) for record in records) / len(records), 2
+        ) if records else 0,
+        "average_context_string_tokens_returned": round(
+            sum(record.get("context_string_tokens_returned", 0) for record in records) / len(records), 2
+        ) if records else 0,
         "average_input_tokens": _average(records, "input_tokens"),
         "average_cached_input_tokens": _average(records, "cached_input_tokens"),
         "average_output_tokens": _average(records, "output_tokens"),
@@ -415,7 +459,11 @@ def run_repetitions(
         "cost_limitation": "No verified versioned pricing snapshot was supplied.",
     }
     RESULTS.mkdir(parents=True, exist_ok=True)
-    result_path = RESULTS / f"v07-mode-{mode.lower()}-{budget if mode in {'B','sweep'} else 'na'}.json"
+    result_name = {
+        "C": "v07-mode-c-approved.json",
+        "C-guided": f"v07-mode-c-guided-{budget}.json",
+    }.get(mode, f"v07-mode-{mode.lower()}-{budget if mode in {'B','sweep'} else 'na'}.json")
+    result_path = RESULTS / result_name
     result_path.write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({key: summary[key] for key in (
         "mode", "repetitions", "pass_count", "protocol_valid_runs", "history_tokens_cl100k",
@@ -432,7 +480,7 @@ def _average(records: list[dict], field: str) -> float | None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--mode", required=True, choices=["A", "B", "sweep", "C", "host"])
+    parser.add_argument("--mode", required=True, choices=["A", "B", "sweep", "C", "C-guided", "host"])
     parser.add_argument("--repetitions", type=int, default=1)
     parser.add_argument("--budget", type=int, default=4000)
     parser.add_argument("--model", default=MODEL)

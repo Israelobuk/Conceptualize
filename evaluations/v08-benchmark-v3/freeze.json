@@ -1,0 +1,17 @@
+{
+  "fixture_version": "v0.8-benchmark-3",
+  "fixture_sha256": "6c118b867b23d6e5e1fa0edf52932e8ec4eee0f3f45c389e83eedb24e5308ba9",
+  "ground_truth_sha256": "52ff03f318040670cbb1f1407b52c582cd0da61422b9d75b6413b39b6528fd84",
+  "grader_sha256": "ab1fe041ce4741f6eb1c17b169de08613659444fdbc330b5a4dc27ebaf369d11",
+  "grader_implementation_sha256": "509a99741aa74fecfb5fe5eb3ae0566caabc187fb03b54ca9a49d4fdfb11f16f",
+  "source_v2_fixture_sha256": "ba658a16047eb8ca2303660f7ffbde1c78f6edf7e6d2e6e4356465a6b1524f06",
+  "question": "Continue the attachment-storage work using the current project state. Summarize the current architecture and decisions, the data-retention constraint, which earlier decision was superseded, what remains unfinished, and the next implementation step. Return concise bullets under CURRENT ARCHITECTURE, CURRENT DECISIONS, CONSTRAINTS, SUPERSEDED DECISIONS, CURRENT STATE, and NEXT STEP.",
+  "messages": 119,
+  "history_tokens_cl100k": 8292,
+  "model_runs_started": false,
+  "pass_rule": {
+    "all_critical_facts_required": true,
+    "minimum_coverage_percent": 100,
+    "stale_current_claims_allowed": 0
+  }
+}

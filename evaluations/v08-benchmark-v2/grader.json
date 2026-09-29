@@ -1,0 +1,12 @@
+{
+  "version": "v0.8-benchmark-2",
+  "algorithm": "section-scoped predetermined normalized token-set inclusion",
+  "normalization": [
+    "casefold",
+    "punctuation-to-space",
+    "whitespace-collapse",
+    "simple-suffix-normalization"
+  ],
+  "variants_are_predeclared": true,
+  "truth_sha256_is_embedded_in_freeze": true
+}

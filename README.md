@@ -1,19 +1,32 @@
 # Conceptualize
 
-**Conceptualize is a deterministic context runtime for AI agents.** An agent can ask once for the context relevant to its current task. Conceptualize selects bounded repository or conversation context, records what it supplied for the MCP session, and returns only new or changed context on follow-up calls. It is model-independent and uses no AI model, embeddings, vector database, or semantic reranker.
+**Context superpowers for AI agents.** Conceptualize is a deterministic, model-independent context capability that gives an agent relevant prior decisions, constraints, relationships, changes, and work behind the task at hand.
+
+Activate Conceptualize for a task, then keep working normally. In a host that supports mentions, the intended user experience is `@Conceptualize` followed by the user's ordinary task. Host integrations may activate the capability through their native plugin, MCP, skill, or configuration mechanism; the Context Runtime does not parse mention syntax.
+
+Without Conceptualize, an agent works from the context already in its current session. With Conceptualize, the agent can receive relevant context from prior project work and continue with its normal reasoning and tools. There is no separate retrieval workflow, manual source selection, or additional AI model inside Conceptualize. Embeddings and vector databases are not used.
 
 ## Architecture
 
 ```text
-AI agent → one conceptualize_context MCP call → deterministic context planner
-                                              ├─ repository graph and Git metadata
-                                              ├─ lexical conversation retrieval
-                                              ├─ explicit, provenance-preserving relationships
-                                              ├─ session ledger and context deltas
-                                              └─ bounded package + complete developer trace
+USER
+  ↓ @Conceptualize + normal task
+HOST AGENT
+  ↓ context capability
+CONTEXT RUNTIME
+  ↓ ContextUnits, relationships, source state and session ledger
+WORKING CONTEXT / CONTEXT DELTA
+  ↓
+HOST AGENT CONTINUES ITS NORMAL WORKFLOW
 ```
 
-Repository and conversation adapters feed source-agnostic ContextUnits. Repository changes retain structural dependency, consumer, and test traversal. Selection scores, provenance, relationships, session state, and suppression reasons are recorded in traces; the model-facing result stays compact. Advanced MCP tools remain available with `CONCEPTUALIZE_MCP_ADVANCED=true` for debugging and compatibility.
+The user-facing capability, minimal agent API, and internal runtime are separate layers. Repository and conversation adapters feed source-agnostic ContextUnits. The deterministic compiler assembles source evidence into a coherent Working Context, preserves provenance, and uses the session ledger to return only useful new or changed context. Complete selection and relationship evidence stays in traces; the agent receives a compact augmentation. Conceptualize complements the host and does not replace it.
+
+## V0.8 capability and evaluation status
+
+The default MCP capability accepts one required field: the user's task. Source selection, context budget, and retrieval strategy are internal. `@Conceptualize` describes the user experience; host integrations may activate it with their native MCP, plugin, skill, or mention mechanism. V0.8 adds deterministic Working Context sections with source-unit provenance. The six legacy tools remain advanced/debug only.
+
+The V0.8 primary comparison has **not reached a valid baseline**. Benchmark v1 scored 0/3; v2 scored 0/3; v3 scored 1/3 after section placement caused false negatives; and v4 scored 0/3 because its deterministic whole-answer grader still missed equivalent wording. No `@Conceptualize` model runs were made. These are inconclusive benchmark-methodology results, not evidence that activation helped or hurt. See the [V0.8 evaluation details](evaluations/V08.md).
 
 ## V0.6 evaluation status
 
@@ -27,7 +40,7 @@ The frozen V0.7 task used the same 8,223-token conversation for full-context and
 
 See the [detailed V0.7 evaluation](evaluations/V07.md), [full-context results](evaluations/results/v07-mode-a-na.json), [precompiled-context results](evaluations/results/v07-mode-b-4000.json), [context-engine diagnostics](evaluations/results/v07-context-engine.json), [session delta](evaluations/results/v07-session-continuation.json), and [MCP integration diagnostics](evaluations/results/v07-mcp-integration.json). Earlier rubric-calibration runs are preserved in `evaluations/v07/attempts/` and are excluded from the final A/B counts. No model runs inside Conceptualize.
 
-The `0.7.0` Python package and API versions track the product milestone; benchmark-fixture revisions have their own `fixture_version` fields and are not package versions.
+The `0.8.0` Python package and API versions track the product milestone; benchmark-fixture revisions have their own `fixture_version` fields and are not package versions.
 ## Local setup (PowerShell)
 
 Prerequisites: Python 3.11+, Node.js 22+, Docker Desktop with its Linux engine running, and Git. Run commands from this repository root. `uv` is optional but convenient when the system Python is unavailable.
@@ -114,7 +127,7 @@ CONCEPTUALIZE_API_URL = "http://127.0.0.1:8000"
 CONCEPTUALIZE_API_KEY = "YOUR_CX_KEY"
 ```
 
-The default MCP surface exposes one tool: `conceptualize_context(query, token_budget?, source_types?, force_refresh?)`. When relevant repository or prior-conversation context is missing, the agent can call it once with the task; the runtime chooses sources, follows deterministic relationships, and returns a bounded context delta. The six map/search/dependencies/expand/pack/inspect tools and capability resource are opt-in through `CONCEPTUALIZE_MCP_ADVANCED=true` for debugging and compatibility.
+Connect the MCP capability to a supported host and activate Conceptualize for an ordinary task. The host-facing default surface remains one minimal primitive, `conceptualize_context`, whose only model-supplied field is the user's task. Source choice, bounded context compilation, and session-aware deltas stay inside Conceptualize. The six legacy retrieval tools and capability resource are opt-in through `CONCEPTUALIZE_MCP_ADVANCED=true` for developer diagnostics and compatibility; they are not the normal user workflow.
 
 Generate an absolute-path configuration and verify the real connection:
 
@@ -158,7 +171,7 @@ Invoke-RestMethod http://127.0.0.1:8000/v1/context/conversations -Method Post -H
   -ContentType 'application/json' -Body $body
 ```
 
-The primary `conceptualize_context` call can select `source_types: ["conversation"]` or `["repository", "conversation"]`. Conversation ingestion preserves explicit `supersedes`, `updates`, and other declared relationships with provenance. Session history references unchanged deliveries and returns changed/new context; deterministic duplicate suppression only changes selection, never stored source data. No conversation summaries or model-generated topics are created.
+Conversation ingestion preserves explicit `supersedes`, `updates`, and other declared relationships with provenance. Session history references unchanged deliveries and returns changed/new context; deterministic duplicate suppression only changes selection, never stored source data. No conversation summaries or model-generated topics are created.
 
 Provider pricing is supplied as a versioned JSON snapshot and loaded with `conceptualize_runtime.economics.load_pricing`, then passed to `estimate_cost`. Conceptualize ships no live price table. Costs remain unavailable if any input, cached-input, or output token telemetry is missing; context-string token counts are not substituted for model telemetry.
 

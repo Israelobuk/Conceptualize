@@ -1,0 +1,12 @@
+{
+  "version": "v0.8-benchmark-3",
+  "algorithm": "section-scoped semantic slots; each slot accepts a predeclared normalized phrase set; contradiction and stale-state checks",
+  "normalization": [
+    "casefold",
+    "punctuation-to-space",
+    "whitespace-collapse",
+    "limited configured singular/plural and lexical alternatives"
+  ],
+  "allow_relevant_heading_variants": true,
+  "ai_judge": false
+}

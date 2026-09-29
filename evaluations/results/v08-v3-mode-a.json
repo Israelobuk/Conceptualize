@@ -1,0 +1,220 @@
+{
+  "benchmark": "v0.8-benchmark-3",
+  "mode": "A_full_context_normal_agent",
+  "model": "gpt-6-sol",
+  "reasoning_effort": "low",
+  "repetitions": 3,
+  "fixture_sha256": "6c118b867b23d6e5e1fa0edf52932e8ec4eee0f3f45c389e83eedb24e5308ba9",
+  "ground_truth_sha256": "52ff03f318040670cbb1f1407b52c582cd0da61422b9d75b6413b39b6528fd84",
+  "grader_sha256": "ab1fe041ce4741f6eb1c17b169de08613659444fdbc330b5a4dc27ebaf369d11",
+  "grader_implementation_sha256": "509a99741aa74fecfb5fe5eb3ae0566caabc187fb03b54ca9a49d4fdfb11f16f",
+  "history_messages": 119,
+  "history_tokens_cl100k": 8292,
+  "pass_count": 1,
+  "records": [
+    {
+      "repetition": 1,
+      "answer": "## CURRENT ARCHITECTURE\n\n- One browser PWA for desktop and mobile uses the existing HTTPS JSON API and PostgreSQL backend. LocalStore handles persistence; SyncEngine handles foreground transfers.\n\n## CURRENT DECISIONS\n\n- IndexedDB stores inspection records. The attachment adapter prefers filesystem storage when supported and permitted, with IndexedDB blobs as the fallback. Both backends share a write, read, and delete contract.\n- SyncEngine uses stable client UUIDs for idempotent retries, checks versions on updates, and resumes from acknowledged progress. Sync starts on app launch, pull to refresh, or an online edit.\n\n## CONSTRAINTS\n\n- Keep each draft and photo locally until its authenticated upload is acknowledged. Failed uploads, expired authentication, validation errors, and conflicts must not remove local content.\n- Retry transient failures with exponential backoff and jitter. Validation errors require correction; version conflicts require review.\n\n## SUPERSEDED DECISIONS\n\n- The native desktop client, localStorage production store, filesystem-only attachments, and WebSocket sync proposal are historical, not current plans.\n\n## CURRENT STATE\n\n- PWA shell, IndexedDB record persistence, and record metadata sync are integrated. The attachment interface is drafted, but production backends, shared contract tests, and end-to-end photo transfer remain unfinished.\n\n## NEXT STEP\n\n- Implement backend selection and both attachment backends; test the shared contract, reload persistence, permission fallback, and acknowledgement-gated cleanup. Then connect the adapter to SyncEngine.",
+      "grade": {
+        "passed": true,
+        "coverage_percent": 100.0,
+        "facts_present": 7,
+        "facts_total": 7,
+        "critical_missing": [],
+        "stale_current_claims": [],
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "critical": true,
+            "present": true,
+            "contradicted": false
+          },
+          {
+            "id": "ARCH_02",
+            "critical": true,
+            "present": true,
+            "contradicted": false
+          },
+          {
+            "id": "DEC_01",
+            "critical": true,
+            "present": true,
+            "contradicted": false
+          },
+          {
+            "id": "CON_01",
+            "critical": true,
+            "present": true,
+            "contradicted": false
+          },
+          {
+            "id": "OLD_01",
+            "critical": true,
+            "present": true,
+            "contradicted": false
+          },
+          {
+            "id": "STATE_01",
+            "critical": true,
+            "present": true,
+            "contradicted": false
+          },
+          {
+            "id": "NEXT_01",
+            "critical": true,
+            "present": true,
+            "contradicted": false
+          }
+        ]
+      },
+      "provider_usage": {
+        "input_tokens": 22408,
+        "cached_input_tokens": 11904,
+        "output_tokens": 303,
+        "total_tokens": null
+      },
+      "elapsed_ms": 12410.19,
+      "exit_code": 0,
+      "conceptualize_calls": 0
+    },
+    {
+      "repetition": 2,
+      "answer": "## CURRENT ARCHITECTURE\n\n- One browser PWA for desktop and mobile uses the existing HTTPS JSON API. LocalStore handles device persistence; SyncEngine handles transfer and retries.\n- LocalStore keeps inspection records in IndexedDB. Its attachment adapter prefers filesystem storage when supported and permitted, with IndexedDB blobs as the fallback. The API stores inspection rows in PostgreSQL.\n\n## CURRENT DECISIONS\n\n- Each inspection gets a stable client UUID before upload. The API uses it for idempotent create retries and checks the last acknowledged version on updates.\n- Sync runs on app launch, pull to refresh, and online edits. It resumes acknowledged progress; transient failures use exponential backoff with jitter. Validation errors and conflicts wait for user action.\n\n## CONSTRAINTS\n\n- Drafts and photos remain local until the API acknowledges **that item’s authenticated upload**. Timeouts, expired sessions, validation errors, conflicts, and lost responses do not authorize cleanup.\n- Attachment writes are durable only after storage confirms them. Storage failures must be reported; offline and sync states must be readable and accessible.\n\n## SUPERSEDED DECISIONS\n\n- The native desktop client, localStorage production store, filesystem-only attachments, and WebSocket sync proposal are historical, not part of the current plan.\n\n## CURRENT STATE\n\n- The PWA record path and metadata sync are integrated. The attachment interface is drafted, but production backends, shared contract tests, and end-to-end photo transfer remain unfinished.\n\n## NEXT STEP\n\n- Implement attachment backend selection and the shared write/read/delete contract. Test both backends for reload persistence, permission denial and fallback, failed writes, and cleanup only after acknowledgement; then connect the adapter to SyncEngine.",
+      "grade": {
+        "passed": false,
+        "coverage_percent": 85.71,
+        "facts_present": 6,
+        "facts_total": 7,
+        "critical_missing": [
+          "DEC_01"
+        ],
+        "stale_current_claims": [],
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "critical": true,
+            "present": true,
+            "contradicted": false
+          },
+          {
+            "id": "ARCH_02",
+            "critical": true,
+            "present": true,
+            "contradicted": false
+          },
+          {
+            "id": "DEC_01",
+            "critical": true,
+            "present": false,
+            "contradicted": false
+          },
+          {
+            "id": "CON_01",
+            "critical": true,
+            "present": true,
+            "contradicted": false
+          },
+          {
+            "id": "OLD_01",
+            "critical": true,
+            "present": true,
+            "contradicted": false
+          },
+          {
+            "id": "STATE_01",
+            "critical": true,
+            "present": true,
+            "contradicted": false
+          },
+          {
+            "id": "NEXT_01",
+            "critical": true,
+            "present": true,
+            "contradicted": false
+          }
+        ]
+      },
+      "provider_usage": {
+        "input_tokens": 22408,
+        "cached_input_tokens": 11904,
+        "output_tokens": 347,
+        "total_tokens": null
+      },
+      "elapsed_ms": 13245.32,
+      "exit_code": 0,
+      "conceptualize_calls": 0
+    },
+    {
+      "repetition": 3,
+      "answer": "## CURRENT ARCHITECTURE\n\n- One browser PWA for desktop and mobile uses the existing HTTPS JSON API. LocalStore handles local persistence; SyncEngine handles transfer and retries.\n- LocalStore keeps inspection records in IndexedDB. Its attachment adapter prefers filesystem storage when supported and permitted, with IndexedDB blobs as the fallback. The API stores inspection rows and versions in PostgreSQL.\n\n## CURRENT DECISIONS\n\n- Each inspection gets a client UUID before upload. The API uses it for idempotent replay and checks the last acknowledged version to reject stale updates.\n- Sync runs on app launch, pull to refresh, and an online edit. It resumes from acknowledged progress; transient failures back off, while validation errors and conflicts wait for user action.\n\n## CONSTRAINTS\n\n- Drafts and photos stay local until the API acknowledges their **authenticated upload**. Timeouts, expired sessions, validation errors, and conflicts never authorize deletion; cleanup is scoped to the acknowledged attachment.\n- Offline and error states need readable, screen-reader-accessible messages.\n\n## SUPERSEDED DECISIONS\n\n- The native desktop client, localStorage production store, filesystem-only attachments, and WebSocket sync are historical proposals, not current plans.\n\n## CURRENT STATE\n\n- The PWA record path and metadata sync are integrated. The attachment interface is drafted, but its production backends, shared contract tests, and end-to-end photo transfer remain unfinished.\n\n## NEXT STEP\n\n- Implement backend selection and the shared attachment write/read/delete contract. Test both backends for reload persistence, permission fallback, failures, and acknowledgement-gated cleanup; then connect the adapter to SyncEngine.",
+      "grade": {
+        "passed": false,
+        "coverage_percent": 85.71,
+        "facts_present": 6,
+        "facts_total": 7,
+        "critical_missing": [
+          "DEC_01"
+        ],
+        "stale_current_claims": [],
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "critical": true,
+            "present": true,
+            "contradicted": false
+          },
+          {
+            "id": "ARCH_02",
+            "critical": true,
+            "present": true,
+            "contradicted": false
+          },
+          {
+            "id": "DEC_01",
+            "critical": true,
+            "present": false,
+            "contradicted": false
+          },
+          {
+            "id": "CON_01",
+            "critical": true,
+            "present": true,
+            "contradicted": false
+          },
+          {
+            "id": "OLD_01",
+            "critical": true,
+            "present": true,
+            "contradicted": false
+          },
+          {
+            "id": "STATE_01",
+            "critical": true,
+            "present": true,
+            "contradicted": false
+          },
+          {
+            "id": "NEXT_01",
+            "critical": true,
+            "present": true,
+            "contradicted": false
+          }
+        ]
+      },
+      "provider_usage": {
+        "input_tokens": 22408,
+        "cached_input_tokens": 11904,
+        "output_tokens": 332,
+        "total_tokens": null
+      },
+      "elapsed_ms": 25479.75,
+      "exit_code": 0,
+      "conceptualize_calls": 0
+    }
+  ],
+  "average_provider_input": 22408.0,
+  "average_cached_input": 11904.0,
+  "average_provider_output": 327.33,
+  "average_elapsed_ms": 17045.09,
+  "note": "Baseline calibration only. @Conceptualize is blocked unless >=2/3 pass; target is 3/3."
+}

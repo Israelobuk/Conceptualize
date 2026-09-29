@@ -13,6 +13,19 @@ from pydantic import ValidationError
 
 load_dotenv()
 
+CAPABILITY_INSTRUCTIONS = (
+    "Conceptualize is task-aware context infrastructure. When a user activates it with a task, "
+    "provide relevant missing prior decisions, constraints, changes, and work; then continue "
+    "the user's task with your normal reasoning and tools. Keep the task primary, avoid "
+    "repeating context already supplied, and prefer current information over explicitly "
+    "superseded information. It does not replace the host agent."
+)
+CONTEXT_TOOL_DESCRIPTION = (
+    "Context capability activated for a user's task. Pass the task itself to augment it with "
+    "relevant prior decisions, constraints, relationships, changes, and work. Conceptualize "
+    "returns a compact context delta; continue the task with normal reasoning and normal tools."
+)
+
 
 @asynccontextmanager
 async def lifespan(server):
@@ -76,7 +89,7 @@ def compact_response(payload):
 mcp = FastMCP(
     "Conceptualize",
     lifespan=lifespan,
-    instructions="When additional prior or project context is needed, call conceptualize_context once with the current task. Results are deterministic, bounded, and model-free. Advanced tools are for debugging only when enabled.",
+    instructions=CAPABILITY_INSTRUCTIONS,
 )
 SESSION_ID = os.getenv("CONCEPTUALIZE_SESSION_ID") or str(uuid4())
 ADVANCED_TOOLS = os.getenv("CONCEPTUALIZE_MCP_ADVANCED", "").casefold() in {"1", "true", "yes"}
@@ -146,18 +159,11 @@ async def call(operation: str, inputs: dict, ctx: Context | None = None) -> Call
 
 @mcp.tool(structured_output=False, annotations=ToolAnnotations(readOnlyHint=True, destructiveHint=False))
 async def conceptualize_context(
-    query: str,
-    token_budget: int = 4000,
-    source_types: list[str] | None = None,
-    force_refresh: bool = False,
+    task: str,
     ctx: Context = None,
 ) -> CallToolResult:
-    """When additional prior or project context is needed, call once with the task's specific request and key entities, not a generic summary. Conceptualize deterministically plans relevant retrieval and returns one bounded context delta."""
-    return await call(
-        "context",
-        {"query": query, "token_budget": token_budget, "source_types": source_types, "force_refresh": force_refresh},
-        ctx,
-    )
+    """Context capability activated for a user's task. Pass the task itself to augment it with relevant prior decisions, constraints, relationships, changes, and work. Conceptualize returns a compact context delta; continue the task with normal reasoning and normal tools."""
+    return await call("context", {"query": task}, ctx)
 
 
 @mcp.tool(structured_output=False, annotations=ToolAnnotations(readOnlyHint=True, destructiveHint=False))

@@ -38,7 +38,7 @@ async def verify(command: str, url: str, advanced: bool = False) -> dict:
             if {t.name for t in tools} != expected:
                 raise ValueError("Server tool surface differs from the requested profile")
             response = await session.call_tool(
-                "conceptualize_context", {"query": "current project context", "token_budget": 1000}
+                "conceptualize_context", {"task": "current project context"}
             )
             if response.isError:
                 raise ValueError("Context retrieval failed; verify API, key and indexed project")

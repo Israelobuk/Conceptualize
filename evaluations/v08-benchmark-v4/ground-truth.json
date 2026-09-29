@@ -1,0 +1,332 @@
+{
+  "version": "v0.8-benchmark-4",
+  "created_before_model_runs": true,
+  "grading_unit": "semantic proposition presence across the complete answer",
+  "pass_rule": {
+    "all_critical_facts_required": true,
+    "minimum_coverage_percent": 100,
+    "stale_current_claims_allowed": 0
+  },
+  "facts": [
+    {
+      "id": "ARCH_01",
+      "critical": true,
+      "kind": "current",
+      "proposition": "File System Access storage is preferred when supported.",
+      "slots": [
+        [
+          "file system access api",
+          "filesystem access api",
+          "filesystem"
+        ],
+        [
+          "preferred",
+          "prefer",
+          "first choice",
+          "primary"
+        ],
+        [
+          "available",
+          "supported",
+          "permitted"
+        ]
+      ],
+      "canonical": "File System Access API is the preferred storage when available.",
+      "paraphrase": "The attachment adapter prefers filesystem storage when available.",
+      "negations": [
+        "filesystem is not preferred",
+        "filesystem is not the preferred option",
+        "indexeddb is preferred instead"
+      ],
+      "contradictions": [
+        "indexeddb is the preferred backend",
+        "filesystem access is not preferred"
+      ]
+    },
+    {
+      "id": "ARCH_02",
+      "critical": true,
+      "kind": "current",
+      "proposition": "IndexedDB blob storage is the fallback.",
+      "slots": [
+        [
+          "indexeddb",
+          "indexed db",
+          "idb"
+        ],
+        [
+          "blob",
+          "blobs"
+        ],
+        [
+          "fallback",
+          "fall back",
+          "otherwise"
+        ]
+      ],
+      "canonical": "IndexedDB blob storage is the fallback.",
+      "paraphrase": "When filesystem access is unavailable, attachment blobs go into IndexedDB as a fallback.",
+      "negations": [
+        "indexeddb is not the fallback",
+        "there is no indexeddb fallback"
+      ],
+      "contradictions": [
+        "filesystem is the only attachment backend"
+      ]
+    },
+    {
+      "id": "DEC_01",
+      "critical": true,
+      "kind": "current_design",
+      "proposition": "Both attachment backends are designed to share a read/write/delete adapter contract.",
+      "slots": [
+        [
+          "both backends",
+          "both storage backends",
+          "shared",
+          "common",
+          "same"
+        ],
+        [
+          "adapter contract",
+          "shared contract",
+          "common interface",
+          "contract",
+          "interface"
+        ],
+        [
+          "read",
+          "reading"
+        ],
+        [
+          "write",
+          "writing"
+        ],
+        [
+          "delete",
+          "deleting"
+        ]
+      ],
+      "canonical": "Both backends use the same adapter contract for read, write, and delete.",
+      "paraphrase": "The shared attachment interface lets both storage options read, write, and delete.",
+      "next_step_paraphrase": "Implement the attachment backend selection and shared read/write/delete contract, test both backends, then connect the adapter to SyncEngine.",
+      "negations": [
+        "backends do not share a contract",
+        "the backends use different interfaces",
+        "there is no shared adapter contract"
+      ],
+      "contradictions": [
+        "backends use different interfaces",
+        "no shared attachment contract"
+      ]
+    },
+    {
+      "id": "CON_01",
+      "critical": true,
+      "kind": "current",
+      "proposition": "Retain local attachment data until the server acknowledges its authenticated upload.",
+      "slots": [
+        [
+          "local",
+          "device"
+        ],
+        [
+          "authenticated",
+          "auth"
+        ],
+        [
+          "upload",
+          "uploaded"
+        ],
+        [
+          "acknowledged",
+          "acknowledgement",
+          "acknowledge",
+          "ack",
+          "confirms",
+          "confirmed"
+        ]
+      ],
+      "canonical": "Keep local attachment data until the server acknowledges the authenticated upload.",
+      "paraphrase": "Do not remove the device copy before the server confirms the authenticated upload.",
+      "negations": [
+        "delete local data before acknowledgement",
+        "remove local data before server acknowledgement",
+        "local data need not be retained until acknowledgement"
+      ],
+      "contradictions": [
+        "delete local data before acknowledgement",
+        "remove local data before acknowledgement"
+      ]
+    },
+    {
+      "id": "OLD_01",
+      "critical": true,
+      "kind": "superseded",
+      "proposition": "The older localStorage-only proposal is superseded and is not current.",
+      "slots": [
+        [
+          "localstorage",
+          "local storage"
+        ],
+        [
+          "superseded",
+          "replaced",
+          "historical",
+          "old",
+          "former"
+        ],
+        [
+          "not current",
+          "no longer current",
+          "not the current",
+          "not part of the current",
+          "not in the current"
+        ]
+      ],
+      "canonical": "The old localStorage-only proposal was superseded and is not current.",
+      "paraphrase": "LocalStorage is the former approach; it is no longer current.",
+      "negations": [],
+      "contradictions": [
+        "localstorage remains current",
+        "localstorage is the current production backend"
+      ]
+    },
+    {
+      "id": "STATE_01",
+      "critical": true,
+      "kind": "current",
+      "proposition": "Production attachment adapters/backends and shared contract tests remain incomplete.",
+      "slots": [
+        [
+          "adapter",
+          "backend",
+          "attachment"
+        ],
+        [
+          "incomplete",
+          "unfinished",
+          "not complete",
+          "not finished",
+          "not done",
+          "need implementation"
+        ],
+        [
+          "contract test",
+          "shared test",
+          "common test"
+        ]
+      ],
+      "canonical": "The production attachment adapter is unfinished and shared contract tests are incomplete.",
+      "paraphrase": "Production attachment backends still need implementation, and their common tests are not done.",
+      "negations": [
+        "adapter is complete and contract tests pass"
+      ],
+      "contradictions": [
+        "adapter is complete and contract tests pass"
+      ]
+    },
+    {
+      "id": "NEXT_01",
+      "critical": true,
+      "kind": "next_step",
+      "proposition": "Complete/test backend selection, reload persistence, permission fallback and acknowledgement-safe cleanup, then integrate with SyncEngine.",
+      "slots": [
+        [
+          "implement",
+          "finish",
+          "complete",
+          "build"
+        ],
+        [
+          "backend selection",
+          "both backends",
+          "backend implementations",
+          "adapter"
+        ],
+        [
+          "test",
+          "contract test",
+          "shared behavior",
+          "verify"
+        ],
+        [
+          "reload persistence",
+          "persistence across reload",
+          "reload",
+          "persistence"
+        ],
+        [
+          "fallback",
+          "permission fallback"
+        ],
+        [
+          "acknowledgement safe cleanup",
+          "acknowledged upload cleanup",
+          "cleanup",
+          "ack",
+          "acknowledgement gated deletion"
+        ],
+        [
+          "syncengine",
+          "sync engine"
+        ]
+      ],
+      "canonical": "Finish backend selection and adapter tests for reload persistence, permission fallback, and cleanup after upload acknowledgement, then integrate with SyncEngine.",
+      "paraphrase": "Implement both attachment backends, verify reload and permission fallback plus acknowledgement-gated deletion, and only then connect the adapter to the sync engine.",
+      "negations": [
+        "do not integrate syncengine",
+        "syncengine integration is not next"
+      ],
+      "contradictions": [
+        "integrate syncengine before completing adapter tests"
+      ]
+    }
+  ],
+  "stale_propositions": [
+    {
+      "id": "STALE_01",
+      "anchors": [
+        "localstorage",
+        "local storage"
+      ],
+      "current_claims": [
+        "current",
+        "production backend",
+        "preferred backend",
+        "in production"
+      ],
+      "negated_forms": [
+        "not current",
+        "no longer current",
+        "superseded",
+        "historical",
+        "old proposal",
+        "former approach",
+        "replaced"
+      ]
+    },
+    {
+      "id": "STALE_02",
+      "anchors": [
+        "delete local",
+        "remove local",
+        "delete device",
+        "remove device"
+      ],
+      "current_claims": [
+        "before acknowledgement",
+        "before server acknowledgement",
+        "before upload acknowledgement"
+      ],
+      "negated_forms": [
+        "do not",
+        "don't",
+        "never",
+        "must not",
+        "should not",
+        "cannot"
+      ]
+    }
+  ]
+}

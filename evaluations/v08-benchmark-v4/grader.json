@@ -1,0 +1,13 @@
+{
+  "version": "v0.8-benchmark-4",
+  "primary_unit": "whole-answer semantic proposition presence",
+  "algorithm": "normalized token-set slots inside line/paragraph windows, explicit negation/stale/future checks, contradiction rules",
+  "sections": "diagnostic and status-context only; not a requirement for proposition credit",
+  "normalization": [
+    "casefold",
+    "punctuation-to-space",
+    "whitespace-collapse",
+    "limited configured singular/plural and lexical alternatives"
+  ],
+  "model_judge": false
+}

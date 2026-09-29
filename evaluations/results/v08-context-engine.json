@@ -1,0 +1,418 @@
+{
+  "benchmark": "v0.8-offline-attachment-capability-1",
+  "fixture_sha256": "15acd5e26c80e042c4561c4b21d04241478a2943f649c68007ca58abb0d1214a",
+  "ground_truth_sha256": "94fb4c2616171a6ac1179463f00800546720c1fc53e2d02da6f94e4fba37744f",
+  "history_messages": 118,
+  "history_tokens_cl100k": 8167,
+  "candidate_units": 101,
+  "candidate_tokens": 6506,
+  "selected_units": 49,
+  "selected_source_tokens": 3533,
+  "compiled_working_context_tokens": 3605,
+  "history_percent_compiled": 44.14,
+  "low_relevance_tokens_suppressed": 2866,
+  "duplicate_tokens_suppressed": 0,
+  "superseded_units_suppressed": 3,
+  "superseded_tokens_suppressed": 107,
+  "unchanged_context_tokens_avoided": 0,
+  "budget_utilization": 0.9012,
+  "deterministic_context_fact_check": {
+    "passed": true,
+    "facts_present": 7,
+    "facts_total": 7,
+    "fact_coverage_percent": 100.0,
+    "critical_facts_missing": [],
+    "stale_claims_in_current_sections": [],
+    "next_step_correct": true,
+    "checks": {
+      "current_architecture": [
+        {
+          "id": "filesystem_api_preferred_when_supported",
+          "critical": true,
+          "present": true
+        },
+        {
+          "id": "indexeddb_blob_fallback",
+          "critical": true,
+          "present": true
+        },
+        {
+          "id": "shared_attachment_read_write_delete_contract",
+          "critical": true,
+          "present": true
+        }
+      ],
+      "current_constraints": [
+        {
+          "id": "retain_local_copy_until_authenticated_ack",
+          "critical": true,
+          "present": true
+        }
+      ],
+      "superseded_decisions": [
+        {
+          "id": "localstorage_proposal_superseded",
+          "critical": true,
+          "present": true
+        }
+      ],
+      "current_state": [
+        {
+          "id": "attachment_implementation_unfinished",
+          "critical": true,
+          "present": true
+        }
+      ]
+    }
+  },
+  "working_context": [
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-078",
+      "source_id": "v07-078",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:h33",
+      "source_id": "h33",
+      "category": "CURRENT IMPLEMENTATION STATE",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-110",
+      "source_id": "v07-110",
+      "category": "CURRENT IMPLEMENTATION STATE",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-118",
+      "source_id": "v07-118",
+      "category": "CURRENT IMPLEMENTATION STATE",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-092",
+      "source_id": "v07-092",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-080",
+      "source_id": "v07-080",
+      "category": "CURRENT IMPLEMENTATION STATE",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-040",
+      "source_id": "v07-040",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-096",
+      "source_id": "v07-096",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-112",
+      "source_id": "v07-112",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-042",
+      "source_id": "v07-042",
+      "category": "RELEVANT CONTEXT",
+      "classification": "source_default",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-100",
+      "source_id": "v07-100",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-094",
+      "source_id": "v07-094",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-076",
+      "source_id": "v07-076",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-046",
+      "source_id": "v07-046",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-074",
+      "source_id": "v07-074",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-084",
+      "source_id": "v07-084",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-048",
+      "source_id": "v07-048",
+      "category": "RELEVANT CONTEXT",
+      "classification": "source_default",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-043",
+      "source_id": "v07-043",
+      "category": "CURRENT DECISIONS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-082",
+      "source_id": "v07-082",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-088",
+      "source_id": "v07-088",
+      "category": "CURRENT IMPLEMENTATION STATE",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:h05",
+      "source_id": "h05",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-086",
+      "source_id": "v07-086",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:h23",
+      "source_id": "h23",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-052",
+      "source_id": "v07-052",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-062",
+      "source_id": "v07-062",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-116",
+      "source_id": "v07-116",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-054",
+      "source_id": "v07-054",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:h35",
+      "source_id": "h35",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-090",
+      "source_id": "v07-090",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-083",
+      "source_id": "v07-083",
+      "category": "CURRENT IMPLEMENTATION STATE",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:h24",
+      "source_id": "h24",
+      "category": "RELEVANT CONTEXT",
+      "classification": "source_default",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-101",
+      "source_id": "v07-101",
+      "category": "RELEVANT CONTEXT",
+      "classification": "source_default",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-102",
+      "source_id": "v07-102",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:h03",
+      "source_id": "h03",
+      "category": "CURRENT DECISIONS",
+      "classification": "explicit_relationship",
+      "relationship_origins": [
+        "explicit_metadata"
+      ]
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:h29",
+      "source_id": "h29",
+      "category": "RELEVANT CONTEXT",
+      "classification": "source_default",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-068",
+      "source_id": "v07-068",
+      "category": "RELEVANT CONTEXT",
+      "classification": "source_default",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-104",
+      "source_id": "v07-104",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-064",
+      "source_id": "v07-064",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-072",
+      "source_id": "v07-072",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:h17",
+      "source_id": "h17",
+      "category": "RELEVANT CONTEXT",
+      "classification": "source_default",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-081",
+      "source_id": "v07-081",
+      "category": "CURRENT IMPLEMENTATION STATE",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:v07-065",
+      "source_id": "v07-065",
+      "category": "CURRENT DECISIONS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:h11",
+      "source_id": "h11",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:h15",
+      "source_id": "h15",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:h21",
+      "source_id": "h21",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:h25",
+      "source_id": "h25",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:h27",
+      "source_id": "h27",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:h31",
+      "source_id": "h31",
+      "category": "CONSTRAINTS",
+      "classification": "deterministic_rule",
+      "relationship_origins": []
+    },
+    {
+      "unit_id": "conversation:offline-inspection-attachments-v08/message:h19",
+      "source_id": "h19",
+      "category": "CURRENT DECISIONS",
+      "classification": "explicit_relationship",
+      "relationship_origins": [
+        "explicit_metadata"
+      ]
+    }
+  ],
+  "interpretation": "Deterministic package-content diagnostic only. It is not provider input telemetry and does not establish model answer quality."
+}

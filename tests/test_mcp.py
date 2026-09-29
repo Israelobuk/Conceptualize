@@ -123,7 +123,7 @@ def test_real_mcp_protocol_calls_api_and_persists_traces(tmp_path):
                     }
                     assert all(t.description and len(t.description) > 80 for t in listing.tools)
                     operations = [
-                        ("context", {"query": "src/session.py auth session implementation", "token_budget": 1000}),
+                        ("context", {"task": "src/session.py auth session implementation"}),
                         ("map", {"path": "src"}),
                         ("search", {"query": "login"}),
                         (

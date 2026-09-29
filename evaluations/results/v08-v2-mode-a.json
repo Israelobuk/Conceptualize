@@ -1,0 +1,274 @@
+{
+  "benchmark": "v0.8-benchmark-2",
+  "mode": "A_full_context_normal_agent",
+  "model": "gpt-6-sol",
+  "reasoning_effort": "low",
+  "repetitions": 3,
+  "fixture_sha256": "ba658a16047eb8ca2303660f7ffbde1c78f6edf7e6d2e6e4356465a6b1524f06",
+  "ground_truth_sha256": "7c30b852f14718599f51e1128b284977cf9111660b1a278a7f8d9827fc1c2660",
+  "grader_sha256": "b41920b80fe0dc997f4afe0d3082796e52d8bc16b1bbb314a20b6bf75bfd90a4",
+  "history_messages": 119,
+  "history_tokens_cl100k": 8292,
+  "pass_count": 0,
+  "records": [
+    {
+      "repetition": 1,
+      "answer": "## CURRENT ARCHITECTURE\n\n- One browser PWA for desktop and mobile uses the existing HTTPS JSON API. LocalStore handles persistence; SyncEngine handles transfer and retries.\n- LocalStore keeps inspection records in IndexedDB. Its attachment adapter prefers filesystem storage when available and permitted, with IndexedDB blobs as the fallback.\n\n## CURRENT DECISIONS\n\n- Both attachment backends share a read, write, and delete contract. Sync is client-triggered and resumable; the API uses client UUIDs for idempotency and versions for conflict detection.\n\n## CONSTRAINTS\n\n- Keep each draft and photo locally until its authenticated upload is acknowledged. Failed uploads, expired sessions, and conflicts must preserve the local copy.\n\n## SUPERSEDED DECISIONS\n\n- The native desktop client, localStorage-only storage, filesystem-only attachments, and WebSocket sync proposals are historical, not current plans.\n\n## CURRENT STATE\n\n- Record persistence and metadata sync are integrated. The attachment interface is drafted, but production backends and shared contract tests remain incomplete.\n\n## NEXT STEP\n\n- Implement backend selection and both attachment backends; test reload persistence, permission fallback, and acknowledgement-safe cleanup against the shared contract. Then connect the adapter to SyncEngine.",
+      "grade": {
+        "passed": false,
+        "coverage_percent": 62.5,
+        "facts_present": 5,
+        "facts_total": 8,
+        "critical_missing": [
+          "ARCH_01",
+          "ARCH_03",
+          "DEC_01"
+        ],
+        "stale_current_claims": [],
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "section": "CURRENT ARCHITECTURE",
+            "critical": true,
+            "present": false,
+            "contradicted": false
+          },
+          {
+            "id": "ARCH_02",
+            "section": "CURRENT ARCHITECTURE",
+            "critical": true,
+            "present": true,
+            "contradicted": false
+          },
+          {
+            "id": "ARCH_03",
+            "section": "CURRENT ARCHITECTURE",
+            "critical": true,
+            "present": false,
+            "contradicted": false
+          },
+          {
+            "id": "DEC_01",
+            "section": "CURRENT DECISIONS",
+            "critical": true,
+            "present": false,
+            "contradicted": false
+          },
+          {
+            "id": "CON_01",
+            "section": "CONSTRAINTS",
+            "critical": true,
+            "present": true,
+            "contradicted": false
+          },
+          {
+            "id": "OLD_01",
+            "section": "SUPERSEDED DECISIONS",
+            "critical": true,
+            "present": true,
+            "contradicted": false
+          },
+          {
+            "id": "STATE_01",
+            "section": "CURRENT STATE",
+            "critical": true,
+            "present": true,
+            "contradicted": false
+          },
+          {
+            "id": "NEXT_01",
+            "section": "NEXT STEP",
+            "critical": true,
+            "present": true,
+            "contradicted": false
+          }
+        ]
+      },
+      "provider_usage": {
+        "input_tokens": 22441,
+        "cached_input_tokens": 11904,
+        "output_tokens": 250,
+        "total_tokens": null
+      },
+      "elapsed_ms": 26906.22,
+      "exit_code": 0,
+      "conceptualize_calls": 0
+    },
+    {
+      "repetition": 2,
+      "answer": "## CURRENT ARCHITECTURE\n\n- One browser PWA for desktop and mobile uses the existing HTTPS JSON API. LocalStore handles persistence; SyncEngine handles transfers and retries.\n\n## CURRENT DECISIONS\n\n- IndexedDB stores inspection records. The attachment adapter prefers the File System Access API when available and permitted, with IndexedDB blobs as the fallback. Both backends share write, read, and delete methods.\n- Sync is client-triggered and resumable. Client UUIDs make create retries idempotent; version checks prevent stale updates from overwriting newer data.\n\n## CONSTRAINTS\n\n- Keep each draft and photo locally until its authenticated upload is acknowledged. Failed uploads, expired sessions, validation errors, and conflicts do not authorize cleanup.\n\n## SUPERSEDED DECISIONS\n\n- The native desktop client, localStorage production store, filesystem-only attachments, and WebSocket sync proposal are historical, not current plans.\n\n## CURRENT STATE\n\n- IndexedDB record persistence and metadata sync are integrated. The production attachment backends and shared contract tests remain incomplete; photos are not connected end to end.\n\n## NEXT STEP\n\n- Implement backend selection and both attachment backends. Test shared behavior, reload persistence, permission fallback, and acknowledgement-gated cleanup; then connect the adapter to SyncEngine.",
+      "grade": {
+        "passed": false,
+        "coverage_percent": 25.0,
+        "facts_present": 2,
+        "facts_total": 8,
+        "critical_missing": [
+          "ARCH_01",
+          "ARCH_02",
+          "ARCH_03",
+          "DEC_01",
+          "CON_01",
+          "NEXT_01"
+        ],
+        "stale_current_claims": [],
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "section": "CURRENT ARCHITECTURE",
+            "critical": true,
+            "present": false,
+            "contradicted": false
+          },
+          {
+            "id": "ARCH_02",
+            "section": "CURRENT ARCHITECTURE",
+            "critical": true,
+            "present": false,
+            "contradicted": false
+          },
+          {
+            "id": "ARCH_03",
+            "section": "CURRENT ARCHITECTURE",
+            "critical": true,
+            "present": false,
+            "contradicted": false
+          },
+          {
+            "id": "DEC_01",
+            "section": "CURRENT DECISIONS",
+            "critical": true,
+            "present": false,
+            "contradicted": false
+          },
+          {
+            "id": "CON_01",
+            "section": "CONSTRAINTS",
+            "critical": true,
+            "present": false,
+            "contradicted": false
+          },
+          {
+            "id": "OLD_01",
+            "section": "SUPERSEDED DECISIONS",
+            "critical": true,
+            "present": true,
+            "contradicted": false
+          },
+          {
+            "id": "STATE_01",
+            "section": "CURRENT STATE",
+            "critical": true,
+            "present": true,
+            "contradicted": false
+          },
+          {
+            "id": "NEXT_01",
+            "section": "NEXT STEP",
+            "critical": true,
+            "present": false,
+            "contradicted": false
+          }
+        ]
+      },
+      "provider_usage": {
+        "input_tokens": 22414,
+        "cached_input_tokens": 0,
+        "output_tokens": 260,
+        "total_tokens": null
+      },
+      "elapsed_ms": 15383.04,
+      "exit_code": 0,
+      "conceptualize_calls": 0
+    },
+    {
+      "repetition": 3,
+      "answer": "## CURRENT ARCHITECTURE\n\n- One browser PWA for desktop and mobile uses the existing HTTPS JSON API. LocalStore handles persistence; SyncEngine handles foreground transfers.\n- LocalStore uses IndexedDB for inspection records and an attachment adapter for photos.\n\n## CURRENT DECISIONS\n\n- The attachment adapter prefers filesystem storage when supported and permitted, with IndexedDB blobs as the fallback. Both backends share write, read, and delete methods.\n- SyncEngine uses stable client UUIDs for idempotent retries, checks server versions on updates, and resumes from acknowledged progress.\n\n## CONSTRAINTS\n\n- Keep each draft and photo locally until its authenticated upload is acknowledged. Failed uploads, expired sessions, validation errors, and conflicts must not erase local content.\n- Retry transient failures with backoff; show validation errors and conflicts for user action.\n\n## SUPERSEDED DECISIONS\n\n- The native desktop client, localStorage-only storage, filesystem-only attachments, and WebSocket sync proposals are historical, not part of the current plan.\n\n## CURRENT STATE\n\n- IndexedDB record persistence and metadata sync are integrated. The production attachment backends and their shared contract tests remain incomplete; photo transfer still uses a temporary test path.\n\n## NEXT STEP\n\n- Implement backend selection and both attachment backends; test shared write/read/delete behavior, reload persistence, permission fallback, and acknowledgement-gated cleanup. Then connect the adapter to SyncEngine.",
+      "grade": {
+        "passed": false,
+        "coverage_percent": 37.5,
+        "facts_present": 3,
+        "facts_total": 8,
+        "critical_missing": [
+          "ARCH_01",
+          "ARCH_02",
+          "ARCH_03",
+          "DEC_01",
+          "NEXT_01"
+        ],
+        "stale_current_claims": [],
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "section": "CURRENT ARCHITECTURE",
+            "critical": true,
+            "present": false,
+            "contradicted": false
+          },
+          {
+            "id": "ARCH_02",
+            "section": "CURRENT ARCHITECTURE",
+            "critical": true,
+            "present": false,
+            "contradicted": false
+          },
+          {
+            "id": "ARCH_03",
+            "section": "CURRENT ARCHITECTURE",
+            "critical": true,
+            "present": false,
+            "contradicted": false
+          },
+          {
+            "id": "DEC_01",
+            "section": "CURRENT DECISIONS",
+            "critical": true,
+            "present": false,
+            "contradicted": false
+          },
+          {
+            "id": "CON_01",
+            "section": "CONSTRAINTS",
+            "critical": true,
+            "present": true,
+            "contradicted": false
+          },
+          {
+            "id": "OLD_01",
+            "section": "SUPERSEDED DECISIONS",
+            "critical": true,
+            "present": true,
+            "contradicted": false
+          },
+          {
+            "id": "STATE_01",
+            "section": "CURRENT STATE",
+            "critical": true,
+            "present": true,
+            "contradicted": false
+          },
+          {
+            "id": "NEXT_01",
+            "section": "NEXT STEP",
+            "critical": true,
+            "present": false,
+            "contradicted": false
+          }
+        ]
+      },
+      "provider_usage": {
+        "input_tokens": 22414,
+        "cached_input_tokens": 11904,
+        "output_tokens": 287,
+        "total_tokens": null
+      },
+      "elapsed_ms": 12656.9,
+      "exit_code": 0,
+      "conceptualize_calls": 0
+    }
+  ],
+  "average_provider_input": 22423.0,
+  "average_cached_input": 7936.0,
+  "average_provider_output": 265.67,
+  "average_elapsed_ms": 18315.39,
+  "note": "Baseline calibration only. Conceptualize condition is blocked unless pass_count >= 2; 3/3 is target."
+}

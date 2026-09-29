@@ -58,8 +58,7 @@ def test_doctor_accepts_the_primary_one_tool_surface(monkeypatch):
 
         async def call_tool(self, name, arguments):
             assert name == "conceptualize_context"
-            assert arguments["query"] == "current project context"
-            assert arguments["token_budget"] == 1000
+            assert arguments == {"task": "current project context"}
             return SimpleNamespace(
                 isError=False,
                 structuredContent={
@@ -86,3 +85,32 @@ def test_server_default_surface_has_one_tool_and_advanced_surface_has_seven():
     advanced = subprocess.run([sys.executable, "-c", script], cwd=root, env=advanced_env, capture_output=True, text=True, check=True)
     assert json.loads(default.stdout) == ["conceptualize_context"]
     assert len(json.loads(advanced.stdout)) == 7
+
+
+def test_default_capability_schema_only_requires_the_normal_task():
+    from conceptualize_mcp.server import mcp
+
+    tool = next(t for t in mcp._tool_manager.list_tools() if t.name == "conceptualize_context")
+
+    assert tool.parameters["properties"].keys() == {"task"}
+    assert tool.parameters["required"] == ["task"]
+    assert "context capability" in tool.description.casefold()
+    assert "normal tools" in tool.description.casefold()
+    assert "search" not in tool.description.casefold()
+
+
+def test_capability_passes_the_task_through_unchanged(monkeypatch):
+    from conceptualize_mcp import server
+
+    observed = {}
+
+    async def capture(operation, inputs, _ctx):
+        observed.update(operation=operation, inputs=inputs)
+        return "ok"
+
+    monkeypatch.setattr(server, "call", capture)
+    task = "Continue auth work; preserve offline support and run the existing tests."
+    result = asyncio.run(server.conceptualize_context(task))
+
+    assert result == "ok"
+    assert observed == {"operation": "context", "inputs": {"query": task}}

@@ -1,0 +1,16 @@
+{
+  "benchmark": "v0.8-offline-attachment-capability-1",
+  "fixture_sha256": "15acd5e26c80e042c4561c4b21d04241478a2943f649c68007ca58abb0d1214a",
+  "first_call": {
+    "context_tokens": 3605,
+    "new_units": 49
+  },
+  "followup": {
+    "new_context_tokens": 522,
+    "new_units": 6,
+    "previous_units_referenced": 19,
+    "unchanged_tokens_avoided": 1580,
+    "context": "CONCEPTUALIZE WORKING CONTEXT\n\nCONSTRAINTS\n[message:v07-108]\nThe QA matrix should separate browser support from server behavior. We can unit-test backend selection and the read/write/delete contract in a deterministic environment, then manually verify capability permission on representative browsers. The API tests cover UUID replay, auth, version conflict, and validation. A failure in browser support should not be papered over by changing the server contract or by deleting the local file.\n\n---\n\n[message:v07-044]\nThe record schema review confirmed that an inspection has a stable client UUID before its first upload. The API uses that key to treat retries of the same create request as one inspection, including after a connection drops before the response reaches the browser. The server assigns its own identifier as well, and the local record keeps both values with the last acknowledged version. We should not use timestamps as identity because two offline devices can create records at similar times.\n\nRELEVANT CONTEXT\n[message:v07-056]\nRetry behavior should distinguish transport trouble from a response that requires human correction. Temporary connection loss and server-unavailable responses use exponential backoff with jitter, with a ceiling so a device does not retry forever at a high rate. A validation error is shown with enough detail to correct the inspection and is not retried automatically. A version conflict also pauses for user resolution. Please avoid a single retry flag that treats all non-success responses alike.\n\n---\n\n[message:v07-050]\nWe compared browser attachment APIs on the devices in the pilot. The File System Access API is convenient on supported desktop browsers, but it is not available everywhere and permission can be denied even where the API exists. Use filesystem-backed storage as the preferred option when available and authorized; fall back to an IndexedDB blob for the same attachment when it is not. The calling code should depend on one read, write, and delete contract, not branch on browser detection throughout the sync flow.\n\n---\n\n[message:v07-066]\nThe API contract tests now cover create replay with one UUID, reject a stale version, and preserve the existing server row. The client tests cover reopening a draft after reload and displaying a conflict without clearing the local copy. The missing area is attachment contract coverage across the two backends, especially fallback after permission denial and cleanup only after an acknowledged upload. Please keep that gap visible in the status report.\n\n---\n\n[message:v07-109]\nLocal adapter tests and API contract tests remain separate layers. Browser permission checks get focused compatibility coverage. None of those failures should remove local content or change idempotency and version semantics."
+  },
+  "scope": "Deterministic session ledger test; no model call or provider usage."
+}

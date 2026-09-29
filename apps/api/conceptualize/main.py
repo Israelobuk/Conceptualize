@@ -34,7 +34,7 @@ log = logging.getLogger(__name__)
 logging.basicConfig(level=getattr(logging, settings.log_level))
 app = FastAPI(
     title="Conceptualize",
-    version="0.7.0",
+    version="0.8.0",
     docs_url="/docs" if settings.app_env == "development" else None,
     redoc_url="/redoc" if settings.app_env == "development" else None,
     openapi_url="/openapi.json" if settings.app_env == "development" else None,

@@ -1,0 +1,343 @@
+{
+  "version": "v0.8-benchmark-2",
+  "created_before_model_runs": true,
+  "pass_rule": {
+    "all_critical_facts_required": true,
+    "minimum_coverage_percent": 100,
+    "stale_current_claims_allowed": 0
+  },
+  "facts": [
+    {
+      "id": "ARCH_01",
+      "section": "CURRENT ARCHITECTURE",
+      "critical": true,
+      "proposition": "File System Access API is the preferred storage when available.",
+      "acceptable": [
+        [
+          "file system access api",
+          "preferred"
+        ],
+        [
+          "file system access",
+          "preferred"
+        ],
+        [
+          "filesystem",
+          "preferred",
+          "available"
+        ],
+        [
+          "filesystem",
+          "first choice"
+        ],
+        [
+          "file system access",
+          "primary",
+          "supported"
+        ]
+      ],
+      "contradictions": [
+        "filesystem is not preferred",
+        "indexeddb is preferred instead"
+      ]
+    },
+    {
+      "id": "ARCH_02",
+      "section": "CURRENT ARCHITECTURE",
+      "critical": true,
+      "proposition": "IndexedDB blob storage is the fallback.",
+      "acceptable": [
+        [
+          "indexeddb",
+          "blob",
+          "fallback"
+        ],
+        [
+          "indexed db",
+          "blob",
+          "fallback"
+        ],
+        [
+          "idb",
+          "blob",
+          "fallback"
+        ],
+        [
+          "indexeddb",
+          "otherwise"
+        ]
+      ],
+      "contradictions": [
+        "indexeddb is not the fallback",
+        "there is no indexeddb fallback"
+      ]
+    },
+    {
+      "id": "ARCH_03",
+      "section": "CURRENT ARCHITECTURE",
+      "critical": true,
+      "proposition": "Both backends implement one shared attachment read/write/delete contract.",
+      "acceptable": [
+        [
+          "shared",
+          "adapter",
+          "read",
+          "write",
+          "delete"
+        ],
+        [
+          "same",
+          "contract",
+          "read",
+          "write",
+          "delete"
+        ],
+        [
+          "common",
+          "interface",
+          "reading",
+          "writing",
+          "deleting"
+        ],
+        [
+          "adapter",
+          "read",
+          "write",
+          "delete",
+          "both",
+          "backends"
+        ],
+        [
+          "shared",
+          "attachment",
+          "contract",
+          "read",
+          "write",
+          "delete"
+        ]
+      ],
+      "contradictions": [
+        "backends use different interfaces"
+      ]
+    },
+    {
+      "id": "DEC_01",
+      "section": "CURRENT DECISIONS",
+      "critical": true,
+      "proposition": "New attachments use preferred filesystem storage; IndexedDB blob storage is the fallback.",
+      "acceptable": [
+        [
+          "new",
+          "attachments",
+          "filesystem",
+          "indexeddb",
+          "fallback"
+        ],
+        [
+          "attachments",
+          "file system access",
+          "indexeddb",
+          "otherwise"
+        ],
+        [
+          "primary",
+          "filesystem",
+          "fallback",
+          "indexeddb",
+          "blob"
+        ]
+      ],
+      "contradictions": [
+        "new attachments use localstorage only"
+      ]
+    },
+    {
+      "id": "CON_01",
+      "section": "CONSTRAINTS",
+      "critical": true,
+      "proposition": "Keep local attachment data until an authenticated upload is acknowledged by the server.",
+      "acceptable": [
+        [
+          "local",
+          "authenticated",
+          "upload",
+          "acknowledg"
+        ],
+        [
+          "device",
+          "server",
+          "confirms",
+          "authenticated",
+          "upload"
+        ],
+        [
+          "local copy",
+          "successful",
+          "authenticated",
+          "upload",
+          "server"
+        ],
+        [
+          "do not",
+          "delete",
+          "until",
+          "server",
+          "acknowledges",
+          "upload"
+        ],
+        [
+          "local",
+          "authenticated",
+          "upload",
+          "acknowledged"
+        ]
+      ],
+      "contradictions": [
+        "delete local data before acknowledgement",
+        "local data need not be retained until acknowledgement"
+      ]
+    },
+    {
+      "id": "OLD_01",
+      "section": "SUPERSEDED DECISIONS",
+      "critical": true,
+      "proposition": "The earlier localStorage-only proposal is superseded and is not current.",
+      "acceptable": [
+        [
+          "localstorage",
+          "superseded"
+        ],
+        [
+          "localstorage",
+          "not",
+          "current"
+        ],
+        [
+          "localstorage",
+          "replaced"
+        ],
+        [
+          "old",
+          "localstorage",
+          "proposal"
+        ],
+        [
+          "local storage",
+          "no longer",
+          "current"
+        ]
+      ],
+      "contradictions": [
+        "localstorage remains current",
+        "localstorage is the current proposal"
+      ]
+    },
+    {
+      "id": "STATE_01",
+      "section": "CURRENT STATE",
+      "critical": true,
+      "proposition": "The adapter/backend implementation and shared contract tests are not complete.",
+      "acceptable": [
+        [
+          "adapter",
+          "not",
+          "complete"
+        ],
+        [
+          "implementation",
+          "unfinished"
+        ],
+        [
+          "contract tests",
+          "not",
+          "passed"
+        ],
+        [
+          "backend",
+          "tests",
+          "incomplete"
+        ],
+        [
+          "neither",
+          "backend",
+          "passed",
+          "shared",
+          "tests"
+        ]
+      ],
+      "contradictions": [
+        "adapter is complete and contract tests pass"
+      ]
+    },
+    {
+      "id": "NEXT_01",
+      "section": "NEXT STEP",
+      "critical": true,
+      "proposition": "Complete and test backend selection, persistence/reload, fallback, acknowledgement-safe cleanup, then integrate with SyncEngine.",
+      "acceptable": [
+        [
+          "finish",
+          "adapter",
+          "tests",
+          "fallback",
+          "persistence",
+          "cleanup",
+          "syncengine"
+        ],
+        [
+          "complete",
+          "backend",
+          "selection",
+          "reload",
+          "fallback",
+          "acknowledgement",
+          "syncengine"
+        ],
+        [
+          "implement",
+          "both",
+          "backends",
+          "contract",
+          "tests",
+          "then",
+          "syncengine"
+        ],
+        [
+          "adapter",
+          "contract",
+          "persistence",
+          "fallback",
+          "acknowledged",
+          "cleanup",
+          "before",
+          "syncengine"
+        ]
+      ],
+      "contradictions": [
+        "integrate syncengine before completing adapter tests"
+      ]
+    }
+  ],
+  "stale_propositions": [
+    {
+      "id": "STALE_01",
+      "section": "CURRENT DECISIONS",
+      "patterns": [
+        "localstorage is current",
+        "localstorage remains current",
+        "use localstorage in production",
+        "local storage is the production backend",
+        "localstorage is the preferred backend"
+      ]
+    },
+    {
+      "id": "STALE_02",
+      "section": "CONSTRAINTS",
+      "patterns": [
+        "delete local files before upload acknowledgement",
+        "remove local data before server acknowledgement",
+        "local data can be deleted before the upload is acknowledged"
+      ]
+    }
+  ]
+}

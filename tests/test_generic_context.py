@@ -247,6 +247,54 @@ def test_explicit_supersession_prefers_current_decision_and_keeps_trace_provenan
     assert relationship["heuristic"] is False
 
 
+def test_working_context_groups_evidence_without_rewriting_it_and_keeps_provenance():
+    units = ConversationAdapter().ingest({"conversations": [{"id": "auth", "messages": [
+        {"id": "constraint", "role": "user", "content": "Sessions must remain valid offline until reconnect."},
+        {"id": "decision", "role": "user", "content": "Use SQLite for the local session ledger.",
+         "metadata": {"relationships": [{"kind": "decision_for", "target": "constraint"}]}},
+        {"id": "implementation", "role": "user", "content": "The schema migration is implemented and tested."},
+        {"id": "evidence", "role": "assistant", "content": "The retry test reproduces the expired-session case."},
+    ]}]})
+
+    result = ContextUnitRuntime(units).pack(
+        "auth session ledger SQLite offline migration retry",
+        1000,
+        source_types={"message"},
+        targets=[f"conversation:auth/message:{message_id}" for message_id in (
+            "constraint", "decision", "implementation", "evidence"
+        )],
+    )
+
+    assert "CURRENT DECISIONS" in result["context"]
+    assert "CONSTRAINTS" in result["context"]
+    assert "CURRENT IMPLEMENTATION STATE" in result["context"]
+    assert "RELEVANT CONTEXT" in result["context"]
+    assert "Use SQLite for the local session ledger." in result["context"]
+    assert "Sessions must remain valid offline until reconnect." in result["context"]
+    assert "The schema migration is implemented and tested." in result["context"]
+    assert "The retry test reproduces the expired-session case." in result["context"]
+    provenance = {item["source_id"]: item for item in result["working_context"]}
+    assert provenance["decision"]["classification"] == "explicit_relationship"
+    assert provenance["decision"]["unit_id"] == "conversation:auth/message:decision"
+    assert provenance["implementation"]["classification"] == "deterministic_rule"
+
+
+def test_working_context_does_not_emit_empty_sections_or_semantic_summaries():
+    units = ConversationAdapter().ingest({"conversations": [{"id": "c", "messages": [
+        {"id": "m", "role": "user", "content": "The auth retry test failed on Tuesday."}
+    ]}]})
+
+    result = ContextUnitRuntime(units).pack(
+        "auth retry test", 200, source_types={"message"}
+    )
+
+    assert result["context"].count("RELEVANT CONTEXT") == 1
+    assert "CURRENT DECISIONS" not in result["context"]
+    assert "CONSTRAINTS" not in result["context"]
+    assert "CURRENT IMPLEMENTATION STATE" not in result["context"]
+    assert "The auth retry test failed on Tuesday." in result["context"]
+
+
 def test_session_delta_suppresses_near_duplicate_on_follow_up_but_allows_topic_shift():
     units = ConversationAdapter().ingest(
         {"conversations": [{"id": "c", "messages": [

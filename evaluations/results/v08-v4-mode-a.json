@@ -1,0 +1,248 @@
+{
+  "benchmark": "v0.8-benchmark-4",
+  "mode": "A_full_context_normal_agent",
+  "model": "gpt-6-sol",
+  "reasoning_effort": "low",
+  "repetitions": 3,
+  "fixture_sha256": "dd9f03cd9cecc2865ed521db5d78a9d057d23ec9c2050d748bfb9a3c90cee560",
+  "ground_truth_sha256": "f960cf5bfc369e9c272f102e969c6542c4e8a4e6df01e75983b14dcd9d56a911",
+  "grader_sha256": "9359832ed25f8dc40620d6cbb354f3b1e43df0f9f1c33f33d867cfd48770b0c9",
+  "grader_implementation_sha256": "a5beef201a5d07fb6eecfeb0b40dcb9f29d676805bc328e72f2ec0153288c0d0",
+  "history_messages": 119,
+  "history_tokens_cl100k": 8292,
+  "pass_count": 0,
+  "records": [
+    {
+      "repetition": 1,
+      "answer": "## CURRENT ARCHITECTURE\n\n- One browser PWA for desktop and mobile uses the existing HTTPS JSON API and PostgreSQL inspection store.\n- **LocalStore** keeps inspection records in IndexedDB and exposes an attachment adapter. **SyncEngine** handles foreground transfer and retry.\n\n## CURRENT DECISIONS\n\n- Attachments use filesystem storage when supported and permitted, with IndexedDB blobs as the fallback. Both backends share a write, read, and delete contract.\n- Sync starts on app launch, pull to refresh, or an online edit. Client UUIDs make create retries idempotent; version checks reject stale updates. Transient failures back off, while validation errors and conflicts wait for user action.\n\n## CONSTRAINTS\n\n- Drafts and photos remain local until the API acknowledges their **own authenticated upload**. Failed, interrupted, or ambiguous transfers cannot trigger cleanup.\n- Sync state must survive reload or suspension. Offline and error states need accessible text and useful announcements.\n\n## SUPERSEDED DECISIONS\n\n- The native desktop client, localStorage record store, filesystem-only attachments, and WebSocket sync proposal are historical, not current plans.\n\n## CURRENT STATE\n\n- The PWA record path persists drafts in IndexedDB; metadata sync, UUID replay, and conflict handling are integrated.\n- Attachment integration is unfinished. The interface is drafted, but the production backends and shared contract tests have not passed.\n\n## NEXT STEP\n\n- Implement backend selection and both attachment backends, then test read/write/delete, reload persistence, permission fallback, and acknowledgement-gated cleanup. Wire the adapter into SyncEngine after those tests pass.",
+      "grade": {
+        "passed": false,
+        "coverage_percent": 85.71,
+        "facts_present": 6,
+        "facts_total": 7,
+        "critical_missing": [
+          "ARCH_01"
+        ],
+        "stale_current_claims": [],
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "critical": true,
+            "present": false,
+            "negated_or_stale_match": false,
+            "matched_section": null
+          },
+          {
+            "id": "ARCH_02",
+            "critical": true,
+            "present": true,
+            "negated_or_stale_match": false,
+            "matched_section": "CURRENT DECISIONS"
+          },
+          {
+            "id": "DEC_01",
+            "critical": true,
+            "present": true,
+            "negated_or_stale_match": false,
+            "matched_section": "CURRENT DECISIONS"
+          },
+          {
+            "id": "CON_01",
+            "critical": true,
+            "present": true,
+            "negated_or_stale_match": false,
+            "matched_section": "CONSTRAINTS"
+          },
+          {
+            "id": "OLD_01",
+            "critical": true,
+            "present": true,
+            "negated_or_stale_match": false,
+            "matched_section": "SUPERSEDED DECISIONS"
+          },
+          {
+            "id": "STATE_01",
+            "critical": true,
+            "present": true,
+            "negated_or_stale_match": false,
+            "matched_section": "CURRENT STATE"
+          },
+          {
+            "id": "NEXT_01",
+            "critical": true,
+            "present": true,
+            "negated_or_stale_match": false,
+            "matched_section": "NEXT STEP"
+          }
+        ]
+      },
+      "provider_usage": {
+        "input_tokens": 28069,
+        "cached_input_tokens": 11904,
+        "output_tokens": 329,
+        "total_tokens": null
+      },
+      "elapsed_ms": 17893.73,
+      "exit_code": 0,
+      "conceptualize_calls": 0,
+      "tool_events": [],
+      "context_trace": null
+    },
+    {
+      "repetition": 2,
+      "answer": "## CURRENT ARCHITECTURE\n\n- One browser PWA for desktop and mobile uses the existing HTTPS JSON API. LocalStore handles persistence; SyncEngine handles foreground transfer. PostgreSQL stores server inspection rows.\n\n## CURRENT DECISIONS\n\n- LocalStore uses IndexedDB for records. Its attachment adapter prefers filesystem storage when supported and permitted, with IndexedDB blobs as the fallback. Both backends share write, read, and delete methods.\n- SyncEngine uses stable client UUIDs for idempotent retries and version checks for updates. It runs on app launch, pull to refresh, and online edits.\n\n## CONSTRAINTS\n\n- Drafts and photos stay local until the API acknowledges each authenticated upload. Failed uploads, expired sessions, validation errors, and conflicts must not erase them. Conflicts require user review.\n- Offline and sync states need accessible text and meaningful screen-reader announcements.\n\n## SUPERSEDED DECISIONS\n\n- The native client, localStorage production store, filesystem-only attachments, and WebSocket sync are historical proposals, not current plans.\n\n## CURRENT STATE\n\n- The PWA record path and metadata sync are integrated. The attachment interface is drafted, but its production backends, shared contract tests, and end-to-end transfer remain unfinished.\n\n## NEXT STEP\n\n- Implement attachment backend selection and the shared contract. Test permission fallback, reload persistence, and cleanup only after per-attachment acknowledgement; then connect the adapter to SyncEngine.",
+      "grade": {
+        "passed": false,
+        "coverage_percent": 85.71,
+        "facts_present": 6,
+        "facts_total": 7,
+        "critical_missing": [
+          "DEC_01"
+        ],
+        "stale_current_claims": [],
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "critical": true,
+            "present": true,
+            "negated_or_stale_match": false,
+            "matched_section": "CURRENT DECISIONS"
+          },
+          {
+            "id": "ARCH_02",
+            "critical": true,
+            "present": true,
+            "negated_or_stale_match": false,
+            "matched_section": "CURRENT DECISIONS"
+          },
+          {
+            "id": "DEC_01",
+            "critical": true,
+            "present": false,
+            "negated_or_stale_match": false,
+            "matched_section": null
+          },
+          {
+            "id": "CON_01",
+            "critical": true,
+            "present": true,
+            "negated_or_stale_match": false,
+            "matched_section": "CONSTRAINTS"
+          },
+          {
+            "id": "OLD_01",
+            "critical": true,
+            "present": true,
+            "negated_or_stale_match": false,
+            "matched_section": "SUPERSEDED DECISIONS"
+          },
+          {
+            "id": "STATE_01",
+            "critical": true,
+            "present": true,
+            "negated_or_stale_match": false,
+            "matched_section": "CURRENT STATE"
+          },
+          {
+            "id": "NEXT_01",
+            "critical": true,
+            "present": true,
+            "negated_or_stale_match": false,
+            "matched_section": "NEXT STEP"
+          }
+        ]
+      },
+      "provider_usage": {
+        "input_tokens": 22408,
+        "cached_input_tokens": 11904,
+        "output_tokens": 292,
+        "total_tokens": null
+      },
+      "elapsed_ms": 13679.97,
+      "exit_code": 0,
+      "conceptualize_calls": 0,
+      "tool_events": [],
+      "context_trace": null
+    },
+    {
+      "repetition": 3,
+      "answer": "## CURRENT ARCHITECTURE\n\n- One browser PWA for desktop and mobile uses the existing HTTPS JSON API. LocalStore handles persistence; SyncEngine handles foreground transfer and recovery.\n- IndexedDB stores inspection records. An attachment adapter prefers filesystem storage when supported and permitted, with IndexedDB blobs as the fallback. PostgreSQL stores server inspection rows.\n\n## CURRENT DECISIONS\n\n- Each inspection has a stable client UUID for idempotent retries. Server versions prevent stale updates from overwriting newer data.\n- Sync starts on app launch, pull to refresh, or an online edit. Transient failures use resumable retries with exponential backoff and jitter; validation errors and conflicts wait for user action.\n\n## CONSTRAINTS\n\n- Drafts and photos stay local until the API acknowledges their **own authenticated upload**. Failed, interrupted, or unauthenticated requests never authorize cleanup.\n- Offline and error states need readable, screen-reader accessible messages. V1 inspection text is plain text.\n\n## SUPERSEDED DECISIONS\n\n- The native desktop client, localStorage production store, filesystem-only attachments, and WebSocket sync are historical proposals.\n\n## CURRENT STATE\n\n- PWA record persistence and metadata sync are integrated. The attachment interface is drafted, but its production backends and shared contract tests remain incomplete; photos are not connected end to end.\n\n## NEXT STEP\n\n- Implement attachment backend selection and the common write/read/delete contract. Test both backends for reload persistence, permission-denied fallback, failures, and acknowledgement-gated cleanup; then connect the adapter to SyncEngine.",
+      "grade": {
+        "passed": false,
+        "coverage_percent": 85.71,
+        "facts_present": 6,
+        "facts_total": 7,
+        "critical_missing": [
+          "OLD_01"
+        ],
+        "stale_current_claims": [],
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "critical": true,
+            "present": true,
+            "negated_or_stale_match": false,
+            "matched_section": "CURRENT ARCHITECTURE"
+          },
+          {
+            "id": "ARCH_02",
+            "critical": true,
+            "present": true,
+            "negated_or_stale_match": false,
+            "matched_section": "CURRENT ARCHITECTURE"
+          },
+          {
+            "id": "DEC_01",
+            "critical": true,
+            "present": true,
+            "negated_or_stale_match": false,
+            "matched_section": "NEXT STEP"
+          },
+          {
+            "id": "CON_01",
+            "critical": true,
+            "present": true,
+            "negated_or_stale_match": false,
+            "matched_section": "CONSTRAINTS"
+          },
+          {
+            "id": "OLD_01",
+            "critical": true,
+            "present": false,
+            "negated_or_stale_match": false,
+            "matched_section": null
+          },
+          {
+            "id": "STATE_01",
+            "critical": true,
+            "present": true,
+            "negated_or_stale_match": false,
+            "matched_section": "CURRENT STATE"
+          },
+          {
+            "id": "NEXT_01",
+            "critical": true,
+            "present": true,
+            "negated_or_stale_match": false,
+            "matched_section": "NEXT STEP"
+          }
+        ]
+      },
+      "provider_usage": {
+        "input_tokens": 22408,
+        "cached_input_tokens": 11904,
+        "output_tokens": 318,
+        "total_tokens": null
+      },
+      "elapsed_ms": 14192.71,
+      "exit_code": 0,
+      "conceptualize_calls": 0,
+      "tool_events": [],
+      "context_trace": null
+    }
+  ],
+  "average_provider_input": 24295.0,
+  "average_cached_input": 11904.0,
+  "average_provider_output": 313.0,
+  "average_elapsed_ms": 15255.47
+}

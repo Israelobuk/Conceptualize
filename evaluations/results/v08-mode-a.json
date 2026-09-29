@@ -1,0 +1,506 @@
+{
+  "benchmark": "v0.8-offline-attachment-capability-1",
+  "mode": "A",
+  "model": "gpt-6-sol",
+  "reasoning_effort": "low",
+  "repetitions": 3,
+  "fixture_sha256": "15acd5e26c80e042c4561c4b21d04241478a2943f649c68007ca58abb0d1214a",
+  "ground_truth_sha256": "94fb4c2616171a6ac1179463f00800546720c1fc53e2d02da6f94e4fba37744f",
+  "history_messages": 118,
+  "history_tokens_cl100k": 8167,
+  "budget": null,
+  "runs": [
+    {
+      "benchmark": "v0.8-offline-attachment-capability-1",
+      "mode": "A",
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "repetition": 1,
+      "fixture_sha256": "15acd5e26c80e042c4561c4b21d04241478a2943f649c68007ca58abb0d1214a",
+      "ground_truth_sha256": "94fb4c2616171a6ac1179463f00800546720c1fc53e2d02da6f94e4fba37744f",
+      "history_messages": 118,
+      "history_tokens_cl100k": 8167,
+      "provider_usage": {
+        "input_tokens": 27917,
+        "cached_input_tokens": 11904,
+        "output_tokens": 192,
+        "total_tokens": null
+      },
+      "elapsed_ms": 14008.49,
+      "model_exit_code": 0,
+      "task_grade": {
+        "passed": false,
+        "facts_present": 5,
+        "facts_total": 7,
+        "fact_coverage_percent": 71.43,
+        "critical_facts_missing": [
+          "filesystem_api_preferred_when_supported",
+          "attachment_implementation_unfinished"
+        ],
+        "stale_claims_in_current_sections": [],
+        "next_step_correct": true,
+        "checks": {
+          "current_architecture": [
+            {
+              "id": "filesystem_api_preferred_when_supported",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "indexeddb_blob_fallback",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "shared_attachment_read_write_delete_contract",
+              "critical": true,
+              "present": true
+            }
+          ],
+          "current_constraints": [
+            {
+              "id": "retain_local_copy_until_authenticated_ack",
+              "critical": true,
+              "present": true
+            }
+          ],
+          "superseded_decisions": [
+            {
+              "id": "localstorage_proposal_superseded",
+              "critical": true,
+              "present": true
+            }
+          ],
+          "current_state": [
+            {
+              "id": "attachment_implementation_unfinished",
+              "critical": true,
+              "present": false
+            }
+          ]
+        }
+      },
+      "tool_calls": 0,
+      "tool_events": [],
+      "context": {
+        "selected_context_tokens": 0,
+        "trace": null
+      },
+      "protocol_valid": true,
+      "answer": "## CURRENT STORAGE\nThe desktop and mobile PWA uses **LocalStore** for client persistence: IndexedDB holds inspection records, while an attachment adapter prefers filesystem storage when available and permitted, with an IndexedDB blob fallback.\n\n## DATA RETENTION\nDrafts and photos stay local until the API confirms an authenticated upload. Cleanup is **per attachment**; a failed, ambiguous, or unrelated successful request cannot remove its local copy.\n\n## SUPERSEDED PROPOSAL\nThe proposal to store drafts in browser `localStorage` is no longer current.\n\n## IMPLEMENTATION STATE\nRecord persistence and metadata sync are integrated. The attachment interface is drafted, but its production backends and shared contract tests are unfinished; photos still use a temporary test path.\n\n## NEXT STEP\nImplement backend selection and the shared attachment read/write/delete contract. Test both backends for fallback, reload persistence, and acknowledgement-gated cleanup, then connect the adapter to SyncEngine.",
+      "raw_directory": "evaluations\\runs\\v08\\gpt-6-sol\\mode-A-budget-4000\\rep-1"
+    },
+    {
+      "benchmark": "v0.8-offline-attachment-capability-1",
+      "mode": "A",
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "repetition": 2,
+      "fixture_sha256": "15acd5e26c80e042c4561c4b21d04241478a2943f649c68007ca58abb0d1214a",
+      "ground_truth_sha256": "94fb4c2616171a6ac1179463f00800546720c1fc53e2d02da6f94e4fba37744f",
+      "history_messages": 118,
+      "history_tokens_cl100k": 8167,
+      "provider_usage": {
+        "input_tokens": 22256,
+        "cached_input_tokens": 11904,
+        "output_tokens": 195,
+        "total_tokens": null
+      },
+      "elapsed_ms": 9953.62,
+      "model_exit_code": 0,
+      "task_grade": {
+        "passed": false,
+        "facts_present": 3,
+        "facts_total": 7,
+        "fact_coverage_percent": 42.86,
+        "critical_facts_missing": [
+          "filesystem_api_preferred_when_supported",
+          "shared_attachment_read_write_delete_contract",
+          "attachment_implementation_unfinished",
+          "finish_adapter_and_tests_then_integrate_sync_engine"
+        ],
+        "stale_claims_in_current_sections": [],
+        "next_step_correct": false,
+        "checks": {
+          "current_architecture": [
+            {
+              "id": "filesystem_api_preferred_when_supported",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "indexeddb_blob_fallback",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "shared_attachment_read_write_delete_contract",
+              "critical": true,
+              "present": false
+            }
+          ],
+          "current_constraints": [
+            {
+              "id": "retain_local_copy_until_authenticated_ack",
+              "critical": true,
+              "present": true
+            }
+          ],
+          "superseded_decisions": [
+            {
+              "id": "localstorage_proposal_superseded",
+              "critical": true,
+              "present": true
+            }
+          ],
+          "current_state": [
+            {
+              "id": "attachment_implementation_unfinished",
+              "critical": true,
+              "present": false
+            }
+          ]
+        }
+      },
+      "tool_calls": 0,
+      "tool_events": [],
+      "context": {
+        "selected_context_tokens": 0,
+        "trace": null
+      },
+      "protocol_valid": true,
+      "answer": "## CURRENT STORAGE\n\nThe desktop and mobile PWA uses **LocalStore** for browser persistence. Inspection records are in IndexedDB. The attachment adapter prefers filesystem storage when available and permitted, with an IndexedDB blob fallback.\n\n## DATA RETENTION\n\nKeep each draft and photo locally until the API confirms that item’s authenticated upload. Timeouts, expired sessions, validation errors, and conflicts do not authorize removal. Cleanup is scoped to the acknowledged attachment.\n\n## SUPERSEDED PROPOSAL\n\nThe earlier **localStorage** proposal is no longer current.\n\n## IMPLEMENTATION STATE\n\nRecord persistence and metadata sync are integrated. The attachment interface is drafted, but neither production backend has passed the shared contract tests; photos still use a temporary test path.\n\n## NEXT STEP\n\nImplement adapter selection and both attachment backends. Test the same read, write, delete, reload, permission fallback, and acknowledgement-gated cleanup cases against them. Then connect the adapter to SyncEngine.",
+      "raw_directory": "evaluations\\runs\\v08\\gpt-6-sol\\mode-A-budget-4000\\rep-2"
+    },
+    {
+      "benchmark": "v0.8-offline-attachment-capability-1",
+      "mode": "A",
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "repetition": 3,
+      "fixture_sha256": "15acd5e26c80e042c4561c4b21d04241478a2943f649c68007ca58abb0d1214a",
+      "ground_truth_sha256": "94fb4c2616171a6ac1179463f00800546720c1fc53e2d02da6f94e4fba37744f",
+      "history_messages": 118,
+      "history_tokens_cl100k": 8167,
+      "provider_usage": {
+        "input_tokens": 22283,
+        "cached_input_tokens": 11904,
+        "output_tokens": 183,
+        "total_tokens": null
+      },
+      "elapsed_ms": 10320.87,
+      "model_exit_code": 0,
+      "task_grade": {
+        "passed": false,
+        "facts_present": 6,
+        "facts_total": 7,
+        "fact_coverage_percent": 85.71,
+        "critical_facts_missing": [
+          "filesystem_api_preferred_when_supported"
+        ],
+        "stale_claims_in_current_sections": [],
+        "next_step_correct": true,
+        "checks": {
+          "current_architecture": [
+            {
+              "id": "filesystem_api_preferred_when_supported",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "indexeddb_blob_fallback",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "shared_attachment_read_write_delete_contract",
+              "critical": true,
+              "present": true
+            }
+          ],
+          "current_constraints": [
+            {
+              "id": "retain_local_copy_until_authenticated_ack",
+              "critical": true,
+              "present": true
+            }
+          ],
+          "superseded_decisions": [
+            {
+              "id": "localstorage_proposal_superseded",
+              "critical": true,
+              "present": true
+            }
+          ],
+          "current_state": [
+            {
+              "id": "attachment_implementation_unfinished",
+              "critical": true,
+              "present": true
+            }
+          ]
+        }
+      },
+      "tool_calls": 0,
+      "tool_events": [],
+      "context": {
+        "selected_context_tokens": 0,
+        "trace": null
+      },
+      "protocol_valid": true,
+      "answer": "## CURRENT STORAGE\n\nAtlas uses a browser PWA. **LocalStore** keeps inspection records in IndexedDB. Its attachment adapter will prefer filesystem storage when available and permitted, with IndexedDB blobs as the fallback.\n\n## DATA RETENTION\n\nDrafts and photos stay local until the API confirms their authenticated upload. Cleanup applies only to the acknowledged attachment; failed, uncertain, or interrupted transfers retain their local copies.\n\n## SUPERSEDED PROPOSAL\n\nThe proposal to store everything in browser `localStorage` is no longer current.\n\n## IMPLEMENTATION STATE\n\nIndexedDB record persistence and metadata sync are integrated. The attachment interface is drafted, but the production backends and shared contract tests are unfinished.\n\n## NEXT STEP\n\nImplement backend selection and the shared attachment read/write/delete contract. Test both backends, permission fallback, reload persistence, and acknowledgement-gated cleanup before connecting attachments to **SyncEngine**.",
+      "raw_directory": "evaluations\\runs\\v08\\gpt-6-sol\\mode-A-budget-4000\\rep-3"
+    }
+  ],
+  "pass_count": 0,
+  "protocol_valid_runs": 3,
+  "average_context_tokens": 0.0,
+  "average_provider_input_tokens": 24152.0,
+  "average_cached_input_tokens": 11904.0,
+  "average_output_tokens": 190.0,
+  "average_elapsed_ms": 11427.66,
+  "average_tool_calls": 0.0,
+  "runs_detail": [
+    {
+      "benchmark": "v0.8-offline-attachment-capability-1",
+      "mode": "A",
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "repetition": 1,
+      "fixture_sha256": "15acd5e26c80e042c4561c4b21d04241478a2943f649c68007ca58abb0d1214a",
+      "ground_truth_sha256": "94fb4c2616171a6ac1179463f00800546720c1fc53e2d02da6f94e4fba37744f",
+      "history_messages": 118,
+      "history_tokens_cl100k": 8167,
+      "provider_usage": {
+        "input_tokens": 27917,
+        "cached_input_tokens": 11904,
+        "output_tokens": 192,
+        "total_tokens": null
+      },
+      "elapsed_ms": 14008.49,
+      "model_exit_code": 0,
+      "task_grade": {
+        "passed": false,
+        "facts_present": 5,
+        "facts_total": 7,
+        "fact_coverage_percent": 71.43,
+        "critical_facts_missing": [
+          "filesystem_api_preferred_when_supported",
+          "attachment_implementation_unfinished"
+        ],
+        "stale_claims_in_current_sections": [],
+        "next_step_correct": true,
+        "checks": {
+          "current_architecture": [
+            {
+              "id": "filesystem_api_preferred_when_supported",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "indexeddb_blob_fallback",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "shared_attachment_read_write_delete_contract",
+              "critical": true,
+              "present": true
+            }
+          ],
+          "current_constraints": [
+            {
+              "id": "retain_local_copy_until_authenticated_ack",
+              "critical": true,
+              "present": true
+            }
+          ],
+          "superseded_decisions": [
+            {
+              "id": "localstorage_proposal_superseded",
+              "critical": true,
+              "present": true
+            }
+          ],
+          "current_state": [
+            {
+              "id": "attachment_implementation_unfinished",
+              "critical": true,
+              "present": false
+            }
+          ]
+        }
+      },
+      "tool_calls": 0,
+      "tool_events": [],
+      "context": {
+        "selected_context_tokens": 0,
+        "trace": null
+      },
+      "protocol_valid": true,
+      "answer": "## CURRENT STORAGE\nThe desktop and mobile PWA uses **LocalStore** for client persistence: IndexedDB holds inspection records, while an attachment adapter prefers filesystem storage when available and permitted, with an IndexedDB blob fallback.\n\n## DATA RETENTION\nDrafts and photos stay local until the API confirms an authenticated upload. Cleanup is **per attachment**; a failed, ambiguous, or unrelated successful request cannot remove its local copy.\n\n## SUPERSEDED PROPOSAL\nThe proposal to store drafts in browser `localStorage` is no longer current.\n\n## IMPLEMENTATION STATE\nRecord persistence and metadata sync are integrated. The attachment interface is drafted, but its production backends and shared contract tests are unfinished; photos still use a temporary test path.\n\n## NEXT STEP\nImplement backend selection and the shared attachment read/write/delete contract. Test both backends for fallback, reload persistence, and acknowledgement-gated cleanup, then connect the adapter to SyncEngine.",
+      "raw_directory": "evaluations\\runs\\v08\\gpt-6-sol\\mode-A-budget-4000\\rep-1"
+    },
+    {
+      "benchmark": "v0.8-offline-attachment-capability-1",
+      "mode": "A",
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "repetition": 2,
+      "fixture_sha256": "15acd5e26c80e042c4561c4b21d04241478a2943f649c68007ca58abb0d1214a",
+      "ground_truth_sha256": "94fb4c2616171a6ac1179463f00800546720c1fc53e2d02da6f94e4fba37744f",
+      "history_messages": 118,
+      "history_tokens_cl100k": 8167,
+      "provider_usage": {
+        "input_tokens": 22256,
+        "cached_input_tokens": 11904,
+        "output_tokens": 195,
+        "total_tokens": null
+      },
+      "elapsed_ms": 9953.62,
+      "model_exit_code": 0,
+      "task_grade": {
+        "passed": false,
+        "facts_present": 3,
+        "facts_total": 7,
+        "fact_coverage_percent": 42.86,
+        "critical_facts_missing": [
+          "filesystem_api_preferred_when_supported",
+          "shared_attachment_read_write_delete_contract",
+          "attachment_implementation_unfinished",
+          "finish_adapter_and_tests_then_integrate_sync_engine"
+        ],
+        "stale_claims_in_current_sections": [],
+        "next_step_correct": false,
+        "checks": {
+          "current_architecture": [
+            {
+              "id": "filesystem_api_preferred_when_supported",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "indexeddb_blob_fallback",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "shared_attachment_read_write_delete_contract",
+              "critical": true,
+              "present": false
+            }
+          ],
+          "current_constraints": [
+            {
+              "id": "retain_local_copy_until_authenticated_ack",
+              "critical": true,
+              "present": true
+            }
+          ],
+          "superseded_decisions": [
+            {
+              "id": "localstorage_proposal_superseded",
+              "critical": true,
+              "present": true
+            }
+          ],
+          "current_state": [
+            {
+              "id": "attachment_implementation_unfinished",
+              "critical": true,
+              "present": false
+            }
+          ]
+        }
+      },
+      "tool_calls": 0,
+      "tool_events": [],
+      "context": {
+        "selected_context_tokens": 0,
+        "trace": null
+      },
+      "protocol_valid": true,
+      "answer": "## CURRENT STORAGE\n\nThe desktop and mobile PWA uses **LocalStore** for browser persistence. Inspection records are in IndexedDB. The attachment adapter prefers filesystem storage when available and permitted, with an IndexedDB blob fallback.\n\n## DATA RETENTION\n\nKeep each draft and photo locally until the API confirms that item’s authenticated upload. Timeouts, expired sessions, validation errors, and conflicts do not authorize removal. Cleanup is scoped to the acknowledged attachment.\n\n## SUPERSEDED PROPOSAL\n\nThe earlier **localStorage** proposal is no longer current.\n\n## IMPLEMENTATION STATE\n\nRecord persistence and metadata sync are integrated. The attachment interface is drafted, but neither production backend has passed the shared contract tests; photos still use a temporary test path.\n\n## NEXT STEP\n\nImplement adapter selection and both attachment backends. Test the same read, write, delete, reload, permission fallback, and acknowledgement-gated cleanup cases against them. Then connect the adapter to SyncEngine.",
+      "raw_directory": "evaluations\\runs\\v08\\gpt-6-sol\\mode-A-budget-4000\\rep-2"
+    },
+    {
+      "benchmark": "v0.8-offline-attachment-capability-1",
+      "mode": "A",
+      "model": "gpt-6-sol",
+      "reasoning_effort": "low",
+      "repetition": 3,
+      "fixture_sha256": "15acd5e26c80e042c4561c4b21d04241478a2943f649c68007ca58abb0d1214a",
+      "ground_truth_sha256": "94fb4c2616171a6ac1179463f00800546720c1fc53e2d02da6f94e4fba37744f",
+      "history_messages": 118,
+      "history_tokens_cl100k": 8167,
+      "provider_usage": {
+        "input_tokens": 22283,
+        "cached_input_tokens": 11904,
+        "output_tokens": 183,
+        "total_tokens": null
+      },
+      "elapsed_ms": 10320.87,
+      "model_exit_code": 0,
+      "task_grade": {
+        "passed": false,
+        "facts_present": 6,
+        "facts_total": 7,
+        "fact_coverage_percent": 85.71,
+        "critical_facts_missing": [
+          "filesystem_api_preferred_when_supported"
+        ],
+        "stale_claims_in_current_sections": [],
+        "next_step_correct": true,
+        "checks": {
+          "current_architecture": [
+            {
+              "id": "filesystem_api_preferred_when_supported",
+              "critical": true,
+              "present": false
+            },
+            {
+              "id": "indexeddb_blob_fallback",
+              "critical": true,
+              "present": true
+            },
+            {
+              "id": "shared_attachment_read_write_delete_contract",
+              "critical": true,
+              "present": true
+            }
+          ],
+          "current_constraints": [
+            {
+              "id": "retain_local_copy_until_authenticated_ack",
+              "critical": true,
+              "present": true
+            }
+          ],
+          "superseded_decisions": [
+            {
+              "id": "localstorage_proposal_superseded",
+              "critical": true,
+              "present": true
+            }
+          ],
+          "current_state": [
+            {
+              "id": "attachment_implementation_unfinished",
+              "critical": true,
+              "present": true
+            }
+          ]
+        }
+      },
+      "tool_calls": 0,
+      "tool_events": [],
+      "context": {
+        "selected_context_tokens": 0,
+        "trace": null
+      },
+      "protocol_valid": true,
+      "answer": "## CURRENT STORAGE\n\nAtlas uses a browser PWA. **LocalStore** keeps inspection records in IndexedDB. Its attachment adapter will prefer filesystem storage when available and permitted, with IndexedDB blobs as the fallback.\n\n## DATA RETENTION\n\nDrafts and photos stay local until the API confirms their authenticated upload. Cleanup applies only to the acknowledged attachment; failed, uncertain, or interrupted transfers retain their local copies.\n\n## SUPERSEDED PROPOSAL\n\nThe proposal to store everything in browser `localStorage` is no longer current.\n\n## IMPLEMENTATION STATE\n\nIndexedDB record persistence and metadata sync are integrated. The attachment interface is drafted, but the production backends and shared contract tests are unfinished.\n\n## NEXT STEP\n\nImplement backend selection and the shared attachment read/write/delete contract. Test both backends, permission fallback, reload persistence, and acknowledgement-gated cleanup before connecting attachments to **SyncEngine**.",
+      "raw_directory": "evaluations\\runs\\v08\\gpt-6-sol\\mode-A-budget-4000\\rep-3"
+    }
+  ]
+}

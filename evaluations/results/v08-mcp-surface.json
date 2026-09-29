@@ -1,0 +1,18 @@
+{
+  "label": "LOCAL SERIALIZATION ESTIMATE; not provider-reported model input",
+  "tool_count_default": 1,
+  "tool_names": [
+    "conceptualize_context"
+  ],
+  "schema_properties": [
+    "task"
+  ],
+  "tool_definition_bytes_utf8": 462,
+  "tool_definition_cl100k_tokens": 91,
+  "capability_instructions_bytes_utf8": 403,
+  "capability_instructions_cl100k_tokens": 73,
+  "combined_tool_and_instruction_cl100k_tokens": 164,
+  "v05_six_tool_surface_cl100k_estimate": 1466,
+  "v06_default_surface_cl100k_estimate": 277,
+  "comparison_note": "V0.5/V0.6 historical local estimates; V0.8 estimate serializes its actual one-task tool definition and current MCP instructions. Provider input is measured separately in model results."
+}

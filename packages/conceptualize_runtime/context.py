@@ -7,6 +7,8 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from time import perf_counter
 
+from .working_context import classify_working_context, render_working_context
+
 _STOPWORDS = {
     "a", "an", "and", "are", "as", "at", "be", "by", "did", "do", "for", "from",
     "how", "in", "is", "it", "of", "on", "or", "the", "to", "was", "were", "what",
@@ -462,6 +464,7 @@ class ContextUnitRuntime:
             else:
                 display = unit.content
             block = header + "\n" + display
+            category, classification = classify_working_context(unit)
             reasons = list(match["reasons"])
             score = match["score"]
             prior = prior_by_id.get(unit.id, [])
@@ -496,6 +499,8 @@ class ContextUnitRuntime:
                     "reasons": reasons,
                     "block": block,
                     "block_tokens": token_count(block),
+                    "working_category": category,
+                    "working_classification": classification,
                     "already_known": unchanged,
                     "invalidated": invalidated,
                     "previous": known_prior or (prior[-1] if prior else None),
@@ -522,6 +527,8 @@ class ContextUnitRuntime:
         scoring_ms = (perf_counter() - scoring_started) * 1000
         compilation_started = perf_counter()
         context = ""
+        working_groups = {}
+        working_context = []
         selected = []
         omitted = []
         previous_context = []
@@ -606,12 +613,30 @@ class ContextUnitRuntime:
                 omitted.append(unit.id)
                 duplicate_tokens_suppressed += row["block_tokens"]
                 continue
-            separator = "\n\n---\n\n" if context else ""
-            proposed = context + separator + row["block"]
+            proposed_groups = {name: list(blocks) for name, blocks in working_groups.items()}
+            proposed_groups.setdefault(row["working_category"], []).append(row["block"])
+            proposed = render_working_context(proposed_groups)
             if token_count(proposed) <= token_budget:
                 context = proposed
+                working_groups = proposed_groups
                 row["status"] = "selected"
                 selected.append(row)
+                working_context.append(
+                    {
+                        "unit_id": unit.id,
+                        "source_id": unit.source_id,
+                        "category": row["working_category"],
+                        "classification": row["working_classification"],
+                        "relationship_origins": sorted(
+                            {
+                                relation.get("origin", "unknown")
+                                for relation in unit.relationships
+                                if relation.get("kind")
+                                in {"supersedes", "updates", "decision_for", "constraint_for"}
+                            }
+                        ),
+                    }
+                )
                 deliveries.append(
                     {
                         "unit_id": unit.id,
@@ -654,6 +679,7 @@ class ContextUnitRuntime:
         invalidated = [row["unit"].id for row in candidates if row["invalidated"]]
         return {
             "context": context,
+            "working_context": working_context,
             "selection": public_candidates,
             "included_units": [row["unit"].id for row in selected if not row["already_known"]],
             "omitted_units": omitted,

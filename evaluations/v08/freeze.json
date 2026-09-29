@@ -1,0 +1,22 @@
+{
+  "fixture_version": "v0.8-offline-attachment-capability-1",
+  "fixture_sha256": "15acd5e26c80e042c4561c4b21d04241478a2943f649c68007ca58abb0d1214a",
+  "ground_truth_sha256": "94fb4c2616171a6ac1179463f00800546720c1fc53e2d02da6f94e4fba37744f",
+  "source_fixture": {
+    "path": "evaluations/v07/fixture.json",
+    "version": "v0.7-context-economics-atlas-9",
+    "sha256": "2e3c86cc1c0f9ad5105ce752e6355da56d423f3f1836f228b3f0a4fe0ce71e9f",
+    "relationship": "V0.8 uses a separate task and rubric over this preserved conversation history."
+  },
+  "question": "Continue the attachment-storage work. Summarize the current storage approach, when a local copy can be removed, which earlier storage proposal is no longer current, and the next implementation step.",
+  "messages": 118,
+  "history_tokens_cl100k": 8167,
+  "model_runs_started": false,
+  "pass_rule": {
+    "all_critical_facts_required": true,
+    "minimum_overall_coverage_percent": 100,
+    "stale_current_claims_allowed": 0,
+    "next_step_must_be_correct": true
+  },
+  "primary_input_reduction_threshold_percent": 25
+}

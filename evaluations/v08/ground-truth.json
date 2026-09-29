@@ -1,0 +1,178 @@
+{
+  "version": "v0.8-offline-attachment-capability-1",
+  "created_before_model_runs": true,
+  "pass_rule": {
+    "all_critical_facts_required": true,
+    "minimum_overall_coverage_percent": 100,
+    "stale_current_claims_allowed": 0,
+    "next_step_must_be_correct": true
+  },
+  "current_architecture": [
+    {
+      "id": "filesystem_api_preferred_when_supported",
+      "critical": true,
+      "alternatives": [
+        [
+          "file system access api",
+          "when supported"
+        ],
+        [
+          "file system access api",
+          "when available"
+        ],
+        [
+          "filesystem access api",
+          "preferred"
+        ]
+      ]
+    },
+    {
+      "id": "indexeddb_blob_fallback",
+      "critical": true,
+      "alternatives": [
+        [
+          "indexeddb",
+          "blob",
+          "fallback"
+        ],
+        [
+          "idb",
+          "blob",
+          "fallback"
+        ],
+        [
+          "indexeddb blobs",
+          "otherwise"
+        ]
+      ]
+    },
+    {
+      "id": "shared_attachment_read_write_delete_contract",
+      "critical": true,
+      "alternatives": [
+        [
+          "adapter contract",
+          "read",
+          "write",
+          "delete"
+        ],
+        [
+          "adapter",
+          "read",
+          "write",
+          "delete",
+          "both backends"
+        ],
+        [
+          "same read write delete contract"
+        ]
+      ]
+    }
+  ],
+  "current_constraints": [
+    {
+      "id": "retain_local_copy_until_authenticated_ack",
+      "critical": true,
+      "alternatives": [
+        [
+          "local",
+          "authenticated",
+          "upload",
+          "acknowledg"
+        ],
+        [
+          "device",
+          "server confirms",
+          "upload"
+        ],
+        [
+          "local copy",
+          "authenticated success",
+          "acknowledg"
+        ]
+      ]
+    }
+  ],
+  "superseded_decisions": [
+    {
+      "id": "localstorage_proposal_superseded",
+      "critical": true,
+      "alternatives": [
+        [
+          "localstorage",
+          "superseded"
+        ],
+        [
+          "localstorage",
+          "not",
+          "current"
+        ],
+        [
+          "localstorage",
+          "not",
+          "production"
+        ]
+      ]
+    }
+  ],
+  "current_state": [
+    {
+      "id": "attachment_implementation_unfinished",
+      "critical": true,
+      "alternatives": [
+        [
+          "attachments",
+          "unfinished"
+        ],
+        [
+          "attachment adapter",
+          "not complete"
+        ],
+        [
+          "neither production backend",
+          "passed",
+          "common suite"
+        ]
+      ]
+    }
+  ],
+  "next_step": {
+    "id": "finish_adapter_and_tests_then_integrate_sync_engine",
+    "critical": true,
+    "alternatives": [
+      [
+        "backend selection",
+        "indexeddb",
+        "fallback",
+        "persistence",
+        "acknowledgement",
+        "cleanup",
+        "syncengine"
+      ],
+      [
+        "both backends",
+        "fallback",
+        "reload",
+        "acknowledgement",
+        "syncengine"
+      ],
+      [
+        "adapter implementations",
+        "fallback",
+        "persistence",
+        "cleanup",
+        "syncengine"
+      ]
+    ]
+  },
+  "stale_claims": [
+    {
+      "id": "localstorage_is_current",
+      "scope": "current_storage",
+      "reject_if_current_contains": [
+        "use localstorage as (?:the )?(?:current|production)",
+        "localstorage (?:is|remains) (?:the )?(?:current|production)"
+      ]
+    }
+  ]
+}

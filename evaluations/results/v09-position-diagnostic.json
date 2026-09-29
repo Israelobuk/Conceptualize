@@ -1,0 +1,769 @@
+{
+  "diagnostic": "V0.9 source-position recall diagnostic (not primary benchmark)",
+  "fixture_sha256": "de91afc78218b084a6e569ba1e611d952490861dea9864fe720f55bb18c42370",
+  "ground_truth_sha256": "0b6289ce82cd6971aed9f258d363020b7a39d2a620c6f7bcdfbdf2ab5d9d3f7c",
+  "frozen_evaluator_prompt_sha256": "080d5dd01dc138bdb5907de8ff144ea566fb1df39fbcf9f9a4cb15048d157522",
+  "generation_model": "gpt-6-sol",
+  "reasoning": "low",
+  "evaluator_model": "gpt-6-astra",
+  "task": "What architectural decision did we make about how the local persistence layer and the synchronization layer relate to each other?",
+  "moved_source_message": "h03",
+  "position_method": "move only h03 in message order; preserve its text and all source timestamps; all other messages unchanged",
+  "conditions": {
+    "A_original": {
+      "recovered": 3,
+      "runs": 3,
+      "mean_input": 22343.0,
+      "mean_cached": 11904.0,
+      "mean_output": 86.67,
+      "mean_latency_ms": 9267.16
+    },
+    "B_near_end": {
+      "recovered": 3,
+      "runs": 3,
+      "mean_input": 22347.0,
+      "mean_cached": 11904.0,
+      "mean_output": 80.67,
+      "mean_latency_ms": 6922.88
+    },
+    "C_near_beginning": {
+      "recovered": 3,
+      "runs": 3,
+      "mean_input": 22349.0,
+      "mean_cached": 11904.0,
+      "mean_output": 81.0,
+      "mean_latency_ms": 9879.74
+    }
+  },
+  "records": [
+    {
+      "condition": "A_original",
+      "repetition": 1,
+      "moved_message_id": null,
+      "task": "What architectural decision did we make about how the local persistence layer and the synchronization layer relate to each other?",
+      "answer": "We decided to keep **LocalStore** and **SyncEngine** as separate, replaceable client boundaries. LocalStore owns durable on-device records and attachments; SyncEngine owns transfer, retries, and server acknowledgement. The PWA screens use those boundaries rather than accessing browser storage directly, so either layer can change independently.",
+      "provider_usage": {
+        "input_tokens": 22343,
+        "cached_input_tokens": 11904,
+        "output_tokens": 67,
+        "total_tokens": null
+      },
+      "elapsed_ms": 7636.34,
+      "mcp_calls": 0,
+      "semantic_evaluation": {
+        "answer_id": "position_001",
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "status": "absent",
+            "evidence": "The PWA screens use those boundaries",
+            "reason": "Identifies a PWA but omits desktop and mobile support and use of the existing HTTPS JSON API."
+          },
+          {
+            "id": "ARCH_02",
+            "status": "present",
+            "evidence": "LocalStore and SyncEngine as separate, replaceable client boundaries",
+            "reason": "Clearly asserts independently replaceable persistence and synchronization layers."
+          },
+          {
+            "id": "DEC_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "Does not specify IndexedDB records or attachment backend preference and fallback."
+          },
+          {
+            "id": "DEC_02",
+            "status": "absent",
+            "evidence": "",
+            "reason": "Does not assert a shared read, write, and delete interface for both attachment backends."
+          },
+          {
+            "id": "CON_01",
+            "status": "absent",
+            "evidence": "SyncEngine owns transfer, retries, and server acknowledgement.",
+            "reason": "Acknowledgement responsibility does not establish per-attachment retention until authenticated upload acknowledgement."
+          },
+          {
+            "id": "OLD_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "Does not identify the localStorage-only production decision as superseded."
+          },
+          {
+            "id": "STATE_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "Does not distinguish integrated record persistence and metadata synchronization from unfinished attachment work."
+          },
+          {
+            "id": "NEXT_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "Does not describe backend implementation, required tests, or subsequent SyncEngine integration."
+          }
+        ],
+        "critical_proposition_coverage_percent": 12.5,
+        "total_proposition_coverage_percent": 12.5,
+        "stale_current_errors": 0,
+        "contradiction_count": 0,
+        "pass": false
+      },
+      "evaluator_usage": {
+        "input_tokens": 15460,
+        "cached_input_tokens": 12416,
+        "output_tokens": 343,
+        "total_tokens": null
+      },
+      "evaluator_elapsed_ms": 15054.74,
+      "ARCH_02_status": "present"
+    },
+    {
+      "condition": "A_original",
+      "repetition": 2,
+      "moved_message_id": null,
+      "task": "What architectural decision did we make about how the local persistence layer and the synchronization layer relate to each other?",
+      "answer": "We decided to keep **LocalStore** and **SyncEngine** as separate, replaceable client boundaries. LocalStore owns durable on-device records and attachments. SyncEngine uses LocalStore to read queued work, transfer it through the existing HTTPS JSON API, and track acknowledgements and retries. It requests local attachment cleanup only after that attachment’s authenticated upload is acknowledged.\n\nThe record path is integrated; the attachment adapter and its shared backend tests are still incomplete.",
+      "provider_usage": {
+        "input_tokens": 22343,
+        "cached_input_tokens": 11904,
+        "output_tokens": 94,
+        "total_tokens": null
+      },
+      "elapsed_ms": 10127.35,
+      "mcp_calls": 0,
+      "semantic_evaluation": {
+        "answer_id": "position_002",
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "status": "absent",
+            "evidence": "transfer it through the existing HTTPS JSON API",
+            "reason": "The API is asserted, but the browser PWA and desktop/mobile client scope are omitted."
+          },
+          {
+            "id": "ARCH_02",
+            "status": "present",
+            "evidence": "LocalStore and SyncEngine as separate, replaceable client boundaries",
+            "reason": "Persistence and synchronization are explicitly separate and replaceable."
+          },
+          {
+            "id": "DEC_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "Neither IndexedDB record storage nor attachment backend preference and fallback are specified."
+          },
+          {
+            "id": "DEC_02",
+            "status": "absent",
+            "evidence": "",
+            "reason": "A shared read, write, and delete interface for both backends is not asserted."
+          },
+          {
+            "id": "CON_01",
+            "status": "present",
+            "evidence": "only after that attachment’s authenticated upload is acknowledged",
+            "reason": "Cleanup is conditional on acknowledgement of the individual attachment's authenticated upload."
+          },
+          {
+            "id": "OLD_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "The superseded localStorage-only production decision is not identified."
+          },
+          {
+            "id": "STATE_01",
+            "status": "absent",
+            "evidence": "The record path is integrated; the attachment adapter and its shared backend tests are still incomplete.",
+            "reason": "Some implementation status is supplied, but integrated metadata synchronization and unfinished end-to-end attachment transfer are not clearly asserted."
+          },
+          {
+            "id": "NEXT_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "The required implementation, testing, and subsequent SyncEngine integration sequence is omitted."
+          }
+        ],
+        "critical_proposition_coverage_percent": 25,
+        "total_proposition_coverage_percent": 25,
+        "stale_current_errors": 0,
+        "contradiction_count": 0,
+        "pass": false
+      },
+      "evaluator_usage": {
+        "input_tokens": 15487,
+        "cached_input_tokens": 12416,
+        "output_tokens": 358,
+        "total_tokens": null
+      },
+      "evaluator_elapsed_ms": 16151.01,
+      "ARCH_02_status": "present"
+    },
+    {
+      "condition": "A_original",
+      "repetition": 3,
+      "moved_message_id": null,
+      "task": "What architectural decision did we make about how the local persistence layer and the synchronization layer relate to each other?",
+      "answer": "We decided to keep **LocalStore** and **SyncEngine** as separate, replaceable client boundaries. LocalStore owns durable on-device records and attachments; SyncEngine owns transfer, retries, and server acknowledgements. SyncEngine uses LocalStore through its contract and requests attachment cleanup only after that attachment’s authenticated upload is acknowledged.\n\nRecord persistence and metadata sync are integrated. The attachment adapter and its shared backend tests remain unfinished; completing those comes before wiring attachment transfer into SyncEngine.",
+      "provider_usage": {
+        "input_tokens": 22343,
+        "cached_input_tokens": 11904,
+        "output_tokens": 99,
+        "total_tokens": null
+      },
+      "elapsed_ms": 10037.78,
+      "mcp_calls": 0,
+      "semantic_evaluation": {
+        "answer_id": "position_003",
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "The browser PWA, desktop/mobile support, and existing HTTPS JSON API are not specified."
+          },
+          {
+            "id": "ARCH_02",
+            "status": "present",
+            "evidence": "keep **LocalStore** and **SyncEngine** as separate, replaceable client boundaries",
+            "reason": "Persistence and synchronization are asserted as separate, replaceable layers."
+          },
+          {
+            "id": "DEC_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "IndexedDB records and the preferred File System Access backend with IndexedDB blob fallback are omitted."
+          },
+          {
+            "id": "DEC_02",
+            "status": "absent",
+            "evidence": "SyncEngine uses LocalStore through its contract",
+            "reason": "This does not establish that both attachment backends share read, write, and delete operations."
+          },
+          {
+            "id": "CON_01",
+            "status": "present",
+            "evidence": "requests attachment cleanup only after that attachment’s authenticated upload is acknowledged",
+            "reason": "Cleanup is conditioned on acknowledgement of each attachment’s authenticated upload."
+          },
+          {
+            "id": "OLD_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "The superseded localStorage-only production decision is not identified."
+          },
+          {
+            "id": "STATE_01",
+            "status": "present",
+            "evidence": "Record persistence and metadata sync are integrated. The attachment adapter and its shared backend tests remain unfinished; completing those comes before wiring attachment transfer into SyncEngine.",
+            "reason": "Distinguishes integrated record persistence and metadata synchronization from unfinished attachment storage, shared tests, and transfer integration."
+          },
+          {
+            "id": "NEXT_01",
+            "status": "absent",
+            "evidence": "completing those comes before wiring attachment transfer into SyncEngine",
+            "reason": "The sequencing is represented, but backend selection, shared adapter behavior, and the required persistence, fallback, and cleanup tests are not specified."
+          }
+        ],
+        "critical_proposition_coverage_percent": 37.5,
+        "total_proposition_coverage_percent": 37.5,
+        "stale_current_errors": 0,
+        "contradiction_count": 0,
+        "pass": false
+      },
+      "evaluator_usage": {
+        "input_tokens": 15492,
+        "cached_input_tokens": 12416,
+        "output_tokens": 411,
+        "total_tokens": null
+      },
+      "evaluator_elapsed_ms": 20142.96,
+      "ARCH_02_status": "present"
+    },
+    {
+      "condition": "B_near_end",
+      "repetition": 1,
+      "moved_message_id": "h03",
+      "task": "What architectural decision did we make about how the local persistence layer and the synchronization layer relate to each other?",
+      "answer": "We decided to keep **LocalStore** (local persistence) and **SyncEngine** (synchronization) as separate, replaceable client boundaries. The PWA uses LocalStore to save drafts and attachments; SyncEngine reads that durable state and transfers it through the existing HTTPS API. Either layer can change without rewriting the screens or the other layer.",
+      "provider_usage": {
+        "input_tokens": 22347,
+        "cached_input_tokens": 11904,
+        "output_tokens": 74,
+        "total_tokens": null
+      },
+      "elapsed_ms": 7191.72,
+      "mcp_calls": 0,
+      "semantic_evaluation": {
+        "answer_id": "position_004",
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "status": "absent",
+            "evidence": "The PWA uses LocalStore to save drafts and attachments; SyncEngine reads that durable state and transfers it through the existing HTTPS API.",
+            "reason": "PWA and HTTPS API use are asserted, but desktop and mobile support and JSON API use are not specified."
+          },
+          {
+            "id": "ARCH_02",
+            "status": "present",
+            "evidence": "We decided to keep **LocalStore** (local persistence) and **SyncEngine** (synchronization) as separate, replaceable client boundaries.",
+            "reason": "Explicitly establishes separate, independently replaceable persistence and synchronization layers."
+          },
+          {
+            "id": "DEC_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No record or attachment storage backends or fallback policy are identified."
+          },
+          {
+            "id": "DEC_02",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No shared read, write, and delete interface for attachment backends is asserted."
+          },
+          {
+            "id": "CON_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No requirement to retain each attachment until its authenticated upload is acknowledged is stated."
+          },
+          {
+            "id": "OLD_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "The superseded localStorage-only production decision is not identified."
+          },
+          {
+            "id": "STATE_01",
+            "status": "absent",
+            "evidence": "The PWA uses LocalStore to save drafts and attachments; SyncEngine reads that durable state and transfers it through the existing HTTPS API.",
+            "reason": "This general architecture description does not distinguish integrated record persistence and metadata synchronization from unfinished production attachment backends, contract tests, and end-to-end transfer."
+          },
+          {
+            "id": "NEXT_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "The required implementation, testing, and subsequent SyncEngine integration sequence is omitted."
+          }
+        ],
+        "critical_proposition_coverage_percent": 12.5,
+        "total_proposition_coverage_percent": 12.5,
+        "stale_current_errors": 0,
+        "contradiction_count": 0,
+        "pass": false
+      },
+      "evaluator_usage": {
+        "input_tokens": 15467,
+        "cached_input_tokens": 12416,
+        "output_tokens": 411,
+        "total_tokens": null
+      },
+      "evaluator_elapsed_ms": 21037.73,
+      "ARCH_02_status": "present"
+    },
+    {
+      "condition": "B_near_end",
+      "repetition": 2,
+      "moved_message_id": "h03",
+      "task": "What architectural decision did we make about how the local persistence layer and the synchronization layer relate to each other?",
+      "answer": "We decided to keep **LocalStore** (local persistence) and **SyncEngine** (synchronization) as separate, replaceable boundaries in the PWA. Screens use LocalStore to save drafts and attachments without accessing browser storage directly. SyncEngine uses those durable local records to transfer data through the existing HTTPS API, tracks acknowledgements, and requests cleanup only after the relevant upload succeeds. Either layer can change without rewriting the screens.",
+      "provider_usage": {
+        "input_tokens": 22347,
+        "cached_input_tokens": 11904,
+        "output_tokens": 91,
+        "total_tokens": null
+      },
+      "elapsed_ms": 6574.89,
+      "mcp_calls": 0,
+      "semantic_evaluation": {
+        "answer_id": "position_005",
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "status": "absent",
+            "evidence": "in the PWA",
+            "reason": "Identifies a PWA using the existing HTTPS API, but does not establish desktop and mobile support or JSON API usage."
+          },
+          {
+            "id": "ARCH_02",
+            "status": "present",
+            "evidence": "keep **LocalStore** (local persistence) and **SyncEngine** (synchronization) as separate, replaceable boundaries",
+            "reason": "Clearly asserts separate, independently replaceable persistence and synchronization layers."
+          },
+          {
+            "id": "DEC_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "Does not identify IndexedDB record storage or the preferred and fallback attachment backends."
+          },
+          {
+            "id": "DEC_02",
+            "status": "absent",
+            "evidence": "",
+            "reason": "Does not assert a shared read, write, and delete interface for both attachment backends."
+          },
+          {
+            "id": "CON_01",
+            "status": "absent",
+            "evidence": "tracks acknowledgements, and requests cleanup only after the relevant upload succeeds",
+            "reason": "Suggests upload-dependent cleanup, but does not clearly require retaining each attachment until its own authenticated upload receives server acknowledgement."
+          },
+          {
+            "id": "OLD_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "Does not identify the localStorage-only production decision as superseded."
+          },
+          {
+            "id": "STATE_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "Does not distinguish integrated record persistence and metadata synchronization from unfinished attachment backends, contract tests, and end-to-end transfer."
+          },
+          {
+            "id": "NEXT_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "Does not specify backend selection, shared adapter behavior, required tests, or subsequent SyncEngine integration."
+          }
+        ],
+        "critical_proposition_coverage_percent": 12.5,
+        "total_proposition_coverage_percent": 12.5,
+        "stale_current_errors": 0,
+        "contradiction_count": 0,
+        "pass": false
+      },
+      "evaluator_usage": {
+        "input_tokens": 15484,
+        "cached_input_tokens": 12416,
+        "output_tokens": 425,
+        "total_tokens": null
+      },
+      "evaluator_elapsed_ms": 19717.68,
+      "ARCH_02_status": "present"
+    },
+    {
+      "condition": "B_near_end",
+      "repetition": 3,
+      "moved_message_id": "h03",
+      "task": "What architectural decision did we make about how the local persistence layer and the synchronization layer relate to each other?",
+      "answer": "We decided to keep **LocalStore** (local persistence) and **SyncEngine** (synchronization) as separate, replaceable client boundaries. The PWA screens use LocalStore to save and restore offline data; SyncEngine uses that durable data to transfer it through the existing HTTPS JSON API. Either implementation can change without rewriting the screens or the other layer.",
+      "provider_usage": {
+        "input_tokens": 22347,
+        "cached_input_tokens": 11904,
+        "output_tokens": 77,
+        "total_tokens": null
+      },
+      "elapsed_ms": 7002.03,
+      "mcp_calls": 0,
+      "semantic_evaluation": {
+        "answer_id": "position_006",
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "status": "absent",
+            "evidence": "The PWA screens use LocalStore to save and restore offline data; SyncEngine uses that durable data to transfer it through the existing HTTPS JSON API.",
+            "reason": "Identifies a PWA using the existing HTTPS JSON API, but omits desktop and mobile support."
+          },
+          {
+            "id": "ARCH_02",
+            "status": "present",
+            "evidence": "We decided to keep **LocalStore** (local persistence) and **SyncEngine** (synchronization) as separate, replaceable client boundaries.",
+            "reason": "Clearly asserts independently replaceable persistence and synchronization layers."
+          },
+          {
+            "id": "DEC_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No record or attachment storage backend decisions are stated."
+          },
+          {
+            "id": "DEC_02",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No shared attachment read, write, and delete interface is stated."
+          },
+          {
+            "id": "CON_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No requirement to retain each attachment until its authenticated upload is acknowledged is stated."
+          },
+          {
+            "id": "OLD_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "The superseded localStorage-only production decision is not identified."
+          },
+          {
+            "id": "STATE_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "The required distinction between integrated record and metadata work and unfinished attachment work is omitted."
+          },
+          {
+            "id": "NEXT_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "Backend implementation, required tests, and subsequent SyncEngine integration are not described."
+          }
+        ],
+        "critical_proposition_coverage_percent": 12.5,
+        "total_proposition_coverage_percent": 12.5,
+        "stale_current_errors": 0,
+        "contradiction_count": 0,
+        "pass": false
+      },
+      "evaluator_usage": {
+        "input_tokens": 15470,
+        "cached_input_tokens": 12416,
+        "output_tokens": 363,
+        "total_tokens": null
+      },
+      "evaluator_elapsed_ms": 16514.17,
+      "ARCH_02_status": "present"
+    },
+    {
+      "condition": "C_near_beginning",
+      "repetition": 1,
+      "moved_message_id": "h03",
+      "task": "What architectural decision did we make about how the local persistence layer and the synchronization layer relate to each other?",
+      "answer": "We decided to keep **LocalStore** and **SyncEngine** as separate, replaceable client boundaries. LocalStore owns durable on-device records and attachments; SyncEngine owns transfer, retries, and server acknowledgements through the existing HTTPS API. SyncEngine uses LocalStore’s contract rather than accessing browser storage directly, and it requests attachment cleanup only after that attachment’s authenticated upload is acknowledged.",
+      "provider_usage": {
+        "input_tokens": 22349,
+        "cached_input_tokens": 11904,
+        "output_tokens": 81,
+        "total_tokens": null
+      },
+      "elapsed_ms": 13786.57,
+      "mcp_calls": 0,
+      "semantic_evaluation": {
+        "answer_id": "position_007",
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "status": "absent",
+            "evidence": "through the existing HTTPS API",
+            "reason": "The API is identified, but browser PWA, desktop and mobile support, and JSON are not asserted."
+          },
+          {
+            "id": "ARCH_02",
+            "status": "present",
+            "evidence": "keep **LocalStore** and **SyncEngine** as separate, replaceable client boundaries",
+            "reason": "Persistence and synchronization are explicitly separate and replaceable."
+          },
+          {
+            "id": "DEC_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "The record and attachment storage backend choices are omitted."
+          },
+          {
+            "id": "DEC_02",
+            "status": "absent",
+            "evidence": "SyncEngine uses LocalStore’s contract",
+            "reason": "A general contract does not establish that both attachment backends share read, write, and delete operations."
+          },
+          {
+            "id": "CON_01",
+            "status": "present",
+            "evidence": "requests attachment cleanup only after that attachment’s authenticated upload is acknowledged",
+            "reason": "Cleanup is gated on acknowledgement of the individual attachment’s authenticated upload, with server acknowledgements established in context."
+          },
+          {
+            "id": "OLD_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "The superseded localStorage-only production decision is not identified."
+          },
+          {
+            "id": "STATE_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "The artifact does not distinguish integrated record persistence and metadata synchronization from unfinished attachment backends, contract tests, and end-to-end transfer."
+          },
+          {
+            "id": "NEXT_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "The required implementation, testing, and subsequent SyncEngine integration sequence is omitted."
+          }
+        ],
+        "critical_proposition_coverage_percent": 25,
+        "total_proposition_coverage_percent": 25,
+        "stale_current_errors": 0,
+        "contradiction_count": 0,
+        "pass": false
+      },
+      "evaluator_usage": {
+        "input_tokens": 15474,
+        "cached_input_tokens": 12416,
+        "output_tokens": 367,
+        "total_tokens": null
+      },
+      "evaluator_elapsed_ms": 16556.74,
+      "ARCH_02_status": "present"
+    },
+    {
+      "condition": "C_near_beginning",
+      "repetition": 2,
+      "moved_message_id": "h03",
+      "task": "What architectural decision did we make about how the local persistence layer and the synchronization layer relate to each other?",
+      "answer": "We decided to keep **LocalStore** (local persistence) and **SyncEngine** (transfer and retry) as separate, replaceable client layers. Screens use LocalStore rather than accessing browser storage directly. SyncEngine reads durable local work and tracks upload acknowledgements; it asks LocalStore to remove a particular attachment only after the API confirms that attachment’s authenticated upload. This lets either layer change without rewriting the screens.",
+      "provider_usage": {
+        "input_tokens": 22349,
+        "cached_input_tokens": 11904,
+        "output_tokens": 87,
+        "total_tokens": null
+      },
+      "elapsed_ms": 8987.93,
+      "mcp_calls": 0,
+      "semantic_evaluation": {
+        "answer_id": "position_008",
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "Does not identify a desktop and mobile browser PWA or the existing HTTPS JSON API."
+          },
+          {
+            "id": "ARCH_02",
+            "status": "present",
+            "evidence": "separate, replaceable client layers",
+            "reason": "Clearly asserts independently replaceable persistence and synchronization layers."
+          },
+          {
+            "id": "DEC_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "Does not specify IndexedDB records or attachment backend preference and fallback."
+          },
+          {
+            "id": "DEC_02",
+            "status": "absent",
+            "evidence": "",
+            "reason": "Does not assert a shared read, write, and delete interface for both attachment backends."
+          },
+          {
+            "id": "CON_01",
+            "status": "present",
+            "evidence": "remove a particular attachment only after the API confirms that attachment’s authenticated upload",
+            "reason": "Requires acknowledgement of each attachment’s authenticated upload before its local removal."
+          },
+          {
+            "id": "OLD_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "Does not identify the localStorage-only production decision as superseded."
+          },
+          {
+            "id": "STATE_01",
+            "status": "absent",
+            "evidence": "SyncEngine reads durable local work and tracks upload acknowledgements",
+            "reason": "Does not establish the required integrated record and metadata state or identify unfinished attachment backends, contract tests, and end-to-end transfer."
+          },
+          {
+            "id": "NEXT_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "Does not give the required implementation, testing, and subsequent SyncEngine integration sequence."
+          }
+        ],
+        "critical_proposition_coverage_percent": 25,
+        "total_proposition_coverage_percent": 25,
+        "stale_current_errors": 0,
+        "contradiction_count": 0,
+        "pass": false
+      },
+      "evaluator_usage": {
+        "input_tokens": 15480,
+        "cached_input_tokens": 12416,
+        "output_tokens": 348,
+        "total_tokens": null
+      },
+      "evaluator_elapsed_ms": 21677.15,
+      "ARCH_02_status": "present"
+    },
+    {
+      "condition": "C_near_beginning",
+      "repetition": 3,
+      "moved_message_id": "h03",
+      "task": "What architectural decision did we make about how the local persistence layer and the synchronization layer relate to each other?",
+      "answer": "We decided to keep **LocalStore** and **SyncEngine** as separate, replaceable client layers. LocalStore owns durable on-device inspection records and attachments; SyncEngine owns transfer, retries, and server acknowledgements through the existing HTTPS API. The screens use those boundaries rather than accessing storage directly, so either implementation can change without rewriting the inspection workflow.",
+      "provider_usage": {
+        "input_tokens": 22349,
+        "cached_input_tokens": 11904,
+        "output_tokens": 75,
+        "total_tokens": null
+      },
+      "elapsed_ms": 6864.72,
+      "mcp_calls": 0,
+      "semantic_evaluation": {
+        "answer_id": "position_009",
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "status": "absent",
+            "evidence": "through the existing HTTPS API",
+            "reason": "HTTPS API use is asserted, but browser PWA, desktop and mobile support, and JSON are omitted."
+          },
+          {
+            "id": "ARCH_02",
+            "status": "present",
+            "evidence": "LocalStore** and **SyncEngine** as separate, replaceable client layers",
+            "reason": "Persistence and synchronization are explicitly separate and independently replaceable."
+          },
+          {
+            "id": "DEC_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No IndexedDB record storage or attachment backend preference and fallback are specified."
+          },
+          {
+            "id": "DEC_02",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No shared read, write, and delete interface for attachment backends is asserted."
+          },
+          {
+            "id": "CON_01",
+            "status": "absent",
+            "evidence": "SyncEngine owns transfer, retries, and server acknowledgements",
+            "reason": "Acknowledgement handling does not assert retention until each attachment's authenticated upload is acknowledged."
+          },
+          {
+            "id": "OLD_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "The superseded localStorage-only production decision is not identified."
+          },
+          {
+            "id": "STATE_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "Layer responsibilities do not establish integration status or identify unfinished attachment backends, contract tests, and end-to-end transfer."
+          },
+          {
+            "id": "NEXT_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "The required implementation, testing, and subsequent SyncEngine integration sequence is omitted."
+          }
+        ],
+        "critical_proposition_coverage_percent": 12.5,
+        "total_proposition_coverage_percent": 12.5,
+        "stale_current_errors": 0,
+        "contradiction_count": 0,
+        "pass": false
+      },
+      "evaluator_usage": {
+        "input_tokens": 15468,
+        "cached_input_tokens": 12416,
+        "output_tokens": 354,
+        "total_tokens": null
+      },
+      "evaluator_elapsed_ms": 20551.18,
+      "ARCH_02_status": "present"
+    }
+  ]
+}

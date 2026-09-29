@@ -1,0 +1,267 @@
+{
+  "diagnostic": "V0.9 unchanged @Conceptualize condition rerun after baseline failure; not a new benchmark",
+  "fixture_sha256": "de91afc78218b084a6e569ba1e611d952490861dea9864fe720f55bb18c42370",
+  "ground_truth_sha256": "0b6289ce82cd6971aed9f258d363020b7a39d2a620c6f7bcdfbdf2ab5d9d3f7c",
+  "evaluator_prompt_sha256": "080d5dd01dc138bdb5907de8ff144ea566fb1df39fbcf9f9a4cb15048d157522",
+  "model": "gpt-6-sol",
+  "reasoning": "low",
+  "evaluator_model": "gpt-6-astra",
+  "task": "Continue the attachment-storage work from the project history. Describe the current architecture and decisions, the constraints that still apply, which earlier choice is no longer current, what is implemented versus unfinished, and the next step.",
+  "repetitions": 3,
+  "pass_count": 0,
+  "arch_02_present": 0,
+  "records": [
+    {
+      "repetition": 1,
+      "answer": "",
+      "provider_usage": {
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null
+      },
+      "elapsed_ms": 157.58,
+      "exit_code": 2,
+      "tool_events": [],
+      "capability_activated": true,
+      "capability_calls": 0,
+      "context_trace": null,
+      "post_capability_normal_actions": null,
+      "blind_evaluation_id": "diagnostic_001",
+      "semantic_evaluation": {
+        "answer_id": "diagnostic_001",
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No artifact content states the client architecture or API."
+          },
+          {
+            "id": "ARCH_02",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No artifact content states that persistence and synchronization are independently replaceable layers."
+          },
+          {
+            "id": "DEC_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No artifact content identifies record or attachment storage decisions."
+          },
+          {
+            "id": "DEC_02",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No artifact content states the shared attachment backend interface."
+          },
+          {
+            "id": "CON_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No artifact content states the authenticated upload acknowledgement retention constraint."
+          },
+          {
+            "id": "OLD_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No artifact content identifies the localStorage-only decision as superseded."
+          },
+          {
+            "id": "STATE_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No artifact content distinguishes implemented work from unfinished attachment work."
+          },
+          {
+            "id": "NEXT_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No artifact content specifies the next implementation, testing, and integration sequence."
+          }
+        ],
+        "critical_proposition_coverage_percent": 0,
+        "total_proposition_coverage_percent": 0,
+        "stale_current_errors": 0,
+        "contradiction_count": 0,
+        "pass": false
+      },
+      "evaluator_usage": {
+        "input_tokens": 15413,
+        "cached_input_tokens": 7296,
+        "output_tokens": 295,
+        "total_tokens": null
+      },
+      "evaluator_elapsed_ms": 16979.92
+    },
+    {
+      "repetition": 2,
+      "answer": "",
+      "provider_usage": {
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null
+      },
+      "elapsed_ms": 160.94,
+      "exit_code": 2,
+      "tool_events": [],
+      "capability_activated": true,
+      "capability_calls": 0,
+      "context_trace": null,
+      "post_capability_normal_actions": null,
+      "blind_evaluation_id": "diagnostic_002",
+      "semantic_evaluation": {
+        "answer_id": "diagnostic_002",
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No artifact content asserts the current client or API architecture."
+          },
+          {
+            "id": "ARCH_02",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No artifact content asserts independently replaceable persistence and synchronization layers."
+          },
+          {
+            "id": "DEC_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No artifact content asserts the adopted record and attachment storage choices."
+          },
+          {
+            "id": "DEC_02",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No artifact content asserts a shared read, write, and delete interface."
+          },
+          {
+            "id": "CON_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No artifact content states the attachment retention constraint."
+          },
+          {
+            "id": "OLD_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No artifact content identifies the localStorage-only decision as superseded."
+          },
+          {
+            "id": "STATE_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No artifact content describes implemented versus unfinished work."
+          },
+          {
+            "id": "NEXT_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No artifact content states the next actions or their required sequencing."
+          }
+        ],
+        "critical_proposition_coverage_percent": 0,
+        "total_proposition_coverage_percent": 0,
+        "stale_current_errors": 0,
+        "contradiction_count": 0,
+        "pass": false
+      },
+      "evaluator_usage": {
+        "input_tokens": 15413,
+        "cached_input_tokens": 12416,
+        "output_tokens": 294,
+        "total_tokens": null
+      },
+      "evaluator_elapsed_ms": 16580.65
+    },
+    {
+      "repetition": 3,
+      "answer": "",
+      "provider_usage": {
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null
+      },
+      "elapsed_ms": 156.11,
+      "exit_code": 2,
+      "tool_events": [],
+      "capability_activated": true,
+      "capability_calls": 0,
+      "context_trace": null,
+      "post_capability_normal_actions": null,
+      "blind_evaluation_id": "diagnostic_003",
+      "semantic_evaluation": {
+        "answer_id": "diagnostic_003",
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No artifact content asserts the current client architecture."
+          },
+          {
+            "id": "ARCH_02",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No artifact content asserts independent persistence and synchronization layers."
+          },
+          {
+            "id": "DEC_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No artifact content states the record or attachment storage decisions."
+          },
+          {
+            "id": "DEC_02",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No artifact content states a shared attachment backend interface."
+          },
+          {
+            "id": "CON_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No artifact content states the attachment retention constraint."
+          },
+          {
+            "id": "OLD_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No artifact content identifies the localStorage-only decision as superseded."
+          },
+          {
+            "id": "STATE_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No artifact content distinguishes integrated functionality from unfinished attachment work."
+          },
+          {
+            "id": "NEXT_01",
+            "status": "absent",
+            "evidence": "",
+            "reason": "No artifact content states the next implementation, testing, and integration sequence."
+          }
+        ],
+        "critical_proposition_coverage_percent": 0,
+        "total_proposition_coverage_percent": 0,
+        "stale_current_errors": 0,
+        "contradiction_count": 0,
+        "pass": false
+      },
+      "evaluator_usage": {
+        "input_tokens": 15413,
+        "cached_input_tokens": 12416,
+        "output_tokens": 277,
+        "total_tokens": null
+      },
+      "evaluator_elapsed_ms": 16077.62
+    }
+  ],
+  "working_context_evaluations": [],
+  "valid_model_execution": false,
+  "invalid_execution_reason": "Codex CLI rejected --approve-for-me together with -s read-only before model execution. The empty outputs and their grader responses are not benchmark answers; see the corrected diagnostic result."
+}

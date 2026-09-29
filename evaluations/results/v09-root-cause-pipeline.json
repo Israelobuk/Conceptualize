@@ -1,0 +1,562 @@
+{
+  "diagnostic": "V0.9 root-cause trace for ARCH_02; no new benchmark version",
+  "frozen_artifact_hashes": {
+    "fixture_sha256": "de91afc78218b084a6e569ba1e611d952490861dea9864fe720f55bb18c42370",
+    "ground_truth_sha256": "0b6289ce82cd6971aed9f258d363020b7a39d2a620c6f7bcdfbdf2ab5d9d3f7c",
+    "evaluator_prompt_sha256": "080d5dd01dc138bdb5907de8ff144ea566fb1df39fbcf9f9a4cb15048d157522"
+  },
+  "proposition_id": "ARCH_02",
+  "proposition": "Local persistence and synchronization are separate layers that can be replaced independently.",
+  "history": {
+    "messages": 119,
+    "history_tokens_cl100k": 8292,
+    "full_control_prompt_tokens_cl100k": 8396,
+    "baseline_provider_input_tokens": [
+      22347,
+      22347,
+      22347
+    ],
+    "baseline_cached_input_tokens": [
+      11904,
+      11904,
+      11904
+    ],
+    "cached_range_attribution": "Provider telemetry gives aggregate cached-input tokens only; it does not expose source/token offsets, so whether these exact messages were in cached input is unknown."
+  },
+  "direct_source_messages": [
+    {
+      "id": "h03",
+      "position": {
+        "message_index_1_based": 3,
+        "history_token_start_approx": 82,
+        "history_percentile": 0.99
+      },
+      "message": {
+        "id": "h03",
+        "role": "user",
+        "timestamp": "2026-04-03T10:10:00Z",
+        "content": "New direction: ship a browser-based PWA for desktop and mobile. Keep the cloud API, but package local persistence and synchronization as separate layers so we can replace either independently.",
+        "metadata": {
+          "supersedes": [
+            "h01"
+          ]
+        }
+      }
+    },
+    {
+      "id": "h04",
+      "position": {
+        "message_index_1_based": 4,
+        "history_token_start_approx": 133,
+        "history_percentile": 1.6
+      },
+      "message": {
+        "id": "h04",
+        "role": "assistant",
+        "timestamp": "2026-04-03T10:12:00Z",
+        "content": "Current direction recorded: PWA client, cloud API, independently replaceable local persistence and sync layers."
+      }
+    },
+    {
+      "id": "v07-042",
+      "position": {
+        "message_index_1_based": 41,
+        "history_token_start_approx": 1816,
+        "history_percentile": 21.9
+      },
+      "message": {
+        "id": "v07-042",
+        "role": "user",
+        "timestamp": "2026-05-15T09:00:00Z",
+        "content": "We reviewed the native-client proposal with the field team. They need the same inspection workflow on managed laptops and personal phones, and installing a signed desktop build on every device would add an avoidable deployment step. Keep the browser-based PWA as the client and preserve the existing HTTPS API. Local persistence and synchronization still need replaceable boundaries so we can change either implementation without rewriting the screens. This is a direction change from the first kickoff note, not a second supported client target."
+      }
+    },
+    {
+      "id": "v07-043",
+      "position": {
+        "message_index_1_based": 42,
+        "history_token_start_approx": 1927,
+        "history_percentile": 23.24
+      },
+      "message": {
+        "id": "v07-043",
+        "role": "assistant",
+        "timestamp": "2026-05-15T09:14:00Z",
+        "content": "The current client is the browser PWA on desktop and mobile, using the existing HTTPS JSON API. LocalStore and SyncEngine remain separate replaceable boundaries. The earlier native desktop idea is no longer a release direction. I will keep references to that initial proposal in the history only as a superseded decision, not as an active deployment option."
+      }
+    }
+  ],
+  "partial_or_related_source_messages": [
+    {
+      "id": "h31",
+      "position": {
+        "message_index_1_based": 31,
+        "history_token_start_approx": 1220,
+        "history_percentile": 14.71
+      },
+      "message": {
+        "id": "h31",
+        "role": "user",
+        "timestamp": "2026-05-01T11:00:00Z",
+        "content": "Small naming note: call the browser persistence boundary LocalStore and the transfer boundary SyncEngine. Please don't rename the server API."
+      },
+      "relation_to_proposition": "Names the two boundaries; does not state replaceability."
+    },
+    {
+      "id": "v07-040",
+      "position": {
+        "message_index_1_based": 39,
+        "history_token_start_approx": 1611,
+        "history_percentile": 19.43
+      },
+      "message": {
+        "id": "v07-040",
+        "role": "user",
+        "timestamp": "2026-05-14T09:00:00Z",
+        "content": "The first LocalStore prototype is now running in the browser shell. It writes an inspection record with a client-generated identifier and a small sync state, then restores that draft after a reload while offline. Keep that work behind the LocalStore boundary so the page components never reach into IndexedDB directly. We still need to settle attachments separately because binary data has different browser capabilities and failure modes than the text fields. Please treat the prototype as progress on the record path, not as evidence that the attachment path is complete."
+      },
+      "relation_to_proposition": "Puts sync state in LocalStore and separates UI storage access; does not state persistence and synchronization can each be replaced."
+    },
+    {
+      "id": "v07-041",
+      "position": {
+        "message_index_1_based": 40,
+        "history_token_start_approx": 1728,
+        "history_percentile": 20.84
+      },
+      "message": {
+        "id": "v07-041",
+        "role": "assistant",
+        "timestamp": "2026-05-14T09:14:00Z",
+        "content": "I will keep the record store and attachment store behind the same client boundary while leaving their implementations distinct. The current prototype covers structured inspection records in IndexedDB and survives reloads without a network connection. It does not yet provide the attachment behavior. I will keep the next implementation plan focused on completing that adapter contract and its fallback tests before wiring those calls into synchronization."
+      },
+      "relation_to_proposition": "Says record and attachment implementations remain distinct behind a client boundary; does not state the two top-level layers are independently replaceable."
+    },
+    {
+      "id": "v07-070",
+      "position": {
+        "message_index_1_based": 69,
+        "history_token_start_approx": 4289,
+        "history_percentile": 51.72
+      },
+      "message": {
+        "id": "v07-070",
+        "role": "user",
+        "timestamp": "2026-05-29T09:00:00Z",
+        "content": "Please retain the server API name and the LocalStore and SyncEngine boundary names. A branch proposal suggested renaming the API to match the new PWA package, but that would create churn for the existing deployment and clients. The browser client can change independently while continuing to use the established HTTPS JSON endpoints. Names in the code should distinguish the local data boundary from the transfer process."
+      },
+      "relation_to_proposition": "Says browser client can change independently while API remains stable; not the persistence-vs-sync layer relationship."
+    },
+    {
+      "id": "v07-071",
+      "position": {
+        "message_index_1_based": 70,
+        "history_token_start_approx": 4379,
+        "history_percentile": 52.81
+      },
+      "message": {
+        "id": "v07-071",
+        "role": "assistant",
+        "timestamp": "2026-05-29T09:14:00Z",
+        "content": "The established HTTPS API name and endpoints remain unchanged. LocalStore denotes client-side persistence, and SyncEngine denotes transfer and retry orchestration. The PWA implementation can evolve behind those boundaries without renaming the deployed service."
+      },
+      "relation_to_proposition": "Names LocalStore as persistence and SyncEngine as transfer/retry; no explicit independent replaceability."
+    },
+    {
+      "id": "v07-092",
+      "position": {
+        "message_index_1_based": 91,
+        "history_token_start_approx": 6035,
+        "history_percentile": 72.78
+      },
+      "message": {
+        "id": "v07-092",
+        "role": "user",
+        "timestamp": "2026-06-09T09:00:00Z",
+        "content": "We should make the adapter contract describe ownership clearly. A write takes the inspection UUID and attachment identifier and returns a persisted reference only after the backend confirms the bytes are stored. A read returns the original bytes and metadata, and delete removes only that reference. The adapter should not decide whether a server upload is complete; SyncEngine owns acknowledgement and asks LocalStore to remove a local attachment only after the successful response for that attachment."
+      },
+      "relation_to_proposition": "Separates adapter durability responsibility from SyncEngine transfer/ack responsibility; separation of concerns, not an explicit replaceability decision."
+    },
+    {
+      "id": "v07-093",
+      "position": {
+        "message_index_1_based": 92,
+        "history_token_start_approx": 6135,
+        "history_percentile": 73.99
+      },
+      "message": {
+        "id": "v07-093",
+        "role": "assistant",
+        "timestamp": "2026-06-09T09:14:00Z",
+        "content": "The adapter handles durable local bytes and references. SyncEngine tracks transfer state and server acknowledgement. Delete is a local storage primitive, while the decision to invoke it is gated by a confirmed upload response. Keeping that distinction prevents a storage implementation from guessing about network state."
+      },
+      "relation_to_proposition": "Separates storage delete primitive from SyncEngine acknowledgement gate; no independent replaceability statement."
+    },
+    {
+      "id": "v08-v2-current-handoff",
+      "position": {
+        "message_index_1_based": 119,
+        "history_token_start_approx": 8167,
+        "history_percentile": 98.49
+      },
+      "message": {
+        "id": "v08-v2-current-handoff",
+        "role": "assistant",
+        "timestamp": "2026-09-28T16:00:00Z",
+        "content": "Current attachment handoff (authoritative project state): The File System Access API is the preferred storage backend when supported. IndexedDB blob storage is the fallback. Both backends must implement the same attachment adapter contract: write, read, and delete. Keep local attachment data until the server acknowledges an authenticated upload. The older localStorage-only proposal is superseded. The adapter implementations and shared contract tests are still incomplete. Next, finish and test backend selection, persistence across reload, fallback behavior, and acknowledgement-safe cleanup; then integrate the adapter with SyncEngine.",
+        "metadata": {
+          "importance": "high",
+          "kind": "current_state",
+          "explicit": true
+        }
+      },
+      "relation_to_proposition": "Authoritative current storage handoff describes attachment adapters/backends and SyncEngine integration, but does not restate the ARCH_02 layer replaceability proposition."
+    }
+  ],
+  "source_interpretation": {
+    "direct_occurrences": 4,
+    "direct_message_ids": [
+      "h03",
+      "h04",
+      "v07-042",
+      "v07-043"
+    ],
+    "direct_statement": "Explicit and repeated, not merely implied. h03 first states the decision; h04 repeats it; v07-042 restates it after the native-client proposal; v07-043 records it as current.",
+    "chronology": "The PWA/API change supersedes the initial kickoff direction, not the persistence/synchronization replaceability decision. Later current messages reaffirm that decision. Later attachment-store backend changes concern an inner persistence implementation and do not supersede ARCH_02. No later contradiction was found.",
+    "source_problem": false,
+    "buried_or_position_issue": "The earliest statement is at 0.99% of history; later explicit reassertion at 21.90% and 23.24%. It is not buried at the tail. The authoritative handoff is at 98.49% but does not directly restate ARCH_02."
+  },
+  "baseline_visibility": {
+    "full_history_included_in_all_three": true,
+    "truncation_evidence": "Stored baseline prompts contain all 119 messages; local full prompt was approximately 8,396 cl100k tokens. Provider input telemetry is much larger, 22,343 / 22,347 / 22,351 tokens, with 11,904 cached tokens each.",
+    "exact_cached_source": "unknown; provider telemetry does not attribute cache tokens to message ranges.",
+    "competing_or_conflicting_architecture": "No contradictory persistence/synchronization relationship found. The history has detailed storage backends and current attachment work; final handoff at #119 emphasizes attachment backend implementation and SyncEngine integration, which plausibly crowds out the higher-level replaceability constraint during broad synthesis, but is not contradictory."
+  },
+  "targeted_recall": {
+    "task": "What architectural decision did we make about how the local persistence layer and the synchronization layer relate to each other?",
+    "recovered": 3,
+    "runs": 3,
+    "all_semantic_ARCH_02_present": true
+  },
+  "position_diagnostic": {
+    "A_original": {
+      "recovered": 3,
+      "runs": 3,
+      "mean_input": 22343.0,
+      "mean_cached": 11904.0,
+      "mean_output": 86.67,
+      "mean_latency_ms": 9267.16
+    },
+    "B_near_end": {
+      "recovered": 3,
+      "runs": 3,
+      "mean_input": 22347.0,
+      "mean_cached": 11904.0,
+      "mean_output": 80.67,
+      "mean_latency_ms": 6922.88
+    },
+    "C_near_beginning": {
+      "recovered": 3,
+      "runs": 3,
+      "mean_input": 22349.0,
+      "mean_cached": 11904.0,
+      "mean_output": 81.0,
+      "mean_latency_ms": 9879.74
+    }
+  },
+  "context_pipeline": [
+    {
+      "stage": "source message",
+      "present": true,
+      "representation": "h03 exact text; explicitly says local persistence and synchronization are separate and either is independently replaceable.",
+      "reason": "Direct source statement, message 3 (~0.99% history)."
+    },
+    {
+      "stage": "ContextUnit ingestion",
+      "present": true,
+      "representation": "conversation:offline-inspection-attachments-v09/message:h03; content retained unchanged; user role/order/timestamp metadata preserved.",
+      "reason": "ConversationAdapter maps message to one message ContextUnit."
+    },
+    {
+      "stage": "normalization",
+      "present": true,
+      "representation": "Source content included verbatim; no semantic rewrite.",
+      "reason": "Selected output contains exact h03 text."
+    },
+    {
+      "stage": "relationships",
+      "present": true,
+      "representation": {
+        "supersedes": [
+          "h01"
+        ]
+      },
+      "reason": "Explicit source metadata marks h03 as superseding the initial kickoff h01; this relates h03 to an older architecture proposal, not to ARCH_02 itself."
+    },
+    {
+      "stage": "current/stale classification",
+      "present": true,
+      "representation": {
+        "category": "CURRENT DECISIONS",
+        "classification": "explicit_relationship",
+        "relationship_origins": [
+          "explicit_metadata"
+        ]
+      },
+      "reason": "h03 is classified as a current decision; ARCH_02 is not marked invalidated. v07-043 also appears as deterministic current decision."
+    },
+    {
+      "stage": "relevance scoring",
+      "present": true,
+      "representation": {
+        "h03": {
+          "unit_id": "conversation:offline-inspection-attachments-v09/message:h03",
+          "source_type": "message",
+          "source_id": "h03",
+          "score": 28,
+          "reasons": [
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 40,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        "v07-042": {
+          "unit_id": "conversation:offline-inspection-attachments-v09/message:v07-042",
+          "source_type": "message",
+          "source_id": "v07-042",
+          "score": 43.075,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "still",
+              "weight": 5.075
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "step",
+              "weight": 10.0
+            },
+            {
+              "signal": "decision_context",
+              "weight": 28
+            }
+          ],
+          "token_cost": 102,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        },
+        "v07-043": {
+          "unit_id": "conversation:offline-inspection-attachments-v09/message:v07-043",
+          "source_type": "message",
+          "source_id": "v07-043",
+          "score": 47.351,
+          "reasons": [
+            {
+              "signal": "lexical_overlap",
+              "term": "history",
+              "weight": 10.0
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "current",
+              "weight": 4.119
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "that",
+              "weight": 3.232
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "earlier",
+              "weight": 10.0
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "no",
+              "weight": 10.0
+            },
+            {
+              "signal": "lexical_overlap",
+              "term": "longer",
+              "weight": 10.0
+            }
+          ],
+          "token_cost": 75,
+          "already_known": false,
+          "invalidated": false,
+          "status": "selected"
+        }
+      },
+      "reason": "h03 score 28 from decision_context; later direct reaffirmations score 43.075 and 47.351."
+    },
+    {
+      "stage": "candidate/budget selection",
+      "present": true,
+      "representation": {
+        "candidate_units": 96,
+        "selected_units": 50,
+        "omitted_units": 46,
+        "budget": 4000,
+        "selected_context_tokens": 3664,
+        "returned_context_tokens": 3737,
+        "h03_status": "selected",
+        "h04_status": "omitted",
+        "h04_omission_reason": "below deterministic conversation relevance floor"
+      },
+      "reason": "h03 plus both later direct statements are selected. h04 was omitted below deterministic relevance floor, not by budget; the fact still has multiple selected direct sources."
+    },
+    {
+      "stage": "Working Context compilation",
+      "present": true,
+      "representation": {
+        "h03_category": "CURRENT DECISIONS",
+        "h03_verbatim": true,
+        "v07_042_category": "RELEVANT CONTEXT",
+        "v07_043_category": "CURRENT DECISIONS",
+        "context_character_offsets": {
+          "h03": 17298,
+          "v07-042": 17785,
+          "v07-043": 16236
+        }
+      },
+      "reason": "h03 is in CURRENT DECISIONS verbatim; v07-042 is in RELEVANT CONTEXT and v07-043 in CURRENT DECISIONS. Separate/replaceable meaning preserved."
+    },
+    {
+      "stage": "Context Delta",
+      "present": true,
+      "representation": {
+        "previously_supplied_tokens": 0,
+        "unchanged_tokens": 0,
+        "new_context_tokens": 3737,
+        "previous_context_reused": false
+      },
+      "reason": "Each benchmark MCP process begins a fresh session; full first-call context is delivered. No delta suppression applies."
+    },
+    {
+      "stage": "MCP response",
+      "present": true,
+      "representation": {
+        "tool": "conceptualize_context",
+        "response_context_tokens": 3737,
+        "trace_id": "2513d44c-4362-49dd-8452-1dc66835b03a",
+        "context_contains_h03_exactly": true
+      },
+      "reason": "Successful call returns the full selected context string; trace has full provenance."
+    },
+    {
+      "stage": "host answer utilization",
+      "present": null,
+      "representation": {
+        "working_context_fact_coverage": [
+          100,
+          100,
+          100
+        ],
+        "final_arch_02_status": [
+          "absent",
+          "absent",
+          "present"
+        ],
+        "final_passes": 1
+      },
+      "reason": "Context contains all eight propositions in every run, but model asserts ARCH_02 in only 1/3 final answers."
+    }
+  ],
+  "activation_diagnostic": {
+    "result_file": "evaluations/results/v09-root-cause-diagnostic-corrected.json",
+    "runs": [
+      {
+        "repetition": 1,
+        "provider_usage": {
+          "input_tokens": 112791,
+          "cached_input_tokens": 90240,
+          "output_tokens": 568,
+          "total_tokens": null
+        },
+        "latency_ms": 23550.65,
+        "capability_calls": 2,
+        "task_arguments": [
+          "Continue the attachment-storage work from project history. Describe current architecture and decisions, constraints, superseded choice, implemented vs unfinished, and next step.",
+          "Continue the attachment-storage work from the project history. Describe the current architecture and decisions, the constraints that still apply, which earlier choice is no longer current, what is implemented versus unfinished, and the next step."
+        ],
+        "context_tokens": 3737,
+        "answer_ARCH_02": "absent",
+        "answer_total_coverage": 87.5,
+        "pass": false
+      },
+      {
+        "repetition": 2,
+        "provider_usage": {
+          "input_tokens": 112641,
+          "cached_input_tokens": 75008,
+          "output_tokens": 629,
+          "total_tokens": null
+        },
+        "latency_ms": 26379.62,
+        "capability_calls": 2,
+        "task_arguments": [
+          "Continue attachment-storage work from project history. Identify current architecture and decisions, constraints, superseded earlier choice, implemented versus unfinished, and next step.",
+          "Continue the attachment-storage work from the project history. Describe the current architecture and decisions, the constraints that still apply, which earlier choice is no longer current, what is implemented versus unfinished, and the next step."
+        ],
+        "context_tokens": 3737,
+        "answer_ARCH_02": "absent",
+        "answer_total_coverage": 87.5,
+        "pass": false
+      },
+      {
+        "repetition": 3,
+        "provider_usage": {
+          "input_tokens": 111694,
+          "cached_input_tokens": 96384,
+          "output_tokens": 610,
+          "total_tokens": null
+        },
+        "latency_ms": 35833.7,
+        "capability_calls": 2,
+        "task_arguments": [
+          "Continue attachment-storage work: current architecture and decisions, constraints, superseded choice, implemented versus unfinished, next step.",
+          "Continue the attachment-storage work from the project history. Describe the current architecture and decisions, the constraints that still apply, which earlier choice is no longer current, what is implemented versus unfinished, and the next step."
+        ],
+        "context_tokens": 3737,
+        "answer_ARCH_02": "present",
+        "answer_total_coverage": 100,
+        "pass": true
+      }
+    ],
+    "working_context_total_coverage": [
+      100,
+      100,
+      100
+    ],
+    "first_tool_call_note": "Each agent first tried a shortened task, rejected by the frozen fixture server exact-task guard, then retried with the exact user task and got context. This is fixture-shim strictness; a valid context call followed in each run."
+  },
+  "root_cause": {
+    "primary": "C_SYNTHESIS_PRIORITIZATION_PROBLEM",
+    "secondary": [
+      "H_MODEL_UTILIZATION_PROBLEM",
+      "I_HOST_INTEGRATION_FRICTION_FIXTURE_TASK_GUARD"
+    ],
+    "excluded": [
+      "A_SOURCE_PROBLEM",
+      "B_RAW_LONG_CONTEXT_RECALL_PROBLEM",
+      "D_CONCEPTUALIZE_RETRIEVAL_PROBLEM",
+      "E_CONCEPTUALIZE_SCORING_BUDGET_PROBLEM",
+      "F_CONCEPTUALIZE_STATE_SUPERSESSION_PROBLEM",
+      "G_CONCEPTUALIZE_COMPILATION_PROBLEM"
+    ],
+    "basis": "Full-history broad synthesis omitted ARCH_02 in 3/3; targeted recall from the same history recovered it 3/3 and position variants each recovered 3/3. Conceptualize selected direct evidence, preserved it verbatim, and Working Context scored 8/8 in 3/3; activated final answer nevertheless recovered it only 1/3."
+  },
+  "code_change_required": false,
+  "invalid_cli_attempt": {
+    "result_file": "evaluations/results/v09-root-cause-diagnostic.json",
+    "valid_model_execution": false,
+    "reason": "Codex CLI rejected --approve-for-me combined with -s read-only before any model execution. Preserved separately; corrected diagnostic runs use same read-only sandbox without the incompatible flag."
+  }
+}

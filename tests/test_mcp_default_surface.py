@@ -30,5 +30,7 @@ def test_default_stdio_surface_has_one_task_only_tool() -> None:
                 assert tool.inputSchema["required"] == ["task"]
                 assert list(tool.inputSchema["properties"]) == ["task"]
                 assert "normal tools" in tool.description
+                assert (await session.list_resources()).resources == []
+                assert (await session.list_prompts()).prompts == []
 
     asyncio.run(inspect_surface())

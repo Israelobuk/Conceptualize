@@ -19,6 +19,12 @@ ADVANCED_TOOLS = frozenset(
         "conceptualize_inspect",
     }
 )
+CODEX_DIRECT_ACTIVATION = (
+    "When @Conceptualize is activated, call "
+    "mcp__conceptualize__conceptualize_context directly once with task set to the user's task. "
+    "Do not search, enumerate, or inspect tools or resources to locate Conceptualize. "
+    "After the tool returns, continue the user's task normally."
+)
 
 
 async def verify(command: str, url: str, advanced: bool = False) -> dict:
@@ -58,10 +64,14 @@ def main():
     parser.add_argument("action", choices=["config", "doctor"])
     parser.add_argument("--format", choices=["json", "codex"], default="json")
     parser.add_argument("--advanced", action="store_true", help="Expose legacy retrieval/debug tools too")
+    parser.add_argument("--direct-activation", action="store_true",
+                        help="Include the Codex host instruction for direct @Conceptualize routing")
     parser.add_argument(
         "--api-url", default=os.environ.get("CONCEPTUALIZE_API_URL", "http://127.0.0.1:8000")
     )
     args = parser.parse_args()
+    if args.direct_activation and (args.action != "config" or args.format != "codex"):
+        parser.error("--direct-activation requires config --format codex")
     command = str(Path(sys.executable).resolve())
     if args.action == "doctor":
         try:
@@ -88,6 +98,8 @@ def main():
             )
         )
     else:
+        if args.direct_activation:
+            print("developer_instructions = " + json.dumps(CODEX_DIRECT_ACTIVATION) + "\n")
         print(
             "[mcp_servers.conceptualize]\ncommand = "
             + json.dumps(command)

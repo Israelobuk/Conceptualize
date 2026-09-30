@@ -1,0 +1,436 @@
+{
+  "commit_sha": "e437f491d6f884a317ca42c1fb4a402d9a818f13",
+  "fixture_sha256": "de91afc78218b084a6e569ba1e611d952490861dea9864fe720f55bb18c42370",
+  "ground_truth_sha256": "0b6289ce82cd6971aed9f258d363020b7a39d2a620c6f7bcdfbdf2ab5d9d3f7c",
+  "evaluator_prompt_sha256": "080d5dd01dc138bdb5907de8ff144ea566fb1df39fbcf9f9a4cb15048d157522",
+  "records": [
+    {
+      "run_order": 3,
+      "retrieval_source": {
+        "type": "exact_prior_selection",
+        "prior_run": 1,
+        "source_count": 49
+      },
+      "working_source": {
+        "type": "exact_prior_context",
+        "prior_run": 1
+      },
+      "context_trace_sha256": "5dc1b8da5cc20febd07ca62a12455e5dd5b5e6a8943a62ac6df830d20504645c",
+      "saved_result_context_sha256": "5dc1b8da5cc20febd07ca62a12455e5dd5b5e6a8943a62ac6df830d20504645c",
+      "saved_result_context_hash_matches_trace": true,
+      "retrieval_coverage_percent": 100.0,
+      "working_context_coverage_percent": 100.0,
+      "final_answer_coverage_percent": 100.0,
+      "final_pass": true,
+      "answer_judge_usage": {
+        "input_tokens": 15761,
+        "cached_input_tokens": 12416,
+        "output_tokens": 477,
+        "total_tokens": null
+      },
+      "answer_grade": {
+        "answer_id": "answer_real_3",
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "status": "present",
+            "evidence": "One browser PWA serves desktop and mobile through the existing HTTPS JSON API.",
+            "reason": "Clearly states the current client and API architecture."
+          },
+          {
+            "id": "ARCH_02",
+            "status": "present",
+            "evidence": "`LocalStore` persists inspection records in IndexedDB and owns a replaceable attachment adapter.",
+            "reason": "Together with SyncEngine separately owning transfer and acknowledgement, this represents independently replaceable persistence and synchronization layers."
+          },
+          {
+            "id": "DEC_01",
+            "status": "present",
+            "evidence": "That adapter should prefer the File System Access API when available and use IndexedDB blobs as the fallback",
+            "reason": "States the adopted attachment storage preference and fallback; inspection records are explicitly persisted in IndexedDB."
+          },
+          {
+            "id": "DEC_02",
+            "status": "present",
+            "evidence": "with the same write, read, and delete contract in both backends.",
+            "reason": "Clearly represents the shared backend interface as the adopted design."
+          },
+          {
+            "id": "CON_01",
+            "status": "present",
+            "evidence": "Drafts and photos must remain on the device until the API confirms the specific authenticated upload.",
+            "reason": "Requires retention until acknowledgement of each specific authenticated upload."
+          },
+          {
+            "id": "OLD_01",
+            "status": "present",
+            "evidence": "The kickoff proposal for a native desktop client with localStorage and filesystem-only attachments is historical.",
+            "reason": "Explicitly marks the earlier storage choice historical and identifies IndexedDB and attachment fallback as current."
+          },
+          {
+            "id": "STATE_01",
+            "status": "present",
+            "evidence": "The adapter interface is drafted, but its production backends and shared contract tests are unfinished.",
+            "reason": "The artifact also states record restore and metadata sync work, while attachment bytes use a temporary test path and SyncEngine integration remains future work."
+          },
+          {
+            "id": "NEXT_01",
+            "status": "present",
+            "evidence": "Next, implement backend selection and both backends; test reload persistence, permission and fallback failures, and cleanup only after acknowledgement; then connect the adapter to `SyncEngine`.",
+            "reason": "Represents backend implementation under the shared contract, required persistence and safety tests, and subsequent SyncEngine integration in the required sequence."
+          }
+        ],
+        "critical_proposition_coverage_percent": 100,
+        "total_proposition_coverage_percent": 100,
+        "stale_current_errors": 0,
+        "contradiction_count": 0,
+        "pass": true
+      },
+      "working_grade": {
+        "answer_id": "working_001",
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "status": "present",
+            "evidence": "The current client is the browser PWA on desktop and mobile, using the existing HTTPS JSON API.",
+            "reason": "Explicitly asserts the current client, supported devices, and API."
+          },
+          {
+            "id": "ARCH_02",
+            "status": "present",
+            "evidence": "package local persistence and synchronization as separate layers so we can replace either independently.",
+            "reason": "Clearly establishes independently replaceable persistence and synchronization layers."
+          },
+          {
+            "id": "DEC_01",
+            "status": "present",
+            "evidence": "LocalStore has IndexedDB for inspection records and an attachment adapter that prefers filesystem storage and falls back to IndexedDB blobs",
+            "reason": "States the adopted storage design; elsewhere explicitly identifies File System Access API as the preferred backend."
+          },
+          {
+            "id": "DEC_02",
+            "status": "present",
+            "evidence": "Both backends must implement the same attachment adapter contract: write, read, and delete.",
+            "reason": "Explicitly adopts a common interface for both backends."
+          },
+          {
+            "id": "CON_01",
+            "status": "present",
+            "evidence": "Keep local attachment data until the server acknowledges an authenticated upload.",
+            "reason": "Establishes authenticated acknowledgement as required for retention cleanup; additional passages explicitly restrict cleanup to the particular acknowledged attachment."
+          },
+          {
+            "id": "OLD_01",
+            "status": "present",
+            "evidence": "The older localStorage-only proposal is superseded.",
+            "reason": "Explicitly identifies the old storage decision as superseded, and historical quotations are not endorsed."
+          },
+          {
+            "id": "STATE_01",
+            "status": "present",
+            "evidence": "record persistence and metadata sync are integrated, but photos still follow a temporary path in the test harness.",
+            "reason": "Explicitly confirms record integration; subsequent delivery status states attachment transfer is not connected end to end and production implementations and shared tests remain open."
+          },
+          {
+            "id": "NEXT_01",
+            "status": "present",
+            "evidence": "Next, finish and test backend selection, persistence across reload, fallback behavior, and acknowledgement-safe cleanup; then integrate the adapter with SyncEngine.",
+            "reason": "Specifies the required sequence, supplemented by explicit common-method implementation, shared contract tests, and denied-permission fallback verification."
+          }
+        ],
+        "critical_proposition_coverage_percent": 100,
+        "total_proposition_coverage_percent": 100,
+        "stale_current_errors": 0,
+        "contradiction_count": 0,
+        "pass": true
+      }
+    },
+    {
+      "run_order": 6,
+      "retrieval_source": {
+        "type": "exact_prior_selection",
+        "prior_run": 2,
+        "source_count": 48
+      },
+      "working_source": {
+        "type": "exact_prior_context",
+        "prior_run": 2
+      },
+      "context_trace_sha256": "473c83d57d9a18874355667112fcd2fec31d84f71639af317c9071fb93bde720",
+      "saved_result_context_sha256": "473c83d57d9a18874355667112fcd2fec31d84f71639af317c9071fb93bde720",
+      "saved_result_context_hash_matches_trace": true,
+      "retrieval_coverage_percent": 100.0,
+      "working_context_coverage_percent": 100.0,
+      "final_answer_coverage_percent": 100.0,
+      "final_pass": true,
+      "answer_judge_usage": {
+        "input_tokens": 15744,
+        "cached_input_tokens": 12416,
+        "output_tokens": 484,
+        "total_tokens": null
+      },
+      "answer_grade": {
+        "answer_id": "answer_real_6",
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "status": "present",
+            "evidence": "One browser based PWA serves desktop and mobile over the existing HTTPS JSON API.",
+            "reason": "Clearly asserts the current client and API architecture."
+          },
+          {
+            "id": "ARCH_02",
+            "status": "present",
+            "evidence": "`LocalStore` persists structured inspection drafts in IndexedDB and owns attachment storage through a replaceable adapter.",
+            "reason": "Together with the separate SyncEngine ownership of transfer and acknowledgement, this describes independently replaceable persistence and synchronization layers."
+          },
+          {
+            "id": "DEC_01",
+            "status": "present",
+            "evidence": "That adapter prefers the File System Access API when available and falls back to IndexedDB blobs",
+            "reason": "The artifact adopts the required attachment preference and fallback, with inspection drafts persisted in IndexedDB."
+          },
+          {
+            "id": "DEC_02",
+            "status": "present",
+            "evidence": "both backends must support the same write, read, and delete contract",
+            "reason": "Clearly states the adopted shared interface requirement."
+          },
+          {
+            "id": "CON_01",
+            "status": "present",
+            "evidence": "Drafts and photos stay on the device until the API confirms an authenticated upload for that specific item.",
+            "reason": "Requires item-specific authenticated upload acknowledgement before local removal."
+          },
+          {
+            "id": "OLD_01",
+            "status": "present",
+            "evidence": "The kickoff proposal for a native desktop client with localStorage only, filesystem only attachments, and WebSocket sync is historical, not the current plan.",
+            "reason": "Explicitly identifies localStorage-only storage as historical and no longer current."
+          },
+          {
+            "id": "STATE_01",
+            "status": "present",
+            "evidence": "Attachment bytes still use a temporary test path; the adapter interface is drafted, but its production backends and shared tests are unfinished.",
+            "reason": "The artifact states record persistence and metadata sync are implemented, while production attachment backends, shared tests, and attachment transfer integration remain unfinished."
+          },
+          {
+            "id": "NEXT_01",
+            "status": "present",
+            "evidence": "Next, implement backend selection and both adapters, verify reload persistence, permission fallback, and acknowledgement safe cleanup, then connect the adapter to `SyncEngine`.",
+            "reason": "Specifies backend and shared-contract adapter implementation, required verification, and subsequent SyncEngine integration."
+          }
+        ],
+        "critical_proposition_coverage_percent": 100,
+        "total_proposition_coverage_percent": 100,
+        "stale_current_errors": 0,
+        "contradiction_count": 0,
+        "pass": true
+      },
+      "working_grade": {
+        "answer_id": "working_002",
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "status": "present",
+            "evidence": "New direction: ship a browser-based PWA for desktop and mobile.",
+            "reason": "The artifact adopts the desktop and mobile PWA and explicitly preserves the existing HTTPS JSON API elsewhere."
+          },
+          {
+            "id": "ARCH_02",
+            "status": "present",
+            "evidence": "package local persistence and synchronization as separate layers so we can replace either independently.",
+            "reason": "Independent replacement of the persistence and synchronization layers is explicitly current."
+          },
+          {
+            "id": "DEC_01",
+            "status": "present",
+            "evidence": "LocalStore records are in IndexedDB; attachments use filesystem storage where available and IndexedDB blob fallback.",
+            "reason": "The current storage decision is explicit, with File System Access identified elsewhere as the preferred attachment backend."
+          },
+          {
+            "id": "DEC_02",
+            "status": "present",
+            "evidence": "Both backends must implement the same attachment adapter contract: write, read, and delete.",
+            "reason": "The shared operations are an adopted design despite unfinished implementations."
+          },
+          {
+            "id": "CON_01",
+            "status": "present",
+            "evidence": "Keep local attachment data until the server acknowledges an authenticated upload.",
+            "reason": "This binding retention rule is reinforced by explicit requirements that acknowledgement and cleanup apply only to the particular attachment."
+          },
+          {
+            "id": "OLD_01",
+            "status": "present",
+            "evidence": "The older localStorage-only proposal is superseded.",
+            "reason": "The artifact explicitly rejects the old proposal as current guidance."
+          },
+          {
+            "id": "STATE_01",
+            "status": "present",
+            "evidence": "record persistence and metadata sync are integrated, but photos still follow a temporary path in the test harness.",
+            "reason": "The artifact confirms record integration and separately states that production attachment implementations, shared contract tests, and end-to-end attachment transfer remain unfinished."
+          },
+          {
+            "id": "NEXT_01",
+            "status": "present",
+            "evidence": "Next, finish and test backend selection, persistence across reload, fallback behavior, and acknowledgement-safe cleanup; then integrate the adapter with SyncEngine.",
+            "reason": "The next work includes common adapter operations and permission fallback tests elsewhere, with testing explicitly preceding SyncEngine integration."
+          }
+        ],
+        "critical_proposition_coverage_percent": 100,
+        "total_proposition_coverage_percent": 100,
+        "stale_current_errors": 0,
+        "contradiction_count": 0,
+        "pass": true
+      }
+    },
+    {
+      "run_order": 9,
+      "retrieval_source": {
+        "type": "exact_prior_selection",
+        "prior_run": 1,
+        "source_count": 49
+      },
+      "working_source": {
+        "type": "new_frozen_semantic_judge",
+        "provider_usage": {
+          "input_tokens": 18842,
+          "cached_input_tokens": 12416,
+          "output_tokens": 452,
+          "total_tokens": null
+        }
+      },
+      "context_trace_sha256": "63e5b6fb64edddaaaec1e922ee319f98e1b019dc6eaa1193995605912b823afc",
+      "saved_result_context_sha256": "63e5b6fb64edddaaaec1e922ee319f98e1b019dc6eaa1193995605912b823afc",
+      "saved_result_context_hash_matches_trace": true,
+      "retrieval_coverage_percent": 100.0,
+      "working_context_coverage_percent": 100.0,
+      "final_answer_coverage_percent": 87.5,
+      "final_pass": false,
+      "answer_judge_usage": {
+        "input_tokens": 15754,
+        "cached_input_tokens": 12416,
+        "output_tokens": 547,
+        "total_tokens": null
+      },
+      "answer_grade": {
+        "answer_id": "answer_real_9",
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "status": "present",
+            "evidence": "One browser PWA serves desktop and mobile through the existing HTTPS JSON API.",
+            "reason": "Clearly asserts the current client and API architecture."
+          },
+          {
+            "id": "ARCH_02",
+            "status": "absent",
+            "evidence": "`LocalStore` persists inspection records in IndexedDB and will manage attachments through a shared `write`/`read`/`delete` adapter.",
+            "reason": "Distinct persistence and synchronization responsibilities are described, but independent replaceability of those layers is not established."
+          },
+          {
+            "id": "DEC_01",
+            "status": "present",
+            "evidence": "That adapter prefers the File System Access API when available and uses IndexedDB blobs as the fallback.",
+            "reason": "Together with the stated IndexedDB record persistence, this establishes the adopted storage choices."
+          },
+          {
+            "id": "DEC_02",
+            "status": "present",
+            "evidence": "will manage attachments through a shared `write`/`read`/`delete` adapter",
+            "reason": "Establishes the shared operations as the adopted design despite unfinished implementation."
+          },
+          {
+            "id": "CON_01",
+            "status": "present",
+            "evidence": "may remove a local attachment only after the API confirms that specific authenticated upload",
+            "reason": "Clearly binds cleanup to acknowledgement of each attachment's authenticated upload."
+          },
+          {
+            "id": "OLD_01",
+            "status": "present",
+            "evidence": "The kickoff proposal for a native desktop client with localStorage only, filesystem only attachments, and WebSocket sync is historical. It is no longer the release plan.",
+            "reason": "Explicitly identifies localStorage-only storage as superseded."
+          },
+          {
+            "id": "STATE_01",
+            "status": "present",
+            "evidence": "Attachment bytes still use a temporary test path; the adapter interface is drafted, but its production backends and shared contract tests are unfinished.",
+            "reason": "The artifact states record persistence and metadata sync are implemented, while production attachment storage, contract tests, and attachment transfer integration remain unfinished."
+          },
+          {
+            "id": "NEXT_01",
+            "status": "present",
+            "evidence": "Next, implement and test backend selection, read/write/delete, persistence after reload, permission and blob fallback, and cleanup only after acknowledgement. Then connect the proven adapter to `SyncEngine`.",
+            "reason": "Includes the required implementation, testing, and subsequent SyncEngine integration sequence."
+          }
+        ],
+        "critical_proposition_coverage_percent": 87.5,
+        "total_proposition_coverage_percent": 87.5,
+        "stale_current_errors": 0,
+        "contradiction_count": 0,
+        "pass": false
+      },
+      "working_grade": {
+        "answer_id": "working_real_9",
+        "propositions": [
+          {
+            "id": "ARCH_01",
+            "status": "present",
+            "evidence": "The current client is the browser PWA on desktop and mobile, using the existing HTTPS JSON API.",
+            "reason": "Explicitly asserts the current client, supported devices, and API."
+          },
+          {
+            "id": "ARCH_02",
+            "status": "present",
+            "evidence": "package local persistence and synchronization as separate layers so we can replace either independently.",
+            "reason": "Clearly preserves independently replaceable persistence and synchronization layers."
+          },
+          {
+            "id": "DEC_01",
+            "status": "present",
+            "evidence": "LocalStore records are in IndexedDB; attachments use filesystem storage where available and IndexedDB blob fallback.",
+            "reason": "States the adopted record store and attachment fallback; elsewhere explicitly identifies File System Access as preferred."
+          },
+          {
+            "id": "DEC_02",
+            "status": "present",
+            "evidence": "Both backends must implement the same attachment adapter contract: write, read, and delete.",
+            "reason": "Explicitly adopts the shared interface without claiming completed implementation."
+          },
+          {
+            "id": "CON_01",
+            "status": "present",
+            "evidence": "Keep local attachment data until the server acknowledges an authenticated upload.",
+            "reason": "Binding retention rule is explicit; additional passages require acknowledgement for the particular attachment and prohibit unrelated cleanup."
+          },
+          {
+            "id": "OLD_01",
+            "status": "present",
+            "evidence": "The older localStorage-only proposal is superseded.",
+            "reason": "Explicitly identifies the old storage decision as no longer current."
+          },
+          {
+            "id": "STATE_01",
+            "status": "present",
+            "evidence": "record persistence and metadata sync are integrated, but photos still follow a temporary path in the test harness.",
+            "reason": "The artifact also explicitly states that attachment bytes are not connected end to end and production implementations and shared contract tests remain open."
+          },
+          {
+            "id": "NEXT_01",
+            "status": "present",
+            "evidence": "Next, finish and test backend selection, persistence across reload, fallback behavior, and acknowledgement-safe cleanup; then integrate the adapter with SyncEngine.",
+            "reason": "Specifies the required sequence; other passages explicitly include common adapter methods and denied-permission fallback tests."
+          }
+        ],
+        "critical_proposition_coverage_percent": 100,
+        "total_proposition_coverage_percent": 100,
+        "stale_current_errors": 0,
+        "contradiction_count": 0,
+        "pass": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,388 @@
+{
+  "commit_sha": "e437f491d6f884a317ca42c1fb4a402d9a818f13",
+  "fixture_sha256": "de91afc78218b084a6e569ba1e611d952490861dea9864fe720f55bb18c42370",
+  "base_configuration_sha256": "dff479041b5e6b35da3d3cd6e17c873455593c398b105d18b1c5011383ea9150",
+  "prompt_mode": "proven",
+  "conditions": {
+    "f-minus-1": {
+      "runs": 3,
+      "valid_runs": 3,
+      "request_counts": [
+        3,
+        4,
+        4
+      ],
+      "mean_input": 71151,
+      "mean_cached": 53162.67,
+      "mean_uncached": 17988.33,
+      "mean_output": 338,
+      "mean_elapsed_ms": 17778.87
+    },
+    "f0": {
+      "runs": 3,
+      "valid_runs": 2,
+      "request_counts": [
+        5,
+        4,
+        4
+      ],
+      "mean_input": 109721.33,
+      "mean_cached": 87637.33,
+      "mean_uncached": 22084,
+      "mean_output": 432,
+      "mean_elapsed_ms": 27469.38
+    },
+    "f1": {
+      "runs": 3,
+      "valid_runs": 3,
+      "request_counts": [
+        3,
+        5,
+        3
+      ],
+      "mean_input": 102914.33,
+      "mean_cached": 82218.67,
+      "mean_uncached": 20695.67,
+      "mean_output": 521.67,
+      "mean_elapsed_ms": 27021.7
+    }
+  },
+  "presence_pairs_valid_f0_only": [
+    {
+      "repetition": 2,
+      "input_tokens": 26935,
+      "cached_input_tokens": 25600,
+      "uncached_input_tokens": 1335,
+      "output_tokens": -49,
+      "request_count": 0,
+      "elapsed_ms": 3326.08
+    },
+    {
+      "repetition": 3,
+      "input_tokens": 17736,
+      "cached_input_tokens": 6912,
+      "uncached_input_tokens": 10824,
+      "output_tokens": -26,
+      "request_count": 0,
+      "elapsed_ms": 2648.81
+    }
+  ],
+  "activation_pairs_valid_f0_only": [
+    {
+      "repetition": 2,
+      "input_tokens": 35065,
+      "cached_input_tokens": 34304,
+      "uncached_input_tokens": 761,
+      "output_tokens": 240,
+      "request_count": 1,
+      "elapsed_ms": 4896.4
+    },
+    {
+      "repetition": 3,
+      "input_tokens": -14037,
+      "cached_input_tokens": -6912,
+      "uncached_input_tokens": -7125,
+      "output_tokens": 193,
+      "request_count": -1,
+      "elapsed_ms": 3590.69
+    }
+  ],
+  "mean_presence_delta_input": 22335.5,
+  "mean_activation_delta_input": 10514,
+  "payload_scaling_slope": 0.9993234522207339,
+  "f1_waterfalls": [
+    {
+      "repetition": 1,
+      "run_order": 3,
+      "total_input_tokens": 81872,
+      "request_count": 3,
+      "requests": [
+        {
+          "request_index": 1,
+          "input_tokens": 19605,
+          "cached_input_tokens": 18560,
+          "uncached_input_tokens": 1045,
+          "output_tokens": 79,
+          "sampling_elapsed_ms": 8345.31,
+          "phase": "initial",
+          "preceding_tool_output_tokens_local": 0,
+          "model_actions": [
+            {
+              "type": "custom_tool_call",
+              "name": "exec",
+              "input": "const xs = ALL_TOOLS.filter(x => /search|project|conversation|history|context/i.test(x.name+\" \"+x.description)); text(xs);\n",
+              "call_id": "call_c07bhx7BZrgdap6rhEvNii88",
+              "ordinal": 14
+            }
+          ]
+        },
+        {
+          "request_index": 2,
+          "input_tokens": 29254,
+          "cached_input_tokens": 19456,
+          "uncached_input_tokens": 9798,
+          "output_tokens": 77,
+          "sampling_elapsed_ms": 3859.85,
+          "phase": "continuation_after_tool",
+          "preceding_tool_output_tokens_local": 10518,
+          "model_actions": [
+            {
+              "type": "custom_tool_call",
+              "name": "exec",
+              "input": "const r=await tools.mcp__conceptualize__conceptualize_context({task:\"Continue attachment-storage work from project history. Provide current architecture and decisions, constraints, superseded earlier choice, implemented versus unfinished, and next step.\"}); for(const c of r.content||[]) if(c.type===\"text\") text(c.text);\n",
+              "call_id": "call_Ujo7At7VpdY8DeBLAYfgBVqV",
+              "ordinal": 18
+            }
+          ]
+        },
+        {
+          "request_index": 3,
+          "input_tokens": 33013,
+          "cached_input_tokens": 29056,
+          "uncached_input_tokens": 3957,
+          "output_tokens": 340,
+          "sampling_elapsed_ms": 7339.28,
+          "phase": "continuation_after_tool",
+          "preceding_tool_output_tokens_local": 3842,
+          "model_actions": []
+        }
+      ],
+      "observed_conceptualize_calls": 1,
+      "mcp_tool_call_spans": 1,
+      "working_context_tokens_local": 3376,
+      "estimated_payload_input_tokens": 3373.72,
+      "initial_request_size_times_request_count": 58815,
+      "estimated_repeated_initial_prefix_beyond_first": 39210,
+      "context_visibility": {
+        "model_visible_context_captured": true,
+        "response_trace_id": "fbb85233-026b-434b-961d-1e76379405ee",
+        "server_trace_id": "fbb85233-026b-434b-961d-1e76379405ee",
+        "response_context_tokens_local": 3376,
+        "server_trace_context_tokens_local": 3376,
+        "response_context_sha256": "5dc1b8da5cc20febd07ca62a12455e5dd5b5e6a8943a62ac6df830d20504645c",
+        "server_trace_context_sha256": "5dc1b8da5cc20febd07ca62a12455e5dd5b5e6a8943a62ac6df830d20504645c",
+        "same_context_bytes": true,
+        "context_character_delta": 0,
+        "saved_result_hash_matches_response": true,
+        "saved_result_hash_matches_trace": true,
+        "model_tool_output_context_header_occurrences": 1
+      }
+    },
+    {
+      "repetition": 2,
+      "run_order": 6,
+      "total_input_tokens": 141153,
+      "request_count": 5,
+      "requests": [
+        {
+          "request_index": 1,
+          "input_tokens": 19605,
+          "cached_input_tokens": 11904,
+          "uncached_input_tokens": 7701,
+          "output_tokens": 69,
+          "sampling_elapsed_ms": 4722.55,
+          "phase": "initial",
+          "preceding_tool_output_tokens_local": 0,
+          "model_actions": [
+            {
+              "type": "custom_tool_call",
+              "name": "exec",
+              "input": "const x = ALL_TOOLS.filter(x => /search|project|conversation|history/i.test(x.name+\" \"+x.description)); text(x);\n",
+              "call_id": "call_f3ISah9ltEP53t7t1uxYvrH9",
+              "ordinal": 12
+            }
+          ]
+        },
+        {
+          "request_index": 2,
+          "input_tokens": 29265,
+          "cached_input_tokens": 19456,
+          "uncached_input_tokens": 9809,
+          "output_tokens": 52,
+          "sampling_elapsed_ms": 3624.68,
+          "phase": "continuation_after_tool",
+          "preceding_tool_output_tokens_local": 10576,
+          "model_actions": [
+            {
+              "type": "custom_tool_call",
+              "name": "exec",
+              "input": "text(ALL_TOOLS.filter(x => /conceptualize|project_context|conversation_search|search.*conversation/i.test(x.name)).map(x=>x.name+\" \"+x.description.slice(0,300)));\n",
+              "call_id": "call_uXburNz4aRAIm23fGb7a1ry0",
+              "ordinal": 16
+            }
+          ]
+        },
+        {
+          "request_index": 3,
+          "input_tokens": 29408,
+          "cached_input_tokens": 29056,
+          "uncached_input_tokens": 352,
+          "output_tokens": 35,
+          "sampling_elapsed_ms": 1910.56,
+          "phase": "continuation_after_tool",
+          "preceding_tool_output_tokens_local": 109,
+          "model_actions": [
+            {
+              "type": "custom_tool_call",
+              "name": "exec",
+              "input": "text(ALL_TOOLS.find(x=>x.name===\"mcp__conceptualize__conceptualize_context\").description);\n",
+              "call_id": "call_EH1AAy6ZcGcKKWqQu0LdFG86",
+              "ordinal": 20
+            }
+          ]
+        },
+        {
+          "request_index": 4,
+          "input_tokens": 29593,
+          "cached_input_tokens": 29184,
+          "uncached_input_tokens": 409,
+          "output_tokens": 76,
+          "sampling_elapsed_ms": 3276.53,
+          "phase": "continuation_after_tool",
+          "preceding_tool_output_tokens_local": 177,
+          "model_actions": [
+            {
+              "type": "custom_tool_call",
+              "name": "exec",
+              "input": "const r=await tools.mcp__conceptualize__conceptualize_context({task:\"Continue attachment-storage work. Summarize current architecture and decisions, remaining constraints, superseded earlier choice, implemented versus unfinished, and next step.\"}); for(const c of r.content) if(c.type===\"text\") text(c.text);\n",
+              "call_id": "call_bI7erxCB0qRV2RjJxMjR8aEV",
+              "ordinal": 24
+            }
+          ]
+        },
+        {
+          "request_index": 5,
+          "input_tokens": 33282,
+          "cached_input_tokens": 29440,
+          "uncached_input_tokens": 3842,
+          "output_tokens": 323,
+          "sampling_elapsed_ms": 7648.68,
+          "phase": "continuation_after_tool",
+          "preceding_tool_output_tokens_local": 3771,
+          "model_actions": []
+        }
+      ],
+      "observed_conceptualize_calls": 1,
+      "mcp_tool_call_spans": 1,
+      "working_context_tokens_local": 3307,
+      "estimated_payload_input_tokens": 3304.76,
+      "initial_request_size_times_request_count": 98025,
+      "estimated_repeated_initial_prefix_beyond_first": 78420,
+      "context_visibility": {
+        "model_visible_context_captured": true,
+        "response_trace_id": "e35844a5-591c-45e2-8b4a-a31ce5a45bcf",
+        "server_trace_id": "e35844a5-591c-45e2-8b4a-a31ce5a45bcf",
+        "response_context_tokens_local": 3307,
+        "server_trace_context_tokens_local": 3307,
+        "response_context_sha256": "473c83d57d9a18874355667112fcd2fec31d84f71639af317c9071fb93bde720",
+        "server_trace_context_sha256": "473c83d57d9a18874355667112fcd2fec31d84f71639af317c9071fb93bde720",
+        "same_context_bytes": true,
+        "context_character_delta": 0,
+        "saved_result_hash_matches_response": true,
+        "saved_result_hash_matches_trace": true,
+        "model_tool_output_context_header_occurrences": 1
+      }
+    },
+    {
+      "repetition": 3,
+      "run_order": 9,
+      "total_input_tokens": 85718,
+      "request_count": 3,
+      "requests": [
+        {
+          "request_index": 1,
+          "input_tokens": 19605,
+          "cached_input_tokens": 11904,
+          "uncached_input_tokens": 7701,
+          "output_tokens": 89,
+          "sampling_elapsed_ms": 5064.79,
+          "phase": "initial",
+          "preceding_tool_output_tokens_local": 0,
+          "model_actions": [
+            {
+              "type": "custom_tool_call",
+              "name": "exec",
+              "input": "const matches = ALL_TOOLS.filter(x => /search|conceptualize|project|history/i.test(x.name+\" \"+x.description)); text(matches);\n",
+              "call_id": "call_CpH3PK6wDOaBFtKxP7FQiAv0",
+              "ordinal": 14
+            }
+          ]
+        },
+        {
+          "request_index": 2,
+          "input_tokens": 29340,
+          "cached_input_tokens": 19456,
+          "uncached_input_tokens": 9884,
+          "output_tokens": 92,
+          "sampling_elapsed_ms": 4243.57,
+          "phase": "continuation_after_tool",
+          "preceding_tool_output_tokens_local": 10685,
+          "model_actions": [
+            {
+              "type": "custom_tool_call",
+              "name": "exec",
+              "input": "const r=await tools.mcp__conceptualize__conceptualize_context({task:\"Continue the attachment-storage work from project history. Describe current architecture and decisions, constraints still applying, earlier choice superseded, implemented versus unfinished, and next step.\"}); for(const c of r.content??[]) if(c.type===\"text\") text(c.text); if(r.structuredContent) text(r.structuredContent);\n",
+              "call_id": "call_Mk6y92PDg5oI3qIhSEkRvyhG",
+              "ordinal": 18
+            }
+          ]
+        },
+        {
+          "request_index": 3,
+          "input_tokens": 36773,
+          "cached_input_tokens": 29184,
+          "uncached_input_tokens": 7589,
+          "output_tokens": 333,
+          "sampling_elapsed_ms": 9390.7,
+          "phase": "continuation_after_tool",
+          "preceding_tool_output_tokens_local": 7655,
+          "model_actions": []
+        }
+      ],
+      "observed_conceptualize_calls": 1,
+      "mcp_tool_call_spans": 1,
+      "working_context_tokens_local": 3376,
+      "estimated_payload_input_tokens": 3373.72,
+      "initial_request_size_times_request_count": 58815,
+      "estimated_repeated_initial_prefix_beyond_first": 39210,
+      "context_visibility": {
+        "model_visible_context_captured": true,
+        "response_trace_id": "91258a0d-44ff-4401-a68a-43cd1d5dfc39",
+        "server_trace_id": "91258a0d-44ff-4401-a68a-43cd1d5dfc39",
+        "response_context_tokens_local": 3376,
+        "server_trace_context_tokens_local": 3376,
+        "response_context_sha256": "63e5b6fb64edddaaaec1e922ee319f98e1b019dc6eaa1193995605912b823afc",
+        "server_trace_context_sha256": "63e5b6fb64edddaaaec1e922ee319f98e1b019dc6eaa1193995605912b823afc",
+        "same_context_bytes": true,
+        "context_character_delta": 0,
+        "saved_result_hash_matches_response": true,
+        "saved_result_hash_matches_trace": true,
+        "model_tool_output_context_header_occurrences": 2
+      }
+    }
+  ],
+  "effectiveness": [
+    {
+      "run_order": 3,
+      "retrieval_coverage_percent": 100.0,
+      "working_context_coverage_percent": 100.0,
+      "final_answer_coverage_percent": 100.0,
+      "final_pass": true
+    },
+    {
+      "run_order": 6,
+      "retrieval_coverage_percent": 100.0,
+      "working_context_coverage_percent": 100.0,
+      "final_answer_coverage_percent": 100.0,
+      "final_pass": true
+    },
+    {
+      "run_order": 9,
+      "retrieval_coverage_percent": 100.0,
+      "working_context_coverage_percent": 100.0,
+      "final_answer_coverage_percent": 87.5,
+      "final_pass": false
+    }
+  ],
+  "attribution_limit": "Provider request bodies are unavailable; prefix replay and payload contribution are estimates, not byte-level partitions."
+}

@@ -31,6 +31,18 @@ def test_advanced_config_is_explicit_opt_in():
     assert server["env"]["CONCEPTUALIZE_MCP_ADVANCED"] == "true"
 
 
+def test_codex_direct_activation_snippet_names_only_existing_context_tool():
+    from conceptualize_mcp.setup import CODEX_DIRECT_ACTIVATION
+
+    result = subprocess.run(
+        [sys.executable, "-m", "conceptualize_mcp.setup", "config", "--format", "codex",
+         "--direct-activation"], capture_output=True, text=True, check=True)
+    assert "developer_instructions = " + json.dumps(CODEX_DIRECT_ACTIVATION) in result.stdout
+    assert "mcp__conceptualize__conceptualize_context directly once" in result.stdout
+    assert "[mcp_servers.conceptualize]" in result.stdout
+    assert "CONCEPTUALIZE_MCP_ADVANCED" not in result.stdout
+
+
 def test_doctor_accepts_the_primary_one_tool_surface(monkeypatch):
     from conceptualize_mcp import setup
 

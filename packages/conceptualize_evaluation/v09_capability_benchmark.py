@@ -164,9 +164,11 @@ def conversation(fixture: dict[str, Any]) -> tuple[list[Any], str]:
     return units, history
 
 
-def compile_working_context(fixture: dict[str, Any], token_budget: int = 4000) -> dict[str, Any]:
+def compile_working_context(
+    fixture: dict[str, Any], token_budget: int = 4000, *, task: str | None = None
+) -> dict[str, Any]:
     units, _ = conversation(fixture)
-    return ContextUnitRuntime(units).pack(fixture["question"], token_budget,
+    return ContextUnitRuntime(units).pack(task or fixture["question"], token_budget,
                                           source_types={"message"})
 
 
@@ -310,6 +312,72 @@ def validate_grade(grade: dict[str, Any], truth: dict[str, Any], answer_id: str)
             grade.get("contradiction_count") != contradictions or
             grade.get("pass") is not expected_pass):
         raise ValueError("Evaluator aggregate fields disagree with its proposition statuses")
+
+
+def context_utilization_metrics(
+    truth: dict[str, Any], retrieval_grade: dict[str, Any],
+    working_context_grade: dict[str, Any], answer_grade: dict[str, Any],
+) -> dict[str, Any]:
+    """Separate source retrieval, context compilation, and final answer use."""
+    def status_map(grade: dict[str, Any]) -> dict[str, str]:
+        return {item["id"]: item["status"] for item in grade["propositions"]}
+
+    retrieval = status_map(retrieval_grade)
+    working = status_map(working_context_grade)
+    answer = status_map(answer_grade)
+    facts = truth["facts"]
+    working_available = [fact for fact in facts if working.get(fact["id"]) == "present"]
+    critical_available = [
+        fact for fact in working_available if fact.get("critical") is True
+    ]
+    used = [fact for fact in working_available if answer.get(fact["id"]) == "present"]
+    critical_used = [
+        fact for fact in critical_available if answer.get(fact["id"]) == "present"
+    ]
+    propositions = []
+    for fact in facts:
+        fact_id = fact["id"]
+        retrieval_status = retrieval.get(fact_id, "absent")
+        working_status = working.get(fact_id, "absent")
+        answer_status = answer.get(fact_id, "absent")
+        if working_status == "present" and answer_status != "present":
+            failure = "MODEL_UTILIZATION_OMISSION"
+        elif retrieval_status != "present":
+            failure = "RETRIEVAL_FAILURE"
+        elif working_status != "present":
+            failure = "WORKING_CONTEXT_COMPILATION_OMISSION"
+        elif answer_status != "present":
+            failure = "MODEL_UTILIZATION_OMISSION"
+        else:
+            failure = None
+        propositions.append({
+            "id": fact_id,
+            "critical": fact.get("critical") is True,
+            "retrieval_status": retrieval_status,
+            "working_context_status": working_status,
+            "final_answer_status": answer_status,
+            "failure_classification": failure,
+        })
+
+    def percentage(numerator: int, denominator: int) -> float | None:
+        return round(100 * numerator / denominator, 2) if denominator else None
+
+    return {
+        "context_retrieval_coverage_percent": percentage(
+            sum(retrieval.get(fact["id"]) == "present" for fact in facts), len(facts)
+        ),
+        "working_context_coverage_percent": percentage(len(working_available), len(facts)),
+        "final_answer_coverage_percent": percentage(
+            sum(answer.get(fact["id"]) == "present" for fact in facts), len(facts)
+        ),
+        "context_utilization_rate_percent": percentage(len(used), len(working_available)),
+        "critical_context_utilization_rate_percent": percentage(
+            len(critical_used), len(critical_available)
+        ),
+        "working_context_propositions_available": len(working_available),
+        "critical_propositions_available": len(critical_available),
+        "propositions": propositions,
+    }
 
 
 def _run_judge(artifact: str, answer_id: str, *, fixture: dict[str, Any], truth: dict[str, Any],

@@ -30,9 +30,7 @@ async def conceptualize_context(task: str) -> CallToolResult:
     """Augment the user's task with relevant prior context, then continue using normal tools."""
     started = perf_counter()
     fixture, _, freeze = verify_freeze()
-    if task.strip() != fixture["question"].strip():
-        raise ValueError("V0.9 fixture MCP requires the frozen user task unchanged")
-    package = compile_working_context(fixture)
+    package = compile_working_context(fixture, task=task)
     trace_id = str(uuid4())
     response = {"context": package["context"], "new_context_tokens": token_count(package["context"]),
                 "previous_context_reused": False,

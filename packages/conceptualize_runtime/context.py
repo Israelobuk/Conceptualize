@@ -7,7 +7,12 @@ from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from time import perf_counter
 
-from .working_context import classify_working_context, render_working_context
+from .working_context import (
+    _PRIORITY_RANK,
+    classify_working_context,
+    context_priority,
+    render_working_context,
+)
 
 _STOPWORDS = {
     "a", "an", "and", "are", "as", "at", "be", "by", "did", "do", "for", "from",
@@ -463,8 +468,16 @@ class ContextUnitRuntime:
                     )
             else:
                 display = unit.content
-            block = header + "\n" + display
-            category, classification = classify_working_context(unit)
+            if level == "pack" and unit.source_type == "repository_file":
+                # The path is operational context for the host agent; keep it
+                # while omitting internal source IDs and scoring metadata.
+                display = f"{unit.metadata.get('path') or unit.source_id}\n{display}"
+            block = (header + "\n" if level != "pack" else "") + display
+            importance = context_priority(unit, self.units) if level == "pack" else {
+                "level": "supporting", "reasons": ["non_pack_disclosure_level"],
+                "corroborating_units": [],
+            }
+            category, classification = classify_working_context(unit, importance)
             reasons = list(match["reasons"])
             score = match["score"]
             prior = prior_by_id.get(unit.id, [])
@@ -501,6 +514,7 @@ class ContextUnitRuntime:
                     "block_tokens": token_count(block),
                     "working_category": category,
                     "working_classification": classification,
+                    "working_priority": importance,
                     "already_known": unchanged,
                     "invalidated": invalidated,
                     "previous": known_prior or (prior[-1] if prior else None),
@@ -533,7 +547,15 @@ class ContextUnitRuntime:
         omitted = []
         previous_context = []
         deliveries = []
-        for row in candidates:
+        compile_candidates = sorted(
+            candidates,
+            key=lambda row: (
+                _PRIORITY_RANK[row["working_priority"]["level"]],
+                -row["score"],
+                row["unit"].id,
+            ),
+        ) if level == "pack" else candidates
+        for row in compile_candidates:
             unit = row["unit"]
             replacement_id = superseded_by.get(unit.id)
             if replacement_id:
@@ -587,6 +609,8 @@ class ContextUnitRuntime:
                             "operation_id", row["previous"].get("trace_id")
                         ),
                         "unchanged": True,
+                        "priority": row["working_priority"]["level"],
+                        "category": row["working_category"],
                     }
                 )
                 row["status"] = "referenced"
@@ -627,6 +651,10 @@ class ContextUnitRuntime:
                         "source_id": unit.source_id,
                         "category": row["working_category"],
                         "classification": row["working_classification"],
+                        "priority": row["working_priority"]["level"],
+                        "priority_reasons": row["working_priority"]["reasons"],
+                        "corroborating_units": row["working_priority"]["corroborating_units"],
+                        "corroboration_count": 1 + len(row["working_priority"]["corroborating_units"]),
                         "relationship_origins": sorted(
                             {
                                 relation.get("origin", "unknown")
@@ -648,6 +676,7 @@ class ContextUnitRuntime:
                         "ranges": unit.metadata.get("ranges", []),
                         "relationships": unit.relationships,
                         "query": query,
+                        "priority": row["working_priority"]["level"],
                     }
                 )
                 seen_context_content.append({"unit_id": unit.id, "content": unit.content})
@@ -655,6 +684,13 @@ class ContextUnitRuntime:
                 row["status"] = "omitted"
                 row["omission_reason"] = "does not fit remaining token budget"
                 omitted.append(unit.id)
+        if any(item["priority"] in {"critical", "required"} for item in previous_context):
+            working_groups["CONTEXT DELTA"] = [
+                "Previously supplied critical context remains applicable."
+            ]
+            delta_context = render_working_context(working_groups)
+            if token_count(delta_context) <= token_budget:
+                context = delta_context
         selected_tokens = sum(row["block_tokens"] for row in selected)
         previously_supplied = sum(
             row["block_tokens"] for row in selected if row["already_known"]
@@ -666,6 +702,9 @@ class ContextUnitRuntime:
                 "source_id": row["unit"].source_id,
                 "score": row["score"],
                 "reasons": row["reasons"],
+                "priority": row["working_priority"]["level"],
+                "priority_reasons": row["working_priority"]["reasons"],
+                "corroborating_units": row["working_priority"]["corroborating_units"],
                 "token_cost": row["block_tokens"],
                 "already_known": row["already_known"],
                 "invalidated": row["invalidated"],

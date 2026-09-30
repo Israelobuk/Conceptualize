@@ -20,7 +20,7 @@ WORKING CONTEXT / CONTEXT DELTA
 HOST AGENT CONTINUES ITS NORMAL WORKFLOW
 ```
 
-The user-facing capability, minimal agent API, and internal runtime are separate layers. Repository and conversation adapters feed source-agnostic ContextUnits. The deterministic compiler assembles source evidence into a coherent Working Context, preserves provenance, and uses the session ledger to return only useful new or changed context. Complete selection and relationship evidence stays in traces; the agent receives a compact augmentation. Conceptualize complements the host and does not replace it.
+The user-facing capability, minimal agent API, and internal runtime are separate layers. Repository and conversation adapters feed source-agnostic ContextUnits. Conceptualize discovers relevant evidence, compiles it into a coherent Working Context, then supports utilization by presenting binding decisions and constraints before supporting context. It preserves provenance and uses the session ledger to return useful new or changed context. Complete selection and relationship evidence stays in traces; the agent receives a compact augmentation. Conceptualize complements the host and does not replace it or generate the final answer.
 
 ## V0.8 capability and evaluation status
 

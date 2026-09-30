@@ -82,6 +82,33 @@ def test_aggregate_validation_rejects_judge_schema_or_math_errors(truth):
         benchmark.validate_grade(grade, truth, "answer_001")
 
 
+def test_context_utilization_metrics_separate_delivery_from_host_model_use(truth):
+    retrieval = _grade(truth, {})
+    working_context = _grade(truth, {})
+    answer = _grade(truth, {"ARCH_02": "absent"})
+
+    metrics = benchmark.context_utilization_metrics(truth, retrieval, working_context, answer)
+
+    assert metrics["context_retrieval_coverage_percent"] == 100
+    assert metrics["working_context_coverage_percent"] == 100
+    assert metrics["final_answer_coverage_percent"] == 87.5
+    assert metrics["context_utilization_rate_percent"] == 87.5
+    assert metrics["critical_context_utilization_rate_percent"] == 87.5
+    omitted = next(item for item in metrics["propositions"] if item["id"] == "ARCH_02")
+    assert omitted["failure_classification"] == "MODEL_UTILIZATION_OMISSION"
+
+
+def test_context_utilization_metrics_do_not_mislabel_retrieval_misses(truth):
+    retrieval = _grade(truth, {"DEC_01": "absent"})
+    working_context = _grade(truth, {"DEC_01": "absent"})
+    answer = _grade(truth, {"DEC_01": "absent"})
+
+    metrics = benchmark.context_utilization_metrics(truth, retrieval, working_context, answer)
+
+    missing = next(item for item in metrics["propositions"] if item["id"] == "DEC_01")
+    assert missing["failure_classification"] == "RETRIEVAL_FAILURE"
+
+
 def test_evaluator_output_must_match_frozen_proposition_order(truth):
     grade = _grade(truth, {})
     grade["propositions"].reverse()
@@ -145,5 +172,32 @@ def test_v09_fixture_mcp_stdio_exposes_one_task_only_capability_and_returns_cont
                 assert not result.isError
                 assert result.structuredContent["new_context_tokens"] > 0
                 assert "context" in result.structuredContent
+
+    asyncio.run(smoke())
+
+
+def test_v09_fixture_capability_accepts_exact_shortened_paraphrased_and_reformatted_tasks():
+    async def smoke():
+        params = StdioServerParameters(
+            command=sys.executable,
+            args=["-m", "conceptualize_evaluation.v09_mcp_fixture_server"],
+            env={**os.environ, "PYTHONPATH": os.pathsep.join(str(benchmark.ROOT / path) for path in
+                                                            ("apps/api", "apps/mcp", "packages"))},
+        )
+        async with stdio_client(params) as (read, write):
+            async with ClientSession(read, write) as session:
+                await session.initialize()
+                fixture, _, _ = benchmark.verify_freeze()
+                tasks = [
+                    fixture["question"],
+                    "Continue offline attachment storage work; include current architecture and constraints.",
+                    "What implementation choices and binding requirements apply to offline attachments now?",
+                    "  " + fixture["question"].replace(". ", "...   ") + "?!  ",
+                ]
+                for task in tasks:
+                    result = await session.call_tool("conceptualize_context", {"task": task})
+                    assert not result.isError
+                    assert result.structuredContent["new_context_tokens"] > 0
+                    assert "context" in result.structuredContent
 
     asyncio.run(smoke())
